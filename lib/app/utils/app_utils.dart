@@ -98,5 +98,11 @@ class Utils {
   static String convertTimeToHHMMSS(DateTime time) =>
       DateFormat('hh:mm:ss').format(time);
 
+  static String formatMoney(int money) =>
+      NumberFormat('#,###,###,#,###,###,###', 'vi').format(money);
+
+  static String convertTimeToDDMMYYHHMMSS(DateTime time) =>
+      DateFormat('dd/MM/yyy hh:mm:ss').format(time);
+
   bool isLogin() => globals.isLogin;
 }

@@ -15,6 +15,10 @@ class UserProvider extends BaseProvider {
 /*Future<ApiKey> getAddress(String query){
 
 }*/
+  Future<ApiResult> nearOrder() async {
+    return await GET('user/top5orders');
+  }
+
   Future<ApiResult> addOrder(
           {required String name,
           required String address,

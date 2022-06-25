@@ -18,7 +18,8 @@ class R {
   static const String assetsPngMotoBike = 'assets/png/motobike.png';
   static const String assetsPngDeveloping = 'assets/png/developing.png';
   static const String assetsPngOrderSuccess = 'assets/png/order_success.png';
-  static const String assetsPngBackgroundStatusBar = 'assets/png/background_status_bar.png';
+  static const String assetsPngBackgroundStatusBar =
+      'assets/png/background_status_bar.png';
 
   ///SVG
   static const String assetsLocationLoginSvg = 'assets/svg/location_login.svg';
@@ -49,9 +50,12 @@ class R {
   static const String assetsSvgPen = 'assets/svg/pen.svg';
   static const String assetsSvgCamera = 'assets/svg/camera.svg';
   static const String assetsSvgGallery = 'assets/svg/gallery.svg';
+  static const String assetsSvgLocationCircle =
+      'assets/svg/location_circle.svg';
   static const String assetsBackgroundHeaderTabMainSvg =
       'assets/svg/background_header_tab_main.svg';
 
   ///JSON
   static const String assetsGifCrownJson = 'assets/gif/Crown.png';
+  static const String assetsJsonUser = 'assets/json/user.json';
 }

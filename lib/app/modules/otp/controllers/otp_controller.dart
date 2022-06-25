@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:math';
 
 import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/components/otp_widget.dart';
@@ -10,9 +12,11 @@ import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../config/app_translation.dart';
+import '../../../config/resource.dart';
 import '../../../utils/app_utils.dart';
 
 class OtpController extends GetxController {
@@ -60,7 +64,7 @@ class OtpController extends GetxController {
             verificationId: verificationId, smsCode: pin))
         .then((value) async {
           await Dialogs.hideLoadingDialog();
-          StorageUtils.saveUser(UserModel(phoneNumber: phoneNumber.value));
+          StorageUtils.saveUser(await fakeUser());
           Get.offAllNamed(Routes.HOME, arguments: true);
         })
         .whenComplete(() {})
@@ -74,6 +78,10 @@ class OtpController extends GetxController {
           Dialogs.hideLoadingDialog();
         });
   }
+
+
+  Future<UserModel> fakeUser() async => UserModel.fromJson(
+      json.decode(await rootBundle.loadString(R.assetsJsonUser)));
 
   void startTimer({bool isVerify = false}) {
     if (isVerify) {

@@ -65,7 +65,7 @@ class Utils {
     return regExp.hasMatch(value);
   }
 
-  static void pickDate(BuildContext context, Function(String) callback) {
+  static void pickDate(BuildContext context, Function(DateTime) callback) {
     var time = DateTime.now();
     DatePicker.showDatePicker(context,
         showTitleActions: true,
@@ -74,19 +74,35 @@ class Utils {
         onChanged: (date) {}, onConfirm: (date) {
       var result =
           "${date.day.toString().length == 1 ? '0' + date.day.toString() : date.day}-${date.month.toString().length == 1 ? '0' + date.month.toString() : date.month}-${date.year}";
-      callback(result);
+      callback(date);
     }, currentTime: DateTime.now(), locale: LocaleType.vi);
   }
 
-  static void showTimePicker(BuildContext context, Function(String) callback) {
-    DatePicker.showTime12hPicker(context,
+  static void showTimePicker(
+      BuildContext context, Function(DateTime) callback) {
+    DatePicker.showTimePicker(context,
         showTitleActions: true, onChanged: (date) {}, onConfirm: (date) {
-      callback(DateFormat("h:mma").format(date));
+      callback(date);
     }, currentTime: DateTime.now(), locale: LocaleType.vi);
   }
 
   static String convertTimeToMMMYYDD(DateTime time) =>
       DateFormat('MMMM-yyyy-dd').format(time).toString().split(' ')[0];
+
+  static String convertTimeToYYMMDD(DateTime time) =>
+      DateFormat('yyyy-M-dd').format(time).toString().split(' ')[0];
+
+  static String convertTimeToDDMMYY(DateTime time) =>
+      DateFormat('dd-MM-yyyy').format(time).toString().split(' ')[0];
+
+  static String convertTimeToHHMMSS(DateTime time) =>
+      DateFormat('hh:mm:ss').format(time);
+
+  static String formatMoney(int money) =>
+      NumberFormat('#,###,###,#,###,###,###', 'vi').format(money);
+
+  static String convertTimeToDDMMYYHHMMSS(DateTime time) =>
+      DateFormat('dd/MM/yyy hh:mm:ss').format(time);
 
   bool isLogin() => globals.isLogin;
 }

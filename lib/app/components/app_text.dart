@@ -7,14 +7,17 @@ class AppText extends StatelessWidget {
   final TextStyle? style;
   final TextAlign? textAlign;
   final int? maxLine;
+  final TextOverflow? textOverflow;
 
-  const AppText(this.msg, {Key? key, this.style, this.textAlign, this.maxLine})
+  const AppText(this.msg,
+      {Key? key, this.style, this.textAlign, this.maxLine, this.textOverflow})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       msg,
+      overflow: textOverflow,
       style: style ?? typoNormalTextRegular,
       textScaleFactor: 1,
       textAlign: textAlign,

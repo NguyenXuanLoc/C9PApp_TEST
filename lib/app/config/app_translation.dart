@@ -87,12 +87,13 @@ class LocaleKeys {
   static const update = 'update';
   static const gallery = 'gallery';
   static const camera = 'camera';
+  static const near_order = 'near_order';
 }
 
 class Locales {
   static const en = {
     'ask_existing_page': 'EnglishEnglishEnglishEnglishEnglish',
-    'network_error': 'Lỗi mạng',
+    'network_error': 'Lỗi mạng, vui lòng thử lại sau.',
     'com_9p_wellcome': 'Cơm 9 phút xin chào!',
     'here_have_dish': 'Ở đây có món ngon bạn thích.',
     'login': 'Đăng nhập',
@@ -164,6 +165,7 @@ class Locales {
     'update': 'Cập nhật',
     'gallery': 'Thư viện',
     'camera': 'Máy ảnh',
+    'near_order': 'Đơn hàng gần đây',
     'order_succes_choose_option':
         'Đơn hàng của bạn đã được đặt thành công. Vui lòng chọn các thao tác phía dưới',
   };

@@ -46,6 +46,7 @@ class OrderView extends GetView<OrderController> {
         ),
         fullStatusBar: true,
         body: SingleChildScrollView(
+          controller: controller.scrollController,
           padding: EdgeInsets.all(contentPadding),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -116,16 +117,78 @@ class OrderView extends GetView<OrderController> {
                 style: typoSuperSmallTextBold,
               ),
               itemSpace(),
-              Obx(() => AppTextField(
-                  errorText: controller.errorAddress.value,
-                  controller: controller.addressController,
-                  textInputAction: TextInputAction.next,
-                  textStyle:
-                      typoSuperSmallTextBold.copyWith(color: colorText60),
-                  decoration: decorTextFieldOval.copyWith(
-                    suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,
-                        color: colorBlack),
-                  ))),
+              TypeAheadField(
+                hideSuggestionsOnKeyboardHide: false,
+                suggestionsBoxDecoration: const SuggestionsBoxDecoration(
+                    color: colorWhite, elevation: 0),
+                textFieldConfiguration: TextFieldConfiguration(
+                    controller: controller.addressController,
+                    onTap: () => controller.scrollToBottom(),
+                    autofocus: false,
+                    style: typoSuperSmallTextBold.copyWith(color: colorText60),
+                    decoration: decorTextFieldOval.copyWith(
+                      suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,
+                          color: colorBlack),
+                    )),
+                itemBuilder: (context, String suggestion) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          R.assetsSvgLocationCircle,
+                          color: colorGreen60,
+                          width: 30.w,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                            child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppText(
+                              suggestion,
+                              maxLine: 1,
+                              style: typoSuperSmallTextBold.copyWith(),
+                            ),
+                            AppText(
+                              '79 Đường Cầu Giấy, Quan Hoa, Cầu Giấy, Hà Nội',
+                              maxLine: 1,
+                              textOverflow: TextOverflow.ellipsis,
+                              style: typoSuperSmallTextRegular.copyWith(
+                                  fontSize: 12.sp),
+                            )
+                          ],
+                        ))
+                      ],
+                    ),
+                  );
+                },
+                noItemsFoundBuilder: (c) => AppText(
+                  'Không tìm thấy địa chỉ',
+                  style: typoSmallTextRegular,
+                ),
+                onSuggestionSelected: (String address) =>
+                    controller.setAddress(address),
+                suggestionsCallback: (pattern) {
+                  return [
+                    'Hà Nội, Hoàn Kiếm, Hà Nội',
+                    'Đan Phượng, Hà Nội',
+                    'Hair Of The Dog, Bùi Viện, Phạm Ngũ Lão, Quận 1, Thành phố Hồ Chí Minh'
+                  ];
+                },
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Obx(
+                () => AppText(
+                  controller.errorAddress.value,
+                  style: typoNormalTextRegular.copyWith(
+                      color: colorSemanticRed100, fontSize: 11.sp),
+                ),
+              ),
               Row(
                 children: [
                   Expanded(
@@ -204,10 +267,9 @@ class OrderView extends GetView<OrderController> {
                     suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,
                         color: colorBlack),
                   ))),
-              /*    countWidget(),*/
               itemSpace(),
               AppButton(
-                onPress: () => controller.continueOnclick(),
+                onPress: () => controller.continueOnclick(context),
                 title: LocaleKeys.continues.tr,
                 backgroundColor: colorGreen55,
                 height: 40.h,

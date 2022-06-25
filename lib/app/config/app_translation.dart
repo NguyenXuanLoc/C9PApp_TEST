@@ -92,7 +92,7 @@ class LocaleKeys {
 class Locales {
   static const en = {
     'ask_existing_page': 'EnglishEnglishEnglishEnglishEnglish',
-    'network_error': 'Lỗi mạng',
+    'network_error': 'Lỗi mạng, vui lòng thử lại sau.',
     'com_9p_wellcome': 'Cơm 9 phút xin chào!',
     'here_have_dish': 'Ở đây có món ngon bạn thích.',
     'login': 'Đăng nhập',

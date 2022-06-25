@@ -1,18 +1,23 @@
 import 'package:c9p/app/components/app_button.dart';
 import 'package:c9p/app/components/app_circle_image.dart';
+import 'package:c9p/app/components/app_loading_widget.dart';
 import 'package:c9p/app/components/app_network_image.dart';
+import 'package:c9p/app/components/app_not_data_widget.dart';
 import 'package:c9p/app/components/app_scalford.dart';
 import 'package:c9p/app/components/app_text.dart';
 import 'package:c9p/app/components/app_text_field.dart';
 import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/config/resource.dart';
+import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/theme/app_styles.dart';
 import 'package:c9p/app/theme/colors.dart';
+import 'package:c9p/app/utils/app_utils.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../app_line.dart';
 import '../../../config/app_translation.dart';
@@ -24,7 +29,7 @@ class TabMainView extends GetView<TabMainController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getWeather();
+    controller.init();
     return AppScaffold(
         fullStatusBar: true,
         isTabToHideKeyBoard: true,
@@ -220,29 +225,34 @@ class TabMainView extends GetView<TabMainController> {
               const SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: EdgeInsets.only(left: contentPadding),
-                child: AppText(
-                  LocaleKeys.the_order_has_delivered.tr,
-                  style:
-                      typoMediumTextBold.copyWith(fontWeight: FontWeight.w700),
-                ),
-              ),
-              listDelivered(context),
+              Obx(() => Opacity(
+                    opacity: controller.isLoadNearOrder.value ? 1 : 1,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: contentPadding),
+                      child: AppText(
+                        LocaleKeys.near_order.tr,
+                        style: typoMediumTextBold.copyWith(
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  )),
+              nearOrderWidget(context),
               Container(
                 height: 15,
                 color: colorSeparatorListView,
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: contentPadding, top: 15.h, bottom: 10.h),
-                child: AppText(
-                  LocaleKeys.promotion.tr,
-                  style:
-                      typoMediumTextBold.copyWith(fontWeight: FontWeight.w700),
-                ),
-              ),
-              promotionWidget(context),
+             Obx(() => Opacity(
+                  opacity: controller.isLoadPromotion.value ? 1 : 1,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        left: contentPadding, top: 15.h, bottom: 10.h),
+                    child: AppText(
+                      LocaleKeys.promotion.tr,
+                      style: typoMediumTextBold.copyWith(
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ))),
+                  promotionWidget(context),
               const SizedBox(
                 height: 30,
               )
@@ -251,166 +261,178 @@ class TabMainView extends GetView<TabMainController> {
         ));
   }
 
-  var listUrlImage = [
-    'https://megatop.vn/wp-content/uploads/2019/12/ma-khuyen-mai-grabfood-6.jpg',
-    'https://dinkynguyentrai.com.vn/wp-content/uploads/2020/07/104590520_3181198648585847_4711719218630492232_o.jpg',
-    'https://megatop.vn/wp-content/uploads/2019/12/ma-khuyen-mai-grabfood-6.jpg'
-  ];
-
-  Widget promotionWidget(BuildContext context) {
-    return CarouselSlider(
-      options: CarouselOptions(
-          height: MediaQuery.of(context).size.width / 3.2,
-          viewportFraction: 0.85,
-          autoPlayInterval: const Duration(seconds: 2),
-          enlargeCenterPage: true,
-          enableInfiniteScroll: false,
-          enlargeStrategy: CenterPageEnlargeStrategy.height,
-          autoPlay: true),
-      items: listUrlImage.map((i) {
-        return Builder(
-          builder: (BuildContext context) {
-            return Padding(
-              padding: const EdgeInsets.only(left: 5, right: 5),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Container(
-                    color: colorBlack,
-                    child: AppNetworkImage(
-                      fit: BoxFit.cover,
-                      source: i,
+  Widget nearOrderWidget(BuildContext context) {
+    return Obx(() => controller.isLoadNearOrder.value &&
+            controller.lNearOrder.isNotEmpty
+        ? const AppCircleLoading()
+        : !controller.isLoadNearOrder.value && controller.lNearOrder.isEmpty
+            ? const AppNotDataWidget()
+            : ListView.separated(
+                padding: const EdgeInsets.all(0),
+                shrinkWrap: true,
+                primary: false,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (c, i) => itemNearOrder(controller.lNearOrder[i]),
+                separatorBuilder: (i, c) => Container(
+                      color: colorSeparatorListView,
+                      height: 10.h,
+                      width: MediaQuery.of(context).size.width,
                     ),
-                  ),
+                itemCount: controller.lNearOrder.length));
+  }
+
+  Widget itemNearOrder(OrderModel model) {
+    return Padding(
+      padding: EdgeInsets.all(contentPadding),
+      child: InkWell(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                model.imageUrl != null && model.imageUrl.isNotEmpty
+                    ? AppNetworkImage(
+                        source: model.imageUrl,
+                        height: 50.h,
+                      )
+                    : Image.asset(
+                        R.assetsPngComSuon9p,
+                        height: 50.h,
+                        fit: BoxFit.fitHeight,
+                      ),
+                const SizedBox(
+                  width: 10,
                 ),
+                Expanded(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                      AppText(
+                        LocaleKeys.com_suong_9p.tr,
+                        style: typoSmallTextBold.copyWith(
+                            fontWeight: FontWeight.w800),
+                      ),
+                      SizedBox(
+                        height: 30,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            AppText(
+                                '${Utils.formatMoney(model.codAmount ?? 0)}đ',
+                                style: typoSmallTextBold.copyWith(
+                                    color: colorSemanticRed100,
+                                    fontWeight: FontWeight.w800)),
+                            const Spacer(),
+                            AppText(
+                                '${LocaleKeys.code.tr} #${model.id ?? 0} / ${model.itemQty ?? 0} suất cơm',
+                                textAlign: TextAlign.center,
+                                style: typoSuperSmallTextBold.copyWith(
+                                    fontSize: 12.sp, color: colorOrange40))
+                          ],
+                        ),
+                      ),
+                    ]))
+              ],
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            const AppLineWidget(),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AppText(
+                  Utils.convertTimeToDDMMYYHHMMSS(
+                      model.createdTime ?? DateTime.now()),
+                  style: typoSuperSmallTextBold.copyWith(fontSize: 11.5.sp),
+                ),
+                const Spacer(),
+                AppText(
+                  model.status ?? '',
+                  style: typoSuperSmallTextBold.copyWith(
+                      fontSize: 11.5.sp, color: colorGreen55),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const AppLineWidget(),
+            const SizedBox(
+              height: 10,
+            ),
+            AppText(
+              "${LocaleKeys.address.tr}: ${model.toAddress ?? ''}",
+              style: typoSuperSmallTextBold.copyWith(fontSize: 12.sp),
+            ),
+            SizedBox(
+              height: 15.h,
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: AppButton(
+                borderRadius: 100,
+                onPress: () => controller.openOrderDetail(),
+                title: LocaleKeys.re_deliver.tr,
+                textStyle: typoSuperSmallTextBold.copyWith(color: colorText0),
+                backgroundColor: colorGreen57,
+                height: 28.h,
+                padding: EdgeInsets.only(left: 20.w, right: 20.w),
               ),
-            );
-          },
-        );
-      }).toList(),
+            )
+          ],
+        ),
+        onTap: () => controller.openOrderDetail(),
+      ),
     );
   }
 
-  Widget listDelivered(BuildContext context) {
-    return ListView.separated(
-        padding: const EdgeInsets.all(0),
-        shrinkWrap: true,
-        primary: false,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (c, i) => Padding(
-              padding: EdgeInsets.all(contentPadding),
-              child: InkWell(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          R.assetsPngComSuon9p,
-                          height: 50.h,
-                          fit: BoxFit.fitHeight,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                              AppText(
-                                'Cơm sườn ngon 9 phút',
-                                style: typoSmallTextBold.copyWith(
-                                    fontWeight: FontWeight.w800),
-                              ),
-                              SizedBox(
-                                height: 30,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    AppText('45.000d',
-                                        style: typoSmallTextBold.copyWith(
-                                            color: colorSemanticRed100,
-                                            fontWeight: FontWeight.w800)),
-                                    Spacer(),
-                                    AppText(
-                                        '${LocaleKeys.code.tr} #1235 / 1 suất cơm',
-                                        textAlign: TextAlign.center,
-                                        style: typoSuperSmallTextBold.copyWith(
-                                            fontSize: 12.sp,
-                                            color: colorOrange40))
-                                  ],
+  Widget promotionWidget(BuildContext context) {
+    return Obx(
+        () => controller.isLoadPromotion.value && controller.lPromotion.isEmpty
+            ? const AppCircleLoading()
+            : controller.lPromotion.isEmpty
+                ? const AppNotDataWidget()
+                : CarouselSlider(
+                    options: CarouselOptions(
+                        height: MediaQuery.of(context).size.width / 3.2,
+                        viewportFraction: 0.85,
+                        autoPlayInterval: const Duration(seconds: 2),
+                        enlargeCenterPage: true,
+                        enableInfiniteScroll: false,
+                        enlargeStrategy: CenterPageEnlargeStrategy.height,
+                        autoPlay: true),
+                    items: controller.lPromotion.map((i) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 5, right: 5),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: Container(
+                                  color: colorBlack,
+                                  child: AppNetworkImage(
+                                    fit: BoxFit.cover,
+                                    source: i,
+                                  ),
                                 ),
                               ),
-                            ]))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    const AppLineWidget(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AppText(
-                          '16/06/2022 12:30:15',
-                          style: typoSuperSmallTextBold.copyWith(
-                              fontSize: 11.5.sp),
-                        ),
-                        Spacer(),
-                        AppText(
-                          LocaleKeys.delivered.tr,
-                          style: typoSuperSmallTextBold.copyWith(
-                              fontSize: 11.5.sp, color: colorGreen55),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const AppLineWidget(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    AppText(
-                      'Địa chỉ:  18 hoàng diệu, phường minh khai, quận hồng bàng, minh khai, hồng bàng, hải phòng ',
-                      style: typoSuperSmallTextBold.copyWith(fontSize: 12.sp),
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: AppButton(
-                        borderRadius: 100,
-                        onPress: () => controller.openOrderDetail(),
-                        title: LocaleKeys.re_deliver.tr,
-                        textStyle:
-                            typoSuperSmallTextBold.copyWith(color: colorText0),
-                        backgroundColor: colorGreen57,
-                        height: 28.h,
-                        padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                      ),
-                    )
-                  ],
-                ),
-                onTap: () => controller.openOrderDetail(),
-              ),
-            ),
-        separatorBuilder: (i, c) => Container(
-              color: colorSeparatorListView,
-              height: 10.h,
-              width: MediaQuery.of(context).size.width,
-            ),
-        itemCount: 10);
+                            ),
+                          );
+                        },
+                      );
+                    }).toList(),
+                  ));
   }
 
   Widget optionWidget(String resource, String title, TabMainAction action) =>

@@ -87,6 +87,7 @@ class LocaleKeys {
   static const update = 'update';
   static const gallery = 'gallery';
   static const camera = 'camera';
+  static const near_order = 'near_order';
 }
 
 class Locales {
@@ -164,6 +165,7 @@ class Locales {
     'update': 'Cập nhật',
     'gallery': 'Thư viện',
     'camera': 'Máy ảnh',
+    'near_order': 'Đơn hàng gần đây',
     'order_succes_choose_option':
         'Đơn hàng của bạn đã được đặt thành công. Vui lòng chọn các thao tác phía dưới',
   };

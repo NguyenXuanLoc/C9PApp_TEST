@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "190008920856",
+    "project_id": "c9papp",
+    "storage_bucket": "c9papp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190008920856:android:7c07f664b598d1b7af2c6d",
+        "android_client_info": {
+          "package_name": "com.app.com9phut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "190008920856-0d0a822sm54eldfuv3te1krils7ahnv0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.com9phut",
+            "certificate_hash": "cf1650545063041a3eb8bf722595f353c34d7099"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9zVEPMgEAfrIiof5jsXwO9UuPkGdbzfQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

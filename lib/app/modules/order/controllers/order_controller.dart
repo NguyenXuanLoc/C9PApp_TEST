@@ -1,11 +1,17 @@
+import 'dart:async';
+
+import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/config/app_translation.dart';
+import 'package:c9p/app/data/provider/api_result.dart';
+import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../config/resource.dart';
-import '../../../utils/email_validator.dart';
 
 class OrderController extends GetxController {
   final lDescriptionImage = [
@@ -13,6 +19,8 @@ class OrderController extends GetxController {
     R.assetsPngComSuon9p,
     R.assetsPngComSuon9p,
   ];
+  final userProvider = UserProvider();
+  final scrollController = ScrollController();
   final pageController = PageController();
   final fullNameController = TextEditingController();
   final phoneController = TextEditingController();
@@ -20,7 +28,8 @@ class OrderController extends GetxController {
   final dateController = TextEditingController();
   final hourController = TextEditingController();
   final countController = TextEditingController();
-
+  DateTime? deliverTime;
+  DateTime? deliverHours;
   final currentIndex = 0.obs;
   final errorFullName = ''.obs;
   final errorPhoneNumber = ''.obs;
@@ -35,6 +44,13 @@ class OrderController extends GetxController {
     super.onInit();
   }
 
+  void scrollToBottom() => Timer(
+      const Duration(milliseconds: 500),
+      () => scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.fastOutSlowIn));
+
   void switchPageListener() {
     pageController.addListener(() {
       final newPage = pageController.page!.round();
@@ -44,8 +60,21 @@ class OrderController extends GetxController {
     });
   }
 
-  void continueOnclick() {
-    if (isValid()) Get.toNamed(Routes.ORDER_SUCCESS);
+  void continueOnclick(BuildContext context) async {
+    if (isValid()) {
+      Dialogs.showLoadingDialog(context);
+      var response = await addOrder();
+      await Dialogs.hideLoadingDialog();
+      if (response.statusCode == 201) {
+        Get.toNamed(Routes.ORDER_SUCCESS);
+      }else{
+        try{
+          toast(response.data['msg'].toString());
+        }catch(ex){
+          toast(LocaleKeys.network_error.tr);
+        }
+      }
+    }
   }
 
   bool isValid() {
@@ -97,11 +126,40 @@ class OrderController extends GetxController {
     return isValid;
   }
 
-  void pickTime(BuildContext context) =>
-      Utils.showTimePicker(context, (p0) => hourController.text = p0);
+  void setAddress(String address) => addressController.text = address;
 
-  void pickDate(BuildContext context) =>
-      Utils.pickDate(context, (p0) => dateController.text = p0);
+  Future<ApiResult> addOrder() async {
+    var name = fullNameController.text;
+    var address = addressController.text;
+    var phone = phoneController.text;
+    var qty = countController.text;
+    var lat = '0';
+    var lng = '0';
+    var deliverTimeStr =
+        "${Utils.convertTimeToYYMMDD(deliverTime!)} ${Utils.convertTimeToHHMMSS(deliverHours!)}";
+    var productId = '2';
+    return await userProvider.addOrder(
+        name: name,
+        address: address,
+        phone: phone,
+        qty: qty,
+        lat: lat,
+        lng: lng,
+        deliverTime: deliverTimeStr,
+        productId: productId);
+  }
+
+  void pickTime(BuildContext context) {
+    Utils.showTimePicker(context, (date) {
+      deliverHours = date;
+      hourController.text = DateFormat("h:mma").format(date);
+    });
+  }
+
+  void pickDate(BuildContext context) => Utils.pickDate(context, (date) {
+        deliverTime = date;
+        dateController.text = Utils.convertTimeToDDMMYY(date);
+      });
 
   List<String> suggestCount() => ['1', '2', '3', '4'];
 

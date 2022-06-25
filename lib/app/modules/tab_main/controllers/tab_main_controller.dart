@@ -6,6 +6,7 @@ import 'package:c9p/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
 
+import '../../../config/constant.dart';
 
 enum TabMainAction { MENU, ORDER, DISCTRICT, MORE }
 
@@ -15,7 +16,6 @@ class TabMainController extends GetxController {
   final weatherDetail = Weather().obs;
   final weatherDescription = ''.obs;
 
-
   void getWeather() async {
     var locationData = await getLocation();
     if (locationData != null) {
@@ -24,6 +24,8 @@ class TabMainController extends GetxController {
       if (weatherResponse.error == null && weatherResponse.data != null) {
         weatherModel.value = weatherModelFromJson(weatherResponse.data);
         weatherDetail.value = weatherModel.value.weather?[0] ?? Weather();
+        weatherDetail.value.icon =
+            "${AppConstant.URL_WEATHER_ICON}${weatherDetail.value.icon!}@2x.png";
         weatherDescription.value =
             weatherDetail.value.description!.substring(0, 1).toUpperCase() +
                 weatherDetail.value.description!.substring(1);

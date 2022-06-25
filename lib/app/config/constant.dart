@@ -16,10 +16,22 @@ class MessageKey {
 
 class ApiKey {
   static const EXAMINED = 'EXAMINED';
-  static const api_key = 'cd796c5f287c96f21b833827def34ef1'; // weather
+  static const api_key_weather = 'cd796c5f287c96f21b833827def34ef1'; // weather
+  static const api_key_google_map =
+      'AIzaSyB5VpBI9grFGToiyEmrP9MIqcbOZV-IaNo'; // weather
+
+  static const name = 'name';
+  static const address = 'address';
+  static const phone = 'phone';
+  static const qty = 'qty';
+  static const lat = 'lat';
+  static const lng = 'lng';
+  static const deliverTime = 'deliverTime';
+  static const product_id = 'product_id';
 }
 
 class AppConstant {
-  static const URL_WEATHER_ICON = 'http://openweathermap.org/img/wn/!@2x.png';
-  static const URL_WEATHER_ICON_DEFAULT = 'http://openweathermap.org/img/wn/01d@2x.png';
+  static const URL_WEATHER_ICON = 'http://openweathermap.org/img/wn/';
+  static const URL_WEATHER_ICON_DEFAULT =
+      'http://openweathermap.org/img/wn/01d@2x.png';
 }

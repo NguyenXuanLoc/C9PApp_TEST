@@ -54,7 +54,7 @@ class TabMainView extends GetView<TabMainController> {
                           Row(
                             children: [
                               AppText(
-                                "Xin chào Huyền trang!",
+                                "Xin chào Hyun trang!",
                                 style: typoSmallTextBold.copyWith(
                                     color: colorText0,
                                     fontWeight: FontWeight.w700),
@@ -173,18 +173,14 @@ class TabMainView extends GetView<TabMainController> {
                                 children: [
                                   Transform.scale(
                                     scale: 1.7,
-                                    child: AppNetworkImage(
-                                      width: 30.w,
-                                      fit: BoxFit.cover,
-                                      source: AppConstant.URL_WEATHER_ICON
-                                          .replaceAll(
-                                              '!',
-                                              controller.weatherDetail.value
-                                                      .icon ??
-                                                  ""),
-                                      errorSource:
-                                          AppConstant.URL_WEATHER_ICON_DEFAULT,
-                                    ),
+                                    child: Obx(() => AppNetworkImage(
+                                          width: 30.w,
+                                          fit: BoxFit.cover,
+                                          source: controller
+                                              .weatherDetail.value.icon,
+                                          errorSource: AppConstant
+                                              .URL_WEATHER_ICON_DEFAULT,
+                                        )),
                                   ),
                                   Obx(() => AppText(
                                         controller.weatherDescription.value,

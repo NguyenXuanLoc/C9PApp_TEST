@@ -1,0 +1,23 @@
+{
+  "data": {
+    "userData": {
+      "id": 6,
+      "email": "love3@gmail.com",
+      "remember_me_token": null,
+      "name": "loc",
+      "phone": "0879159654",
+      "auth_token": "NTAzNDUyNTctNmM3MC00ZGJkLWE3NGEtYWUzMDU5YTE4Yzg5OlVEU0hqYkNacnVlTDpkdWNrZ3ZuMTIzNEBnbWFpbC5jb206MDQ2cm9z",
+      "created_at": "2022-06-25T10:09:00.000+07:00",
+      "updated_at": "2022-06-25T10:09:00.000+07:00",
+      "role_id": 1,
+      "is_active": 1
+    },
+    "bearerToken": {
+      "type": "bearer",
+      "token": "MzM.9N4GNPGCtWhuvK9_FNxzcJG68CGz_M4hNHKbCr5NRrBusHzPAi85HX5TvF4X"
+    }
+  },
+  "isSucess": true,
+  "message": "SUCCESS",
+  "isLogout": true
+}

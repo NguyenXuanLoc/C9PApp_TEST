@@ -23,6 +23,7 @@ class TabMainController extends GetxController {
   final isLoadNearOrder = true.obs;
   final isLoadPromotion = true.obs;
   var lPromotion = List<String>.empty(growable: true).obs;
+  var isFirstOpen = true;
 
   void onRefresh() {
     getNearOrder();
@@ -30,10 +31,14 @@ class TabMainController extends GetxController {
   }
 
   void init() {
+    logE('TAG INIT');
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      getWeather();
-      getNearOrder();
-      getPromotion();
+      if (isFirstOpen) {
+        getWeather();
+        getNearOrder();
+        getPromotion();
+        isFirstOpen = false;
+      }
     });
   }
 

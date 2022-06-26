@@ -274,7 +274,18 @@ class OrderView extends GetView<OrderController> {
                 style: typoSuperSmallTextBold,
               ),
               itemSpace(),
-              Obx(() => AppTextField(
+              qtyWidget(),
+              Obx(
+                    () => Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: AppText(
+                    controller.errorCount.value,
+                    style: typoNormalTextRegular.copyWith(
+                        color: colorSemanticRed100, fontSize: 11.sp),
+                  ),
+                ),
+              ),
+              /*          Obx(() => AppTextField(
                   keyboardType: TextInputType.number,
                   controller: controller.countController,
                   errorText: controller.errorCount.value,
@@ -287,7 +298,7 @@ class OrderView extends GetView<OrderController> {
                         typoSuperSmallTextBold.copyWith(color: colorText60),
                     suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,
                         color: colorBlack),
-                  ))),
+                  ))),*/
               itemSpace(),
               AppButton(
                 onPress: () => controller.continueOnclick(context),
@@ -304,26 +315,34 @@ class OrderView extends GetView<OrderController> {
         ));
   }
 
-  Widget countWidget() => TypeAheadField(
-        hideSuggestionsOnKeyboardHide: false,
+  Widget qtyWidget() => TypeAheadField(
+        hideSuggestionsOnKeyboardHide: true,
+        direction: AxisDirection.up,
+        suggestionsBoxDecoration:
+            const SuggestionsBoxDecoration(color: colorWhite, elevation: 0.2),
         textFieldConfiguration: TextFieldConfiguration(
             controller: controller.countController,
+            maxLines: 1,
+            onTap: () => controller.scrollToBottom(),
             autofocus: false,
             style: typoSuperSmallTextBold.copyWith(color: colorText60),
             decoration: decorTextFieldOval.copyWith(
-                suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,
-                    color: colorBlack))),
+              hintText: LocaleKeys.input_qty.tr,
+              hintStyle: typoSuperSmallTextBold.copyWith(color: colorText60),
+              suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,
+                  color: colorBlack),
+            )),
         itemBuilder: (context, String suggestion) {
-          return ListTile(
-            leading: const Icon(Icons.countertops_sharp),
-            title: Text(
+          return Padding(
+            padding: EdgeInsets.all(10.w),
+            child: Text(
               suggestion,
               style: typoSuperSmallTextBold.copyWith(color: colorText60),
             ),
           );
         },
         noItemsFoundBuilder: (c) => AppText(
-          'Không có dữ liệu',
+          '',
           style: typoSmallTextRegular,
         ),
         onSuggestionSelected: (String suggest) => controller.setCount(suggest),

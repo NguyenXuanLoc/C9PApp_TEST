@@ -8,7 +8,6 @@ import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/provider/api_result.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
-import 'package:c9p/app/theme/colors.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,6 @@ import 'package:intl/intl.dart';
 
 import '../../../config/resource.dart';
 import '../../../data/model/address_model.dart';
-import '../../../utils/log_utils.dart';
 
 class OrderController extends GetxController {
   final lDescriptionImage = [
@@ -27,6 +25,15 @@ class OrderController extends GetxController {
     R.assetsPngComSuon9p,
     R.assetsPngComSuon9p,
   ];
+
+  List<String> suggestCount() => [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+      ];
+
   final userProvider = UserProvider();
   final scrollController = ScrollController();
   final pageController = PageController();
@@ -156,7 +163,7 @@ class OrderController extends GetxController {
     } else {
       errorHours.value = '';
     }
-    if (count.isEmpty) {
+    if (count.isEmpty || count == '0') {
       errorCount.value = LocaleKeys.please_input_full_name.tr;
       isValid = false;
     } else {
@@ -258,8 +265,6 @@ class OrderController extends GetxController {
         deliverTime = date;
         dateController.text = Utils.convertTimeToDDMMYY(date);
       });
-
-  List<String> suggestCount() => ['1', '2', '3', '4'];
 
   void setCount(String count) => countController.text = count;
 

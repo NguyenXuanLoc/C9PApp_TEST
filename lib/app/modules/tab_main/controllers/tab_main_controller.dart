@@ -6,6 +6,7 @@ import 'package:c9p/app/data/provider/api_result.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/log_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
 
@@ -22,12 +23,7 @@ class TabMainController extends GetxController {
   final isLoadNearOrder = true.obs;
   final isLoadPromotion = true.obs;
   var lPromotion = List<String>.empty(growable: true).obs;
-
-  @override
-  void onInit() {
-    init();
-    super.onInit();
-  }
+  var isFirstOpen = true;
 
   void onRefresh() {
     getNearOrder();
@@ -35,9 +31,15 @@ class TabMainController extends GetxController {
   }
 
   void init() {
-    getWeather();
-    getNearOrder();
-    getPromotion();
+    logE('TAG INIT');
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      if (isFirstOpen) {
+        getWeather();
+        getNearOrder();
+        getPromotion();
+        isFirstOpen = false;
+      }
+    });
   }
 
   void getWeather() async {

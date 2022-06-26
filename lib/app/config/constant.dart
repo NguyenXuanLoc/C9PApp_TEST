@@ -12,13 +12,14 @@ class MessageKey {
   static const String otp_invalid =
       'The sms verification code used to create the phone auth credential is invalid';
   static const String otp_expired = 'The sms code has expired';
+  static const String ZERO_RESULTS ='ZERO_RESULTS';
 }
 
 class ApiKey {
   static const EXAMINED = 'EXAMINED';
   static const api_key_weather = 'cd796c5f287c96f21b833827def34ef1'; // weather
   static const api_key_google_map =
-      'AIzaSyB5VpBI9grFGToiyEmrP9MIqcbOZV-IaNo'; // weather
+      'AIzaSyDTWuJevSvP9yY0-77_ezp52qimoZnmamY'; // weather
 
   static const name = 'name';
   static const address = 'address';

@@ -7,6 +7,7 @@ import 'package:c9p/app/config/globals.dart' as globals;
 class StorageUtils {
   static void saveUser(UserModel userModel) async {
     globals.isLogin = true;
+    globals.accessToken = userModel.data?.bearerToken?.token ?? '';
     await GetStorage().write(StorageKey.AccountInfo, userModel.toJson());
   }
 

@@ -330,7 +330,7 @@ class TabMainView extends GetView<TabMainController> {
                                     fontWeight: FontWeight.w800)),
                             const Spacer(),
                             AppText(
-                                '${LocaleKeys.code.tr} #${model.id ?? 0} / ${model.itemQty ?? 0} suất cơm',
+                                '${LocaleKeys.code.tr} #${model.id ?? 0} / ${model.itemQty ?? 0} ${LocaleKeys.bowl_of_rice.tr}',
                                 textAlign: TextAlign.center,
                                 style: typoSuperSmallTextBold.copyWith(
                                     fontSize: 12.sp, color: colorOrange40))
@@ -352,12 +352,12 @@ class TabMainView extends GetView<TabMainController> {
               children: [
                 AppText(
                   Utils.convertTimeToDDMMYYHHMMSS(
-                      model.createdTime ?? DateTime.now()),
+                      model.deliverTime ?? DateTime.now()),
                   style: typoSuperSmallTextBold.copyWith(fontSize: 11.5.sp),
                 ),
                 const Spacer(),
                 AppText(
-                  LocaleKeys.delivered.tr/*model.status ?? ''*/,
+                  LocaleKeys.delivered.tr /*model.status ?? ''*/,
                   style: typoSuperSmallTextBold.copyWith(
                       fontSize: 11.5.sp, color: colorGreen55),
                 )
@@ -381,7 +381,7 @@ class TabMainView extends GetView<TabMainController> {
               alignment: Alignment.centerRight,
               child: AppButton(
                 borderRadius: 100,
-                onPress: () => controller.openOrderDetail(model),
+                onPress: () => controller.openReOrder(model),
                 title: LocaleKeys.re_deliver.tr,
                 textStyle: typoSuperSmallTextBold.copyWith(color: colorText0),
                 backgroundColor: colorGreen57,

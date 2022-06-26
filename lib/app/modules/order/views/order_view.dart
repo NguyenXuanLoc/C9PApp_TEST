@@ -93,7 +93,11 @@ class OrderView extends GetView<OrderController> {
                   textInputAction: TextInputAction.next,
                   textStyle:
                       typoSuperSmallTextBold.copyWith(color: colorText60),
-                  decoration: decorTextFieldOval,
+                  decoration: decorTextFieldOval.copyWith(
+                    hintText: LocaleKeys.input_full_name.tr,
+                    hintStyle:
+                        typoSuperSmallTextBold.copyWith(color: colorText60),
+                  ),
                 ),
               ),
               AppText(
@@ -107,9 +111,14 @@ class OrderView extends GetView<OrderController> {
                   controller: controller.phoneController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.phone,
-                  textStyle:
-                      typoSuperSmallTextBold.copyWith(color: colorText60),
-                  decoration: decorTextFieldOval,
+                  textStyle: typoSuperSmallTextBold.copyWith(
+                    color: colorText60,
+                  ),
+                  decoration: decorTextFieldOval.copyWith(
+                    hintText: LocaleKeys.input_phone_number_at_here.tr,
+                    hintStyle:
+                        typoSuperSmallTextBold.copyWith(color: colorText60),
+                  ),
                 ),
               ),
               AppText(
@@ -127,6 +136,9 @@ class OrderView extends GetView<OrderController> {
                     autofocus: false,
                     style: typoSuperSmallTextBold.copyWith(color: colorText60),
                     decoration: decorTextFieldOval.copyWith(
+                      hintText: LocaleKeys.input_address_at_here.tr,
+                      hintStyle:
+                          typoSuperSmallTextBold.copyWith(color: colorText60),
                       suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,
                           color: colorBlack),
                     )),
@@ -157,7 +169,7 @@ class OrderView extends GetView<OrderController> {
                               maxLine: 1,
                               textOverflow: TextOverflow.ellipsis,
                               style: typoSuperSmallTextRegular.copyWith(
-                                  fontSize: 12.sp),
+                                  color: colorText70, fontSize: 12.sp),
                             )
                           ],
                         ))
@@ -172,11 +184,7 @@ class OrderView extends GetView<OrderController> {
                 onSuggestionSelected: (String address) =>
                     controller.setAddress(address),
                 suggestionsCallback: (pattern) {
-                  return [
-                    'Hà Nội, Hoàn Kiếm, Hà Nội',
-                    'Đan Phượng, Hà Nội',
-                    'Hair Of The Dog, Bùi Viện, Phạm Ngũ Lão, Quận 1, Thành phố Hồ Chí Minh'
-                  ];
+                  return controller.filterAddress(pattern);
                 },
               ),
               const SizedBox(
@@ -226,7 +234,7 @@ class OrderView extends GetView<OrderController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppText(
-                        LocaleKeys.delivery_date.tr,
+                        LocaleKeys.delivery_time.tr,
                         style: typoSuperSmallTextBold,
                       ),
                       const SizedBox(
@@ -264,6 +272,9 @@ class OrderView extends GetView<OrderController> {
                   textStyle:
                       typoSuperSmallTextBold.copyWith(color: colorText60),
                   decoration: decorTextFieldOval.copyWith(
+                    hintText: LocaleKeys.input_qty.tr,
+                    hintStyle:
+                        typoSuperSmallTextBold.copyWith(color: colorText60),
                     suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,
                         color: colorBlack),
                   ))),

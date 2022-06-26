@@ -89,6 +89,10 @@ class LocaleKeys {
   static const camera = 'camera';
   static const near_order = 'near_order';
   static const bowl_of_rice = 'bowl_of_rice';
+  static const input_phone_number_at_here = 'input_phone_number_at_here';
+  static const input_full_name = 'input_full_name';
+  static const input_address_at_here = 'input_address_at_here';
+  static const input_qty = 'input_qty';
 }
 
 class Locales {
@@ -167,7 +171,11 @@ class Locales {
     'gallery': 'Thư viện',
     'camera': 'Máy ảnh',
     'near_order': 'Đơn hàng gần đây',
-    'bowl_of_rice': 'Bowl of rice',
+    'bowl_of_rice': 'suất cơm',
+    'input_address_at_here': 'Nhập địa chỉ đặt hàng tại đây...',
+    'input_qty': 'Nhập số suất',
+    'input_phone_number_at_here': 'Nhập số điện thoại',
+    'input_full_name': 'Nhập họ & tên',
     'order_succes_choose_option':
         'Đơn hàng của bạn đã được đặt thành công. Vui lòng chọn các thao tác phía dưới',
   };

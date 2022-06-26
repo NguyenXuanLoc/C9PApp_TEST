@@ -30,7 +30,6 @@ class TabMainController extends GetxController {
   }
 
   void init() {
-logE("TAG onINIT");
     getWeather();
     getNearOrder();
     getPromotion();
@@ -70,6 +69,8 @@ logE("TAG onINIT");
     isLoadPromotion.value = false;
   }
 
+  void openReOrder(OrderModel model) => Get.toNamed(Routes.ORDER, arguments: model);
+
   void getNearOrder() async {
     isLoadNearOrder.value = true;
     var response = await userProvider.nearOrder();
@@ -104,7 +105,8 @@ logE("TAG onINIT");
     return locationData;
   }
 
-  void openOrderDetail(OrderModel model) => Get.toNamed(Routes.DETAIL_ORDER,arguments: model);
+  void openOrderDetail(OrderModel model) =>
+      Get.toNamed(Routes.DETAIL_ORDER, arguments: model);
 
   void onClickAction(TabMainAction action) {
     switch (action) {

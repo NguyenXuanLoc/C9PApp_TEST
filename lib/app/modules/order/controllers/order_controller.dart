@@ -7,7 +7,6 @@ import 'package:c9p/app/data/provider/api_result.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
-import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,11 +38,35 @@ class OrderController extends GetxController {
   final errorDate = ''.obs;
   final errorHours = ''.obs;
   final errorCount = ''.obs;
+  var isSelectAddress = false;
+  var counterAddress = 0;
+  OrderModel? orderModel;
 
   @override
   void onInit() {
+    getInfoReOrder();
     switchPageListener();
     super.onInit();
+  }
+
+  void getInfoReOrder() {
+    if (Get.arguments != null) {
+      orderModel = Get.arguments;
+      fullNameController.text = orderModel?.buyerName ?? '';
+      phoneController.text = orderModel?.buyerPhone ?? '';
+      addressController.text = orderModel?.toAddress ?? '';
+      addressController.text = orderModel?.toAddress ?? '';
+      countController.text =
+          orderModel?.itemQty != null ? orderModel!.itemQty.toString() : '1';
+      deliverTime = orderModel?.deliverTime;
+      deliverHours = orderModel?.deliverTime;
+      dateController.text =
+          Utils.convertTimeToDDMMYY(deliverTime ?? DateTime.now());
+      hourController.text =
+          Utils.convertTimeToHHMMSS(deliverTime ?? DateTime.now());
+      hourController.text =
+          DateFormat("h:mma").format(orderModel?.deliverTime ?? DateTime.now());
+    }
   }
 
   void scrollToBottom() => Timer(
@@ -99,10 +122,15 @@ class OrderController extends GetxController {
       isValid = false;
     } else if (!Utils.validateMobile(phone)) {
       errorPhoneNumber.value = LocaleKeys.phone_number_khong_hop_le.tr;
+      isValid = false;
     } else {
       errorPhoneNumber.value = '';
     }
-    if (address.isEmpty) {
+    if (orderModel?.toAddress != null &&
+        !isSelectAddress &&
+        counterAddress == 0) {
+      errorAddress.value = '';
+    } else if (address.isEmpty || !isSelectAddress) {
       errorAddress.value = LocaleKeys.please_input_delivery_add.tr;
       isValid = false;
     } else {
@@ -129,7 +157,20 @@ class OrderController extends GetxController {
     return isValid;
   }
 
-  void setAddress(String address) => addressController.text = address;
+  void setAddress(String address) {
+    addressController.text = address;
+    isSelectAddress = true;
+  }
+
+  List<String> filterAddress(String query) {
+    counterAddress++;
+    isSelectAddress = false;
+    return [
+      'Hà Nội, Hoàn Kiếm, Hà Nội',
+      'Đan Phượng, Hà Nội',
+      'Hair Of The Dog, Bùi Viện, Phạm Ngũ Lão, Quận 1, Thành phố Hồ Chí Minh'
+    ];
+  }
 
   Future<ApiResult> addOrder() async {
     var name = fullNameController.text;

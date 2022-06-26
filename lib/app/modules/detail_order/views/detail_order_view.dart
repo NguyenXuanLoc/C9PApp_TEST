@@ -6,6 +6,7 @@ import 'package:c9p/app/config/globals.dart';
 import 'package:c9p/app/config/resource.dart';
 import 'package:c9p/app/theme/app_styles.dart';
 import 'package:c9p/app/theme/colors.dart';
+import 'package:c9p/app/utils/app_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -59,7 +60,8 @@ class DetailOrderView extends GetView<DetailOrderController> {
             ),
             Row(
               children: [
-                AppText('45.000d',
+                AppText(
+                    "${Utils.formatMoney(controller.orderModer.value.codAmount ?? 0)}đ",
                     style: typoMediumTextBold.copyWith(
                         color: colorSemanticRed100,
                         fontWeight: FontWeight.w700)),
@@ -67,7 +69,7 @@ class DetailOrderView extends GetView<DetailOrderController> {
                   width: 20,
                 ),
                 RatingBarIndicator(
-                  rating: 2.75,
+                  rating: 5,
                   itemBuilder: (context, index) => const Icon(
                     Icons.star,
                     color: Colors.amber,
@@ -85,16 +87,20 @@ class DetailOrderView extends GetView<DetailOrderController> {
               height: 10,
             ),
             AppText(
-              'mã #2400 / 1 suất cơm',
+              '${LocaleKeys.code.tr} #${controller.orderModer.value.id} / ${controller.orderModer.value.itemQty} ${LocaleKeys.bowl_of_rice.tr}',
               style: typoSuperSmallTextBold.copyWith(color: colorGreen60),
             ),
             const SizedBox(
               height: 10,
             ),
-            AppText(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna',
-              style: typoExtraSmallTextBold.copyWith(color: colorText70),
-            ),
+            Visibility(
+                visible: controller.orderModer.value.description != null
+                    ? true
+                    : false,
+                child: AppText(
+                  controller.orderModer.value.description ?? '',
+                  style: typoExtraSmallTextBold.copyWith(color: colorText70),
+                )),
           ],
         ),
       ),
@@ -106,14 +112,14 @@ class DetailOrderView extends GetView<DetailOrderController> {
             height: 10,
           ),
           AppText(
-            "${LocaleKeys.order_time.tr} : 10/09/2022 11:40:15",
+            "${LocaleKeys.order_time.tr} : ${Utils.convertTimeToDDMMYYHHMMSS(controller.orderModer.value.createdTime ?? DateTime.now())}",
             style: typoExtraSmallTextBold.copyWith(color: colorText70),
           ),
           const SizedBox(
             height: 6,
           ),
           AppText(
-            "${LocaleKeys.delivery_time.tr} : 10/09/2022 11:40:15",
+            "${LocaleKeys.delivery_time.tr} : ${Utils.convertTimeToDDMMYYHHMMSS(controller.orderModer.value.deliverTime ?? DateTime.now())}",
             style: typoExtraSmallTextBold.copyWith(color: colorText70),
           ),
         ],
@@ -129,14 +135,14 @@ class DetailOrderView extends GetView<DetailOrderController> {
             height: 10,
           ),
           AppText(
-            "18 hoàng diệu, phường minh khai, quận hồng bàng, minh khai, hồng bàng, hải phòng ",
+            controller.orderModer.value.toAddress ?? '',
             style: typoExtraSmallTextBold.copyWith(color: colorText70),
           ),
         ],
       ),
       paddingWidget(children: [
         titleWidget(R.assetsPngMotoBike, LocaleKeys.shipper.tr, isSvg: false),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Row(

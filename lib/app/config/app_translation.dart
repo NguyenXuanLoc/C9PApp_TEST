@@ -88,6 +88,7 @@ class LocaleKeys {
   static const gallery = 'gallery';
   static const camera = 'camera';
   static const near_order = 'near_order';
+  static const bowl_of_rice = 'bowl_of_rice';
 }
 
 class Locales {
@@ -166,6 +167,7 @@ class Locales {
     'gallery': 'Thư viện',
     'camera': 'Máy ảnh',
     'near_order': 'Đơn hàng gần đây',
+    'bowl_of_rice': 'Bowl of rice',
     'order_succes_choose_option':
         'Đơn hàng của bạn đã được đặt thành công. Vui lòng chọn các thao tác phía dưới',
   };

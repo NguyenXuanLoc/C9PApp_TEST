@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/config/app_translation.dart';
+import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/provider/api_result.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -66,11 +68,12 @@ class OrderController extends GetxController {
       var response = await addOrder();
       await Dialogs.hideLoadingDialog();
       if (response.statusCode == 201) {
-        Get.toNamed(Routes.ORDER_SUCCESS);
-      }else{
-        try{
+        Get.toNamed(Routes.ORDER_SUCCESS,
+            arguments: OrderModel.fromJson(response.data));
+      } else {
+        try {
           toast(response.data['msg'].toString());
-        }catch(ex){
+        } catch (ex) {
           toast(LocaleKeys.network_error.tr);
         }
       }

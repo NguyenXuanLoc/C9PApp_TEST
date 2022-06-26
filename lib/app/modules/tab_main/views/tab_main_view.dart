@@ -29,7 +29,6 @@ class TabMainView extends GetView<TabMainController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.init();
     return AppScaffold(
         fullStatusBar: true,
         isTabToHideKeyBoard: true,
@@ -182,7 +181,9 @@ class TabMainView extends GetView<TabMainController> {
                                           width: 30.w,
                                           fit: BoxFit.cover,
                                           source: controller
-                                              .weatherDetail.value.icon,
+                                                  .weatherDetail.value.icon ??
+                                              AppConstant
+                                                  .URL_WEATHER_ICON_DEFAULT,
                                           errorSource: AppConstant
                                               .URL_WEATHER_ICON_DEFAULT,
                                         )),
@@ -225,23 +226,23 @@ class TabMainView extends GetView<TabMainController> {
               const SizedBox(
                 height: 20,
               ),
-              Obx(() => Opacity(
-                    opacity: controller.isLoadNearOrder.value ? 1 : 1,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: contentPadding),
-                      child: AppText(
-                        LocaleKeys.near_order.tr,
-                        style: typoMediumTextBold.copyWith(
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                  )),
+              Opacity(
+                opacity: controller.isLoadNearOrder.value ? 1 : 1,
+                child: Padding(
+                  padding: EdgeInsets.only(left: contentPadding),
+                  child: AppText(
+                    LocaleKeys.near_order.tr,
+                    style: typoMediumTextBold.copyWith(
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ),
               nearOrderWidget(context),
               Container(
                 height: 15,
                 color: colorSeparatorListView,
               ),
-             Obx(() => Opacity(
+              Opacity(
                   opacity: controller.isLoadPromotion.value ? 1 : 1,
                   child: Padding(
                     padding: EdgeInsets.only(
@@ -251,8 +252,8 @@ class TabMainView extends GetView<TabMainController> {
                       style: typoMediumTextBold.copyWith(
                           fontWeight: FontWeight.w700),
                     ),
-                  ))),
-                  promotionWidget(context),
+                  )),
+              promotionWidget(context),
               const SizedBox(
                 height: 30,
               )
@@ -356,7 +357,7 @@ class TabMainView extends GetView<TabMainController> {
                 ),
                 const Spacer(),
                 AppText(
-                  model.status ?? '',
+                  LocaleKeys.delivered.tr/*model.status ?? ''*/,
                   style: typoSuperSmallTextBold.copyWith(
                       fontSize: 11.5.sp, color: colorGreen55),
                 )
@@ -380,7 +381,7 @@ class TabMainView extends GetView<TabMainController> {
               alignment: Alignment.centerRight,
               child: AppButton(
                 borderRadius: 100,
-                onPress: () => controller.openOrderDetail(),
+                onPress: () => controller.openOrderDetail(model),
                 title: LocaleKeys.re_deliver.tr,
                 textStyle: typoSuperSmallTextBold.copyWith(color: colorText0),
                 backgroundColor: colorGreen57,
@@ -390,7 +391,7 @@ class TabMainView extends GetView<TabMainController> {
             )
           ],
         ),
-        onTap: () => controller.openOrderDetail(),
+        onTap: () => controller.openOrderDetail(model),
       ),
     );
   }

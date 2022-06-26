@@ -97,6 +97,7 @@ class LocaleKeys {
   static const yes = 'yes';
   static const hours = 'hours';
   static const minutes = 'minutes';
+  static const not_data_pull_to_refresh = 'not_data_pull_to_refresh';
 }
 
 class Locales {
@@ -184,6 +185,7 @@ class Locales {
     'yes': 'Đồng ý',
     'hours': 'Giờ',
     'minutes': 'Phút',
+    'not_data_pull_to_refresh': 'Không có dữ liệu\nKéo xuống để tải lại.',
     'order_succes_choose_option':
         'Đơn hàng của bạn đã được đặt thành công. Vui lòng chọn các thao tác phía dưới',
   };

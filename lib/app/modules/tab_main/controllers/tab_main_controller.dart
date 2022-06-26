@@ -29,6 +29,11 @@ class TabMainController extends GetxController {
     super.onInit();
   }
 
+  void onRefresh() {
+    getNearOrder();
+    getPromotion();
+  }
+
   void init() {
     getWeather();
     getNearOrder();
@@ -69,7 +74,8 @@ class TabMainController extends GetxController {
     isLoadPromotion.value = false;
   }
 
-  void openReOrder(OrderModel model) => Get.toNamed(Routes.ORDER, arguments: model);
+  void openReOrder(OrderModel model) =>
+      Get.toNamed(Routes.ORDER, arguments: model);
 
   void getNearOrder() async {
     isLoadNearOrder.value = true;

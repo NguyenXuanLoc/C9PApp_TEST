@@ -32,232 +32,265 @@ class TabMainView extends GetView<TabMainController> {
     return AppScaffold(
         fullStatusBar: true,
         isTabToHideKeyBoard: true,
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: EdgeInsets.only(
-                    bottom: 15.h, left: contentPadding, right: contentPadding),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(20.w),
-                        bottomLeft: Radius.circular(20.w)),
-                    image: const DecorationImage(
-                        image: AssetImage(R.assetsBackgroundHeaderTabMainPng),
-                        fit: BoxFit.cover)),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).padding.top + 15.h),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              AppText(
-                                "Xin chào Hyun trang!",
-                                style: typoSmallTextBold.copyWith(
-                                    color: colorText0,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Image.asset(
-                                R.assetsPngHand,
-                                width: 18.w,
-                              ),
-                              const Spacer(),
-                              InkWell(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: colorWarning10,
-                                    borderRadius: BorderRadius.circular(100),
-                                    border: Border.all(
-                                        color: colorYellow100, width: 1),
-                                  ),
-                                  child: AppCircleImage(
-                                      size: 33.w,
-                                      url:
-                                          'https://vcdn-dulich.vnecdn.net/2020/09/04/1-Meo-chup-anh-dep-khi-di-bien-9310-1599219010.jpg',
-                                      urlError: ''),
+        body: RefreshIndicator(
+          color: colorGreen60,
+          onRefresh: () async => controller.onRefresh(),
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child:Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      bottom: 15.h,
+                      left: contentPadding,
+                      right: contentPadding),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(20.w),
+                          bottomLeft: Radius.circular(20.w)),
+                      image: const DecorationImage(
+                          image: AssetImage(
+                              R.assetsBackgroundHeaderTabMainPng),
+                          fit: BoxFit.cover)),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).padding.top + 15.h),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                AppText(
+                                  "Xin chào Hyun trang!",
+                                  style: typoSmallTextBold.copyWith(
+                                      color: colorText0,
+                                      fontWeight: FontWeight.w700),
                                 ),
-                                onTap: () => controller.onClickProfile(),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 17.h,
-                          ),
-                          AppTextField(
-                            isShowErrorText: false,
-                            textStyle: typoSuperSmallTextBold.copyWith(
-                                decoration: TextDecoration.none),
-                            decoration: decorTextFieldCircle.copyWith(
-                                isDense: true,
-                                hintText: LocaleKeys.find_order_at_here.tr,
-                                hintStyle: typoSuperSmallTextBold.copyWith(
-                                    fontSize: 12.sp, color: colorText60),
-                                prefixIconConstraints:
-                                    BoxConstraints(maxWidth: 45.w),
-                                prefixIcon: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 10),
-                                    child: SvgPicture.asset(R.assetsSvgSearch),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Image.asset(
+                                  R.assetsPngHand,
+                                  width: 18.w,
+                                ),
+                                const Spacer(),
+                                InkWell(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: colorWarning10,
+                                      borderRadius:
+                                      BorderRadius.circular(100),
+                                      border: Border.all(
+                                          color: colorYellow100, width: 1),
+                                    ),
+                                    child: AppCircleImage(
+                                        size: 33.w,
+                                        url:
+                                        'https://vcdn-dulich.vnecdn.net/2020/09/04/1-Meo-chup-anh-dep-khi-di-bien-9310-1599219010.jpg',
+                                        urlError: ''),
                                   ),
-                                )),
-                          ),
-                          SizedBox(
-                            height: 17.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AppText(
-                                    LocaleKeys.temp.tr,
-                                    style: typoSuperSmallTextBold.copyWith(
-                                        color: colorWhite),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Obx(() => AppText(
-                                            controller.weatherModel.value.main
-                                                    ?.temp
-                                                    ?.toString()
-                                                    .split('.')[0] ??
-                                                '',
-                                            style:
-                                                typoSuperLargeTextBold.copyWith(
-                                                    fontSize: 30.sp,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: colorYellow100),
-                                          )),
-                                      Obx(() => Visibility(
-                                          visible: controller.weatherDescription
-                                              .value.isNotEmpty,
-                                          child: Padding(
-                                            padding: EdgeInsets.only(top: 3.h),
-                                            child: SvgPicture.asset(
-                                              R.assetsSvgTemp,
-                                              width: 6.w,
-                                            ),
-                                          ))),
-                                      Obx(() => Visibility(
-                                          visible: controller.weatherDescription
-                                              .value.isNotEmpty,
-                                          child: AppText(
-                                            'C',
-                                            style:
-                                                typoSuperLargeTextBold.copyWith(
-                                                    fontSize: 30.sp,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: colorYellow100),
-                                          )))
-                                    ],
-                                  )
-                                ],
-                              ),
-                              const Spacer(),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Transform.scale(
-                                    scale: 1.7,
-                                    child: Obx(() => AppNetworkImage(
-                                          width: 30.w,
-                                          fit: BoxFit.cover,
-                                          source: controller
-                                                  .weatherDetail.value.icon ??
-                                              AppConstant
-                                                  .URL_WEATHER_ICON_DEFAULT,
-                                          errorSource: AppConstant
-                                              .URL_WEATHER_ICON_DEFAULT,
+                                  onTap: () => controller.onClickProfile(),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 17.h,
+                            ),
+                            AppTextField(
+                              isShowErrorText: false,
+                              textStyle: typoSuperSmallTextBold.copyWith(
+                                  decoration: TextDecoration.none),
+                              decoration: decorTextFieldCircle.copyWith(
+                                  isDense: true,
+                                  hintText:
+                                  LocaleKeys.find_order_at_here.tr,
+                                  hintStyle:
+                                  typoSuperSmallTextBold.copyWith(
+                                      fontSize: 12.sp,
+                                      color: colorText60),
+                                  prefixIconConstraints:
+                                  BoxConstraints(maxWidth: 45.w),
+                                  prefixIcon: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Padding(
+                                      padding:
+                                      const EdgeInsets.only(right: 10),
+                                      child: SvgPicture.asset(
+                                          R.assetsSvgSearch),
+                                    ),
+                                  )),
+                            ),
+                            SizedBox(
+                              height: 17.h,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.start,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    AppText(
+                                      LocaleKeys.temp.tr,
+                                      style: typoSuperSmallTextBold
+                                          .copyWith(color: colorWhite),
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Obx(() => AppText(
+                                          controller.weatherModel.value
+                                              .main?.temp
+                                              ?.toString()
+                                              .split('.')[0] ??
+                                              '',
+                                          style: typoSuperLargeTextBold
+                                              .copyWith(
+                                              fontSize: 30.sp,
+                                              fontWeight:
+                                              FontWeight.w700,
+                                              color:
+                                              colorYellow100),
                                         )),
-                                  ),
-                                  Obx(() => AppText(
-                                        controller.weatherDescription.value,
-                                        style: typoSuperSmallTextBold.copyWith(
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w700,
-                                            color: colorText0),
-                                      ))
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              optionWidget(R.assetsSvgMenu, LocaleKeys.menu.tr,
-                                  TabMainAction.MENU),
-                              optionWidget(R.assetsSvgOrder,
-                                  LocaleKeys.order.tr, TabMainAction.ORDER),
-                              optionWidget(
-                                  R.assetsSvgStatistical,
-                                  LocaleKeys.statistical.tr,
-                                  TabMainAction.DISCTRICT),
-                              optionWidget(R.assetsSvgMore, LocaleKeys.more.tr,
-                                  TabMainAction.MORE)
-                            ],
-                          )
-                        ],
+                                        Obx(() => Visibility(
+                                            visible: controller
+                                                .weatherDescription
+                                                .value
+                                                .isNotEmpty,
+                                            child: Padding(
+                                              padding:
+                                              EdgeInsets.only(top: 3.h),
+                                              child: SvgPicture.asset(
+                                                R.assetsSvgTemp,
+                                                width: 6.w,
+                                              ),
+                                            ))),
+                                        Obx(() => Visibility(
+                                            visible: controller
+                                                .weatherDescription
+                                                .value
+                                                .isNotEmpty,
+                                            child: AppText(
+                                              'C',
+                                              style: typoSuperLargeTextBold
+                                                  .copyWith(
+                                                  fontSize: 30.sp,
+                                                  fontWeight:
+                                                  FontWeight.w700,
+                                                  color:
+                                                  colorYellow100),
+                                            )))
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                const Spacer(),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.end,
+                                  children: [
+                                    Transform.scale(
+                                      scale: 1.7,
+                                      child: Obx(() => AppNetworkImage(
+                                        width: 30.w,
+                                        fit: BoxFit.cover,
+                                        source: controller.weatherDetail
+                                            .value.icon ??
+                                            AppConstant
+                                                .URL_WEATHER_ICON_DEFAULT,
+                                        errorSource: AppConstant
+                                            .URL_WEATHER_ICON_DEFAULT,
+                                      )),
+                                    ),
+                                    Obx(() => AppText(
+                                      controller
+                                          .weatherDescription.value,
+                                      style: typoSuperSmallTextBold
+                                          .copyWith(
+                                          fontSize: 12.sp,
+                                          fontWeight:
+                                          FontWeight.w700,
+                                          color: colorText0),
+                                    ))
+                                  ],
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                optionWidget(R.assetsSvgMenu,
+                                    LocaleKeys.menu.tr, TabMainAction.MENU),
+                                optionWidget(
+                                    R.assetsSvgOrder,
+                                    LocaleKeys.order.tr,
+                                    TabMainAction.ORDER),
+                                optionWidget(
+                                    R.assetsSvgStatistical,
+                                    LocaleKeys.statistical.tr,
+                                    TabMainAction.DISCTRICT),
+                                optionWidget(R.assetsSvgMore,
+                                    LocaleKeys.more.tr, TabMainAction.MORE)
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Opacity(
-                opacity: controller.isLoadNearOrder.value ? 1 : 1,
-                child: Padding(
-                  padding: EdgeInsets.only(left: contentPadding),
-                  child: AppText(
-                    LocaleKeys.near_order.tr,
-                    style: typoMediumTextBold.copyWith(
-                        fontWeight: FontWeight.w700),
+                    ],
                   ),
                 ),
-              ),
-              nearOrderWidget(context),
-              Container(
-                height: 15,
-                color: colorSeparatorListView,
-              ),
-              Opacity(
-                  opacity: controller.isLoadPromotion.value ? 1 : 1,
+                const SizedBox(
+                  height: 20,
+                ),
+                Opacity(
+                  opacity: controller.isLoadNearOrder.value ? 1 : 1,
                   child: Padding(
-                    padding: EdgeInsets.only(
-                        left: contentPadding, top: 15.h, bottom: 10.h),
+                    padding: EdgeInsets.only(left: contentPadding),
                     child: AppText(
-                      LocaleKeys.promotion.tr,
+                      LocaleKeys.near_order.tr,
                       style: typoMediumTextBold.copyWith(
                           fontWeight: FontWeight.w700),
                     ),
-                  )),
-              promotionWidget(context),
-              const SizedBox(
-                height: 30,
-              )
-            ],
+                  ),
+                ),
+                nearOrderWidget(context),
+                Container(
+                  height: 15,
+                  color: colorSeparatorListView,
+                ),
+                Opacity(
+                    opacity: controller.isLoadPromotion.value ? 1 : 1,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: contentPadding, top: 15.h, bottom: 10.h),
+                      child: AppText(
+                        LocaleKeys.promotion.tr,
+                        style: typoMediumTextBold.copyWith(
+                            fontWeight: FontWeight.w700),
+                      ),
+                    )),
+                promotionWidget(context),
+                const SizedBox(
+                  height: 30,
+                )
+              ],
+            )
           ),
         ));
   }

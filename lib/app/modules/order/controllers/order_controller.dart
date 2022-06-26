@@ -6,6 +6,7 @@ import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/provider/api_result.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
+import 'package:c9p/app/theme/colors.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class OrderController extends GetxController {
   final hourController = TextEditingController();
   final countController = TextEditingController();
   DateTime? deliverTime;
-  DateTime? deliverHours;
+  String? deliverHours;
   final currentIndex = 0.obs;
   final errorFullName = ''.obs;
   final errorPhoneNumber = ''.obs;
@@ -59,7 +60,7 @@ class OrderController extends GetxController {
       countController.text =
           orderModel?.itemQty != null ? orderModel!.itemQty.toString() : '1';
       deliverTime = orderModel?.deliverTime;
-      deliverHours = orderModel?.deliverTime;
+      deliverHours = orderModel?.deliverTime.toString().split(' ')[1];
       dateController.text =
           Utils.convertTimeToDDMMYY(deliverTime ?? DateTime.now());
       hourController.text =
@@ -142,7 +143,7 @@ class OrderController extends GetxController {
     } else {
       errorDate.value = '';
     }
-    if (fullName.isEmpty) {
+    if (hours.isEmpty) {
       errorHours.value = LocaleKeys.please_input_delivery_hours.tr;
       isValid = false;
     } else {
@@ -180,7 +181,7 @@ class OrderController extends GetxController {
     var lat = '0';
     var lng = '0';
     var deliverTimeStr =
-        "${Utils.convertTimeToYYMMDD(deliverTime!)} ${Utils.convertTimeToHHMMSS(deliverHours!)}";
+        "${Utils.convertTimeToYYMMDD(deliverTime!)} $deliverHours";
     var productId = '2';
     return await userProvider.addOrder(
         name: name,
@@ -193,11 +194,47 @@ class OrderController extends GetxController {
         productId: productId);
   }
 
-  void pickTime(BuildContext context) {
-    Utils.showTimePicker(context, (date) {
-      deliverHours = date;
-      hourController.text = DateFormat("h:mma").format(date);
-    });
+  void pickTime(BuildContext context) async {
+    var selectedTime24Hour = await showTimePicker(
+      context: context,
+      useRootNavigator: false,
+      cancelText: LocaleKeys.cancel.tr,
+      confirmText: LocaleKeys.yes.tr,
+      helpText: '',
+      minuteLabelText: LocaleKeys.minutes.tr,
+      hourLabelText: LocaleKeys.hours.tr,
+      initialTime:
+          TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: const ColorScheme.light(
+              // change the border color
+              primary: colorGreen60,
+              // change the text color
+              onSurface: colorText60,
+            ),
+            // button colors
+            buttonTheme: const ButtonThemeData(
+              colorScheme: ColorScheme.light(
+                primary: Colors.green,
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+    if (selectedTime24Hour != null) {
+      deliverHours = selectedTime24Hour.format(context);
+      hourController.text = DateFormat("h:mm a").format(DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+        selectedTime24Hour.hour,
+        selectedTime24Hour.minute,
+      ));
+    }
   }
 
   void pickDate(BuildContext context) => Utils.pickDate(context, (date) {

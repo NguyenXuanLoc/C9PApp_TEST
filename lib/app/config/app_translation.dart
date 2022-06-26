@@ -93,6 +93,10 @@ class LocaleKeys {
   static const input_full_name = 'input_full_name';
   static const input_address_at_here = 'input_address_at_here';
   static const input_qty = 'input_qty';
+  static const cancel = 'cancel';
+  static const yes = 'yes';
+  static const hours = 'hours';
+  static const minutes = 'minutes';
 }
 
 class Locales {
@@ -176,6 +180,10 @@ class Locales {
     'input_qty': 'Nhập số suất',
     'input_phone_number_at_here': 'Nhập số điện thoại',
     'input_full_name': 'Nhập họ & tên',
+    'cancel': 'Hủy',
+    'yes': 'Đồng ý',
+    'hours': 'Giờ',
+    'minutes': 'Phút',
     'order_succes_choose_option':
         'Đơn hàng của bạn đã được đặt thành công. Vui lòng chọn các thao tác phía dưới',
   };

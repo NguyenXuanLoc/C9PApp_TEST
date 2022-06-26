@@ -12,9 +12,12 @@ class UserProvider extends BaseProvider {
     initProvider();
   }
 
-/*Future<ApiKey> getAddress(String query){
+  Future<ApiResult> getAddress(String query) async {
+    return await GET(
+        'json?input=$query&key=${ApiKey.api_key_google_map}&language=vi&radius=20000',
+        baseUrl: 'https://maps.googleapis.com/maps/api/place/autocomplete/');
+  }
 
-}*/
   Future<ApiResult> nearOrder() async {
     return await GET('user/top5orders');
   }

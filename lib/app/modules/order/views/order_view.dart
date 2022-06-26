@@ -1,4 +1,5 @@
 import 'package:c9p/app/components/app_button.dart';
+import 'package:c9p/app/components/app_loading_widget.dart';
 import 'package:c9p/app/components/app_scalford.dart';
 import 'package:c9p/app/components/app_text.dart';
 import 'package:c9p/app/components/app_text_field.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:c9p/app/config/resource.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../../data/model/address_model.dart';
 import '../controllers/order_controller.dart';
 
 class OrderView extends GetView<OrderController> {
@@ -128,10 +130,13 @@ class OrderView extends GetView<OrderController> {
               itemSpace(),
               TypeAheadField(
                 hideSuggestionsOnKeyboardHide: false,
+                debounceDuration: const Duration(seconds: 1),
+                loadingBuilder: (c) => const AppCircleLoading(),
                 suggestionsBoxDecoration: const SuggestionsBoxDecoration(
-                    color: colorWhite, elevation: 0),
+                    color: colorWhite, elevation: 0.2),
                 textFieldConfiguration: TextFieldConfiguration(
                     controller: controller.addressController,
+                    maxLines: 1,
                     onTap: () => controller.scrollToBottom(),
                     autofocus: false,
                     style: typoSuperSmallTextBold.copyWith(color: colorText60),
@@ -142,7 +147,7 @@ class OrderView extends GetView<OrderController> {
                       suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,
                           color: colorBlack),
                     )),
-                itemBuilder: (context, String suggestion) {
+                itemBuilder: (context, Prediction suggestion) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: Row(
@@ -160,12 +165,13 @@ class OrderView extends GetView<OrderController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             AppText(
-                              suggestion,
+                              suggestion.structuredFormatting?.mainText ?? '',
                               maxLine: 1,
                               style: typoSuperSmallTextBold.copyWith(),
                             ),
                             AppText(
-                              '79 Đường Cầu Giấy, Quan Hoa, Cầu Giấy, Hà Nội',
+                              suggestion.structuredFormatting?.secondaryText ??
+                                  '',
                               maxLine: 1,
                               textOverflow: TextOverflow.ellipsis,
                               style: typoSuperSmallTextRegular.copyWith(
@@ -178,10 +184,11 @@ class OrderView extends GetView<OrderController> {
                   );
                 },
                 noItemsFoundBuilder: (c) => AppText(
-                  'Không tìm thấy địa chỉ',
-                  style: typoSmallTextRegular,
+                  LocaleKeys.not_find_address_please_try_again.tr,
+                  style: typoSuperSmallTextRegular.copyWith(
+                      color: colorText70, fontSize: 12.sp),
                 ),
-                onSuggestionSelected: (String address) =>
+                onSuggestionSelected: (Prediction address) =>
                     controller.setAddress(address),
                 suggestionsCallback: (pattern) {
                   return controller.filterAddress(pattern);
@@ -191,10 +198,13 @@ class OrderView extends GetView<OrderController> {
                 height: 10,
               ),
               Obx(
-                () => AppText(
-                  controller.errorAddress.value,
-                  style: typoNormalTextRegular.copyWith(
-                      color: colorSemanticRed100, fontSize: 11.sp),
+                () => Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 10),
+                  child: AppText(
+                    controller.errorAddress.value,
+                    style: typoNormalTextRegular.copyWith(
+                        color: colorSemanticRed100, fontSize: 11.sp),
+                  ),
                 ),
               ),
               Row(

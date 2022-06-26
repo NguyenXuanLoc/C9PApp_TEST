@@ -2,18 +2,21 @@ import 'dart:async';
 
 import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/config/app_translation.dart';
+import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/provider/api_result.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/theme/colors.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../config/resource.dart';
+import '../../../data/model/address_model.dart';
 
 class OrderController extends GetxController {
   final lDescriptionImage = [
@@ -158,19 +161,22 @@ class OrderController extends GetxController {
     return isValid;
   }
 
-  void setAddress(String address) {
-    addressController.text = address;
+  void setAddress(Prediction address) {
+    addressController.text = address.structuredFormatting?.secondaryText ?? '';
     isSelectAddress = true;
   }
 
-  List<String> filterAddress(String query) {
+  Future<List<Prediction>> filterAddress(String query) async {
     counterAddress++;
     isSelectAddress = false;
-    return [
-      'Hà Nội, Hoàn Kiếm, Hà Nội',
-      'Đan Phượng, Hà Nội',
-      'Hair Of The Dog, Bùi Viện, Phạm Ngũ Lão, Quận 1, Thành phố Hồ Chí Minh'
-    ];
+    var response = await userProvider.getAddress(query);
+    if (response.error == null && response.data != null) {
+      var addressModel = addressModelFromJson(response.data);
+      if (addressModel.status != MessageKey.ZERO_RESULTS) {
+        return addressModel.predictions ?? [];
+      }
+    }
+    return [];
   }
 
   Future<ApiResult> addOrder() async {

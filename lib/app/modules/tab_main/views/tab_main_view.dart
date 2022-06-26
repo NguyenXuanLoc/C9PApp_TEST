@@ -29,6 +29,7 @@ class TabMainView extends GetView<TabMainController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.init();
     return AppScaffold(
         fullStatusBar: true,
         isTabToHideKeyBoard: true,

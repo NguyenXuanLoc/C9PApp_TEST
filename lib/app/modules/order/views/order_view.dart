@@ -129,7 +129,7 @@ class OrderView extends GetView<OrderController> {
               ),
               itemSpace(),
               TypeAheadField(
-                hideSuggestionsOnKeyboardHide: false,
+                hideSuggestionsOnKeyboardHide: true,
                 debounceDuration: const Duration(seconds: 1),
                 loadingBuilder: (c) => const AppCircleLoading(),
                 suggestionsBoxDecoration: const SuggestionsBoxDecoration(
@@ -199,7 +199,7 @@ class OrderView extends GetView<OrderController> {
               ),
               Obx(
                 () => Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 10),
+                  padding: const EdgeInsets.only(bottom: 10),
                   child: AppText(
                     controller.errorAddress.value,
                     style: typoNormalTextRegular.copyWith(

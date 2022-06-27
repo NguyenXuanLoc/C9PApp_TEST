@@ -98,6 +98,7 @@ class LocaleKeys {
   static const hours = 'hours';
   static const minutes = 'minutes';
   static const not_data_pull_to_refresh = 'not_data_pull_to_refresh';
+  static const not_find_address_please_try_again = 'not_find_address_please_try_again';
 }
 
 class Locales {
@@ -157,7 +158,7 @@ class Locales {
     'delivery_date': 'Ngày nhận hàng',
     'choose_number': 'Chọn số suất',
     'please_input_full_name': 'Vui lòng nhập họ và tên',
-    'please_input_delivery_add': 'Vui lòng nhập địa chỉ nhận hàng',
+    'please_input_delivery_add': 'Vui lòng nhập và chọn đúng địa chỉ nhận hàng',
     'please_input_delivery_date': 'Thiếu thông tin',
     'please_input_delivery_hours': 'Thiếu thông tin',
     'please_input_count': 'Vui lòng chọn số suất',
@@ -186,6 +187,7 @@ class Locales {
     'hours': 'Giờ',
     'minutes': 'Phút',
     'not_data_pull_to_refresh': 'Không có dữ liệu\nKéo xuống để tải lại.',
+    'not_find_address_please_try_again': 'Không tìm thấy địa chỉ, vui lòng thử lại',
     'order_succes_choose_option':
         'Đơn hàng của bạn đã được đặt thành công. Vui lòng chọn các thao tác phía dưới',
   };

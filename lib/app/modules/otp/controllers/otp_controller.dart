@@ -6,6 +6,7 @@ import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/components/otp_widget.dart';
 import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/data/model/user_model.dart';
+import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
@@ -21,6 +22,7 @@ import '../../../utils/app_utils.dart';
 
 class OtpController extends GetxController {
   final phoneNumber = ''.obs;
+  final userProvider = UserProvider();
   final otpController = OtpFieldController();
   late Timer _timer;
   var startCountDown = 30.obs;
@@ -63,9 +65,7 @@ class OtpController extends GetxController {
         .signInWithCredential(PhoneAuthProvider.credential(
             verificationId: verificationId, smsCode: pin))
         .then((value) async {
-          await Dialogs.hideLoadingDialog();
-          StorageUtils.saveUser(await fakeUser());
-          Get.offAllNamed(Routes.HOME, arguments: true);
+          _handleLogin(value);
         })
         .whenComplete(() {})
         .onError((error, stackTrace) {
@@ -79,6 +79,26 @@ class OtpController extends GetxController {
         });
   }
 
+  Future<void> _handleLogin(UserCredential model) async {
+    var response = await userProvider.login(model.user!.uid);
+    await Dialogs.hideLoadingDialog();
+    if (response.error == null && response.data != null) {
+      try {
+        var model = UserModel.fromJson(response.data);
+        await StorageUtils.saveUser(model);
+        if (model.needUpdate ?? true) {
+          Get.offAllNamed(Routes.UPDATE_PROFILE, arguments: phoneNumber.value);
+        } else {
+          Get.offAllNamed(Routes.HOME,
+              arguments: await StorageUtils.isFirstOrder());
+        }
+      } catch (ex) {
+        toast(LocaleKeys.network_error.tr);
+      }
+    } else {
+      toast(LocaleKeys.network_error.tr);
+    }
+  }
 
   Future<UserModel> fakeUser() async => UserModel.fromJson(
       json.decode(await rootBundle.loadString(R.assetsJsonUser)));

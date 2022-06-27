@@ -58,6 +58,8 @@ dependencies:
   carousel_slider: ^4.1.1
   location: ^4.4.0
   smooth_page_indicator: ^1.0.0+2
+  geolocator: ^7.7.1 #get current location
+  geocoding: ^2.0.1
 
   flutter:
     sdk: flutter

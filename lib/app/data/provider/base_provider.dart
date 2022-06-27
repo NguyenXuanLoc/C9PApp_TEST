@@ -18,8 +18,8 @@ class BaseProvider extends GetConnect {
   // ignore: non_constant_identifier_names
   Future<ApiResult> GET(String url,
       {Map<String, dynamic>? queryParam,
-        bool isNewFormat = false,
-        String baseUrl = ''}) async {
+      bool isNewFormat = false,
+      String baseUrl = ''}) async {
     if (await ConnectionUtils.isConnect() == false) {
       return ApiResult(error: LocaleKeys.network_error.tr);
     }
@@ -107,11 +107,12 @@ class BaseProvider extends GetConnect {
   }
 
   // ignore: non_constant_identifier_names
-  Future<ApiResult> POST(String url,
-      dynamic body, {
-        bool isFormData = false,
-        String baseUrl = '',
-      }) async {
+  Future<ApiResult> POST(
+    String url,
+    dynamic body, {
+    bool isFormData = false,
+    String baseUrl = '',
+  }) async {
     if (baseUrl.isNotEmpty) {
       httpClient.baseUrl = baseUrl;
     } else {
@@ -123,42 +124,40 @@ class BaseProvider extends GetConnect {
     print('============================================================');
     print('[POST] ' + httpClient.baseUrl! + url);
     print("Bearer " + globals.accessToken);
-    print('[PARAMS] ' + json.encode(body)
-    );
+    print('[PARAMS] ' + json.encode(body));
     try {
-    var headers = {
-    'Authorization':
-    'Bearer MzI._0B3299TB6xy5t4lOjJA3MTFqt2noBXt71_DUG0vdIbRNw1ICDv5-aSQfQk2',
-    // 'Content-Type': 'application/json'
-    };
-    final response = await post(
-    url, isFormData ? FormData(body) : json.encode(body),
-    headers: headers);
-    Logger().d("Status: ${response.statusCode}");
-    Logger().d("${response.body}");
-    if (response.isOk && response.body != null) {
-    var result = response.body;
-    return ApiResult<dynamic>(
-    data: result, statusCode: response.statusCode, message: '');
-    } else {
-    Logger().e(
-    'Error ${response.status.code} - ${response.statusText} - ${response.bodyString}');
-    var result = response.body;
-    return ApiResult<dynamic>(
-    error: response.statusText ?? '',
-    data: result,
-    );
-    }
+      var headers = {
+        'Authorization': 'Bearer ${globals.accessToken}',
+        // 'Content-Type': 'application/json'
+      };
+      final response = await post(
+          url, isFormData ? FormData(body) : json.encode(body),
+          headers: headers);
+      Logger().d("Status: ${response.statusCode}");
+      Logger().d("${response.body}");
+      if (response.isOk && response.body != null) {
+        var result = response.body;
+        return ApiResult<dynamic>(
+            data: result, statusCode: response.statusCode, message: '');
+      } else {
+        Logger().e(
+            'Error ${response.status.code} - ${response.statusText} - ${response.bodyString}');
+        var result = response.body;
+        return ApiResult<dynamic>(
+          error: response.statusText ?? '',
+          data: result,
+        );
+      }
     } on Exception catch (exception) {
-    Logger().e('[EXCEPTION] ' + exception.toString());
-    print('============================================================');
-    return ApiResult<dynamic>(
-    error: LocaleKeys.network_error.tr,
-    );
+      Logger().e('[EXCEPTION] ' + exception.toString());
+      print('============================================================');
+      return ApiResult<dynamic>(
+        error: LocaleKeys.network_error.tr,
+      );
     } catch (error) {
-    Logger().e('[ERROR] ' + error.toString());
-    print('============================================================');
-    return ApiResult<dynamic>(error: LocaleKeys.network_error.tr);
+      Logger().e('[ERROR] ' + error.toString());
+      print('============================================================');
+      return ApiResult<dynamic>(error: LocaleKeys.network_error.tr);
     }
   }
 
@@ -255,9 +254,9 @@ class BaseProvider extends GetConnect {
 
   Future<ApiResult> POST_FROM_DATA(String url, dynamic body,
       {bool isMultipart = false,
-        bool isContentType = false,
-        String baseUrl = '',
-        bool isNewFormat = false}) async {
+      bool isContentType = false,
+      String baseUrl = '',
+      bool isNewFormat = false}) async {
     if (baseUrl.isNotEmpty) {
       httpClient.baseUrl = baseUrl;
     } else {
@@ -289,8 +288,7 @@ class BaseProvider extends GetConnect {
                 : result['meta']['message'] ?? result['meta']['db_message']);
       } else {
         Logger().e(
-            'Error ${response.status.code} - ${response.statusText} - ${response
-                .bodyString}');
+            'Error ${response.status.code} - ${response.statusText} - ${response.bodyString}');
         var result = response.body;
         return ApiResult<dynamic>(
           error: result["meta"]["message"] ?? response.statusText ?? '',

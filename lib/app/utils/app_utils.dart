@@ -1,9 +1,14 @@
 import 'package:c9p/app/utils/log_utils.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
+import 'package:location/location.dart';
 import '../components/date_picker.dart';
+import '../config/app_translation.dart';
+import '../theme/colors.dart';
 
 class Utils {
   static var eventBus = EventBus();
@@ -78,7 +83,7 @@ class Utils {
     }, currentTime: DateTime.now(), locale: LocaleType.vi);
   }
 
-  static void showTimePicker(
+  static void showTimePickers(
       BuildContext context, Function(DateTime) callback) {
     DatePicker.showTimePicker(context,
         showTitleActions: true, onChanged: (date) {}, onConfirm: (date) {
@@ -104,5 +109,51 @@ class Utils {
   static String convertTimeToDDMMYYHHMMSS(DateTime time) =>
       DateFormat('dd/MM/yyy hh:mm:ss').format(time);
 
+  static Future<TimeOfDay?> pickTime(BuildContext context) async =>
+      await showTimePicker(
+        context: context,
+        useRootNavigator: false,
+        cancelText: LocaleKeys.cancel.tr,
+        confirmText: LocaleKeys.yes.tr,
+        helpText: '',
+        minuteLabelText: LocaleKeys.minutes.tr,
+        hourLabelText: LocaleKeys.hours.tr,
+        initialTime:
+            TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute),
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              colorScheme: const ColorScheme.light(
+                // change the border color
+                primary: colorGreen60,
+                // change the text color
+                onSurface: colorText60,
+              ),
+              // button colors
+              buttonTheme: const ButtonThemeData(
+                colorScheme: ColorScheme.light(
+                  primary: Colors.green,
+                ),
+              ),
+            ),
+            child: child!,
+          );
+        },
+      );
+
   bool isLogin() => globals.isLogin;
+
+  static Future<void> requestPermissionLocation() async {
+    Location location = Location();
+    bool serviceEnabled;
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+    }
+    var permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+    }
+    await location.hasPermission();
+  }
 }

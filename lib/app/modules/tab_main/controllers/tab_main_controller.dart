@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:c9p/app/data/event_bus/load_weather_event.dart';
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/model/weather_model.dart';
-import 'package:c9p/app/data/provider/api_result.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
-import 'package:c9p/app/utils/log_utils.dart';
+import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/storage_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
 
@@ -22,12 +24,7 @@ class TabMainController extends GetxController {
   final isLoadNearOrder = true.obs;
   final isLoadPromotion = true.obs;
   var lPromotion = List<String>.empty(growable: true).obs;
-
-  @override
-  void onInit() {
-    init();
-    super.onInit();
-  }
+  var isFirstOpen = true;
 
   void onRefresh() {
     getNearOrder();
@@ -35,9 +32,14 @@ class TabMainController extends GetxController {
   }
 
   void init() {
-    getWeather();
-    getNearOrder();
-    getPromotion();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      if (isFirstOpen) {
+        getWeather();
+        getNearOrder();
+        getPromotion();
+        isFirstOpen = false;
+      }
+    });
   }
 
   void getWeather() async {
@@ -91,7 +93,6 @@ class TabMainController extends GetxController {
     bool serviceEnabled;
     PermissionStatus permissionGranted;
     LocationData locationData;
-
     serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
       serviceEnabled = await location.requestService();

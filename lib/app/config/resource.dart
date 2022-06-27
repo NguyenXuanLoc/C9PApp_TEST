@@ -20,6 +20,9 @@ class R {
   static const String assetsPngOrderSuccess = 'assets/png/order_success.png';
   static const String assetsPngBackgroundStatusBar =
       'assets/png/background_status_bar.png';
+  static const String assetsPngItemSplash1 = 'assets/png/item_splash1.png';
+  static const String assetsPngItemSplash2 = 'assets/png/item_splash2.png';
+  static const String assetsPngItemSplash3 = 'assets/png/item_splash3.png';
 
   ///SVG
   static const String assetsLocationLoginSvg = 'assets/svg/location_login.svg';

@@ -2,18 +2,23 @@ import 'dart:async';
 
 import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/config/app_translation.dart';
+import 'package:c9p/app/config/constant.dart';
+import 'package:c9p/app/data/model/LocationModel.dart';
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/provider/api_result.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
-import 'package:c9p/app/theme/colors.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../config/resource.dart';
+import '../../../data/model/address_model.dart';
 
 class OrderController extends GetxController {
   final lDescriptionImage = [
@@ -21,6 +26,15 @@ class OrderController extends GetxController {
     R.assetsPngComSuon9p,
     R.assetsPngComSuon9p,
   ];
+
+  List<String> suggestCount() => [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+      ];
+
   final userProvider = UserProvider();
   final scrollController = ScrollController();
   final pageController = PageController();
@@ -39,14 +53,19 @@ class OrderController extends GetxController {
   final errorDate = ''.obs;
   final errorHours = ''.obs;
   final errorCount = ''.obs;
-  var isSelectAddress = false;
-  var counterAddress = 0;
+  var currentLat = 0.0;
+  var currentLng = 0.0;
+  String? currentAddress;
+  var isSelectAddress = true;
   OrderModel? orderModel;
+  late StreamSubscription<Position> locationStream;
 
   @override
   void onInit() {
+    getCurrentAddress();
     getInfoReOrder();
     switchPageListener();
+    StorageUtils.setIsFirstOrder(false);
     super.onInit();
   }
 
@@ -57,6 +76,7 @@ class OrderController extends GetxController {
       phoneController.text = orderModel?.buyerPhone ?? '';
       addressController.text = orderModel?.toAddress ?? '';
       addressController.text = orderModel?.toAddress ?? '';
+      currentAddress = addressController.text;
       countController.text =
           orderModel?.itemQty != null ? orderModel!.itemQty.toString() : '1';
       deliverTime = orderModel?.deliverTime;
@@ -127,11 +147,7 @@ class OrderController extends GetxController {
     } else {
       errorPhoneNumber.value = '';
     }
-    if (orderModel?.toAddress != null &&
-        !isSelectAddress &&
-        counterAddress == 0) {
-      errorAddress.value = '';
-    } else if (address.isEmpty || !isSelectAddress) {
+    if (address.isEmpty || currentAddress != addressController.text) {
       errorAddress.value = LocaleKeys.please_input_delivery_add.tr;
       isValid = false;
     } else {
@@ -149,7 +165,7 @@ class OrderController extends GetxController {
     } else {
       errorHours.value = '';
     }
-    if (count.isEmpty) {
+    if (count.isEmpty || count == '0') {
       errorCount.value = LocaleKeys.please_input_full_name.tr;
       isValid = false;
     } else {
@@ -158,19 +174,35 @@ class OrderController extends GetxController {
     return isValid;
   }
 
-  void setAddress(String address) {
-    addressController.text = address;
+  void setAddress(Prediction address) {
+    addressController.text = address.structuredFormatting?.secondaryText ?? '';
+    currentAddress = addressController.text;
     isSelectAddress = true;
+    getLocationDetail(address.placeId ?? '');
   }
 
-  List<String> filterAddress(String query) {
-    counterAddress++;
-    isSelectAddress = false;
-    return [
-      'Hà Nội, Hoàn Kiếm, Hà Nội',
-      'Đan Phượng, Hà Nội',
-      'Hair Of The Dog, Bùi Viện, Phạm Ngũ Lão, Quận 1, Thành phố Hồ Chí Minh'
-    ];
+  void getLocationDetail(String placeId) async {
+    var response = await userProvider.getLocationDetail(placeId);
+    if (response.error == null && response.data != null) {
+      var locationModel = LocationModel.fromJson(response.data);
+      currentLng = locationModel.result?.geometry?.location?.lng ?? 0.0;
+      currentLat = locationModel.result?.geometry?.location?.lat ?? 0.0;
+    } else {
+      currentLng = 0.0;
+      currentLat = 0.0;
+    }
+  }
+
+  Future<List<Prediction>> filterAddress(String query) async {
+    isSelectAddress = currentAddress == query ? true : false;
+    var response = await userProvider.getAddress(query);
+    if (response.error == null && response.data != null) {
+      var addressModel = addressModelFromJson(response.data);
+      if (addressModel.status != MessageKey.ZERO_RESULTS) {
+        return addressModel.predictions ?? [];
+      }
+    }
+    return [];
   }
 
   Future<ApiResult> addOrder() async {
@@ -178,53 +210,22 @@ class OrderController extends GetxController {
     var address = addressController.text;
     var phone = phoneController.text;
     var qty = countController.text;
-    var lat = '0';
-    var lng = '0';
     var deliverTimeStr =
-        "${Utils.convertTimeToYYMMDD(deliverTime!)} $deliverHours";
+        "${Utils.convertTimeToYYMMDD(deliverTime!)} ${deliverHours!.replaceAll('.000Z', '')}";
     var productId = '2';
     return await userProvider.addOrder(
         name: name,
         address: address,
         phone: phone,
         qty: qty,
-        lat: lat,
-        lng: lng,
+        lat: '0' /* currentLat.toString()*/,
+        lng: '0' /*currentLng.toString()*/,
         deliverTime: deliverTimeStr,
         productId: productId);
   }
 
   void pickTime(BuildContext context) async {
-    var selectedTime24Hour = await showTimePicker(
-      context: context,
-      useRootNavigator: false,
-      cancelText: LocaleKeys.cancel.tr,
-      confirmText: LocaleKeys.yes.tr,
-      helpText: '',
-      minuteLabelText: LocaleKeys.minutes.tr,
-      hourLabelText: LocaleKeys.hours.tr,
-      initialTime:
-          TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute),
-      builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            colorScheme: const ColorScheme.light(
-              // change the border color
-              primary: colorGreen60,
-              // change the text color
-              onSurface: colorText60,
-            ),
-            // button colors
-            buttonTheme: const ButtonThemeData(
-              colorScheme: ColorScheme.light(
-                primary: Colors.green,
-              ),
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
+    var selectedTime24Hour = await Utils.pickTime(context);
     if (selectedTime24Hour != null) {
       deliverHours = selectedTime24Hour.format(context);
       hourController.text = DateFormat("h:mm a").format(DateTime(
@@ -237,12 +238,35 @@ class OrderController extends GetxController {
     }
   }
 
+  void getCurrentAddress() async {
+    if (Get.arguments != null) return;
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    permission = await Geolocator.checkPermission();
+    if (serviceEnabled && permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse) {
+      locationStream =
+          Geolocator.getPositionStream().listen((Position position) async {
+        List<Placemark> placemark = await placemarkFromCoordinates(
+            position.latitude, position.longitude);
+        Placemark place = placemark[0];
+        isSelectAddress = true;
+        addressController.text =
+            "${place.street}, ${place.subAdministrativeArea}, ${place.administrativeArea}";
+        currentAddress = addressController.text;
+        locationStream.cancel();
+      });
+      var location = await Geolocator.getCurrentPosition();
+      currentLat = location.latitude;
+      currentLng = location.longitude;
+    }
+  }
+
   void pickDate(BuildContext context) => Utils.pickDate(context, (date) {
         deliverTime = date;
         dateController.text = Utils.convertTimeToDDMMYY(date);
       });
-
-  List<String> suggestCount() => ['1', '2', '3', '4'];
 
   void setCount(String count) => countController.text = count;
 

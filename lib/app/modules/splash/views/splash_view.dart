@@ -1,6 +1,7 @@
 import 'package:c9p/app/components/app_scalford.dart';
 import 'package:c9p/app/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -15,11 +16,29 @@ class SplashView extends GetView<SplashController> {
     controller.openHome();
     return AppScaffold(
         fullStatusBar: true,
-        body: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Image.asset(
-              R.assetsBackgroundPng,
-              fit: BoxFit.cover,
-            )));
+        body: Container(
+          color: colorGreen60,
+          child: Column(
+            children: [
+              Image.asset(
+                R.assetsPngItemSplash1,
+                fit: BoxFit.fitWidth,
+              ),
+              const Spacer(),
+              Image.asset(
+                R.assetsPngItemSplash2,
+                height: 110.h,
+              ),
+              SizedBox(
+                height: 100.h,
+              ),
+              const Spacer(),
+              Image.asset(
+                R.assetsPngItemSplash3,
+                fit: BoxFit.fitWidth,
+              ),
+            ],
+          ),
+        ));
   }
 }

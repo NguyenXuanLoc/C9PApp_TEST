@@ -9,6 +9,7 @@ import 'package:c9p/app/data/provider/api_result.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -64,6 +65,7 @@ class OrderController extends GetxController {
     getCurrentAddress();
     getInfoReOrder();
     switchPageListener();
+    StorageUtils.setIsFirstOrder(false);
     super.onInit();
   }
 

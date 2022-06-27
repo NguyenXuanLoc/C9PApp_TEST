@@ -3,6 +3,7 @@ class StorageKey {
 
   static const String CurrentToken = 'CurrentToken';
   static const String AccountInfo = 'AccountInfo';
+  static const String firstOpenOrder = 'firstOpenOrder';
 }
 
 class MessageKey {
@@ -29,6 +30,7 @@ class ApiKey {
   static const lng = 'lng';
   static const deliverTime = 'deliverTime';
   static const product_id = 'product_id';
+  static const uid = 'uid';
 }
 
 class AppConstant {

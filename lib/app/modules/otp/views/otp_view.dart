@@ -122,22 +122,25 @@ class OtpView extends GetView<OtpController> {
                 width: MediaQuery.of(context).size.width,
                 backgroundColor: colorGreen50,
               ),
-              Center(
-                child: Obx(() => Visibility(
-                      visible: controller.startCountDown.value == 0,
-                      child: TextButton(
-                          style: ButtonStyle(
-                              padding: MaterialStateProperty.all(
-                                  const EdgeInsets.all(0))),
-                          onPressed: () =>
-                              controller.startTimer(isVerify: true),
-                          child: AppText(
-                            LocaleKeys.resent_otp.tr,
-                            style: typoSmallTextBold.copyWith(
-                                decoration: TextDecoration.underline,
-                                color: colorGreen50),
-                          )),
-                    )),
+              Visibility(
+                visible: false,
+                child: Center(
+                  child: Obx(() => Visibility(
+                        visible: controller.startCountDown.value == 0,
+                        child: TextButton(
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all(
+                                    const EdgeInsets.all(0))),
+                            onPressed: () =>
+                                controller.startTimer(isVerify: true),
+                            child: AppText(
+                              LocaleKeys.resent_otp.tr,
+                              style: typoSmallTextBold.copyWith(
+                                  decoration: TextDecoration.underline,
+                                  color: colorGreen50),
+                            )),
+                      )),
+                ),
               )
             ],
           )),

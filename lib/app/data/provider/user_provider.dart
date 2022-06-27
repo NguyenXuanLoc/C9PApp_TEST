@@ -59,4 +59,12 @@ class UserProvider extends BaseProvider {
         baseUrl: 'https://api.openweathermap.org/data/2.5/',
         isNewFormat: true);
   }
+
+  Future<ApiResult> login(String uid) async =>
+      await POST('user/firebase', {ApiKey.uid: uid});
+
+  Future<ApiResult> updateProfile(String fullName) async =>
+      await POST('user/info', {ApiKey.name: fullName});
+
+  Future<ApiResult> getProfile() async => await GET('user/info');
 }

@@ -18,160 +18,238 @@ import '../../../theme/colors.dart';
 import '../controllers/update_profile_controller.dart';
 
 class UpdateProfileView extends GetView<UpdateProfileController> {
+  const UpdateProfileView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
         fullStatusBar: true,
         isTabToHideKeyBoard: true,
-        body: Column(
-          children: [
-            Stack(
-              children: [
-                SizedBox(
-                  height: 160.h,
-                ),
-                SizedBox(
-                  height: 120.h,
-                  width: MediaQuery.of(context).size.width,
-                  child: Image.asset(R.assetsBackgroundHeaderTabMainPng,
-                      fit: BoxFit.fitWidth),
-                ),
-                Positioned.fill(
-                  top: MediaQuery.of(context).padding.top + 10.h,
-                  left: contentPadding,
-                  right: contentPadding,
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: Row(
-                      children: [
-                        IconButton(
-                          splashRadius: 20,
-                          padding: const EdgeInsets.all(0),
-                          constraints: const BoxConstraints(minWidth: 20),
-                          icon: SvgPicture.asset(
-                            R.assetsBackSvg,
-                            color: colorWhite,
-                            fit: BoxFit.cover,
-                          ),
-                          onPressed: () => Get.back(),
-                        ),
-                        const Spacer(),
-                        AppText(
-                          LocaleKeys.account.tr,
-                          style: typoMediumTextBold.copyWith(
-                              color: colorText0, fontWeight: FontWeight.w600),
-                        ),
-                        const Spacer(),
-                        SvgPicture.asset(
+        appbar: AppBar(
+          leading: SizedBox(
+            width: 20.w,
+            child: IconButton(
+                splashRadius: 20,
+                padding: const EdgeInsets.all(0),
+                onPressed: () => Get.back(),
+                icon: SvgPicture.asset(
+                  R.assetsBackSvg,
+                  color: colorWhite,
+                )),
+          ),
+          centerTitle: true,
+          title: AppText(
+            LocaleKeys.account.tr,
+            style: typoMediumTextBold.copyWith(
+                color: colorText0, fontWeight: FontWeight.w600),
+          ),
+          flexibleSpace: Container(
+            alignment: Alignment.bottomCenter,
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(R.assetsBackgroundHeaderTabMainPng),
+                    fit: BoxFit.fitWidth)),
+          ),
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(contentPadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              AppText(
+                LocaleKeys.full_name.tr,
+                style: typoSuperSmallTextBold,
+              ),
+              itemSpace(),
+              Obx(() => AppTextField(
+                    controller: controller.fullNameController,
+                    errorText: controller.errorFullName.value,
+                    textInputAction: TextInputAction.next,
+                    textStyle:
+                        typoSuperSmallTextBold.copyWith(color: colorText60),
+                    decoration: decorTextFieldOval,
+                  )),
+              AppText(
+                LocaleKeys.phone_number.tr,
+                style: typoSuperSmallTextBold,
+              ),
+              itemSpace(),
+              AppTextField(
+                controller: controller.phoneController,
+                readOnly: true,
+                textInputAction: TextInputAction.next,
+                textStyle: typoSuperSmallTextBold.copyWith(color: colorText60),
+                decoration: decorTextFieldOval,
+              ),
+              const Spacer(),
+              AppButton(
+                onPress: () => controller.updateProfile(context),
+                title: LocaleKeys.update.tr,
+                textStyle: typoSmallTextBold.copyWith(color: colorText60),
+                width: MediaQuery.of(context).size.width,
+                height: 37.h,
+                borderRadius: 17,
+                backgroundColor: colorGrey10,
+              ),
+              const SizedBox(
+                height: 30,
+              )
+            ],
+          ),
+        ));
+  }
+
+  Widget oldWidget(BuildContext context) => Column(
+        children: [
+          Stack(
+            children: [
+              SizedBox(
+                height: 160.h,
+              ),
+              SizedBox(
+                height: 120.h,
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset(R.assetsBackgroundHeaderTabMainPng,
+                    fit: BoxFit.fitWidth),
+              ),
+              Positioned.fill(
+                top: MediaQuery.of(context).padding.top + 10.h,
+                left: contentPadding,
+                right: contentPadding,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Row(
+                    children: [
+                      IconButton(
+                        splashRadius: 20,
+                        padding: const EdgeInsets.all(0),
+                        constraints: const BoxConstraints(minWidth: 20),
+                        icon: SvgPicture.asset(
                           R.assetsBackSvg,
-                          color: Colors.transparent,
+                          color: colorWhite,
                           fit: BoxFit.cover,
                         ),
-                      ],
-                    ),
+                        onPressed: () => Get.back(),
+                      ),
+                      const Spacer(),
+                      AppText(
+                        LocaleKeys.account.tr,
+                        style: typoMediumTextBold.copyWith(
+                            color: colorText0, fontWeight: FontWeight.w600),
+                      ),
+                      const Spacer(),
+                      SvgPicture.asset(
+                        R.assetsBackSvg,
+                        color: Colors.transparent,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
                   ),
                 ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: colorWarning10,
-                            borderRadius: BorderRadius.circular(100),
-                            border: Border.all(color: colorYellow100, width: 1),
-                          ),
-                          child: Obx(() => AppCircleImage(
-                              uri: controller.imageUri.value,
-                              size: 90.w,
-                              url:
-                                  'https://vcdn-dulich.vnecdn.net/2020/09/04/1-Meo-chup-anh-dep-khi-di-bien-9310-1599219010.jpg',
-                              urlError: '')),
+              ),
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: colorWarning10,
+                          borderRadius: BorderRadius.circular(100),
+                          border: Border.all(color: colorYellow100, width: 1),
                         ),
-                        Positioned.fill(
-                            child: Container(
-                          // padding: const EdgeInsets.only(bottom: 10, left: 10),
-                          alignment: Alignment.bottomRight,
-                          child: InkWell(
-                            onTap: () => dialogPickImage(context),
-                            child: SvgPicture.asset(R.assetsSvgPen),
-                          ),
-                        ))
-                      ],
-                    ),
+                        child: Obx(() => AppCircleImage(
+                            uri: controller.imageUri.value,
+                            size: 90.w,
+                            url:
+                                'https://vcdn-dulich.vnecdn.net/2020/09/04/1-Meo-chup-anh-dep-khi-di-bien-9310-1599219010.jpg',
+                            urlError: '')),
+                      ),
+                      Positioned.fill(
+                          child: Container(
+                        // padding: const EdgeInsets.only(bottom: 10, left: 10),
+                        alignment: Alignment.bottomRight,
+                        child: InkWell(
+                          onTap: () => dialogPickImage(context),
+                          child: SvgPicture.asset(R.assetsSvgPen),
+                        ),
+                      ))
+                    ],
                   ),
+                ),
+              )
+            ],
+          ),
+          Expanded(
+              child: Padding(
+            padding: EdgeInsets.all(contentPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText(
+                  LocaleKeys.full_name.tr,
+                  style: typoSuperSmallTextBold,
+                ),
+                itemSpace(),
+                AppTextField(
+                  textInputAction: TextInputAction.next,
+                  textStyle:
+                      typoSuperSmallTextBold.copyWith(color: colorText60),
+                  decoration: decorTextFieldOval,
+                ),
+                AppText(
+                  LocaleKeys.phone_number.tr,
+                  style: typoSuperSmallTextBold,
+                ),
+                itemSpace(),
+                AppTextField(
+                  textInputAction: TextInputAction.next,
+                  textStyle:
+                      typoSuperSmallTextBold.copyWith(color: colorText60),
+                  decoration: decorTextFieldOval,
+                ),
+                AppText(
+                  LocaleKeys.sex.tr,
+                  style: typoSuperSmallTextBold,
+                ),
+                itemSpace(),
+                Container(
+                  padding: EdgeInsets.only(left: 12.w),
+                  height: 34.h,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: colorGreen60),
+                      borderRadius: BorderRadius.circular(17)),
+                  child: Row(
+                    children: [
+                      Obx(() => sexWidget(
+                          controller.isMale.value, LocaleKeys.male.tr)),
+                      const SizedBox(
+                        width: 30,
+                      ),
+                      Obx(() => sexWidget(
+                          !controller.isMale.value, LocaleKeys.female.tr)),
+                    ],
+                  ),
+                ),
+                Spacer(),
+                AppButton(
+                  onPress: () {},
+                  title: LocaleKeys.update.tr,
+                  textStyle: typoSmallTextBold.copyWith(color: colorText60),
+                  width: MediaQuery.of(context).size.width,
+                  height: 37.h,
+                  borderRadius: 17,
+                  backgroundColor: colorGrey10,
                 )
               ],
             ),
-            Expanded(
-                child: Padding(
-              padding: EdgeInsets.all(contentPadding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    LocaleKeys.full_name.tr,
-                    style: typoSuperSmallTextBold,
-                  ),
-                  itemSpace(),
-                  AppTextField(
-                    textInputAction: TextInputAction.next,
-                    textStyle:
-                        typoSuperSmallTextBold.copyWith(color: colorText60),
-                    decoration: decorTextFieldOval,
-                  ),
-                  AppText(
-                    LocaleKeys.phone_number.tr,
-                    style: typoSuperSmallTextBold,
-                  ),
-                  itemSpace(),
-                  AppTextField(
-                    textInputAction: TextInputAction.next,
-                    textStyle:
-                        typoSuperSmallTextBold.copyWith(color: colorText60),
-                    decoration: decorTextFieldOval,
-                  ),
-                  AppText(
-                    LocaleKeys.sex.tr,
-                    style: typoSuperSmallTextBold,
-                  ),
-                  itemSpace(),
-                  Container(
-                    padding: EdgeInsets.only(left: 12.w),
-                    height: 34.h,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: colorGreen60),
-                        borderRadius: BorderRadius.circular(17)),
-                    child: Row(
-                      children: [
-                        Obx(() => sexWidget(
-                            controller.isMale.value, LocaleKeys.male.tr)),
-                        const SizedBox(
-                          width: 30,
-                        ),
-                        Obx(() => sexWidget(
-                            !controller.isMale.value, LocaleKeys.female.tr)),
-                      ],
-                    ),
-                  ),
-                  Spacer(),
-                  AppButton(
-                    onPress: () {},
-                    title: LocaleKeys.update.tr,
-                    textStyle: typoSmallTextBold.copyWith(color: colorText60),
-                    width: MediaQuery.of(context).size.width,
-                    height: 37.h,
-                    borderRadius: 17,
-                    backgroundColor: colorGrey10,
-                  )
-                ],
-              ),
-            ))
-          ],
-        ));
-  }
+          ))
+        ],
+      );
 
   Widget sexWidget(bool isMale, String title) => Row(
         children: [

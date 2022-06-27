@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
+import 'package:location/location.dart';
 import '../components/date_picker.dart';
 import '../config/app_translation.dart';
 import '../theme/colors.dart';
@@ -108,7 +109,7 @@ class Utils {
   static String convertTimeToDDMMYYHHMMSS(DateTime time) =>
       DateFormat('dd/MM/yyy hh:mm:ss').format(time);
 
- static Future<TimeOfDay?> pickTime(BuildContext context) async =>
+  static Future<TimeOfDay?> pickTime(BuildContext context) async =>
       await showTimePicker(
         context: context,
         useRootNavigator: false,
@@ -141,4 +142,18 @@ class Utils {
       );
 
   bool isLogin() => globals.isLogin;
+
+  static Future<void> requestPermissionLocation() async {
+    Location location = Location();
+    bool serviceEnabled;
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+    }
+    var permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+    }
+    await location.hasPermission();
+  }
 }

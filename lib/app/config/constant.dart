@@ -18,7 +18,7 @@ class MessageKey {
 
 class ApiKey {
   static const EXAMINED = 'EXAMINED';
-  static const api_key_weather = 'cd796c5f287c96f21b833827def34ef1'; // weather
+  static const api_key_weather = '0e1fae855949e83b906ee6dcc00708f9'; // weather
   static const api_key_google_map =
       'AIzaSyDTWuJevSvP9yY0-77_ezp52qimoZnmamY'; // weather
 

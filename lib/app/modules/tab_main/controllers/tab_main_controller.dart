@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:c9p/app/data/event_bus/load_weather_event.dart';
 import 'package:c9p/app/data/model/order_model.dart';
+import 'package:c9p/app/data/model/promotion_model.dart';
 import 'package:c9p/app/data/model/weather_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
@@ -23,7 +24,7 @@ class TabMainController extends GetxController {
   final lNearOrder = List<OrderModel>.empty(growable: true).obs;
   final isLoadNearOrder = true.obs;
   final isLoadPromotion = true.obs;
-  var lPromotion = List<String>.empty(growable: true).obs;
+  var lPromotion = List<PromotionModel>.empty(growable: true).obs;
   var isFirstOpen = true;
 
   void onRefresh() {
@@ -59,20 +60,12 @@ class TabMainController extends GetxController {
     }
   }
 
-  void getPromotion() {
+  void getPromotion() async {
     isLoadPromotion.value = true;
-    lPromotion.value = [
-      'https://megatop.vn/wp-content/uploads/2019/12/ma-khuyen-mai-grabfood-6.jpg',
-      'https://dinkynguyentrai.com.vn/wp-content/uploads/2020/07/104590520_3181198648585847_4711719218630492232_o.jpg',
-      'https://megatop.vn/wp-content/uploads/2019/12/ma-khuyen-mai-grabfood-6.jpg'
-    ];
-/*    Timer(const Duration(seconds: 1), () {
-      lPromotion.value = [
-        'https://megatop.vn/wp-content/uploads/2019/12/ma-khuyen-mai-grabfood-6.jpg',
-        'https://dinkynguyentrai.com.vn/wp-content/uploads/2020/07/104590520_3181198648585847_4711719218630492232_o.jpg',
-        'https://megatop.vn/wp-content/uploads/2019/12/ma-khuyen-mai-grabfood-6.jpg'
-      ];
-    });*/
+    var response = await userProvider.gePromotion();
+    if (response.error == null && response.data != null) {
+      lPromotion.value = promotionModelFromJson(response.data['data']);
+    }
     isLoadPromotion.value = false;
   }
 

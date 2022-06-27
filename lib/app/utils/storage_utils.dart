@@ -13,11 +13,15 @@ class StorageUtils {
 
   static Future<void> getUser() async {
     var userString = await GetStorage().read(StorageKey.AccountInfo);
-    if (userString != null) {
-      var userModel = UserModel.fromJson(userString);
-      globals.isLogin = true;
-      globals.accessToken = userModel.data?.bearerToken?.token ?? '';
-    } else {
+    try {
+      if (userString != null) {
+        var userModel = UserModel.fromJson(userString);
+        globals.isLogin = true;
+        globals.accessToken = userModel.data?.bearerToken?.token ?? '';
+      } else {
+        globals.isLogin = false;
+      }
+    } catch (ex) {
       globals.isLogin = false;
     }
   }

@@ -67,4 +67,6 @@ class UserProvider extends BaseProvider {
       await POST('user/info', {ApiKey.name: fullName});
 
   Future<ApiResult> getProfile() async => await GET('user/info');
+
+  Future<ApiResult> gePromotion() async => await GET('banner');
 }

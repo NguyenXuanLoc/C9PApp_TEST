@@ -419,40 +419,39 @@ class TabMainView extends GetView<TabMainController> {
   }
 
   Widget promotionWidget(BuildContext context) {
-    return Obx(
-        () => controller.isLoadPromotion.value && controller.lPromotion.isEmpty
-            ? const AppCircleLoading()
-            : controller.lPromotion.isEmpty
-                ? const AppNotDataWidget()
-                : CarouselSlider(
-                    options: CarouselOptions(
-                        height: MediaQuery.of(context).size.width / 3.2,
-                        viewportFraction: 0.85,
-                        autoPlayInterval: const Duration(seconds: 2),
-                        enlargeCenterPage: true,
-                        enableInfiniteScroll: false,
-                        enlargeStrategy: CenterPageEnlargeStrategy.height,
-                        autoPlay: true),
-                    items: controller.lPromotion.map((i) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 5, right: 5),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width,
-                                child: AppNetworkImage(
-                                  fit: BoxFit.cover,
-                                  source: i,
-                                ),
-                              ),
+    return Obx(() => controller.isLoadPromotion.value
+        ? const AppCircleLoading()
+        : controller.lPromotion.isEmpty
+            ? const AppNotDataWidget()
+            : CarouselSlider(
+                options: CarouselOptions(
+                    height: MediaQuery.of(context).size.width / 3.2,
+                    viewportFraction: 0.85,
+                    autoPlayInterval: const Duration(seconds: 2),
+                    enlargeCenterPage: true,
+                    enableInfiniteScroll: false,
+                    enlargeStrategy: CenterPageEnlargeStrategy.height,
+                    autoPlay: true),
+                items: controller.lPromotion.map((model) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 5, right: 5),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: AppNetworkImage(
+                              fit: BoxFit.cover,
+                              source: model.imageUrl,
                             ),
-                          );
-                        },
+                          ),
+                        ),
                       );
-                    }).toList(),
-                  ));
+                    },
+                  );
+                }).toList(),
+              ));
   }
 
   Widget optionWidget(String resource, String title, TabMainAction action) =>

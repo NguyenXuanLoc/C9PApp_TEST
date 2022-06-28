@@ -26,6 +26,7 @@ class TabMainController extends GetxController {
   final isLoadPromotion = true.obs;
   var lPromotion = List<PromotionModel>.empty(growable: true).obs;
   var isFirstOpen = true;
+  final fullName = ''.obs;
 
   void onRefresh() {
     getNearOrder();
@@ -38,11 +39,17 @@ class TabMainController extends GetxController {
         getWeather();
         getNearOrder();
         getPromotion();
+        getUserInfo();
         isFirstOpen = false;
       }
     });
   }
-
+void getUserInfo()async{
+    var userModel = await StorageUtils.getUser();
+    if(userModel !=null){
+      fullName.value = userModel.data?.userData?.name ??'';
+    }
+}
   void getWeather() async {
     var locationData = await getLocation();
     if (locationData != null) {

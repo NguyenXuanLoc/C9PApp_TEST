@@ -18,11 +18,14 @@ class StorageUtils {
         var userModel = UserModel.fromJson(userString);
         globals.isLogin = true;
         globals.accessToken = userModel.data?.token?.token ?? '';
+        globals.isNeedUpdateProfile = userModel.needUpdate ?? true;
         return userModel;
       } else {
+        globals.isNeedUpdateProfile = true;
         globals.isLogin = false;
       }
     } catch (ex) {
+      globals.isNeedUpdateProfile = true;
       globals.isLogin = false;
     }
     return null;

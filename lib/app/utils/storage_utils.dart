@@ -21,6 +21,8 @@ class StorageUtils {
         globals.isLogin = true;
         globals.accessToken = userModel.data?.token?.token ?? '';
         globals.isNeedUpdateProfile = userModel.needUpdate ?? true;
+        globals.userName = userModel.data?.userData?.name ?? '';
+        globals.phoneNumber = userModel.data?.userData?.phone ?? '';
         return userModel;
       } else {
         globals.isNeedUpdateProfile = true;

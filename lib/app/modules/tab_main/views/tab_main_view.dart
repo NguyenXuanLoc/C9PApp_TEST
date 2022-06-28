@@ -289,7 +289,7 @@ class TabMainView extends GetView<TabMainController> {
             controller.lNearOrder.isNotEmpty
         ? const AppCircleLoading()
         : !controller.isLoadNearOrder.value && controller.lNearOrder.isEmpty
-            ? const AppNotDataWidget()
+            ? AppNotDataWidget(message: LocaleKeys.not_order_pull_to_refresh.tr)
             : ListView.separated(
                 padding: const EdgeInsets.all(0),
                 shrinkWrap: true,

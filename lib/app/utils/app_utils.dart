@@ -100,8 +100,8 @@ class Utils {
   static String convertTimeToDDMMYY(DateTime time) =>
       DateFormat('dd-MM-yyyy').format(time).toString().split(' ')[0];
 
-  static String convertTimeToHHMMSS(DateTime time) =>
-      DateFormat('hh:mm:ss').format(time);
+  static String convertTimeToHHMM(DateTime time) =>
+      DateFormat.Hm().format(time);
 
   static String formatMoney(int money) =>
       NumberFormat('#,###,###,#,###,###,###', 'vi').format(money);
@@ -156,4 +156,6 @@ class Utils {
     }
     await location.hasPermission();
   }
+
+ static String convertTimeToHHMMA(DateTime time) => DateFormat("h:mma").format(time);
 }

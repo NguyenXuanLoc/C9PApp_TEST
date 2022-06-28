@@ -99,6 +99,7 @@ class LocaleKeys {
   static const minutes = 'minutes';
   static const not_data_pull_to_refresh = 'not_data_pull_to_refresh';
   static const not_find_address_please_try_again = 'not_find_address_please_try_again';
+  static const not_order_pull_to_refresh = 'not_order_pull_to_refresh';
 }
 
 class Locales {
@@ -187,6 +188,7 @@ class Locales {
     'hours': 'Giờ',
     'minutes': 'Phút',
     'not_data_pull_to_refresh': 'Không có dữ liệu\nKéo xuống để tải lại.',
+    'not_order_pull_to_refresh': 'Chưa có đơn hàng\nKéo xuống để tải lại.',
     'not_find_address_please_try_again': 'Không tìm thấy địa chỉ, vui lòng thử lại',
     'order_succes_choose_option':
         'Đơn hàng của bạn đã được đặt thành công. Vui lòng chọn các thao tác phía dưới',

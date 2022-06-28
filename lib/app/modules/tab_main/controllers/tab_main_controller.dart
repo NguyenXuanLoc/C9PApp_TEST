@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:c9p/app/data/event_bus/load_weather_event.dart';
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/model/promotion_model.dart';
 import 'package:c9p/app/data/model/weather_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
+import 'package:c9p/app/utils/app_utils.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -26,6 +28,7 @@ class TabMainController extends GetxController {
   var isFirstOpen = true;
   final fullName = ''.obs;
   var countLoadWeather = 1;
+  StreamSubscription<LoadWeatherEvent>? _weatherStream;
 
   void onRefresh() {
     getNearOrder();
@@ -41,6 +44,10 @@ class TabMainController extends GetxController {
         getUserInfo();
         isFirstOpen = false;
       }
+    });
+    _weatherStream = Utils.eventBus.on<LoadWeatherEvent>().listen((event) {
+      checkWeather();
+      _weatherStream?.cancel();
     });
   }
 
@@ -113,26 +120,13 @@ class TabMainController extends GetxController {
 
   Future<LocationData?> getLocation() async {
     Location location = Location();
-    bool serviceEnabled;
-    PermissionStatus permissionGranted;
-    LocationData locationData;
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        return null;
-      }
+    if (await StorageUtils.isFirstOrder()) return null;
+    await Utils.requestPermissionLocation();
+    if (!await location.serviceEnabled() ||
+        await location.hasPermission() == PermissionStatus.denied) {
+      return null;
     }
-
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return null;
-      }
-    }
-    locationData = await location.getLocation();
-    return locationData;
+    return await location.getLocation();
   }
 
   void openOrderDetail(OrderModel model) =>

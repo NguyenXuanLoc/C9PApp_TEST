@@ -36,7 +36,9 @@ class OtpController extends GetxController {
       await FirebaseAuth.instance.verifyPhoneNumber(
           phoneNumber: Utils.standardizePhoneNumber(phoneNumber.value),
           verificationCompleted: (PhoneAuthCredential credential) async {},
-          verificationFailed: (FirebaseAuthException e) {},
+          verificationFailed: (FirebaseAuthException e) {
+            toast(e.toString());
+          },
           codeSent: (String verificationId, int? resendToken) {
             this.verificationId = verificationId;
           },
@@ -44,7 +46,9 @@ class OtpController extends GetxController {
             verificationId = verification;
           },
           timeout: const Duration(seconds: 120));
-    } catch (ex) {}
+    } catch (ex) {
+      toast(ex.toString());
+    }
   }
 
   void setPin(String pin) => this.pin = pin;

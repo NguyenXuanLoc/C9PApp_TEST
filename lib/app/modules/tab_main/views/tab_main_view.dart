@@ -65,12 +65,12 @@ class TabMainView extends GetView<TabMainController> {
                             children: [
                               Row(
                                 children: [
-                                  AppText(
-                                    "Xin chào Hyun trang!",
-                                    style: typoSmallTextBold.copyWith(
-                                        color: colorText0,
-                                        fontWeight: FontWeight.w700),
-                                  ),
+                                  Obx(() => AppText(
+                                        "Xin chào${controller.fullName.value.isNotEmpty ? " ${controller.fullName.value}" : ''}!",
+                                        style: typoSmallTextBold.copyWith(
+                                            color: colorText0,
+                                            fontWeight: FontWeight.w700),
+                                      )),
                                   const SizedBox(
                                     width: 5,
                                   ),

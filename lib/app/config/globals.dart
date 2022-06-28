@@ -11,6 +11,7 @@ String accountId = '';
 String userName = '';
 
 bool isLogin = false;
+bool isNeedUpdateProfile = true;
 int timePackageRemaining = 0;
 int timeOut = 30;
 

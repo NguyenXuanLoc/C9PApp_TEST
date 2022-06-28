@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/components/otp_widget.dart';
@@ -8,10 +7,10 @@ import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/data/model/user_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
-import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -84,7 +83,9 @@ class OtpController extends GetxController {
   }
 
   Future<void> _handleLogin(UserCredential model) async {
-    var response = await userProvider.login(model.user!.uid);
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    var deviceToken = await messaging.getToken();
+    var response = await userProvider.login(model.user!.uid, deviceToken ?? '');
     await Dialogs.hideLoadingDialog();
     if (response.error == null && response.data != null) {
       try {

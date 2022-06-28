@@ -65,6 +65,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
               ),
               itemSpace(),
               Obx(() => AppTextField(
+                    onChanged: (text) => controller.setDisableButton(text),
                     controller: controller.fullNameController,
                     errorText: controller.errorFullName.value,
                     textInputAction: TextInputAction.next,
@@ -85,15 +86,21 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                 decoration: decorTextFieldOval,
               ),
               const Spacer(),
-              AppButton(
-                onPress: () => controller.updateProfile(context),
-                title: LocaleKeys.update.tr,
-                textStyle: typoSmallTextBold.copyWith(color: colorText60),
-                width: MediaQuery.of(context).size.width,
-                height: 37.h,
-                borderRadius: 17,
-                backgroundColor: colorGrey10,
-              ),
+              Obx(() => AppButton(
+                    disable: controller.isDisableButton.value,
+                    onPress: () => controller.updateProfile(context),
+                    title: LocaleKeys.update.tr,
+                    textStyle: typoSmallTextBold.copyWith(
+                        color: controller.isDisableButton.value
+                            ? colorText60
+                            : colorText0),
+                    width: MediaQuery.of(context).size.width,
+                    height: 37.h,
+                    borderRadius: 17,
+                    backgroundColor: controller.isDisableButton.value
+                        ? colorGrey10
+                        : colorGreen60,
+                  )),
               const SizedBox(
                 height: 30,
               )
@@ -235,7 +242,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 AppButton(
                   onPress: () {},
                   title: LocaleKeys.update.tr,

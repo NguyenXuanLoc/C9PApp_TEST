@@ -20,6 +20,7 @@ class HomeController extends GetxController {
       isOpenOrder = Get.arguments;
       if (isOpenOrder) {
         await Get.toNamed(Routes.ORDER);
+        Utils.fireEvent(LoadWeatherEvent());
       }
     } catch (ex) {}
     super.onReady();

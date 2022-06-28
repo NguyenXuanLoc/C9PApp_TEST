@@ -16,9 +16,10 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
+import 'package:c9p/app/config/globals.dart' as globals;
 import '../../../config/resource.dart';
 import '../../../data/model/address_model.dart';
+import '../../../utils/log_utils.dart';
 
 class OrderController extends GetxController {
   final lDescriptionImage = [
@@ -44,7 +45,7 @@ class OrderController extends GetxController {
   final dateController = TextEditingController();
   final hourController = TextEditingController();
   final countController = TextEditingController();
-  DateTime? deliverTime;
+  DateTime? deliverDate;
   String? deliverHours;
   final currentIndex = 0.obs;
   final errorFullName = ''.obs;
@@ -65,8 +66,13 @@ class OrderController extends GetxController {
     getCurrentAddress();
     getInfoReOrder();
     switchPageListener();
-    StorageUtils.setIsFirstOrder(false);
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    StorageUtils.setIsFirstOrder(false);
+    super.onReady();
   }
 
   void getInfoReOrder() {
@@ -79,14 +85,24 @@ class OrderController extends GetxController {
       currentAddress = addressController.text;
       countController.text =
           orderModel?.itemQty != null ? orderModel!.itemQty.toString() : '1';
-      deliverTime = orderModel?.deliverTime;
+      deliverDate = orderModel?.deliverTime;
       deliverHours = orderModel?.deliverTime.toString().split(' ')[1];
       dateController.text =
-          Utils.convertTimeToDDMMYY(deliverTime ?? DateTime.now());
+          Utils.convertTimeToDDMMYY(deliverDate ?? DateTime.now());
       hourController.text =
-          Utils.convertTimeToHHMMSS(deliverTime ?? DateTime.now());
+          Utils.convertTimeToHHMM(deliverDate ?? DateTime.now());
       hourController.text =
           DateFormat("h:mma").format(orderModel?.deliverTime ?? DateTime.now());
+    } else {
+      fullNameController.text = globals.userName;
+      phoneController.text = globals.phoneNumber.replaceAll('+84', '0');
+
+      var currentTime = DateTime.fromMillisecondsSinceEpoch(
+          DateTime.now().millisecondsSinceEpoch + AppConstant.FIFTEN_MINIUTES);
+      deliverHours = Utils.convertTimeToHHMM(currentTime);
+      hourController.text = Utils.convertTimeToHHMMA(currentTime);
+      deliverDate = DateTime.now();
+      dateController.text = Utils.convertTimeToDDMMYY(DateTime.now());
     }
   }
 
@@ -166,7 +182,7 @@ class OrderController extends GetxController {
       errorHours.value = '';
     }
     if (count.isEmpty || count == '0') {
-      errorCount.value = LocaleKeys.please_input_full_name.tr;
+      errorCount.value = LocaleKeys.please_input_count.tr;
       isValid = false;
     } else {
       errorCount.value = '';
@@ -211,7 +227,7 @@ class OrderController extends GetxController {
     var phone = phoneController.text;
     var qty = countController.text;
     var deliverTimeStr =
-        "${Utils.convertTimeToYYMMDD(deliverTime!)} ${deliverHours!.replaceAll('.000Z', '')}";
+        "${Utils.convertTimeToYYMMDD(deliverDate!)} ${deliverHours!.replaceAll('.000Z', '')}";
     var productId = '2';
     return await userProvider.addOrder(
         name: name,
@@ -240,6 +256,7 @@ class OrderController extends GetxController {
 
   void getCurrentAddress() async {
     if (Get.arguments != null) return;
+    await Utils.requestPermissionLocation();
     bool serviceEnabled;
     LocationPermission permission;
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -264,14 +281,9 @@ class OrderController extends GetxController {
   }
 
   void pickDate(BuildContext context) => Utils.pickDate(context, (date) {
-        deliverTime = date;
+        deliverDate = date;
         dateController.text = Utils.convertTimeToDDMMYY(date);
       });
 
   void setCount(String count) => countController.text = count;
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
 }

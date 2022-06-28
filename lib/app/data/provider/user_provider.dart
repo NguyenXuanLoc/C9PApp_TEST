@@ -60,8 +60,8 @@ class UserProvider extends BaseProvider {
         isNewFormat: true);
   }
 
-  Future<ApiResult> login(String uid) async =>
-      await POST('user/firebase', {ApiKey.uid: uid});
+  Future<ApiResult> login(String uid, String deviceToken) async => await POST(
+      'user/firebase', {ApiKey.uid: uid, ApiKey.device_token: deviceToken});
 
   Future<ApiResult> updateProfile(String fullName) async =>
       await POST('user/info', {ApiKey.name: fullName});

@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:c9p/app/data/event_bus/load_weather_event.dart';
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/model/promotion_model.dart';
 import 'package:c9p/app/data/model/weather_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
-import 'package:c9p/app/utils/app_utils.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -27,6 +25,7 @@ class TabMainController extends GetxController {
   var lPromotion = List<PromotionModel>.empty(growable: true).obs;
   var isFirstOpen = true;
   final fullName = ''.obs;
+  var countLoadWeather = 1;
 
   void onRefresh() {
     getNearOrder();
@@ -36,7 +35,7 @@ class TabMainController extends GetxController {
   void init() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       if (isFirstOpen) {
-        getWeather();
+        checkWeather();
         getNearOrder();
         getPromotion();
         getUserInfo();
@@ -44,25 +43,49 @@ class TabMainController extends GetxController {
       }
     });
   }
-void getUserInfo()async{
+
+  void getUserInfo() async {
     var userModel = await StorageUtils.getUser();
-    if(userModel !=null){
-      fullName.value = userModel.data?.userData?.name ??'';
+    if (userModel != null) {
+      fullName.value = userModel.data?.userData?.name ?? '';
     }
-}
-  void getWeather() async {
+  }
+
+  void checkWeather() async {
+    var isRequestWeather = await StorageUtils.isRequestWeather();
+    var weatherCache = await StorageUtils.getWeather();
+
+    if (isRequestWeather || weatherCache == null) {
+      getWeatherOnline();
+    } else {
+      weatherModel.value = weatherCache;
+      weatherDetail.value = weatherModel.value.weather?[0] ?? Weather();
+      weatherDetail.value.icon =
+          "${AppConstant.URL_WEATHER_ICON}${weatherDetail.value.icon!}@2x.png";
+      weatherDescription.value =
+          weatherDetail.value.description!.substring(0, 1).toUpperCase() +
+              weatherDetail.value.description!.substring(1);
+    }
+  }
+
+  void getWeatherOnline() async {
     var locationData = await getLocation();
     if (locationData != null) {
       var weatherResponse = await userProvider.getWeather(
           locationData.latitude!, locationData.longitude!);
       if (weatherResponse.error == null && weatherResponse.data != null) {
         weatherModel.value = weatherModelFromJson(weatherResponse.data);
+        StorageUtils.saveWeather(weatherModel.value);
         weatherDetail.value = weatherModel.value.weather?[0] ?? Weather();
         weatherDetail.value.icon =
             "${AppConstant.URL_WEATHER_ICON}${weatherDetail.value.icon!}@2x.png";
         weatherDescription.value =
             weatherDetail.value.description!.substring(0, 1).toUpperCase() +
                 weatherDetail.value.description!.substring(1);
+      } else {
+        if (countLoadWeather > 3) return;
+        Timer(const Duration(minutes: 1), () => getWeatherOnline());
+        countLoadWeather++;
       }
     }
   }

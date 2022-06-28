@@ -4,6 +4,8 @@ class StorageKey {
   static const String CurrentToken = 'CurrentToken';
   static const String AccountInfo = 'AccountInfo';
   static const String firstOpenOrder = 'firstOpenOrder';
+  static const String scheduleWeather = 'scheduleWeather';
+  static const String weather = 'weather';
 }
 
 class MessageKey {
@@ -13,7 +15,7 @@ class MessageKey {
   static const String otp_invalid =
       'The sms verification code used to create the phone auth credential is invalid';
   static const String otp_expired = 'The sms code has expired';
-  static const String ZERO_RESULTS ='ZERO_RESULTS';
+  static const String ZERO_RESULTS = 'ZERO_RESULTS';
 }
 
 class ApiKey {
@@ -31,9 +33,11 @@ class ApiKey {
   static const deliverTime = 'deliverTime';
   static const product_id = 'product_id';
   static const uid = 'uid';
+  static const device_token = 'device_token';
 }
 
 class AppConstant {
+  static const ONE_DAY = 86400000; //mini giay
   static const URL_WEATHER_ICON = 'http://openweathermap.org/img/wn/';
   static const URL_WEATHER_ICON_DEFAULT =
       'http://openweathermap.org/img/wn/01d@2x.png';

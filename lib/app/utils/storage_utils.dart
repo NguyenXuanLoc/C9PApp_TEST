@@ -1,6 +1,8 @@
 import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/config/globals.dart';
 import 'package:c9p/app/data/model/user_model.dart';
+import 'package:c9p/app/data/model/weather_model.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
 
@@ -41,4 +43,28 @@ class StorageUtils {
 
   static Future<bool> isFirstOrder() async =>
       await GetStorage().read(StorageKey.firstOpenOrder) ?? true;
+
+  static Future<void> saveWeather(WeatherModel model) async {
+    await GetStorage().write(StorageKey.weather, model.toJson());
+  }
+
+  static Future<WeatherModel?> getWeather() async {
+    var str = GetStorage().read(StorageKey.weather);
+    if (str != null) {
+      return WeatherModel.fromJson(str);
+    }
+    return null;
+  }
+
+  static Future<bool> isRequestWeather() async {
+    var currentTime = DateTime.now().millisecondsSinceEpoch;
+    var scheduleTime =
+        GetStorage().read(StorageKey.scheduleWeather) ?? currentTime;
+    if (currentTime >= scheduleTime) {
+      GetStorage()
+          .write(StorageKey.scheduleWeather, currentTime + AppConstant.ONE_DAY);
+      return true;
+    }
+    return false;
+  }
 }

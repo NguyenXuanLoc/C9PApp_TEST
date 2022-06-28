@@ -6,7 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class AppNotDataWidget extends StatelessWidget {
-  const AppNotDataWidget({Key? key}) : super(key: key);
+  final String? message;
+
+  const AppNotDataWidget({Key? key, this.message}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class AppNotDataWidget extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(15),
         child: AppText(
-          LocaleKeys.not_data_pull_to_refresh.tr,
+          message ?? LocaleKeys.not_data_pull_to_refresh.tr,
           textAlign: TextAlign.center,
           style: typoSuperSmallTextBold.copyWith(
             color: colorText60,

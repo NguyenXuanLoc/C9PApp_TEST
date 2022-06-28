@@ -322,8 +322,9 @@ class OrderView extends GetView<OrderController> {
             const SuggestionsBoxDecoration(color: colorWhite, elevation: 0.2),
         textFieldConfiguration: TextFieldConfiguration(
             controller: controller.countController,
+            keyboardType: TextInputType.number,
             maxLines: 1,
-            onTap: () => controller.scrollToBottom(),
+            // onTap: () => controller.scrollToBottom(),
             autofocus: false,
             style: typoSuperSmallTextBold.copyWith(color: colorText60),
             decoration: decorTextFieldOval.copyWith(

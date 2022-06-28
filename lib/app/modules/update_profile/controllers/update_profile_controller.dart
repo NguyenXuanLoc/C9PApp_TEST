@@ -18,6 +18,7 @@ class UpdateProfileController extends GetxController {
   final fullNameController = TextEditingController();
   final phoneController = TextEditingController();
   final errorFullName = ''.obs;
+  final isDisableButton = true.obs;
 
   @override
   void onInit() {
@@ -46,6 +47,9 @@ class UpdateProfileController extends GetxController {
       }
     }
   }
+
+  void setDisableButton(String text) =>
+      isDisableButton.value = (text.isEmpty) ? true : false;
 
   Future<UserData?> getProfile() async {
     var response = await userProvider.getProfile();

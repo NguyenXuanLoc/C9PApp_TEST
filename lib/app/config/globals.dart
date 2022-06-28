@@ -4,11 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 String accessToken = '';
 String avatar = '';
-String deviceId = '';
-String deviceName = '';
-String deviceModel = '';
-String accountId = '';
 String userName = '';
+String phoneNumber = '';
 
 bool isLogin = false;
 bool isNeedUpdateProfile = true;

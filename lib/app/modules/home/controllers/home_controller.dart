@@ -14,6 +14,7 @@ class HomeController extends GetxController {
   final pageController = PageController();
   bool isOpenOrder = false;
   final userProvider = UserProvider();
+  final currentIndex = 0.obs;
 
   @override
   void onInit() {
@@ -22,7 +23,6 @@ class HomeController extends GetxController {
           .on<JumpToTabEvent>()
           .listen((model) => jumToTap(model.index));
     });
-
     super.onInit();
   }
 
@@ -51,5 +51,8 @@ class HomeController extends GetxController {
     }
   }
 
-  void jumToTap(int index) => pageController.jumpToPage(index);
+  void jumToTap(int index) {
+    currentIndex.value = index;
+    pageController.jumpToPage(index);
+  }
 }

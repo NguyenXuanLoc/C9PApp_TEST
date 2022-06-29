@@ -141,6 +141,7 @@ class TabMainController extends GetxController {
       case TabMainAction.MENU:
       case TabMainAction.DISCTRICT:
         {
+          Get.toNamed(Routes.DEVELOPING);
           break;
         }
       case TabMainAction.ORDER:

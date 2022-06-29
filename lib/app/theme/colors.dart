@@ -133,6 +133,7 @@ const colorUnderlineTextField = Color(0xFF979797);
 const colorSeparatorListView = Color(0xFFF8F8F8);
 const colorLine = Color(0xFF595959);
 
+const colorGrey5 = Color(0xFFF7FCFB);
 const colorGrey10 = Color(0xFFEFEFF2);
 const colorGrey15 = Color(0xFFF2F4F7);
 const colorGrey20 = Color(0xFFE9EAEC);

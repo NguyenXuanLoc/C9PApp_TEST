@@ -46,7 +46,10 @@ class HomeView extends GetView<HomeController> {
         padding: EdgeInsets.only(top: 15.h),
         child: FloatingActionButton(
           backgroundColor: Colors.transparent,
-          child: SvgPicture.asset(R.assetsAddOrderSvg,width: 50.w,),
+          child: SvgPicture.asset(
+            R.assetsAddOrderSvg,
+            width: 50.w,
+          ),
           onPressed: () => Get.toNamed(Routes.ORDER),
         ),
       ),
@@ -82,11 +85,15 @@ class HomeView extends GetView<HomeController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                itemBottomBar(R.assetsMainSvg, LocaleKeys.main.tr, 0),
-                itemBottomBar(R.assetsPromotionSvg, LocaleKeys.promotion.tr, 1),
+                Obx(() =>
+                    itemBottomBar(R.assetsMainSvg, LocaleKeys.main.tr, 0)),
+                Obx(() => itemBottomBar(
+                    R.assetsPromotionSvg, LocaleKeys.promotion.tr, 1)),
                 const Expanded(child: SizedBox()),
-                itemBottomBar(R.assetsNotifySvg, LocaleKeys.notify.tr, 2),
-                itemBottomBar(R.assetsPersonSvg, LocaleKeys.account.tr, 3),
+                Obx(() =>
+                    itemBottomBar(R.assetsNotifySvg, LocaleKeys.notify.tr, 2)),
+                Obx(() =>
+                    itemBottomBar(R.assetsPersonSvg, LocaleKeys.account.tr, 3)),
               ],
             ),
           ),
@@ -97,30 +104,33 @@ class HomeView extends GetView<HomeController> {
 
   Widget itemBottomBar(String assetSvg, String title, int index) {
     return Expanded(
-        child: InkWell(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 20.w,
-            height: 20.w,
-            child: SvgPicture.asset(
-              assetSvg,
-              fit: BoxFit.contain,
+        child: Container(
+      color: controller.currentIndex.value == index ? colorGrey5 : colorWhite,
+      child: InkWell(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 20.w,
+              height: 20.w,
+              child: SvgPicture.asset(
+                assetSvg,
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 3,
-          ),
-          AppText(
-            title,
-            style: typoSuperSmallTextBold.copyWith(
-                color: colorText40, fontSize: 9.5.sp),
-          )
-        ],
+            const SizedBox(
+              height: 3,
+            ),
+            AppText(
+              title,
+              style: typoSuperSmallTextBold.copyWith(
+                  color: colorText40, fontSize: 9.5.sp),
+            )
+          ],
+        ),
+        onTap: () => controller.jumToTap(index),
       ),
-      onTap: () => controller.jumToTap(index),
     ));
   }
 }

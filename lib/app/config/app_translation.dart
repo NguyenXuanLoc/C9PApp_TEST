@@ -100,6 +100,7 @@ class LocaleKeys {
   static const not_data_pull_to_refresh = 'not_data_pull_to_refresh';
   static const not_find_address_please_try_again = 'not_find_address_please_try_again';
   static const not_order_pull_to_refresh = 'not_order_pull_to_refresh';
+  static const received = 'received';
 }
 
 class Locales {
@@ -187,6 +188,7 @@ class Locales {
     'yes': 'Đồng ý',
     'hours': 'Giờ',
     'minutes': 'Phút',
+    'received': 'Đã tiếp nhận',
     'not_data_pull_to_refresh': 'Không có dữ liệu\nKéo xuống để tải lại.',
     'not_order_pull_to_refresh': 'Chưa có đơn hàng\nKéo xuống để tải lại.',
     'not_find_address_please_try_again': 'Không tìm thấy địa chỉ, vui lòng thử lại',

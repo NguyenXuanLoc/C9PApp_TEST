@@ -3,7 +3,8 @@ library app.globals;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 String accessToken = '';
-String avatar = '';
+String avatar =
+    'https://platform-static-files.s3.amazonaws.com/premierleague/photos/players/250x250/Photo-Missing.png';
 String userName = '';
 String phoneNumber = '';
 

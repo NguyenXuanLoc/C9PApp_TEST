@@ -26,7 +26,7 @@ class Dialogs {
                   child: CircularProgressIndicator(
                     backgroundColor: colorNeutralDark20,
                     valueColor:
-                        AlwaysStoppedAnimation<Color>(colorPrimaryBrand100),
+                        AlwaysStoppedAnimation<Color>(colorGreen60),
                   ),
                 )
               ],

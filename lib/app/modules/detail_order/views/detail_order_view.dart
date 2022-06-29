@@ -140,7 +140,7 @@ class DetailOrderView extends GetView<DetailOrderController> {
           ),
         ],
       ),
-      paddingWidget(children: [
+      /*paddingWidget(children: [
         titleWidget(R.assetsPngMotoBike, LocaleKeys.shipper.tr, isSvg: false),
         const SizedBox(
           height: 10,
@@ -159,7 +159,7 @@ class DetailOrderView extends GetView<DetailOrderController> {
             )
           ],
         )
-      ]),
+      ]),*/
       Padding(
         padding: EdgeInsets.all(contentPadding),
         child: AppButton(

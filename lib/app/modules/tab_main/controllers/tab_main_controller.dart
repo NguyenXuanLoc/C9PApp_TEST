@@ -148,5 +148,8 @@ class TabMainController extends GetxController {
     }
   }
 
-  void onClickProfile() =>{}/* Get.toNamed(Routes.UPDATE_PROFILE)*/;
+  void onClickProfile() async {
+    await Get.toNamed(Routes.UPDATE_PROFILE, arguments: true);
+    getUserInfo();
+  }
 }

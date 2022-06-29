@@ -26,17 +26,19 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
         fullStatusBar: true,
         isTabToHideKeyBoard: true,
         appbar: AppBar(
-          /*    leading: SizedBox(
-            width: 20.w,
-            child: IconButton(
-                splashRadius: 20,
-                padding: const EdgeInsets.all(0),
-                onPressed: () => Get.back(),
-                icon: SvgPicture.asset(
-                  R.assetsBackSvg,
-                  color: colorWhite,
-                )),
-          ),*/
+          leading: Obx(() => Visibility(
+              visible: controller.isBackToHome.value,
+              child: SizedBox(
+                width: 20.w,
+                child: IconButton(
+                    splashRadius: 20,
+                    padding: const EdgeInsets.all(0),
+                    onPressed: () => Get.back(),
+                    icon: SvgPicture.asset(
+                      R.assetsBackSvg,
+                      color: colorWhite,
+                    )),
+              ))),
           automaticallyImplyLeading: false,
           centerTitle: true,
           title: AppText(

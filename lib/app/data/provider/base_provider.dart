@@ -130,6 +130,7 @@ class BaseProvider extends GetConnect {
         'Authorization': 'Bearer ${globals.accessToken}',
         // 'Content-Type': 'application/json'
       };
+      if (!isFormData) headers['Content-Type'] = 'application/json';
       final response = await post(
           url, isFormData ? FormData(body) : json.encode(body),
           headers: headers);

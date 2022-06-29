@@ -19,6 +19,7 @@ class UpdateProfileController extends GetxController {
   final phoneController = TextEditingController();
   final errorFullName = ''.obs;
   final isDisableButton = true.obs;
+  final isBackToHome = false.obs;
 
   @override
   void onInit() {
@@ -27,8 +28,14 @@ class UpdateProfileController extends GetxController {
   }
 
   void init() async {
+    try {
+      isBackToHome.value = Get.arguments;
+    } catch (ex) {
+      isBackToHome.value = false;
+    }
     var userModel = await StorageUtils.getUser();
     if (userModel != null) {
+      fullNameController.text = userModel.data?.userData?.name ?? '';
       phoneController.text =
           userModel.data?.userData?.phone?.replaceAll('+84', '0') ?? '';
     }
@@ -47,8 +54,12 @@ class UpdateProfileController extends GetxController {
               data: userCache.data!.copyOf(userData: userData),
               needUpdate: false);
           StorageUtils.saveUser(userModel);
-          Get.offAllNamed(Routes.HOME,
-              arguments: await StorageUtils.isFirstOrder());
+          if (isBackToHome.value) {
+            Get.back();
+          } else {
+            Get.offAllNamed(Routes.HOME,
+                arguments: await StorageUtils.isFirstOrder());
+          }
         } else {
           toast(LocaleKeys.network_error.tr);
         }

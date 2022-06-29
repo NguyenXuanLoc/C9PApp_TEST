@@ -18,7 +18,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
+import 'package:c9p/app/config/globals.dart' as globals;
 import '../../../app_line.dart';
 import '../../../config/app_translation.dart';
 import '../../../config/globals.dart';
@@ -90,8 +90,7 @@ class TabMainView extends GetView<TabMainController> {
                                       ),
                                       child: AppCircleImage(
                                           size: 33.w,
-                                          url:
-                                              'https://vcdn-dulich.vnecdn.net/2020/09/04/1-Meo-chup-anh-dep-khi-di-bien-9310-1599219010.jpg',
+                                          url: globals.avatar,
                                           urlError: ''),
                                     ),
                                     onTap: () => controller.onClickProfile(),

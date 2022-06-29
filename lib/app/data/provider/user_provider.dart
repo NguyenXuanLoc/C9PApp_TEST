@@ -37,7 +37,7 @@ class UserProvider extends BaseProvider {
           required String deliverTime,
           required String productId}) async =>
       await POST(
-          'order',
+          'user/order',
           {
             ApiKey.name: name,
             ApiKey.address: address,
@@ -71,8 +71,8 @@ class UserProvider extends BaseProvider {
   Future<ApiResult> gePromotion() async => await GET('banner');
 
   Future<ApiResult> getPendingOrder({String paging = ''}) async =>
-      await GET('user/orders/pending');
+      await GET('user/orders/pending$paging');
 
   Future<ApiResult> getDoneOrder({String paging = ''}) async =>
-      await GET('user/orders/done');
+      await GET('user/orders/done$paging');
 }

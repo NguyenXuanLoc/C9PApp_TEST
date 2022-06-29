@@ -186,7 +186,8 @@ final decorTextFieldCircle = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(100)),
   ),
   contentPadding:
-  EdgeInsets.only(left: 15.w, top: 10.h, bottom: 10.h, right: 5.w),  hintStyle: typoNormalTextRegular.copyWith(
+      EdgeInsets.only(left: 15.w, top: 10.h, bottom: 10.h, right: 5.w),
+  hintStyle: typoNormalTextRegular.copyWith(
       color: colorNeutralDark40.withOpacity(0.4)),
   errorStyle: typoSmallTextRegular.copyWith(color: colorSemanticRed100),
   counterText: '',
@@ -213,7 +214,7 @@ final decorTextFieldOval = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(17)),
   ),
   contentPadding:
-       EdgeInsets.only(left: 15.w, top: 10.h, bottom: 10.h, right: 5.w),
+      EdgeInsets.only(left: 15.w, top: 10.h, bottom: 10.h, right: 5.w),
   // contentPadding: const EdgeInsets.symmetric(vertical: 11/*, horizontal: 16*/),
   hintStyle: typoSuperSmallTextBold.copyWith(
       color: colorNeutralDark40.withOpacity(0.4)),
@@ -344,6 +345,14 @@ final typoMediumTextBold = GoogleFonts.nunito(
   fontSize: 18.sp,
   letterSpacing: 1.02,
   color: colorBlack,
+);
+
+final typoTitleHeader = GoogleFonts.nunito(
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.w600,
+  fontSize: 16.sp,
+  letterSpacing: 1.02,
+  color: colorText0,
 );
 
 final typoMediumTextRegular = GoogleFonts.nunito(

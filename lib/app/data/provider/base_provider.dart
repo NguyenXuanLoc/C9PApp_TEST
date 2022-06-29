@@ -130,6 +130,7 @@ class BaseProvider extends GetConnect {
         'Authorization': 'Bearer ${globals.accessToken}',
         // 'Content-Type': 'application/json'
       };
+      if (!isFormData) headers['Content-Type'] = 'application/json';
       final response = await post(
           url, isFormData ? FormData(body) : json.encode(body),
           headers: headers);
@@ -251,60 +252,43 @@ class BaseProvider extends GetConnect {
       return ApiResult<dynamic>(error: LocaleKeys.network_error.tr);
     }
   }
-
-  Future<ApiResult> POST_FROM_DATA(String url, dynamic body,
-      {bool isMultipart = false,
-      bool isContentType = false,
-      String baseUrl = '',
-      bool isNewFormat = false}) async {
-    if (baseUrl.isNotEmpty) {
-      httpClient.baseUrl = baseUrl;
-    } else {
-      httpClient.baseUrl = dotenv.env['BASE_API'];
-    }
+  Future<ApiResult> DELETE_WITH_BODY(String url, dynamic body) async {
     if (await ConnectionUtils.isConnect() == false) {
       return ApiResult(error: LocaleKeys.network_error.tr);
     }
     print('============================================================');
-    print('[POST] ' + httpClient.baseUrl! + url);
-    print("Bearer " + globals.accessToken);
-    print('[PARAMS] ' + (!isMultipart ? json.encode(body) : ''));
+    print('[DELETE] ' + httpClient.baseUrl! + url);
     try {
-      var headers = {
+      final response =
+      await httpClient.request(url, 'DELETE', body: body, headers: {
         'Authorization': 'Bearer ${globals.accessToken}',
-        'Host': 'auth.com',
-      };
-      // final request = await httpClient.request(url, body: body);
-      final response = await post(url, isMultipart ? body : json.encode(body),
-          headers: headers);
-      Logger().d(response.body);
+        'Content-Type': 'application/json'
+      });
+
       if (response.isOk && response.body != null) {
         var result = response.body;
+        Logger().d(result);
         return ApiResult<dynamic>(
             data: result,
             statusCode: response.statusCode,
-            message: isNewFormat
-                ? ''
-                : result['meta']['message'] ?? result['meta']['db_message']);
+            message: '');
       } else {
-        Logger().e(
-            'Error ${response.status.code} - ${response.statusText} - ${response.bodyString}');
+        Logger().e('Error ${response.status.code} - ${response.statusText}');
         var result = response.body;
         return ApiResult<dynamic>(
-          error: result["meta"]["message"] ?? response.statusText ?? '',
+          error: response.statusText ?? '',
           data: result,
         );
       }
     } on Exception catch (exception) {
       Logger().e('[EXCEPTION] ' + exception.toString());
       print('============================================================');
-      return ApiResult<dynamic>(
-        error: LocaleKeys.network_error.tr,
-      );
+      return ApiResult<dynamic>(error: LocaleKeys.network_error.tr);
     } catch (error) {
       Logger().e('[ERROR] ' + error.toString());
       print('============================================================');
       return ApiResult<dynamic>(error: LocaleKeys.network_error.tr);
     }
   }
+
 }

@@ -19,7 +19,8 @@ class UserProvider extends BaseProvider {
   }
 
   Future<ApiResult> getLocationDetail(String placeId) async {
-    return await GET('Detail?place_id=$placeId&api_key=${ApiKey.api_key_google_map}',
+    return await GET(
+        'Detail?place_id=$placeId&api_key=${ApiKey.api_key_google_map}',
         baseUrl: 'https://rsapi.goong.io/Place/');
   }
 
@@ -37,7 +38,7 @@ class UserProvider extends BaseProvider {
           required String deliverTime,
           required String productId}) async =>
       await POST(
-          'order',
+          'user/order',
           {
             ApiKey.name: name,
             ApiKey.address: address,
@@ -71,8 +72,17 @@ class UserProvider extends BaseProvider {
   Future<ApiResult> gePromotion() async => await GET('banner');
 
   Future<ApiResult> getPendingOrder({String paging = ''}) async =>
-      await GET('user/orders/pending');
+      await GET('user/orders/pending$paging');
 
   Future<ApiResult> getDoneOrder({String paging = ''}) async =>
-      await GET('user/orders/done');
+      await GET('user/orders/done$paging');
+
+  Future<ApiResult> registerDevice(String deviceToken) async =>
+      await POST('user/register_device', {ApiKey.device_token: deviceToken});
+
+  Future<ApiResult> unregisterDevice(String deviceToken) async =>
+      await DELETE_WITH_BODY('user/register_device', {ApiKey.device_token: deviceToken});
+
+  Future<ApiResult> logout(String deviceToken) async =>
+      await POST('user/logout', {ApiKey.device_token: deviceToken});
 }

@@ -5,7 +5,8 @@ import 'package:c9p/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class YourOrderController extends GetxController {
+class YourOrderController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   final userProvider = UserProvider();
   final isLoadingDoneOrder = true.obs;
   final isLoadingPendingOrder = true.obs;
@@ -18,9 +19,12 @@ class YourOrderController extends GetxController {
   final isReadEndPendingOrder = false.obs;
   final lPendingOrder = List<OrderModel>.empty(growable: true).obs;
   var currentPendingOrderPage = 0;
+  var currentIndex = 0;
+  late TabController tabController;
 
   @override
   void onInit() {
+    initTab();
     getDoneOrder();
     getPendingOrder();
     pagingPendingOrder();
@@ -28,16 +32,24 @@ class YourOrderController extends GetxController {
     super.onInit();
   }
 
+  void initTab() {
+    tabController = TabController(length: 2, vsync: this);
+    tabController.addListener(() => currentIndex = tabController.index);
+  }
+
+  void setIndex(int index) => currentIndex = index;
+
   void pagingDoneOrder() {
     doneOrderScrollController.addListener(() {
       var maxScroll = doneOrderScrollController.position.maxScrollExtent;
       var currentScroll = doneOrderScrollController.position.pixels;
-
       if (maxScroll - currentScroll <= 200 &&
           lDoneOrder.isNotEmpty &&
           !isReadEndDoneOrder.value &&
-          !isLoadingDoneOrder.value) {
-        getDoneOrder(nextPage: '/?page=${currentDoneOrderPage + 1}');
+          !isLoadingDoneOrder.value &&
+          currentIndex == 1) {
+        getDoneOrder(
+            nextPage: '/?page=${currentDoneOrderPage + 1}', isPaging: true);
       }
     });
   }
@@ -51,7 +63,7 @@ class YourOrderController extends GetxController {
       if (doneOrderModel.data == null || doneOrderModel.data!.isEmpty) {
         isReadEndDoneOrder.value = true;
       }
-      if (isPaging) {
+      if (!isPaging) {
         lDoneOrder.value = doneOrderModel.data ?? [];
       } else {
         lDoneOrder.addAll(doneOrderModel.data ?? []);
@@ -72,6 +84,7 @@ class YourOrderController extends GetxController {
       }
       if (isPaging) {
         lPendingOrder.addAll(doneOrderModel.data ?? []);
+        update();
       } else {
         lPendingOrder.value = doneOrderModel.data ?? [];
       }
@@ -83,12 +96,13 @@ class YourOrderController extends GetxController {
     pendingOrderScrollController.addListener(() {
       var maxScroll = pendingOrderScrollController.position.maxScrollExtent;
       var currentScroll = pendingOrderScrollController.position.pixels;
-
       if (maxScroll - currentScroll <= 200 &&
           lPendingOrder.isNotEmpty &&
           !isReadEndPendingOrder.value &&
-          !isLoadingPendingOrder.value) {
-        getPendingOrder(nextPage: '/?page=${currentPendingOrderPage + 1}');
+          !isLoadingPendingOrder.value &&
+          currentIndex == 0) {
+        getPendingOrder(
+            nextPage: '/?page=${currentPendingOrderPage + 1}', isPaging: true);
       }
     });
   }
@@ -106,7 +120,7 @@ class YourOrderController extends GetxController {
   }
 
   onClickReOrder(OrderModel model) =>
-      Get.toNamed(Routes.DETAIL_ORDER, arguments: model);
+      Get.toNamed(Routes.ORDER, arguments: model);
 
   void openOrderDetail(OrderModel model) =>
       Get.toNamed(Routes.DETAIL_ORDER, arguments: model);

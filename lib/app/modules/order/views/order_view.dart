@@ -35,8 +35,7 @@ class OrderView extends GetView<OrderController> {
           ),
           title: AppText(
             LocaleKeys.order.tr,
-            style: typoMediumTextBold.copyWith(
-                fontWeight: FontWeight.w700, color: colorText0),
+            style: typoTitleHeader.copyWith(color: colorText0),
           ),
           centerTitle: true,
           flexibleSpace: Container(
@@ -72,7 +71,7 @@ class OrderView extends GetView<OrderController> {
               Center(
                 child: Obx(() => AnimatedSmoothIndicator(
                       activeIndex: controller.currentIndex.value,
-                      count: 4,
+                      count: controller.lDescriptionImage.length,
                       effect: ScrollingDotsEffect(
                           spacing: 6.w,
                           radius: 100,
@@ -276,7 +275,7 @@ class OrderView extends GetView<OrderController> {
               itemSpace(),
               qtyWidget(),
               Obx(
-                    () => Padding(
+                () => Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: AppText(
                     controller.errorCount.value,

@@ -1,5 +1,6 @@
 import 'package:c9p/app/utils/log_utils.dart';
 import 'package:event_bus/event_bus.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -95,19 +96,21 @@ class Utils {
       DateFormat('MMMM-yyyy-dd').format(time).toString().split(' ')[0];
 
   static String convertTimeToYYMMDD(DateTime time) =>
-      DateFormat('yyyy-M-dd').format(time).toString().split(' ')[0];
+      DateFormat('yyyy-M-dd').format(time.toLocal()).toString().split(' ')[0];
 
   static String convertTimeToDDMMYY(DateTime time) =>
-      DateFormat('dd-MM-yyyy').format(time).toString().split(' ')[0];
+      DateFormat('dd-MM-yyyy').format(time.toLocal()).toString().split(' ')[0];
 
   static String convertTimeToHHMM(DateTime time) =>
-      DateFormat.Hm().format(time);
+      DateFormat.Hm().format(time.toLocal());
 
   static String formatMoney(int money) =>
       NumberFormat('#,###,###,#,###,###,###', 'vi').format(money);
 
-  static String convertTimeToDDMMYYHHMMSS(DateTime time) =>
-      DateFormat('dd/MM/yyy hh:mm:ss').format(time);
+  static String convertTimeToDDMMYYHHMMSS(DateTime time) {
+    var result = DateFormat('dd/MM/yyy HH:mm:ss').format(time.toLocal());
+    return result;
+  }
 
   static Future<TimeOfDay?> pickTime(BuildContext context) async =>
       await showTimePicker(
@@ -157,5 +160,9 @@ class Utils {
     await location.hasPermission();
   }
 
- static String convertTimeToHHMMA(DateTime time) => DateFormat("h:mma").format(time);
+  static String convertTimeToHHMMA(DateTime time) =>
+      DateFormat("h:mma").format(time);
+
+  static Future<String?> getFirebaseToken() async =>
+      await FirebaseMessaging.instance.getToken();
 }

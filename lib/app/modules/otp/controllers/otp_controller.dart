@@ -83,14 +83,18 @@ class OtpController extends GetxController {
   }
 
   Future<void> _handleLogin(UserCredential model) async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-    var deviceToken = await messaging.getToken();
+    var deviceToken = await Utils.getFirebaseToken();
     var response = await userProvider.login(model.user!.uid, deviceToken ?? '');
     await Dialogs.hideLoadingDialog();
     if (response.error == null && response.data != null) {
       try {
         var model = UserModel.fromJson(response.data);
         await StorageUtils.saveUser(model);
+        var registerDeviceResponse =
+            await userProvider.registerDevice(deviceToken ?? '');
+        if (registerDeviceResponse.error == null) {
+          await StorageUtils.setRegisterDevice(true);
+        }
         if (model.needUpdate ?? true) {
           Get.offAllNamed(Routes.UPDATE_PROFILE, arguments: phoneNumber.value);
         } else {

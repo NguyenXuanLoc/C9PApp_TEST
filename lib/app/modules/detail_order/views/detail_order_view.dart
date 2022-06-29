@@ -20,11 +20,11 @@ class DetailOrderView extends GetView<DetailOrderController> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-        body: SingleChildScrollView(
+        body: Stack(
+      children: [
+        SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Stack(
-        children: [
           AspectRatio(
             aspectRatio: 1 / 0.8,
             child: Image.asset(
@@ -32,115 +32,104 @@ class DetailOrderView extends GetView<DetailOrderController> {
               fit: BoxFit.fitWidth,
             ),
           ),
+          const AppLineSpace(),
           Padding(
-            padding: EdgeInsets.only(left: contentPadding, top: 10.h),
-            child: SizedBox(
-              width: 20.w,
-              child: IconButton(
-                  splashRadius: 20,
-                  padding: const EdgeInsets.all(0),
-                  onPressed: () => Get.back(),
-                  icon: SvgPicture.asset(R.assetsBackSvg)),
-            ),
-          ),
-        ],
-      ),
-      const AppLineSpace(),
-      Padding(
-        padding: EdgeInsets.all(contentPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppText(
-              LocaleKeys.com_suong_9p.tr,
-              style: typoLargeTextBold.copyWith(fontWeight: FontWeight.w700),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
+            padding: EdgeInsets.all(contentPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppText(
-                    "${Utils.formatMoney(controller.orderModer.value.codAmount ?? 0)}đ",
-                    style: typoMediumTextBold.copyWith(
-                        color: colorSemanticRed100,
-                        fontWeight: FontWeight.w700)),
+                  LocaleKeys.com_suong_9p.tr,
+                  style:
+                      typoLargeTextBold.copyWith(fontWeight: FontWeight.w700),
+                ),
                 const SizedBox(
-                  width: 20,
+                  height: 5,
                 ),
-                RatingBarIndicator(
-                  rating: 5,
-                  itemBuilder: (context, index) => const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  itemCount: 5,
-                  itemSize: 18,
-                  unratedWidget: const Icon(
-                    Icons.star,
-                    color: Colors.grey,
-                  ),
+                Row(
+                  children: [
+                    AppText(
+                        "${Utils.formatMoney(controller.orderModer.value.codAmount ?? 0)}đ",
+                        style: typoMediumTextBold.copyWith(
+                            color: colorSemanticRed100,
+                            fontWeight: FontWeight.w700)),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    RatingBarIndicator(
+                      rating: 5,
+                      itemBuilder: (context, index) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      itemCount: 5,
+                      itemSize: 18,
+                      unratedWidget: const Icon(
+                        Icons.star,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
+                AppText(
+                  '${LocaleKeys.code.tr} #${controller.orderModer.value.id} / ${controller.orderModer.value.itemQty} ${LocaleKeys.bowl_of_rice.tr} / ${controller.orderModer.value.status}',
+                  style: typoSuperSmallTextBold.copyWith(color: colorGreen60),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Visibility(
+                    visible: controller.orderModer.value.description != null
+                        ? true
+                        : false,
+                    child: AppText(
+                      controller.orderModer.value.description ?? '',
+                      style:
+                          typoExtraSmallTextBold.copyWith(color: colorText70),
+                    )),
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            AppText(
-              '${LocaleKeys.code.tr} #${controller.orderModer.value.id} / ${controller.orderModer.value.itemQty} ${LocaleKeys.bowl_of_rice.tr}',
-              style: typoSuperSmallTextBold.copyWith(color: colorGreen60),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Visibility(
-                visible: controller.orderModer.value.description != null
-                    ? true
-                    : false,
-                child: AppText(
-                  controller.orderModer.value.description ?? '',
-                  style: typoExtraSmallTextBold.copyWith(color: colorText70),
-                )),
-          ],
-        ),
-      ),
-      const AppLineSpace(),
-      paddingWidget(
-        children: [
-          titleWidget(R.assetsSvgWatch, LocaleKeys.time.tr),
-          const SizedBox(
-            height: 10,
           ),
-          AppText(
-            "${LocaleKeys.order_time.tr} : ${Utils.convertTimeToDDMMYYHHMMSS(controller.orderModer.value.createdTime ?? DateTime.now())}",
-            style: typoExtraSmallTextBold.copyWith(color: colorText70),
+          const AppLineSpace(),
+          paddingWidget(
+            children: [
+              titleWidget(R.assetsSvgWatch, LocaleKeys.time.tr),
+              const SizedBox(
+                height: 10,
+              ),
+              AppText(
+                "${LocaleKeys.order_time.tr} : ${Utils.convertTimeToDDMMYYHHMMSS(controller.orderModer.value.createdTime ?? DateTime.now())}",
+                style: typoExtraSmallTextBold.copyWith(color: colorText70),
+              ),
+              const SizedBox(
+                height: 6,
+              ),
+              AppText(
+                "${LocaleKeys.delivery_time.tr} : ${Utils.convertTimeToDDMMYYHHMMSS(controller.orderModer.value.deliverTime ?? DateTime.now())}",
+                style: typoExtraSmallTextBold.copyWith(color: colorText70),
+              ),
+            ],
           ),
-          const SizedBox(
-            height: 6,
+          const AppLineSpace(),
+          paddingWidget(
+            children: [
+              titleWidget(
+                R.assetsSvgLocation,
+                LocaleKeys.address_order.tr,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              AppText(
+                controller.orderModer.value.toAddress ?? '',
+                style: typoExtraSmallTextBold.copyWith(color: colorText70),
+              ),
+            ],
           ),
-          AppText(
-            "${LocaleKeys.delivery_time.tr} : ${Utils.convertTimeToDDMMYYHHMMSS(controller.orderModer.value.deliverTime ?? DateTime.now())}",
-            style: typoExtraSmallTextBold.copyWith(color: colorText70),
-          ),
-        ],
-      ),
-      const AppLineSpace(),
-      paddingWidget(
-        children: [
-          titleWidget(
-            R.assetsSvgLocation,
-            LocaleKeys.address_order.tr,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          AppText(
-            controller.orderModer.value.toAddress ?? '',
-            style: typoExtraSmallTextBold.copyWith(color: colorText70),
-          ),
-        ],
-      ),
-      paddingWidget(children: [
+          /*paddingWidget(children: [
         titleWidget(R.assetsPngMotoBike, LocaleKeys.shipper.tr, isSvg: false),
         const SizedBox(
           height: 10,
@@ -159,22 +148,38 @@ class DetailOrderView extends GetView<DetailOrderController> {
             )
           ],
         )
-      ]),
-      Padding(
-        padding: EdgeInsets.all(contentPadding),
-        child: AppButton(
-          textStyle: typoSmallTextBold.copyWith(
-              color: colorText0, fontWeight: FontWeight.w700),
-          title: LocaleKeys.re_order.tr,
-          onPress: () => controller.reOrderOnclick(),
-          width: MediaQuery.of(context).size.width,
-          backgroundColor: colorGreen50,
-          height: 40.h,
-          shapeBorder:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-        ),
-      )
-    ])));
+      ]),*/
+          Padding(
+            padding: EdgeInsets.all(contentPadding),
+            child: AppButton(
+              textStyle: typoSmallTextBold.copyWith(
+                  color: colorText0, fontWeight: FontWeight.w700),
+              title: LocaleKeys.re_order.tr,
+              onPress: () => controller.reOrderOnclick(),
+              width: MediaQuery.of(context).size.width,
+              backgroundColor: colorGreen50,
+              height: 40.h,
+              shapeBorder: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100)),
+            ),
+          ),
+        ])),
+        Padding(
+          padding: EdgeInsets.only(left: contentPadding, top: 10.h),
+          child: Container(
+            padding: EdgeInsets.all(2.w),
+            decoration: BoxDecoration(
+                color: colorGrey10, borderRadius: BorderRadius.circular(100)),
+            child: IconButton(
+                splashRadius: 20,
+                constraints: BoxConstraints(maxHeight: 30.w, maxWidth: 30.w),
+                padding: const EdgeInsets.all(0),
+                onPressed: () => Get.back(),
+                icon: SvgPicture.asset(R.assetsBackSvg)),
+          ),
+        )
+      ],
+    ));
   }
 
   Widget titleWidget(String assetImage, String title, {bool isSvg = true}) {

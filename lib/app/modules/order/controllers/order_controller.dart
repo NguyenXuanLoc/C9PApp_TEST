@@ -86,7 +86,6 @@ class OrderController extends GetxController {
       countController.text =
           orderModel?.itemQty != null ? orderModel!.itemQty.toString() : '1';
       deliverDate = orderModel?.deliverTime;
-      deliverHours = orderModel?.deliverTime.toString().split(' ')[1];
       dateController.text =
           Utils.convertTimeToDDMMYY(deliverDate ?? DateTime.now());
       hourController.text =
@@ -96,14 +95,13 @@ class OrderController extends GetxController {
     } else {
       fullNameController.text = globals.userName;
       phoneController.text = globals.phoneNumber.replaceAll('+84', '0');
-
-      var currentTime = DateTime.fromMillisecondsSinceEpoch(
-          DateTime.now().millisecondsSinceEpoch + AppConstant.FIFTEN_MINIUTES);
-      deliverHours = Utils.convertTimeToHHMM(currentTime);
-      hourController.text = Utils.convertTimeToHHMMA(currentTime);
       deliverDate = DateTime.now();
       dateController.text = Utils.convertTimeToDDMMYY(DateTime.now());
     }
+    var currentTime = DateTime.fromMillisecondsSinceEpoch(
+        DateTime.now().millisecondsSinceEpoch + AppConstant.FIFTEN_MINIUTES);
+    deliverHours = Utils.convertTimeToHHMM(currentTime);
+    hourController.text = Utils.convertTimeToHHMMA(currentTime);
   }
 
   void scrollToBottom() => Timer(
@@ -234,8 +232,8 @@ class OrderController extends GetxController {
         address: address,
         phone: phone,
         qty: qty,
-        lat: '0' /* currentLat.toString()*/,
-        lng: '0' /*currentLng.toString()*/,
+        lat: currentLat.toString(),
+        lng: currentLng.toString(),
         deliverTime: deliverTimeStr,
         productId: productId);
   }

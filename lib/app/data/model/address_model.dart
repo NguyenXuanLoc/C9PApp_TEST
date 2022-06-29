@@ -24,8 +24,8 @@ class AddressModel {
   String? status;
 
   factory AddressModel.fromJson(Map<String, dynamic> json) => AddressModel(
-        predictions: List<Prediction>.from(
-            json["predictions"].map((x) => Prediction.fromJson(x))),
+        predictions: json["predictions"] !=null? List<Prediction>.from(
+            json["predictions"].map((x) => Prediction.fromJson(x))) :[],
         status: json["status"],
       );
 

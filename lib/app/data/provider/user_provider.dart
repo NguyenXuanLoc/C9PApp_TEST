@@ -14,13 +14,13 @@ class UserProvider extends BaseProvider {
 
   Future<ApiResult> getAddress(String query) async {
     return await GET(
-        'json?input=$query&key=${ApiKey.api_key_google_map}&language=vi&radius=20000',
-        baseUrl: 'https://maps.googleapis.com/maps/api/place/autocomplete/');
+        'AutoComplete?api_key=${ApiKey.api_key_google_map}&location=20.8467333,106.6637271&input=$query',
+        baseUrl: 'https://rsapi.goong.io/Place/');
   }
 
   Future<ApiResult> getLocationDetail(String placeId) async {
-    return await GET('json?place_id=$placeId&key=${ApiKey.api_key_google_map}',
-        baseUrl: 'https://maps.googleapis.com/maps/api/place/details/');
+    return await GET('Detail?place_id=$placeId&api_key=${ApiKey.api_key_google_map}',
+        baseUrl: 'https://rsapi.goong.io/Place/');
   }
 
   Future<ApiResult> nearOrder() async {

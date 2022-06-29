@@ -73,7 +73,27 @@ class TabAccountController extends GetxController {
     }
   }
 
-  void logout(BuildContext context) {}
+  void logout(BuildContext context) async {
+    Dialogs.showLoadingDialog(context);
+    var deviceToken = await Utils.getFirebaseToken();
+    var unRegisterResponse =
+        await userProvider.unregisterDevice(deviceToken ?? '');
+    if (unRegisterResponse.error == null) {
+      var response = await userProvider.logout(deviceToken ?? '');
+      if (response.error == null) {
+        await Dialogs.hideLoadingDialog();
+        StorageUtils.clearUser();
+        StorageUtils.setRegisterDevice(false);
+        Get.offAllNamed(Routes.LOGIN_SPLASH);
+      } else {
+        await Dialogs.hideLoadingDialog();
+        toast(LocaleKeys.network_error.tr);
+      }
+    } else {
+      await Dialogs.hideLoadingDialog();
+      toast(LocaleKeys.network_error.tr);
+    }
+  }
 
   Future<UserData?> getProfile() async {
     var response = await userProvider.getProfile();

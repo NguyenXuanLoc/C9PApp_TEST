@@ -1,10 +1,9 @@
 import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/config/globals.dart';
+import 'package:c9p/app/config/globals.dart' as globals;
 import 'package:c9p/app/data/model/user_model.dart';
 import 'package:c9p/app/data/model/weather_model.dart';
-import 'package:c9p/app/utils/log_utils.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:c9p/app/config/globals.dart' as globals;
 
 class StorageUtils {
   static Future<void> saveUser(UserModel userModel) async {
@@ -37,6 +36,7 @@ class StorageUtils {
 
   static Future<void> clearUser() async {
     isLogin = false;
+    globals.accessToken = '';
     await GetStorage().remove(StorageKey.AccountInfo);
   }
 
@@ -69,4 +69,10 @@ class StorageUtils {
     }
     return false;
   }
+
+  static Future<void> setRegisterDevice(bool isRegister) async =>
+      await GetStorage().write(AppConstant.REGISTER_DEVICE, isRegister);
+
+  static Future<bool> isRegisterDevice() async =>
+      await GetStorage().read(AppConstant.REGISTER_DEVICE) ?? false;
 }

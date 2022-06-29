@@ -1,5 +1,6 @@
 import 'package:c9p/app/utils/log_utils.dart';
 import 'package:event_bus/event_bus.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -161,4 +162,7 @@ class Utils {
 
   static String convertTimeToHHMMA(DateTime time) =>
       DateFormat("h:mma").format(time);
+
+  static Future<String?> getFirebaseToken() async =>
+      await FirebaseMessaging.instance.getToken();
 }

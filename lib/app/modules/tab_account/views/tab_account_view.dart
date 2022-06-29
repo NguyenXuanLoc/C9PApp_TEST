@@ -84,7 +84,7 @@ class TabAccountView extends GetView<TabAccountController> {
               ),
               const Spacer(),
               AppButton(
-                onPress: () => controller.updateProfile(context),
+                onPress: () => controller.logout(context),
                 title: LocaleKeys.logout.tr,
                 textStyle: typoSmallTextBold.copyWith(color: colorText60),
                 width: MediaQuery.of(context).size.width,

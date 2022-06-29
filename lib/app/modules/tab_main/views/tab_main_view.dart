@@ -66,11 +66,9 @@ class TabMainView extends GetView<TabMainController> {
                               Row(
                                 children: [
                                   Obx(() => AppText(
-                                        "Xin chào${controller.fullName.value.isNotEmpty ? " ${controller.fullName.value}" : ''}!",
-                                        style: typoSmallTextBold.copyWith(
-                                            color: colorText0,
-                                            fontWeight: FontWeight.w700),
-                                      )),
+                                      "Xin chào${controller.fullName.value.isNotEmpty ? " ${controller.fullName.value}" : ''}!",
+                                      style: typoTitleHeader.copyWith(
+                                          fontWeight: FontWeight.w700))),
                                   const SizedBox(
                                     width: 5,
                                   ),
@@ -378,7 +376,7 @@ class TabMainView extends GetView<TabMainController> {
                 ),
                 const Spacer(),
                 AppText(
-                  LocaleKeys.delivered.tr /*model.status ?? ''*/,
+                  model.status ?? '',
                   style: typoSuperSmallTextBold.copyWith(
                       fontSize: 11.5.sp, color: colorGreen55),
                 )

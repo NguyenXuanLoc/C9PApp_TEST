@@ -206,7 +206,7 @@ class YourOrderView extends GetView<YourOrderController> {
                 ),
                 const Spacer(),
                 AppText(
-                  LocaleKeys.delivered.tr /*model.status ?? ''*/,
+                model.status ?? '',
                   style: typoSuperSmallTextBold.copyWith(
                       fontSize: 11.5.sp, color: colorGreen55),
                 )
@@ -320,7 +320,7 @@ class YourOrderView extends GetView<YourOrderController> {
                 ),
                 const Spacer(),
                 AppText(
-                  LocaleKeys.received.tr /*model.status ?? ''*/,
+                  model.status ?? '',
                   style: typoSuperSmallTextBold.copyWith(
                       fontSize: 11.5.sp, color: colorGreen55),
                 )

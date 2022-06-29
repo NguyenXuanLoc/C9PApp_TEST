@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:c9p/app/data/event_bus/jump_to_tab_event.dart';
 import 'package:c9p/app/data/event_bus/load_weather_event.dart';
+import 'package:c9p/app/data/event_bus/reload_user_event.dart';
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/model/promotion_model.dart';
 import 'package:c9p/app/data/model/weather_model.dart';
@@ -42,6 +44,7 @@ class TabMainController extends GetxController {
         getNearOrder();
         getPromotion();
         getUserInfo();
+        Utils.eventBus.on<ReloadUserEvent>().listen((event) => getUserInfo());
         isFirstOpen = false;
       }
     });
@@ -148,8 +151,5 @@ class TabMainController extends GetxController {
     }
   }
 
-  void onClickProfile() async {
-    await Get.toNamed(Routes.UPDATE_PROFILE, arguments: true);
-    getUserInfo();
-  }
+  void onClickProfile() => Utils.fireEvent(JumpToTabEvent(3));
 }

@@ -43,8 +43,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
           centerTitle: true,
           title: AppText(
             LocaleKeys.account.tr,
-            style: typoMediumTextBold.copyWith(
-                color: colorText0, fontWeight: FontWeight.w600),
+            style: typoTitleHeader,
           ),
           flexibleSpace: Container(
             alignment: Alignment.bottomCenter,

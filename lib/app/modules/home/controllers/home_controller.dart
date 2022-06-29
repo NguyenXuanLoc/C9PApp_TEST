@@ -1,3 +1,4 @@
+import 'package:c9p/app/data/event_bus/jump_to_tab_event.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 import 'package:flutter/widgets.dart';
@@ -11,6 +12,9 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
+    Utils.eventBus
+        .on<JumpToTabEvent>()
+        .listen((model) => jumToTap(model.index));
     super.onInit();
   }
 

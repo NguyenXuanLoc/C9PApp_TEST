@@ -214,7 +214,7 @@ class OrderController extends GetxController {
     var response = await userProvider.getAddress(query);
     if (response.error == null && response.data != null) {
       var addressModel = addressModelFromJson(response.data);
-      if (addressModel.status != MessageKey.ZERO_RESULTS) {
+      if (addressModel.status != null && addressModel.status == MessageKey.OK) {
         return addressModel.predictions ?? [];
       }
     }

@@ -69,4 +69,10 @@ class UserProvider extends BaseProvider {
   Future<ApiResult> getProfile() async => await GET('user/info');
 
   Future<ApiResult> gePromotion() async => await GET('banner');
+
+  Future<ApiResult> getPendingOrder({String paging = ''}) async =>
+      await GET('user/orders/pending');
+
+  Future<ApiResult> getDoneOrder({String paging = ''}) async =>
+      await GET('user/orders/done');
 }

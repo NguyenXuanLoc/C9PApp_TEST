@@ -148,5 +148,5 @@ class TabMainController extends GetxController {
     }
   }
 
-  void onClickProfile() => Get.toNamed(Routes.UPDATE_PROFILE);
+  void onClickProfile() =>{}/* Get.toNamed(Routes.UPDATE_PROFILE)*/;
 }

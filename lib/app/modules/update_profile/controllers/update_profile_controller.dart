@@ -22,8 +22,16 @@ class UpdateProfileController extends GetxController {
 
   @override
   void onInit() {
-    phoneController.text = Get.arguments;
+    init();
     super.onInit();
+  }
+
+  void init() async {
+    var userModel = await StorageUtils.getUser();
+    if (userModel != null) {
+      phoneController.text =
+          userModel.data?.userData?.phone?.replaceAll('+84', '0') ?? '';
+    }
   }
 
   void updateProfile(BuildContext context) async {

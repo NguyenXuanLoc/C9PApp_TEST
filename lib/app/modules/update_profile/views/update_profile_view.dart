@@ -26,7 +26,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
         fullStatusBar: true,
         isTabToHideKeyBoard: true,
         appbar: AppBar(
-          leading: SizedBox(
+          /*    leading: SizedBox(
             width: 20.w,
             child: IconButton(
                 splashRadius: 20,
@@ -36,7 +36,8 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                   R.assetsBackSvg,
                   color: colorWhite,
                 )),
-          ),
+          ),*/
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: AppText(
             LocaleKeys.account.tr,

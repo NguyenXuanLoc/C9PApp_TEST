@@ -85,9 +85,15 @@ class OrderController extends GetxController {
       currentAddress = addressController.text;
       countController.text =
           orderModel?.itemQty != null ? orderModel!.itemQty.toString() : '1';
-      deliverDate = orderModel?.deliverTime;
-      dateController.text =
-          Utils.convertTimeToDDMMYY(deliverDate ?? DateTime.now());
+
+      if (orderModel!.deliverTime!.isAfter(DateTime.now())) {
+        deliverDate = orderModel?.deliverTime;
+        dateController.text =
+            Utils.convertTimeToDDMMYY(deliverDate ?? DateTime.now());
+      }else{
+        deliverDate = DateTime.now();
+        dateController.text = Utils.convertTimeToDDMMYY(DateTime.now());
+      }
       hourController.text =
           Utils.convertTimeToHHMM(deliverDate ?? DateTime.now());
       hourController.text =

@@ -10,7 +10,6 @@ import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
 
@@ -37,17 +36,18 @@ class TabMainController extends GetxController {
     getPromotion();
   }
 
+  @override
+  onInit() {
+    init();
+    super.onInit();
+  }
+
   void init() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      if (isFirstOpen) {
-        checkWeather();
-        getNearOrder();
-        getPromotion();
-        getUserInfo();
-        Utils.eventBus.on<ReloadUserEvent>().listen((event) => getUserInfo());
-        isFirstOpen = false;
-      }
-    });
+    checkWeather();
+    getNearOrder();
+    getPromotion();
+    getUserInfo();
+    Utils.eventBus.on<ReloadUserEvent>().listen((event) => getUserInfo());
     _weatherStream = Utils.eventBus.on<LoadWeatherEvent>().listen((event) {
       checkWeather();
       _weatherStream?.cancel();

@@ -19,12 +19,12 @@ class OrderSuccessController extends GetxController {
 
   @override
   void onClose() {
-    BackButtonInterceptor.remove(myInterceptor);
     super.onInit();
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     Get.offAndToNamed(Routes.HOME);
+    BackButtonInterceptor.remove(myInterceptor);
     return true;
   }
 

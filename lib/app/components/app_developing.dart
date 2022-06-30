@@ -1,27 +1,30 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:get/get.dart';
 
-import '../../../components/app_button.dart';
-import '../../../components/app_scalford.dart';
-import '../../../components/app_text.dart';
-import '../../../config/app_translation.dart';
-import '../../../config/resource.dart';
-import '../../../theme/app_styles.dart';
-import '../../../theme/colors.dart';
-import '../controllers/order_success_controller.dart';
+import '../config/app_translation.dart';
+import '../config/resource.dart';
+import '../theme/app_styles.dart';
+import '../theme/colors.dart';
+import 'app_button.dart';
+import 'app_scalford.dart';
+import 'app_text.dart';
 
-class OrderSuccessView extends GetView<OrderSuccessController> {
-  const OrderSuccessView({Key? key}) : super(key: key);
+class AppDeveloping extends StatelessWidget {
+  final VoidCallback onClickMain;
+  final VoidCallback onClickOrder;
+
+  const AppDeveloping(
+      {Key? key, required this.onClickMain, required this.onClickOrder})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    controller.init();
     return AppScaffold(
       padding: EdgeInsets.all(15.w),
       appbar: AppBar(
+        elevation: 0,
         centerTitle: true,
         flexibleSpace: Container(
           alignment: Alignment.bottomCenter,
@@ -42,35 +45,18 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
       body: Column(
         children: [
           const Spacer(),
-          SvgPicture.asset(R.assetsSvgOrderSuccess),
-          const SizedBox(
-            height: 40,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 30.w, right: 30.w),
-            child: AppText(
-              LocaleKeys.order_success.tr,
-              textAlign: TextAlign.center,
-              style: typoSmallTextBold.copyWith(fontWeight: FontWeight.w800),
-            ),
+          Image.asset(R.assetsPngDeveloping),
+          AppText(
+            LocaleKeys.developing.tr,
+            textAlign: TextAlign.center,
+            style: typoSuperSmallTextBold.copyWith(
+                color: colorText60, fontSize: 12.sp),
           ),
           const SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 30.w, right: 30.w),
-            child: AppText(
-              LocaleKeys.developing.tr,
-              textAlign: TextAlign.center,
-              style: typoSuperSmallTextBold.copyWith(
-                  color: colorText60, fontSize: 12.sp),
-            ),
-          ),
-          const SizedBox(
-            height: 50,
+            height: 60,
           ),
           AppButton(
-            onPress: () => controller.mainOnclick(),
+            onPress: () => onClickMain.call(),
             title: LocaleKeys.main.tr,
             backgroundColor: colorGrey15,
             shapeBorder: RoundedRectangleBorder(
@@ -82,8 +68,8 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
             height: 10,
           ),
           AppButton(
-            onPress: () => controller.followOrderOnclick(),
-            title: LocaleKeys.follow_order.tr,
+            onPress: () => onClickOrder.call(),
+            title: LocaleKeys.reorder_rice.tr,
             backgroundColor: colorGreen55,
             shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(13.w)),

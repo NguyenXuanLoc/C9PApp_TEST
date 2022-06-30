@@ -119,7 +119,7 @@ class YourOrderController extends GetxController
     getPendingOrder();
   }
 
-  onClickReOrder(OrderModel model) =>
+  openReOrder(OrderModel model) =>
       Get.toNamed(Routes.ORDER, arguments: model);
 
   void openOrderDetail(OrderModel model) =>

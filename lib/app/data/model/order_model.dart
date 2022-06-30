@@ -19,6 +19,7 @@ class OrderModel {
     this.buyerPhone,
     this.buyerName,
     this.codAmount,
+    this.amount,
     this.shippingFee,
     this.deliverTime,
     this.shopOrderId,
@@ -47,6 +48,10 @@ class OrderModel {
     this.userId,
     this.channel,
     this.productId,
+    this.shipperName,
+    this.shipperPhone,
+    this.shipperNumber,
+    this.shipperRate,
   });
 
   int? id;
@@ -58,6 +63,7 @@ class OrderModel {
   String? buyerPhone;
   String? buyerName;
   int? codAmount;
+  int? amount;
   int? shippingFee;
   DateTime? deliverTime;
   String? shopOrderId;
@@ -86,6 +92,10 @@ class OrderModel {
   int? userId;
   String? channel;
   int? productId;
+  String? shipperName;
+  String? shipperPhone;
+  String? shipperNumber;
+  int? shipperRate;
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
     id: json["id"],
@@ -97,6 +107,7 @@ class OrderModel {
     buyerPhone: json["BuyerPhone"],
     buyerName: json["BuyerName"],
     codAmount: json["CodAmount"],
+    amount: json["Amount"],
     shippingFee: json["ShippingFee"],
     deliverTime: DateTime.parse(json["DeliverTime"]),
     shopOrderId: json["ShopOrderId"],
@@ -125,6 +136,10 @@ class OrderModel {
     userId: json["user_id"],
     channel: json["channel"],
     productId: json["product_id"],
+    shipperName: json["shipper_name"],
+    shipperPhone: json["shipper_phone"],
+    shipperNumber: json["shipper_number"],
+    shipperRate: json["shipper_rate"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -137,6 +152,7 @@ class OrderModel {
     "BuyerPhone": buyerPhone,
     "BuyerName": buyerName,
     "CodAmount": codAmount,
+    "Amount": amount,
     "ShippingFee": shippingFee,
     "DeliverTime": deliverTime!.toIso8601String(),
     "ShopOrderId": shopOrderId,
@@ -165,5 +181,9 @@ class OrderModel {
     "user_id": userId,
     "channel": channel,
     "product_id": productId,
+    "shipper_name": shipperName,
+    "shipper_phone": shipperPhone,
+    "shipper_number": shipperNumber,
+    "shipper_rate": shipperRate,
   };
 }

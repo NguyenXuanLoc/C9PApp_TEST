@@ -7,15 +7,16 @@ class DetailOrderController extends GetxController {
 
   @override
   void onInit() {
-    orderModer.value = Get.arguments;
     super.onInit();
   }
+
+  void init() => orderModer.value = Get.arguments;
 
   @override
   void onReady() {
     super.onReady();
   }
 
-  void reOrderOnclick() => Get.toNamed(Routes.DEVELOPING);
-
+  void reOrderOnclick() =>
+      Get.toNamed(Routes.ORDER, arguments: orderModer.value);
 }

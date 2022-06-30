@@ -47,7 +47,7 @@ class AppPages {
     GetPage(
       name: _Paths.HOME,
       page: () => HomeView(),
-      preventDuplicates: true,
+      preventDuplicates: false,
       bindings: [
         HomeBinding(),
         TabMainBinding(),

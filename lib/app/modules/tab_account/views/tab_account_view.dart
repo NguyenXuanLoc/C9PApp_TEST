@@ -18,7 +18,6 @@ import '../controllers/tab_account_controller.dart';
 class TabAccountView extends GetView<TabAccountController> {
   @override
   Widget build(BuildContext context) {
-    controller.init();
     return AppScaffold(
         fullStatusBar: true,
         isTabToHideKeyBoard: true,

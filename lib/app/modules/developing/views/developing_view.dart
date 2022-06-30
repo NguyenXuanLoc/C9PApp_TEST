@@ -19,7 +19,7 @@ class DevelopingView extends GetView<DevelopingController> {
   Widget build(BuildContext context) {
     return AppScaffold(
       padding: EdgeInsets.all(15.w),
-      appbar: AppBar(
+      appbar: AppBar(elevation: 0,
         centerTitle: true,
         flexibleSpace: Container(
           alignment: Alignment.bottomCenter,

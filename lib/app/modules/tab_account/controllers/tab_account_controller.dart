@@ -20,13 +20,10 @@ class TabAccountController extends GetxController {
   var isSave = false.obs;
   var currentName = '';
 
-  void init() async {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      if (isFirstOpen) {
-        getUserInfo();
-        isFirstOpen = false;
-      }
-    });
+  @override
+  void onInit() {
+    getUserInfo();
+    super.onInit();
   }
 
   void getUserInfo() async {

@@ -47,7 +47,14 @@ class AppPages {
     GetPage(
       name: _Paths.HOME,
       page: () => HomeView(),
-      binding: HomeBinding(),
+      preventDuplicates: true,
+      bindings: [
+        HomeBinding(),
+        TabMainBinding(),
+        TabPromotionBinding(),
+        TabNotifyBinding(),
+        TabAccountBinding()
+      ],
     ),
     GetPage(
       name: _Paths.LOGIN_SPLASH,

@@ -9,6 +9,7 @@ import 'package:c9p/app/components/app_text_field.dart';
 import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/config/resource.dart';
 import 'package:c9p/app/data/model/order_model.dart';
+import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/theme/app_styles.dart';
 import 'package:c9p/app/theme/colors.dart';
 import 'package:c9p/app/utils/app_utils.dart';
@@ -29,7 +30,6 @@ class TabMainView extends GetView<TabMainController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.init();
     return AppScaffold(
         fullStatusBar: true,
         isTabToHideKeyBoard: true,
@@ -99,6 +99,8 @@ class TabMainView extends GetView<TabMainController> {
                                 height: 17.h,
                               ),
                               AppTextField(
+                                onTap: () => Get.toNamed(Routes.DEVELOPING),
+                                readOnly: true,
                                 isShowErrorText: false,
                                 textStyle: typoSuperSmallTextBold.copyWith(
                                     decoration: TextDecoration.none),

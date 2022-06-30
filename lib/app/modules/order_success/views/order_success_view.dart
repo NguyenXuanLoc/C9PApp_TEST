@@ -18,6 +18,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.init();
     return AppScaffold(
       padding: EdgeInsets.all(15.w),
       appbar: AppBar(

@@ -6,6 +6,7 @@ import 'package:c9p/app/components/app_not_data_widget.dart';
 import 'package:c9p/app/components/app_scalford.dart';
 import 'package:c9p/app/components/app_text.dart';
 import 'package:c9p/app/components/app_text_field.dart';
+import 'package:c9p/app/components/item_order.dart';
 import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/config/resource.dart';
 import 'package:c9p/app/data/model/order_model.dart';
@@ -294,7 +295,10 @@ class TabMainView extends GetView<TabMainController> {
                 shrinkWrap: true,
                 primary: false,
                 physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (c, i) => itemNearOrder(controller.lNearOrder[i]),
+                itemBuilder: (c, i) => ItemOrder(
+                    model: controller.lNearOrder[i],
+                    callBackOrderDetail: (model)=> controller.openOrderDetail(model),
+                    callBackReOrder: (model) => controller.openReOrder(model)),
                 separatorBuilder: (i, c) => Container(
                       color: colorSeparatorListView,
                       height: 10.h,
@@ -344,8 +348,7 @@ class TabMainView extends GetView<TabMainController> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            AppText(
-                                '${Utils.formatMoney(model.amount ?? 0)}đ',
+                            AppText('${Utils.formatMoney(model.amount ?? 0)}đ',
                                 style: typoSmallTextBold.copyWith(
                                     color: colorSemanticRed100,
                                     fontWeight: FontWeight.w800)),

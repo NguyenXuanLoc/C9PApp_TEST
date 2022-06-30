@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../components/app_line_space.dart';
 import '../../../components/rate_bar_indicator.dart';
@@ -131,26 +132,31 @@ class DetailOrderView extends GetView<DetailOrderController> {
               ),
             ],
           ),
-          /*paddingWidget(children: [
-        titleWidget(R.assetsPngMotoBike, LocaleKeys.shipper.tr, isSvg: false),
-        const SizedBox(
-          height: 10,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            AppText(
-              "Hoang Tuan Vu 5",
-              style: typoExtraSmallTextBold.copyWith(color: colorText70),
-            ),
-            SvgPicture.asset(
-              R.assetsSvgStar,
-              height: 10,
-              fit: BoxFit.cover,
-            )
-          ],
-        )
-      ]),*/
+          Visibility(
+            visible:
+                controller.orderModer.value.shipperName == null ? false : true,
+            child: paddingWidget(children: [
+              titleWidget(R.assetsPngMotoBike, LocaleKeys.shipper.tr,
+                  isSvg: false),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  AppText(
+                    "${controller.orderModer.value.shipperName ??''}  ${controller.orderModer.value.shipperRate}",
+                    style: typoExtraSmallTextBold.copyWith(color: colorText70),
+                  ),
+                  SvgPicture.asset(
+                    R.assetsSvgStar,
+                    height: 10,
+                    fit: BoxFit.cover,
+                  )
+                ],
+              )
+            ]),
+          ),
           Padding(
             padding: EdgeInsets.all(contentPadding),
             child: AppButton(

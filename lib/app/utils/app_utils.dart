@@ -161,8 +161,24 @@ class Utils {
   }
 
   static String convertTimeToHHMMA(DateTime time) =>
-      DateFormat("h:mma").format(time);
+      DateFormat.Hm().format(time.toLocal());
 
   static Future<String?> getFirebaseToken() async =>
       await FirebaseMessaging.instance.getToken();
+
+ static String time24to12Format(DateTime dateTime) {
+    var time = DateFormat.Hm().format(dateTime.toLocal());
+    int h = int.parse(time.split(":").first);
+    int m = int.parse(time.split(":").last.split(" ").first);
+    String send = "";
+    if (h > 12) {
+      var temp = h - 12;
+      send =
+          "$temp:${m.toString().length == 1 ? "0$m" : m.toString()} " "PM";
+    } else {
+      send =
+          "$h:${m.toString().length == 1 ? "0$m" : m.toString()}  " "AM";
+    }
+    return send;
+  }
 }

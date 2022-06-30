@@ -90,7 +90,7 @@ class OrderController extends GetxController {
         deliverDate = orderModel?.deliverTime;
         dateController.text =
             Utils.convertTimeToDDMMYY(deliverDate ?? DateTime.now());
-      }else{
+      } else {
         deliverDate = DateTime.now();
         dateController.text = Utils.convertTimeToDDMMYY(DateTime.now());
       }
@@ -106,8 +106,8 @@ class OrderController extends GetxController {
     }
     var currentTime = DateTime.fromMillisecondsSinceEpoch(
         DateTime.now().millisecondsSinceEpoch + AppConstant.FIFTEN_MINIUTES);
-    deliverHours = Utils.convertTimeToHHMM(currentTime);
-    hourController.text = Utils.convertTimeToHHMMA(currentTime);
+    deliverHours = Utils.convertTimeToHHMMA(currentTime);
+    hourController.text = Utils.time24to12Format(currentTime);
   }
 
   void scrollToBottom() => Timer(
@@ -248,7 +248,7 @@ class OrderController extends GetxController {
     var selectedTime24Hour = await Utils.pickTime(context);
     if (selectedTime24Hour != null) {
       deliverHours = selectedTime24Hour.format(context);
-      hourController.text = DateFormat("h:mm a").format(DateTime(
+      hourController.text = Utils.time24to12Format(DateTime(
         DateTime.now().year,
         DateTime.now().month,
         DateTime.now().day,

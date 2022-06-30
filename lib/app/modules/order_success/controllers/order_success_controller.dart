@@ -23,7 +23,7 @@ class OrderSuccessController extends GetxController {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    Get.offAndToNamed(Routes.HOME);
+    Get.offAllNamed(Routes.HOME);
     BackButtonInterceptor.remove(myInterceptor);
     return true;
   }

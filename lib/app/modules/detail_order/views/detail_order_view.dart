@@ -7,6 +7,7 @@ import 'package:c9p/app/config/resource.dart';
 import 'package:c9p/app/theme/app_styles.dart';
 import 'package:c9p/app/theme/colors.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,6 +20,7 @@ import '../controllers/detail_order_controller.dart';
 class DetailOrderView extends GetView<DetailOrderController> {
   @override
   Widget build(BuildContext context) {
+    controller.init();
     return AppScaffold(
         body: Stack(
       children: [
@@ -49,7 +51,7 @@ class DetailOrderView extends GetView<DetailOrderController> {
                 Row(
                   children: [
                     AppText(
-                        "${Utils.formatMoney(controller.orderModer.value.codAmount ?? 0)}đ",
+                        "${Utils.formatMoney(controller.orderModer.value.amount ?? 0)}đ",
                         style: typoMediumTextBold.copyWith(
                             color: colorSemanticRed100,
                             fontWeight: FontWeight.w700)),

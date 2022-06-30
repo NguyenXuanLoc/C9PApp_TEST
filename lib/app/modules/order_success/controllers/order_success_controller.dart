@@ -1,7 +1,17 @@
+import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/routes/app_pages.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:get/get.dart';
 
 class OrderSuccessController extends GetxController {
+  OrderModel? model;
+
+  @override
+  void onInit() {
+    model = Get.arguments;
+    super.onInit();
+  }
+
   void mainOnclick() => Get.offAllNamed(Routes.HOME);
 
   void followOrderOnclick() =>

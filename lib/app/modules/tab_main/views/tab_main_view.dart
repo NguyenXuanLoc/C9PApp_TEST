@@ -345,7 +345,7 @@ class TabMainView extends GetView<TabMainController> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             AppText(
-                                '${Utils.formatMoney(model.codAmount ?? 0)}đ',
+                                '${Utils.formatMoney(model.amount ?? 0)}đ',
                                 style: typoSmallTextBold.copyWith(
                                     color: colorSemanticRed100,
                                     fontWeight: FontWeight.w800)),

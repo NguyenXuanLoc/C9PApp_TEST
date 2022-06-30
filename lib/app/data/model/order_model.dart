@@ -19,6 +19,7 @@ class OrderModel {
     this.buyerPhone,
     this.buyerName,
     this.codAmount,
+    this.amount,
     this.shippingFee,
     this.deliverTime,
     this.shopOrderId,
@@ -58,6 +59,7 @@ class OrderModel {
   String? buyerPhone;
   String? buyerName;
   int? codAmount;
+  int? amount;
   int? shippingFee;
   DateTime? deliverTime;
   String? shopOrderId;
@@ -97,6 +99,7 @@ class OrderModel {
     buyerPhone: json["BuyerPhone"],
     buyerName: json["BuyerName"],
     codAmount: json["CodAmount"],
+    amount: json["Amount"],
     shippingFee: json["ShippingFee"],
     deliverTime: DateTime.parse(json["DeliverTime"]),
     shopOrderId: json["ShopOrderId"],
@@ -137,6 +140,7 @@ class OrderModel {
     "BuyerPhone": buyerPhone,
     "BuyerName": buyerName,
     "CodAmount": codAmount,
+    "Amount": amount,
     "ShippingFee": shippingFee,
     "DeliverTime": deliverTime!.toIso8601String(),
     "ShopOrderId": shopOrderId,

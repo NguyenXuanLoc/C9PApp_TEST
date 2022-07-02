@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:c9p/app/components/app_button.dart';
 import 'package:c9p/app/components/app_circle_image.dart';
 import 'package:c9p/app/components/app_loading_widget.dart';
@@ -68,8 +69,7 @@ class TabMainView extends GetView<TabMainController> {
                                 children: [
                                   Obx(() => AppText(
                                       "Xin chào${controller.fullName.value.isNotEmpty ? " ${controller.fullName.value}" : ''}!",
-                                      style: typoTitleHeader.copyWith(
-                                          fontWeight: FontWeight.w700))),
+                                      style: typoTitleHeader.copyWith())),
                                   const SizedBox(
                                     width: 5,
                                   ),
@@ -79,18 +79,9 @@ class TabMainView extends GetView<TabMainController> {
                                   ),
                                   const Spacer(),
                                   InkWell(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: colorWarning10,
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        border: Border.all(
-                                            color: colorYellow100, width: 1),
-                                      ),
-                                      child: AppCircleImage(
-                                          size: 33.w,
-                                          url: globals.avatar,
-                                          urlError: ''),
+                                    child: SvgPicture.asset(
+                                      R.assetsSvgCircleAvatar,
+                                      width: 28.w,
                                     ),
                                     onTap: () => controller.onClickProfile(),
                                   )
@@ -229,8 +220,27 @@ class TabMainView extends GetView<TabMainController> {
                                 children: [
                                   optionWidget(R.assetsSvgMenu,
                                       LocaleKeys.menu.tr, TabMainAction.MENU),
-                                  optionWidget(R.assetsSvgOrder,
-                                      LocaleKeys.order.tr, TabMainAction.ORDER),
+                                  Obx(() => controller.isBadge.value
+                                      ? Badge(
+                                          position: BadgePosition.topEnd(
+                                              end: -4, top: -15),
+                                          badgeContent: Padding(
+                                            padding: EdgeInsets.all(2.w),
+                                            child: AppText(
+                                              '!',
+                                              style: typoSmallTextBold.copyWith(
+                                                  color: colorText0),
+                                            ),
+                                          ),
+                                          child: optionWidget(
+                                              R.assetsSvgOrder,
+                                              LocaleKeys.order.tr,
+                                              TabMainAction.ORDER),
+                                        )
+                                      : optionWidget(
+                                          R.assetsSvgOrder,
+                                          LocaleKeys.order.tr,
+                                          TabMainAction.ORDER)),
                                   optionWidget(
                                       R.assetsSvgStatistical,
                                       LocaleKeys.statistical.tr,
@@ -297,7 +307,8 @@ class TabMainView extends GetView<TabMainController> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (c, i) => ItemOrder(
                     model: controller.lNearOrder[i],
-                    callBackOrderDetail: (model)=> controller.openOrderDetail(model),
+                    callBackOrderDetail: (model) =>
+                        controller.openOrderDetail(model),
                     callBackReOrder: (model) => controller.openReOrder(model)),
                 separatorBuilder: (i, c) => Container(
                       color: colorSeparatorListView,

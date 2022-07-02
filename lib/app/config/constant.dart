@@ -6,6 +6,7 @@ class StorageKey {
   static const String firstOpenOrder = 'firstOpenOrder';
   static const String scheduleWeather = 'scheduleWeather';
   static const String weather = 'weather';
+  static const String orderId = 'orderId';
 }
 
 class MessageKey {

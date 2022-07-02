@@ -15,8 +15,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'app/config/app_translation.dart';
 import 'app/config/notification_service.dart';
 import 'app/routes/app_pages.dart';
-import 'app/routes/root_binding.dart';
-import 'app/utils/toast_utils.dart';
 
 void main() async {
   await configApp();
@@ -69,16 +67,28 @@ class MyHttpOverrides extends HttpOverrides {
 
 Future<void> configApp() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await Firebase.initializeApp();
   HttpOverrides.global = MyHttpOverrides();
   configOrientation();
   await GetStorage.init();
-  configFcm();
   await dotenv.load(fileName: '.env.dev');
   await StorageUtils.getUser();
+  try {
+    var notificationService = NotificationService();
+    await notificationService.init();
+    await notificationService.requestIOSPermissions();
+  } catch (ex) {}
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  try{
   var notificationService = NotificationService();
   await notificationService.init();
   await notificationService.requestIOSPermissions();
+  notificationService.showNotification(message);
+}catch(ex){}
 }
 
 void configOrientation() {
@@ -86,25 +96,4 @@ void configOrientation() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-}
-void configFcm() async {
-  await FirebaseMessaging.instance
-      .setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    toast('FirebaseMessaging');
-    var notification = message.notification;
-    AndroidNotification? android = message.notification?.android;
-  });
-
-}
-Future<void> _firebaseMessagingBackgroundHandler(
-    RemoteMessage message) async {
-  await Firebase.initializeApp();
-  toast('_firebaseMessagingBackgroundHandler');
-  print('A bg message just showed up :  ${message.messageId}');
 }

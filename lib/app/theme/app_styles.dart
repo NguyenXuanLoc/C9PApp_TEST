@@ -349,7 +349,7 @@ final typoMediumTextBold = GoogleFonts.nunito(
 
 final typoTitleHeader = GoogleFonts.nunito(
   fontStyle: FontStyle.normal,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.w700,
   fontSize: 16.sp,
   letterSpacing: 1.02,
   color: colorText0,

@@ -1,11 +1,16 @@
-import 'package:c9p/app/routes/app_pages.dart';
-import 'package:c9p/app/utils/toast_utils.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'dart:async';
+
+import 'package:c9p/app/config/globals.dart' as globals;
+import 'package:c9p/app/data/event_bus/new_notify_event.dart';
+import 'package:c9p/app/data/event_bus/refresh_order_detail_event.dart';
+import 'package:c9p/app/data/event_bus/refresh_your_order_event.dart';
+import 'package:c9p/app/data/event_bus/show_badge_event.dart';
+import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
+
+import '../data/model/notify_model.dart';
 
 class NotificationService {
   // Singleton pattern
@@ -26,9 +31,8 @@ class NotificationService {
   static const AndroidNotificationDetails _androidNotificationDetails =
       AndroidNotificationDetails(
     channelId,
-    "thecodexhub",
-    channelDescription:
-        "This channel is responsible for all the local notifications",
+    "notifications",
+    channelDescription: "notifications",
     playSound: true,
     priority: Priority.high,
     importance: Importance.high,
@@ -43,7 +47,7 @@ class NotificationService {
   );
 
   Future<void> init() async {
-    // configFcm();
+    configFcm();
     const androidInitializationSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -67,18 +71,7 @@ class NotificationService {
         await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
     String? payload = notificationAppLaunchDetails!.payload;
     if (payload != null) {
-      // Get.toNamed(Routes.YOUR_ORDER);
-      /*     await navigatorKey.currentState?.push(
-          MaterialPageRoute(builder: (_) => DetailsPage(payload: payload)));*/
-      Fluttertoast.showToast(
-        msg: payload,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 14,
-      );
+      StorageUtils.saveOrderId(payload);
     }
   }
 
@@ -89,19 +82,22 @@ class NotificationService {
       badge: true,
       sound: true,
     );
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      toast('FirebaseMessaging');
-      var notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
+      var notifyModel = NotifyModel.fromJson(message.data);
+      if (globals.isOrderDetail) {
+        if (notifyModel.orderId != null && notifyModel.orderId!.isNotEmpty) {
+          Utils.fireEvent(ShowBadgeEvent());
+        }
+        Utils.fireEvent(RefreshOrderDetailEvent(notifyModel.orderId ?? '  '));
+      } else if (globals.isOpenYourOrder) {
+        Utils.fireEvent(RefreshYourOrderEvent());
+      } else {
+        if (notifyModel.orderId != null && notifyModel.orderId!.isNotEmpty) {
+          Utils.fireEvent(ShowBadgeEvent());
+        }
+      }
+      showNotification(message);
     });
-  }
-
-  Future<void> _firebaseMessagingBackgroundHandler(
-      RemoteMessage message) async {
-    await Firebase.initializeApp();
-    toast('_firebaseMessagingBackgroundHandler');
-    print('A bg message just showed up :  ${message.messageId}');
   }
 
   Future<void> requestIOSPermissions() async {
@@ -116,27 +112,25 @@ class NotificationService {
   }
 
   Future<void> showNotification(
-      int id, String title, String body, String payload) async {
+    RemoteMessage message,
+  ) async {
+    var notifyModel = NotifyModel.fromJson(message.data);
     await flutterLocalNotificationsPlugin.show(
-      id,
-      title,
-      body,
+      message.messageId.hashCode,
+      notifyModel.orderStatus,
+      notifyModel.msg,
       notificationDetails,
-      payload: payload,
+      payload: notifyModel.orderId,
     );
   }
 
-  Future<void> cancelNotification(int id) async {
-    await flutterLocalNotificationsPlugin.cancel(id);
-  }
+  Future<void> cancelNotification(int id) async =>
+      await flutterLocalNotificationsPlugin.cancel(id);
 
-  Future<void> cancelAllNotifications() async {
-    await flutterLocalNotificationsPlugin.cancelAll();
-  }
+  Future<void> cancelAllNotifications() async =>
+      await flutterLocalNotificationsPlugin.cancelAll();
 }
 
-Future<void> onSelectNotification(String? payload) async {
-  Get.toNamed(Routes.YOUR_ORDER);
-/*  await navigatorKey.currentState
-      ?.push(MaterialPageRoute(builder: (_) => DetailsPage(payload: payload)));*/
-}
+Future<void> onSelectNotification(String? payload) async => Timer(
+    const Duration(seconds: 1),
+    () => Utils.fireEvent(NewNotifyEvent(payload ?? '')));

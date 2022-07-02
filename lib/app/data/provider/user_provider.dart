@@ -85,4 +85,7 @@ class UserProvider extends BaseProvider {
 
   Future<ApiResult> logout(String deviceToken) async =>
       await POST('user/logout', {ApiKey.device_token: deviceToken});
+
+  Future<ApiResult> getOrderById(String id) async =>
+      await GET('user/order/$id');
 }

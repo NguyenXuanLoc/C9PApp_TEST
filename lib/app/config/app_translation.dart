@@ -103,6 +103,8 @@ class LocaleKeys {
   static const received = 'received';
   static const save = 'save';
   static const logout = 'logout';
+  static const refresh_list = 'refresh_list';
+  static const add_order = 'add_order';
 }
 
 class Locales {
@@ -196,6 +198,8 @@ class Locales {
     'not_find_address_please_try_again': 'Không tìm thấy địa chỉ, vui lòng thử lại',
     'save': 'Lưu',
     'logout': 'Đăng xuất',
+    'add_order': 'Đặt đơn hàng',
+    'refresh_list': 'Tải lại danh sách',
     'order_succes_choose_option':
         'Đơn hàng của bạn đã được đặt thành công. Vui lòng chọn các thao tác phía dưới',
   };

@@ -18,6 +18,7 @@ abstract class Routes {
   static const ORDER_SUCCESS = _Paths.ORDER_SUCCESS;
   static const YOUR_ORDER = _Paths.YOUR_ORDER;
   static const UPDATE_PROFILE = _Paths.UPDATE_PROFILE;
+  static const TEST = _Paths.TEST;
 }
 
 abstract class _Paths {
@@ -37,4 +38,5 @@ abstract class _Paths {
   static const ORDER_SUCCESS = '/order-success';
   static const YOUR_ORDER = '/your-order';
   static const UPDATE_PROFILE = '/update-profile';
+  static const TEST = '/test';
 }

@@ -26,6 +26,8 @@ import '../modules/tab_notify/bindings/tab_notify_binding.dart';
 import '../modules/tab_notify/views/tab_notify_view.dart';
 import '../modules/tab_promotion/bindings/tab_promotion_binding.dart';
 import '../modules/tab_promotion/views/tab_promotion_view.dart';
+import '../modules/test/bindings/test_binding.dart';
+import '../modules/test/views/test_view.dart';
 import '../modules/update_profile/bindings/update_profile_binding.dart';
 import '../modules/update_profile/views/update_profile_view.dart';
 import '../modules/your_order/bindings/your_order_binding.dart';
@@ -120,6 +122,11 @@ class AppPages {
       name: _Paths.UPDATE_PROFILE,
       page: () => UpdateProfileView(),
       binding: UpdateProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.TEST,
+      page: () => TestView(),
+      binding: TestBinding(),
     ),
   ];
 }

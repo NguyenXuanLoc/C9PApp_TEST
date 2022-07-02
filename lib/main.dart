@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -12,8 +13,10 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'app/config/app_translation.dart';
+import 'app/config/notification_service.dart';
 import 'app/routes/app_pages.dart';
 import 'app/routes/root_binding.dart';
+import 'app/utils/toast_utils.dart';
 
 void main() async {
   await configApp();
@@ -70,8 +73,12 @@ Future<void> configApp() async {
   HttpOverrides.global = MyHttpOverrides();
   configOrientation();
   await GetStorage.init();
+  configFcm();
   await dotenv.load(fileName: '.env.dev');
   await StorageUtils.getUser();
+  var notificationService = NotificationService();
+  await notificationService.init();
+  await notificationService.requestIOSPermissions();
 }
 
 void configOrientation() {
@@ -79,4 +86,25 @@ void configOrientation() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+}
+void configFcm() async {
+  await FirebaseMessaging.instance
+      .setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    toast('FirebaseMessaging');
+    var notification = message.notification;
+    AndroidNotification? android = message.notification?.android;
+  });
+
+}
+Future<void> _firebaseMessagingBackgroundHandler(
+    RemoteMessage message) async {
+  await Firebase.initializeApp();
+  toast('_firebaseMessagingBackgroundHandler');
+  print('A bg message just showed up :  ${message.messageId}');
 }

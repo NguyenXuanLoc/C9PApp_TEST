@@ -85,9 +85,6 @@ class NotificationService {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       var notifyModel = NotifyModel.fromJson(message.data);
       if (globals.isOrderDetail) {
-        if (notifyModel.orderId != null && notifyModel.orderId!.isNotEmpty) {
-          Utils.fireEvent(ShowBadgeEvent());
-        }
         Utils.fireEvent(RefreshOrderDetailEvent(notifyModel.orderId ?? '  '));
       } else if (globals.isOpenYourOrder) {
         Utils.fireEvent(RefreshYourOrderEvent());

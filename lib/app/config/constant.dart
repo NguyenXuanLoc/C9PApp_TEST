@@ -43,5 +43,5 @@ class AppConstant {
   static const REGISTER_DEVICE = 'REGISTER_DEVICE'; //mini giay
   static const URL_WEATHER_ICON = 'http://openweathermap.org/img/wn/';
   static const URL_WEATHER_ICON_DEFAULT =
-      'http://openweathermap.org/img/wn/01d@2x.png';
+      'http://openweathermap.org/img/wn/03d@2x.png';
 }

@@ -30,7 +30,7 @@ class ItemOrder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(contentPadding),
+      padding: EdgeInsets.only(left: contentPadding,right: contentPadding,top: 10.h,bottom: 10.h),
       child: InkWell(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -121,7 +121,7 @@ class ItemOrder extends StatelessWidget {
             ),
             callBackReOrder != null
                 ? Padding(
-                    padding: EdgeInsets.only(top: 15.h),
+                    padding: EdgeInsets.only(top: 3.h),
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: AppButton(

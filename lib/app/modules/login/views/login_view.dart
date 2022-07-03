@@ -38,15 +38,15 @@ class LoginView extends GetView<LoginController> {
                 height: 20,
               ),
               AppText(
-                LocaleKeys.login.tr,
+                LocaleKeys.welcome_to_com_9_p.tr,
                 style: typoLargeTextBold.copyWith(fontWeight: FontWeight.w700),
               ),
               const SizedBox(
                 height: 10,
               ),
               AppText(
-                LocaleKeys.login_by_phone_registed.tr,
-                style: typoSuperSmallTextBold.copyWith(
+                LocaleKeys.input_phone_number_to_order_c9p.tr,
+                style: typoSuperSmallTextRegular.copyWith(
                     color: colorText40, fontSize: 12.sp),
               ),
               const SizedBox(

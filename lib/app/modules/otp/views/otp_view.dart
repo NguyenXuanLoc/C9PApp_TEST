@@ -51,7 +51,7 @@ class OtpView extends GetView<OtpController> {
               ),
               AppText(
                 "${LocaleKeys.otp_sent.tr} ${controller.phoneNumber.value}, ${LocaleKeys.ban_vui_long_kiem_tra_tin_nhan.tr}",
-                style: typoSuperSmallTextBold.copyWith(
+                style: typoSuperSmallTextRegular.copyWith(
                     color: colorText40, fontSize: 12.sp),
               ),
               const SizedBox(

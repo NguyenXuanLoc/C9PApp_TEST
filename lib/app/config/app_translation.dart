@@ -19,6 +19,7 @@ class LocaleKeys {
   static const ask_existing_page = 'ask_existing_page';
   static const network_error = 'network_error';
   static const com_9p_wellcome = 'com_9p_wellcome';
+  static const welcome_to_com_9_p = 'welcome_to_com_9_p';
   static const here_have_dish = 'here_have_dish';
   static const login = 'login';
   static const accept_with = 'accept_with';
@@ -105,6 +106,7 @@ class LocaleKeys {
   static const logout = 'logout';
   static const refresh_list = 'refresh_list';
   static const add_order = 'add_order';
+  static const input_phone_number_to_order_c9p = 'input_phone_number_to_order_c9p';
 }
 
 class Locales {
@@ -152,7 +154,7 @@ class Locales {
     'address': 'Địa chỉ',
     'code': 'Mã',
     'temp': 'Nhiệt độ',
-    'find_order_at_here': 'Tìm kiếm đơn hàng tại đây',
+    'find_order_at_here': 'Tìm ID đơn hàng tại đây',
     'com_suong_9p': 'Cơm sườn ngon 9 phút',
     'time': 'Thời gian',
     'address_order': 'Địa chỉ nhận hàng',
@@ -200,6 +202,8 @@ class Locales {
     'logout': 'Đăng xuất',
     'add_order': 'Đặt đơn hàng',
     'refresh_list': 'Tải lại danh sách',
+    'welcome_to_com_9_p': 'Chào mừng bạn đến với C9P',
+    'input_phone_number_to_order_c9p': 'Bạn vui lòng nhập số điện thoại của mình vào phía dưới để đặt cơm cùng Cơm 9 phút nhé!',
     'order_succes_choose_option':
         'Đơn hàng của bạn đã được đặt thành công. Vui lòng chọn các thao tác phía dưới',
   };

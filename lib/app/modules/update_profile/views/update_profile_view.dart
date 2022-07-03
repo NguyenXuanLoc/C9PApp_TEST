@@ -101,7 +101,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                     borderRadius: 17,
                     backgroundColor: controller.isDisableButton.value
                         ? colorGrey10
-                        : colorGreen60,
+                        : colorGreen50,
                   )),
               const SizedBox(
                 height: 30,

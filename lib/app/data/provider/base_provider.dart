@@ -252,15 +252,19 @@ class BaseProvider extends GetConnect {
       return ApiResult<dynamic>(error: LocaleKeys.network_error.tr);
     }
   }
+
   Future<ApiResult> DELETE_WITH_BODY(String url, dynamic body) async {
     if (await ConnectionUtils.isConnect() == false) {
       return ApiResult(error: LocaleKeys.network_error.tr);
     }
+    httpClient.baseUrl = dotenv.env['BASE_API'];
     print('============================================================');
     print('[DELETE] ' + httpClient.baseUrl! + url);
+    print("Bearer " + globals.accessToken);
+    print('[PARAMS] ' + json.encode(body));
     try {
       final response =
-      await httpClient.request(url, 'DELETE', body: body, headers: {
+          await httpClient.request(url, 'DELETE', body: body, headers: {
         'Authorization': 'Bearer ${globals.accessToken}',
         'Content-Type': 'application/json'
       });
@@ -269,9 +273,7 @@ class BaseProvider extends GetConnect {
         var result = response.body;
         Logger().d(result);
         return ApiResult<dynamic>(
-            data: result,
-            statusCode: response.statusCode,
-            message: '');
+            data: result, statusCode: response.statusCode, message: '');
       } else {
         Logger().e('Error ${response.status.code} - ${response.statusText}');
         var result = response.body;
@@ -290,5 +292,4 @@ class BaseProvider extends GetConnect {
       return ApiResult<dynamic>(error: LocaleKeys.network_error.tr);
     }
   }
-
 }

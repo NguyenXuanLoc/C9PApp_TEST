@@ -3,6 +3,7 @@ import 'package:c9p/app/config/globals.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
 import 'package:c9p/app/data/model/user_model.dart';
 import 'package:c9p/app/data/model/weather_model.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:get_storage/get_storage.dart';
 
 class StorageUtils {
@@ -14,6 +15,7 @@ class StorageUtils {
 
   static Future<UserModel?> getUser() async {
     var userString = await GetStorage().read(StorageKey.AccountInfo);
+    logE("TAG userString: ${userString}");
     try {
       if (userString != null) {
         var userModel = UserModel.fromJson(userString);

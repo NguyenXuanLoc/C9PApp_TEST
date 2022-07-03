@@ -26,7 +26,7 @@ class OtpController extends GetxController {
   late Timer _timer;
   var startCountDown = 30.obs;
   var verificationId = '';
-  var pin = '';
+  final pin = ''.obs;
   var errorOtp = ''.obs;
   var auth = FirebaseAuth.instance;
 
@@ -50,10 +50,10 @@ class OtpController extends GetxController {
     }
   }
 
-  void setPin(String pin) => this.pin = pin;
+  void setPin(String pin) => this.pin.value = pin;
 
   bool isValid() {
-    if (pin.length != 6) {
+    if (pin.value.length != 6) {
       errorOtp.value = LocaleKeys.otp_invalid.tr;
       return false;
     }
@@ -66,18 +66,19 @@ class OtpController extends GetxController {
     Dialogs.showLoadingDialog(context);
     await FirebaseAuth.instance
         .signInWithCredential(PhoneAuthProvider.credential(
-            verificationId: verificationId, smsCode: pin))
+            verificationId: verificationId, smsCode: pin.value))
         .then((value) async {
           _handleLogin(value);
         })
         .whenComplete(() {})
         .onError((error, stackTrace) {
-          if (error.toString().contains(MessageKey.otp_invalid) ||
+    /*      if (error.toString().contains(MessageKey.otp_invalid) ||
               error.toString().contains(MessageKey.verification_id_invalid)) {
             toast(LocaleKeys.wrong_otp.tr);
           } else if (error.toString().contains(MessageKey.otp_expired)) {
             toast(LocaleKeys.otp_het_han.tr);
-          }
+          }*/
+          toast(LocaleKeys.wrong_otp.tr);
           Dialogs.hideLoadingDialog();
         });
   }

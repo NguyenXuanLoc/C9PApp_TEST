@@ -114,14 +114,17 @@ class OtpView extends GetView<OtpController> {
               SizedBox(
                 height: 50.h,
               ),
-              AppButton(
-                title: LocaleKeys.continues.tr,
-                textStyle: typoSmallTextBold.copyWith(color: colorText0),
-                borderRadius: 200,
-                onPress: () => controller.confirm(context),
-                width: MediaQuery.of(context).size.width,
-                backgroundColor: colorGreen50,
-              ),
+              Obx(() => AppButton(
+                    title: LocaleKeys.continues.tr,
+                    textStyle: typoButton.copyWith(
+                        color: controller.pin.value.length == 6
+                            ? colorText0
+                            : colorText60),
+                    borderRadius: 200,
+                    onPress: () => controller.confirm(context),
+                    width: MediaQuery.of(context).size.width,
+                backgroundColor: controller.pin.value.length ==6 ? colorGreen50 :colorGrey10,
+                  )),
               Visibility(
                 visible: false,
                 child: Center(

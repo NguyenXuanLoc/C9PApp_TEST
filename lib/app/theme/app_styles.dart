@@ -355,6 +355,14 @@ final typoTitleHeader = GoogleFonts.nunito(
   color: colorText0,
 );
 
+final typoButton= GoogleFonts.nunito(
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.w600,
+  fontSize: 14.sp,
+  letterSpacing: 1.02,
+  color: colorText0,
+);
+
 final typoMediumTextRegular = GoogleFonts.nunito(
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.w400,
@@ -450,7 +458,7 @@ final typoExtraSmallTextRegular = GoogleFonts.nunito(
 final typoSuperSmallTextBold = GoogleFonts.nunito(
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.w600,
-  fontSize: 12.sp,
+  fontSize: 12.5.sp,
   letterSpacing: 1.02,
   color: colorBlack,
 );

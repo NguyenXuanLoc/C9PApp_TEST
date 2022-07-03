@@ -55,6 +55,7 @@ class R {
   static const String assetsSvgCamera = 'assets/svg/camera.svg';
   static const String assetsSvgGallery = 'assets/svg/gallery.svg';
   static const String assetsSvgCircleAvatar = 'assets/svg/circle_avatar.svg';
+  static const String assetsSvgCalendar = 'assets/svg/calendar.svg';
   static const String assetsSvgLocationCircle =
       'assets/svg/location_circle.svg';
   static const String assetsBackgroundHeaderTabMainSvg =

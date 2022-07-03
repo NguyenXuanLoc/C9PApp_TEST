@@ -66,7 +66,7 @@ class LoginSplashView extends GetView<LoginSplashController> {
                   height: 20,
                 ),
                 AppButton(
-                  textStyle: typoSmallTextBold.copyWith(
+                  textStyle: typoButton.copyWith(
                       color: colorText0, fontWeight: FontWeight.w700),
                   title: LocaleKeys.login.tr,
                   onPress: () => Get.toNamed(Routes.LOGIN),

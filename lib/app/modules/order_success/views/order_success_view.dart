@@ -52,7 +52,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
             child: AppText(
               LocaleKeys.order_success.tr,
               textAlign: TextAlign.center,
-              style: typoSmallTextBold.copyWith(fontWeight: FontWeight.w800),
+              style: typoMediumTextBold.copyWith(fontWeight: FontWeight.w800),
             ),
           ),
           const SizedBox(
@@ -61,7 +61,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
           Padding(
             padding: EdgeInsets.only(left: 30.w, right: 30.w),
             child: AppText(
-              LocaleKeys.developing.tr,
+              LocaleKeys.order_succes_choose_option.tr,
               textAlign: TextAlign.center,
               style: typoSuperSmallTextBold.copyWith(
                   color: colorText60, fontSize: 12.sp),

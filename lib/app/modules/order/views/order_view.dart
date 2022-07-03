@@ -143,8 +143,11 @@ class OrderView extends GetView<OrderController> {
                       hintText: LocaleKeys.input_address_at_here.tr,
                       hintStyle:
                           typoSuperSmallTextBold.copyWith(color: colorText60),
-                      suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,
-                          color: colorBlack),
+                      suffixIcon: Padding(
+                        padding: EdgeInsets.only(right: 7.w),
+                        child: const Icon(Icons.keyboard_arrow_down_rounded,
+                            color: colorBlack),
+                      ),
                     )),
                 itemBuilder: (context, Prediction suggestion) {
                   return Padding(
@@ -229,9 +232,15 @@ class OrderView extends GetView<OrderController> {
                               color: colorText60),
                           decoration: decorTextFieldOval.copyWith(
                             hintText: 'mm/dd/yyy',
-                            suffixIcon: const Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: colorBlack),
+                            suffixIconConstraints: BoxConstraints(
+                              maxHeight: 20.h,
+                            ),
+                            suffixIcon: Padding(
+                              padding: EdgeInsets.only(right: 10.w),
+                              child: SvgPicture.asset(
+                                R.assetsSvgCalendar,
+                              ),
+                            ),
                           )))
                     ],
                   )),
@@ -259,9 +268,15 @@ class OrderView extends GetView<OrderController> {
                               color: colorText60),
                           decoration: decorTextFieldOval.copyWith(
                             hintText: 'hh:mm AM',
-                            suffixIcon: const Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: colorBlack),
+                            suffixIconConstraints: BoxConstraints(
+                              maxHeight: 20.h,
+                            ),
+                            suffixIcon: Padding(
+                              padding: EdgeInsets.only(right: 10.w),
+                              child: SvgPicture.asset(
+                                R.assetsSvgWatch,
+                              ),
+                            ),
                           )))
                     ],
                   ))
@@ -307,7 +322,7 @@ class OrderView extends GetView<OrderController> {
                 shapeBorder: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
                 width: MediaQuery.of(context).size.width,
-                textStyle: typoSuperSmallTextBold.copyWith(color: colorWhite),
+                textStyle: typoButton.copyWith(color: colorWhite),
               )
             ],
           ),
@@ -329,8 +344,11 @@ class OrderView extends GetView<OrderController> {
             decoration: decorTextFieldOval.copyWith(
               hintText: LocaleKeys.input_qty.tr,
               hintStyle: typoSuperSmallTextBold.copyWith(color: colorText60),
-              suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,
-                  color: colorBlack),
+              suffixIcon: Padding(
+                padding: EdgeInsets.only(right: 7.w),
+                child: const Icon(Icons.keyboard_arrow_down_rounded,
+                    color: colorBlack),
+              ),
             )),
         itemBuilder: (context, String suggestion) {
           return Padding(

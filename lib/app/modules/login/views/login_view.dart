@@ -9,6 +9,7 @@ import 'package:c9p/app/utils/app_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:c9p/app/components/app_button.dart';
 
 import 'package:get/get.dart';
 
@@ -61,71 +62,78 @@ class LoginView extends GetView<LoginController> {
                         style: typoSuperSmallTextBold.copyWith(
                             color: colorSemanticRed100))
                   ])),
-              Form(
-                  key: controller.formKey,
-                  child: TextFormField(
-                    controller: controller.phoneController,
-                    onChanged: (c) =>
-                        controller.formKey.currentState!.validate(),
-                    autofocus: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return LocaleKeys.please_input_phone_number.tr;
-                      } else if (!Utils.validateMobile(value)) {
-                        return LocaleKeys.phone_number_khong_hop_le.tr;
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.phone,
-                    style: typoSuperSmallTextBold,
-                    decoration: InputDecoration(
-                      focusedErrorBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: colorSemanticRed100)),
-                      errorBorder: const UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: colorUnderlineTextField)),
-                      enabledBorder: const UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: colorUnderlineTextField)),
-                      prefixText: '+84 ',
+              SizedBox(
+                height: 95.h,
+                child: Form(
+                    key: controller.formKey,
+                    child: TextFormField(
                       enabled: true,
-                      isDense: true,
-                      prefixStyle: typoSuperSmallTextBold.copyWith(),
-                      suffixIconConstraints:
-                          BoxConstraints(maxWidth: 30.w, maxHeight: 30.h),
-                      prefixIconConstraints:
-                          BoxConstraints(maxWidth: 25.w, maxHeight: 30.h),
-                      prefixIcon: Container(
-                        padding: EdgeInsets.only(top: 12.h),
-                        alignment: Alignment.centerLeft,
-                        child: Image.asset(
-                          R.assetsVnPng,
+                      controller: controller.phoneController,
+                      onChanged: (c) =>
+                          controller.formKey.currentState!.validate(),
+                      autofocus: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          controller.setIsValid(false);
+                          return LocaleKeys.please_input_phone_number.tr;
+                        } else if (!Utils.validateMobile(value)) {
+                          controller.setIsValid(false);
+                          return LocaleKeys.phone_number_khong_hop_le.tr;
+                        }
+                        controller.setIsValid(true);
+                        return null;
+                      },
+                      keyboardType: TextInputType.phone,
+                      style: typoSuperSmallTextBold,
+                      decoration: InputDecoration(
+                        focusedErrorBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: colorSemanticRed100)),
+                        errorBorder: const UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: colorUnderlineTextField)),
+                        enabledBorder: const UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: colorUnderlineTextField)),
+                        prefixText: '+84 ',
+                        enabled: true,
+                        isDense: true,
+                        prefixStyle: typoSuperSmallTextBold.copyWith(),
+                        suffixIconConstraints:
+                            BoxConstraints(maxWidth: 30.w, maxHeight: 30.h),
+                        prefixIconConstraints:
+                            BoxConstraints(maxWidth: 25.w, maxHeight: 30.h),
+                        prefixIcon: Container(
+                          padding: EdgeInsets.only(top: 12.h),
+                          alignment: Alignment.centerLeft,
+                          child: Image.asset(
+                            R.assetsVnPng,
+                          ),
                         ),
-                      ),
-                      suffixIcon: Container(
-                        padding: EdgeInsets.only(top: 12.h),
-                        alignment: Alignment.centerRight,
-                        child: IconButton(
-                          padding: const EdgeInsets.all(0),
-                          iconSize: 20,
-                          splashRadius: 20,
-                          constraints: BoxConstraints(maxHeight: 20.h),
-                          icon: SvgPicture.asset(R.assetsBackRightSvg),
-                          onPressed: () => controller.openOtp(),
-                        ),
-                      ),
-                      border: const UnderlineInputBorder(
+                        border: const UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: colorUnderlineTextField)),
+                        focusedBorder: const UnderlineInputBorder(
                           borderSide:
-                              BorderSide(color: colorUnderlineTextField)),
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: colorUnderlineTextField),
+                              BorderSide(color: colorUnderlineTextField),
+                        ),
+                        hintStyle:
+                            typoSuperSmallTextBold.copyWith(color: colorText40),
+                        hintText: LocaleKeys.phone_number_of_you.tr,
+                        contentPadding: EdgeInsets.only(
+                            top: 15.h, bottom: 2.h, left: 0, right: 0),
                       ),
-                      hintStyle:
-                          typoSuperSmallTextBold.copyWith(color: colorText40),
-                      hintText: LocaleKeys.phone_number_of_you.tr,
-                      contentPadding:
-                           EdgeInsets.only(top: 15.h,bottom: 2.h, left: 0, right: 0),
-                    ),
+                    )),
+              ),
+              Obx(() => AppButton(
+                    title: LocaleKeys.continues.tr,
+                    textStyle: typoButton.copyWith(
+                        color: controller.isValid.value
+                            ? colorText0
+                            : colorText60),
+                    borderRadius: 200,
+                    onPress: () => controller.openOtp(),
+                    width: MediaQuery.of(context).size.width,
+                    backgroundColor: controller.isValid.value ? colorGreen50 :colorGrey10,
                   )),
             ],
           )),

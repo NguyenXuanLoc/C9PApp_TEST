@@ -92,7 +92,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                     disable: controller.isDisableButton.value,
                     onPress: () => controller.updateProfile(context),
                     title: LocaleKeys.update.tr,
-                    textStyle: typoSmallTextBold.copyWith(
+                    textStyle: typoButton.copyWith(
                         color: controller.isDisableButton.value
                             ? colorText60
                             : colorText0),
@@ -101,7 +101,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                     borderRadius: 17,
                     backgroundColor: controller.isDisableButton.value
                         ? colorGrey10
-                        : colorGreen60,
+                        : colorGreen50,
                   )),
               const SizedBox(
                 height: 30,
@@ -248,7 +248,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                 AppButton(
                   onPress: () {},
                   title: LocaleKeys.update.tr,
-                  textStyle: typoSmallTextBold.copyWith(color: colorText60),
+                  textStyle: typoButton.copyWith(color: colorText60),
                   width: MediaQuery.of(context).size.width,
                   height: 37.h,
                   borderRadius: 17,

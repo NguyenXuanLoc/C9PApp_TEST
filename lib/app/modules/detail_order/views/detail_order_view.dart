@@ -163,8 +163,7 @@ class DetailOrderView extends GetView<DetailOrderController> {
           Padding(
             padding: EdgeInsets.all(contentPadding),
             child: AppButton(
-              textStyle: typoSmallTextBold.copyWith(
-                  color: colorText0, fontWeight: FontWeight.w700),
+              textStyle: typoButton.copyWith(color: colorText0),
               title: LocaleKeys.re_order.tr,
               onPress: () => controller.reOrderOnclick(),
               width: MediaQuery.of(context).size.width,

@@ -99,7 +99,7 @@ class TabMainView extends GetView<TabMainController> {
                                 decoration: decorTextFieldCircle.copyWith(
                                     isDense: true,
                                     hintText: LocaleKeys.find_order_at_here.tr,
-                                    hintStyle: typoSuperSmallTextBold.copyWith(
+                                    hintStyle: typoSuperSmallTextRegular.copyWith(
                                         fontSize: 12.sp, color: colorText60),
                                     prefixIconConstraints:
                                         BoxConstraints(maxWidth: 45.w),
@@ -474,7 +474,7 @@ class TabMainView extends GetView<TabMainController> {
             Container(
               width: 38.h,
               height: 40.h,
-              padding: EdgeInsets.all(12.w),
+              padding: EdgeInsets.all(10.w),
               decoration: BoxDecoration(
                   color: colorWhite, borderRadius: BorderRadius.circular(10)),
               child: SvgPicture.asset(

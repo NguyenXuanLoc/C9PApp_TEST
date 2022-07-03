@@ -4,6 +4,7 @@ import 'package:c9p/app/config/globals.dart' as globals;
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../data/event_bus/refresh_order_detail_event.dart';
@@ -16,6 +17,7 @@ class DetailOrderController extends GetxController {
   void onInit() {
     globals.isOrderDetail = true;
     refreshOrderListener();
+
     super.onInit();
   }
 
@@ -41,7 +43,8 @@ class DetailOrderController extends GetxController {
     update();
   }
 
-  void init() => orderModer.value = Get.arguments;
+  void init() => WidgetsBinding.instance
+      .addPostFrameCallback((_) async => orderModer.value = Get.arguments);
 
   void reOrderOnclick() =>
       Get.toNamed(Routes.ORDER, arguments: orderModer.value);

@@ -46,7 +46,10 @@ class AppDeveloping extends StatelessWidget {
       body: Column(
         children: [
           const Spacer(),
-          Image.asset(R.assetsPngDeveloping),
+          Padding(
+            padding: EdgeInsets.all(15.w),
+            child: Image.asset(R.assetsPngDeveloping),
+          ),
           AppText(
             LocaleKeys.developing.tr,
             textAlign: TextAlign.center,

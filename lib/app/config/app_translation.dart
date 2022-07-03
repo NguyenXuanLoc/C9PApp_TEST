@@ -169,7 +169,7 @@ class Locales {
     'please_input_delivery_hours': 'Thiếu thông tin',
     'please_input_count': 'Vui lòng chọn số suất',
     'developing':
-        'Tính năng đang được phát triển, bạn vui lòng thử lại vào lần sau nhé',
+        'Tính năng đang được phát triển, bạn vui lòng\nthử lại vào lần sau nhé',
     'reorder_rice': 'Đặt cơm ngay',
     'order_success': 'Đặt đơn hàng thành công!',
     'follow_order': 'Theo dõi đơn hàng',

@@ -450,7 +450,7 @@ final typoExtraSmallTextRegular = GoogleFonts.nunito(
 final typoSuperSmallTextBold = GoogleFonts.nunito(
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.w600,
-  fontSize: 13.4.sp,
+  fontSize: 12.sp,
   letterSpacing: 1.02,
   color: colorBlack,
 );

@@ -34,7 +34,7 @@ class OrderView extends GetView<OrderController> {
             onPressed: () => Get.back(),
           ),
           title: AppText(
-            LocaleKeys.order.tr,
+            LocaleKeys.add_order.tr,
             style: typoTitleHeader.copyWith(color: colorText0),
           ),
           centerTitle: true,

@@ -24,6 +24,7 @@ class AppDeveloping extends StatelessWidget {
     return AppScaffold(
       padding: EdgeInsets.all(15.w),
       appbar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: true,
         flexibleSpace: Container(

@@ -1,3 +1,6 @@
+import 'package:c9p/app/data/model/order_model.dart';
+import 'package:c9p/app/data/provider/api_result.dart';
+import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/utils/log_utils.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -180,5 +183,13 @@ class Utils {
           "$h:${m.toString().length == 1 ? "0$m" : m.toString()}  " "AM";
     }
     return send;
+  }
+
+  static Future<OrderModel?> getOrderById(String orderId) async {
+    var response = await UserProvider().getOrderById(orderId);
+    if (response.error == null && response.data != null) {
+      return OrderModel.fromJson(response.data['data']);
+    }
+    return null;
   }
 }

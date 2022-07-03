@@ -75,4 +75,10 @@ class StorageUtils {
 
   static Future<bool> isRegisterDevice() async =>
       await GetStorage().read(AppConstant.REGISTER_DEVICE) ?? false;
+
+  static Future<String> getOrderId() async =>
+      await GetStorage().read(StorageKey.orderId) ?? '';
+
+  static Future<void> saveOrderId(String orderId) async =>
+      await GetStorage().write(StorageKey.orderId, orderId);
 }

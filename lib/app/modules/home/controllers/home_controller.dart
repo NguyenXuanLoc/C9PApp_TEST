@@ -1,8 +1,9 @@
-import 'dart:async';
-
+import 'package:c9p/app/config/app_translation.dart';
 import 'package:c9p/app/data/event_bus/jump_to_tab_event.dart';
+import 'package:c9p/app/data/event_bus/new_notify_event.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -23,6 +24,7 @@ class HomeController extends GetxController {
           .on<JumpToTabEvent>()
           .listen((model) => jumToTap(model.index));
     });
+    listenerNotify();
     super.onInit();
   }
 
@@ -35,8 +37,30 @@ class HomeController extends GetxController {
         Utils.fireEvent(LoadWeatherEvent());
       }
     } catch (ex) {}
+    checkOrderIdFromCache();
     checkRegisterDevice();
     super.onReady();
+  }
+
+  void listenerNotify() {
+    Utils.eventBus
+        .on<NewNotifyEvent>()
+        .listen((event) async => openOrderNotify(event.orderId));
+  }
+
+  void checkOrderIdFromCache() async {
+    var orderId = await StorageUtils.getOrderId();
+    if (orderId.isNotEmpty) openOrderNotify(orderId);
+    StorageUtils.saveOrderId('');
+  }
+
+  void openOrderNotify(String orderId) async {
+    var orderModel = await Utils.getOrderById(orderId);
+    if (orderModel == null) {
+      toast(LocaleKeys.network_error.tr);
+    } else {
+      Get.toNamed(Routes.DETAIL_ORDER, arguments: orderModel);
+    }
   }
 
   void checkRegisterDevice() async {

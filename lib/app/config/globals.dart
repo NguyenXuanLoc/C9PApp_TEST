@@ -10,6 +10,8 @@ String phoneNumber = '';
 
 bool isLogin = false;
 bool isNeedUpdateProfile = true;
+bool isOpenYourOrder = false;
+bool isOrderDetail = false;
 int timePackageRemaining = 0;
 int timeOut = 30;
 

@@ -51,11 +51,11 @@ class DetailOrderView extends GetView<DetailOrderController> {
                 ),
                 Row(
                   children: [
-                    AppText(
+                    Obx(() => AppText(
                         "${Utils.formatMoney(controller.orderModer.value.amount ?? 0)}đ",
                         style: typoMediumTextBold.copyWith(
                             color: colorSemanticRed100,
-                            fontWeight: FontWeight.w700)),
+                            fontWeight: FontWeight.w700))),
                     const SizedBox(
                       width: 20,
                     ),
@@ -77,22 +77,23 @@ class DetailOrderView extends GetView<DetailOrderController> {
                 const SizedBox(
                   height: 10,
                 ),
-                AppText(
-                  '${LocaleKeys.code.tr} #${controller.orderModer.value.id} / ${controller.orderModer.value.itemQty} ${LocaleKeys.bowl_of_rice.tr} / ${controller.orderModer.value.status}',
-                  style: typoSuperSmallTextBold.copyWith(color: colorGreen60),
-                ),
+                Obx(() => AppText(
+                      '${LocaleKeys.code.tr} #${controller.orderModer.value.id} / ${controller.orderModer.value.itemQty} ${LocaleKeys.bowl_of_rice.tr} / ${controller.orderModer.value.status}',
+                      style:
+                          typoSuperSmallTextBold.copyWith(color: colorGreen60),
+                    )),
                 const SizedBox(
                   height: 10,
                 ),
-                Visibility(
+                Obx(() => Visibility(
                     visible: controller.orderModer.value.description != null
                         ? true
                         : false,
-                    child: AppText(
-                      controller.orderModer.value.description ?? '',
-                      style:
-                          typoExtraSmallTextBold.copyWith(color: colorText70),
-                    )),
+                    child: Obx(() => AppText(
+                          controller.orderModer.value.description ?? '',
+                          style: typoExtraSmallTextBold.copyWith(
+                              color: colorText70),
+                        )))),
               ],
             ),
           ),
@@ -103,17 +104,17 @@ class DetailOrderView extends GetView<DetailOrderController> {
               const SizedBox(
                 height: 10,
               ),
-              AppText(
-                "${LocaleKeys.order_time.tr} : ${Utils.convertTimeToDDMMYYHHMMSS(controller.orderModer.value.createdTime ?? DateTime.now())}",
-                style: typoExtraSmallTextBold.copyWith(color: colorText70),
-              ),
+              Obx(() => AppText(
+                    "${LocaleKeys.order_time.tr} : ${Utils.convertTimeToDDMMYYHHMMSS(controller.orderModer.value.createdTime ?? DateTime.now())}",
+                    style: typoExtraSmallTextBold.copyWith(color: colorText70),
+                  )),
               const SizedBox(
                 height: 6,
               ),
-              AppText(
-                "${LocaleKeys.delivery_time.tr} : ${Utils.convertTimeToDDMMYYHHMMSS(controller.orderModer.value.deliverTime ?? DateTime.now())}",
-                style: typoExtraSmallTextBold.copyWith(color: colorText70),
-              ),
+              Obx(() => AppText(
+                    "${LocaleKeys.delivery_time.tr} : ${Utils.convertTimeToDDMMYYHHMMSS(controller.orderModer.value.deliverTime ?? DateTime.now())}",
+                    style: typoExtraSmallTextBold.copyWith(color: colorText70),
+                  )),
             ],
           ),
           const AppLineSpace(),
@@ -126,37 +127,39 @@ class DetailOrderView extends GetView<DetailOrderController> {
               const SizedBox(
                 height: 10,
               ),
-              AppText(
-                controller.orderModer.value.toAddress ?? '',
-                style: typoExtraSmallTextBold.copyWith(color: colorText70),
-              ),
+              Obx(() => AppText(
+                    controller.orderModer.value.toAddress ?? '',
+                    style: typoExtraSmallTextBold.copyWith(color: colorText70),
+                  )),
             ],
           ),
-          Visibility(
-            visible:
-                controller.orderModer.value.shipperName == null ? false : true,
-            child: paddingWidget(children: [
-              titleWidget(R.assetsPngMotoBike, LocaleKeys.shipper.tr,
-                  isSvg: false),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  AppText(
-                    "${controller.orderModer.value.shipperName ??''}  ${controller.orderModer.value.shipperRate}",
-                    style: typoExtraSmallTextBold.copyWith(color: colorText70),
-                  ),
-                  SvgPicture.asset(
-                    R.assetsSvgStar,
+          Obx(() => Visibility(
+                visible: controller.orderModer.value.shipperName == null
+                    ? false
+                    : true,
+                child: paddingWidget(children: [
+                  titleWidget(R.assetsPngMotoBike, LocaleKeys.shipper.tr,
+                      isSvg: false),
+                  const SizedBox(
                     height: 10,
-                    fit: BoxFit.cover,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Obx(() => AppText(
+                            "${controller.orderModer.value.shipperName ?? ''}  ${controller.orderModer.value.shipperRate}",
+                            style: typoExtraSmallTextBold.copyWith(
+                                color: colorText70),
+                          )),
+                      SvgPicture.asset(
+                        R.assetsSvgStar,
+                        height: 10,
+                        fit: BoxFit.cover,
+                      )
+                    ],
                   )
-                ],
-              )
-            ]),
-          ),
+                ]),
+              )),
           Padding(
             padding: EdgeInsets.all(contentPadding),
             child: AppButton(

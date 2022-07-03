@@ -6,6 +6,7 @@ class StorageKey {
   static const String firstOpenOrder = 'firstOpenOrder';
   static const String scheduleWeather = 'scheduleWeather';
   static const String weather = 'weather';
+  static const String orderId = 'orderId';
 }
 
 class MessageKey {
@@ -42,5 +43,5 @@ class AppConstant {
   static const REGISTER_DEVICE = 'REGISTER_DEVICE'; //mini giay
   static const URL_WEATHER_ICON = 'http://openweathermap.org/img/wn/';
   static const URL_WEATHER_ICON_DEFAULT =
-      'http://openweathermap.org/img/wn/01d@2x.png';
+      'http://openweathermap.org/img/wn/03d@2x.png';
 }

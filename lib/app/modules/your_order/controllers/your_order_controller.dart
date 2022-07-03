@@ -1,9 +1,15 @@
+import 'dart:async';
+
 import 'package:c9p/app/data/model/done_order_model.dart';
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
+import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:c9p/app/config/globals.dart' as globals;
+import '../../../data/event_bus/refresh_your_order_event.dart';
 
 class YourOrderController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -21,6 +27,8 @@ class YourOrderController extends GetxController
   var currentPendingOrderPage = 0;
   var currentIndex = 0;
   late TabController tabController;
+  var isShowRefreshButton = false.obs;
+  StreamSubscription<RefreshYourOrderEvent>? _showRefreshStream;
 
   @override
   void onInit() {
@@ -29,7 +37,33 @@ class YourOrderController extends GetxController
     getPendingOrder();
     pagingPendingOrder();
     pagingDoneOrder();
+    globals.isOpenYourOrder = true;
+    showRefreshButtonListener();
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    globals.isOpenYourOrder = false;
+    _showRefreshStream?.cancel();
+    super.onClose();
+  }
+
+  void showRefreshButtonListener() {
+    _showRefreshStream = Utils.eventBus
+        .on<RefreshYourOrderEvent>()
+        .listen((event) => showRefreshButton(true));
+  }
+
+  void refreshAll() {
+    refreshDoneOrder();
+    refreshPendingOrder();
+    showRefreshButton(false);
+  }
+
+  void showRefreshButton(bool isShow) {
+    logE("TAG showRefreshButton: $isShow");
+    isShowRefreshButton.value = isShow;
   }
 
   void initTab() {

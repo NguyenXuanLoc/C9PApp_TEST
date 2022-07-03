@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:c9p/app/data/event_bus/jump_to_tab_event.dart';
 import 'package:c9p/app/data/event_bus/load_weather_event.dart';
 import 'package:c9p/app/data/event_bus/reload_user_event.dart';
+import 'package:c9p/app/data/event_bus/show_badge_event.dart';
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/model/promotion_model.dart';
 import 'package:c9p/app/data/model/weather_model.dart';
@@ -11,6 +12,7 @@ import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:location/location.dart';
 
 import '../../../config/constant.dart';
@@ -30,6 +32,7 @@ class TabMainController extends GetxController {
   final fullName = ''.obs;
   var countLoadWeather = 1;
   StreamSubscription<LoadWeatherEvent>? _weatherStream;
+  var isBadge = false.obs;
 
   void onRefresh() {
     getNearOrder();
@@ -47,12 +50,19 @@ class TabMainController extends GetxController {
     getNearOrder();
     getPromotion();
     getUserInfo();
+    showBadgeListener();
     Utils.eventBus.on<ReloadUserEvent>().listen((event) => getUserInfo());
     _weatherStream = Utils.eventBus.on<LoadWeatherEvent>().listen((event) {
       checkWeather();
       _weatherStream?.cancel();
     });
   }
+
+  void showBadgeListener() {
+    Utils.eventBus.on<ShowBadgeEvent>().listen((event) => setBadge(true));
+  }
+
+  void setBadge(bool isShow) => isBadge.value = isShow;
 
   void getUserInfo() async {
     var userModel = await StorageUtils.getUser();
@@ -146,6 +156,7 @@ class TabMainController extends GetxController {
         }
       case TabMainAction.ORDER:
         {
+          setBadge(false);
           Get.toNamed(Routes.YOUR_ORDER);
           break;
         }

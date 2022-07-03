@@ -1,3 +1,4 @@
+import 'package:c9p/app/components/app_button.dart';
 import 'package:c9p/app/components/app_loading_widget.dart';
 import 'package:c9p/app/components/app_not_data_widget.dart';
 import 'package:c9p/app/components/app_scalford.dart';
@@ -9,15 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../app_line.dart';
-import '../../../components/app_button.dart';
-import '../../../components/app_network_image.dart';
 import '../../../config/app_translation.dart';
-import '../../../config/globals.dart';
 import '../../../config/resource.dart';
-import '../../../data/model/order_model.dart';
 import '../../../theme/colors.dart';
-import '../../../utils/app_utils.dart';
 import '../controllers/your_order_controller.dart';
 
 class YourOrderView extends GetView<YourOrderController> {
@@ -50,7 +45,7 @@ class YourOrderView extends GetView<YourOrderController> {
                   const Spacer(),
                   AppText(
                     LocaleKeys.your_order.tr,
-                    style: typoMediumTextBold.copyWith(
+                    style: typoTitleHeader.copyWith(
                         fontWeight: FontWeight.w700, color: colorText0),
                   ),
                   const Spacer(),
@@ -88,11 +83,34 @@ class YourOrderView extends GetView<YourOrderController> {
             ],
           ),
         ),
-        body: TabBarView(
-          controller: controller.tabController,
-          children: <Widget>[
-            pendingOrderWidget(context),
-            doneOrderWidget(context)
+        body: Stack(
+          children: [
+            TabBarView(
+              controller: controller.tabController,
+              children: <Widget>[
+                pendingOrderWidget(context),
+                doneOrderWidget(context)
+              ],
+            ),
+            Obx(() => Visibility(
+                  visible: controller.isShowRefreshButton.value,
+                  child: Positioned.fill(
+                      child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Opacity(
+                      opacity: 0.9,
+                      child: AppButton(
+                        onPress: () => controller.refreshAll(),
+                        title: LocaleKeys.refresh_list.tr,
+                        textStyle: typoSuperSmallTextBold.copyWith(
+                            color: colorText0, fontSize: 11.sp),
+                        backgroundColor: colorGreen60,
+                        borderRadius: 100.w,
+                        height: 28.h,
+                      ),
+                    ),
+                  )),
+                ))
           ],
         ));
   }
@@ -121,9 +139,9 @@ class YourOrderView extends GetView<YourOrderController> {
                         : ItemOrder(
                             model: controller.lDoneOrder[i],
                             callBackReOrder: (model) =>
-                                controller.openOrderDetail(model),
+                                controller.openReOrder(model),
                             callBackOrderDetail: (model) =>
-                                controller.openReOrder(model)),
+                                controller.openOrderDetail(model)),
                     separatorBuilder: (i, c) => Container(
                           color: colorSeparatorListView,
                           height: 10.h,

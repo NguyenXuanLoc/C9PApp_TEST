@@ -23,6 +23,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
       padding: EdgeInsets.all(15.w),
       appbar: AppBar(
         centerTitle: true,
+        automaticallyImplyLeading: false,
         flexibleSpace: Container(
           alignment: Alignment.bottomCenter,
           decoration: const BoxDecoration(

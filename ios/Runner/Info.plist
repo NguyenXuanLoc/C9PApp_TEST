@@ -17,7 +17,7 @@
 	<key>CFBundleName</key>
 	<string>c9p</string>
 	<key>CFBundlePackageType</key>
-	<string>APPL</string>
+	<string>Cơm 9 phút</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>

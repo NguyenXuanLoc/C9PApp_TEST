@@ -54,7 +54,7 @@ class OrderView extends GetView<OrderController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 160.h,
+                height: 170.h,
                 child: PageView(
                   controller: controller.pageController,
                   children: controller.lDescriptionImage

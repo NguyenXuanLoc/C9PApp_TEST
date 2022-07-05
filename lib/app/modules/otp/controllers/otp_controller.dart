@@ -133,6 +133,8 @@ class OtpController extends GetxController {
     startTimer();
     phoneNumber.value = Get.arguments;
     verifyPhone();
+    WidgetsBinding.instance
+        .addPostFrameCallback((timeStamp) => otpController.setFocus(0));
     super.onInit();
   }
 }

@@ -94,19 +94,23 @@ class LoginView extends GetView<LoginController> {
                         enabledBorder: const UnderlineInputBorder(
                             borderSide:
                                 BorderSide(color: colorUnderlineTextField)),
-                        prefixText: '+84 ',
                         enabled: true,
                         isDense: true,
-                        prefixStyle: typoSuperSmallTextBold.copyWith(),
-                        suffixIconConstraints:
-                            BoxConstraints(maxWidth: 30.w, maxHeight: 30.h),
-                        prefixIconConstraints:
-                            BoxConstraints(maxWidth: 25.w, maxHeight: 30.h),
-                        prefixIcon: Container(
-                          padding: EdgeInsets.only(top: 10.h),
-                          alignment: Alignment.centerLeft,
-                          child: Image.asset(
-                            R.assetsVnPng,
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.only(top: 16.h),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min, // <-- important
+                            children: [
+                              Image.asset(
+                                R.assetsVnPng,
+                                width: 20.w,
+                              ),
+                              SizedBox(width: 4), // add a small gap
+                              AppText(
+                                "+84 ",
+                                style: typoSuperSmallTextBold.copyWith(),
+                              )
+                            ],
                           ),
                         ),
                         border: const UnderlineInputBorder(
@@ -119,8 +123,8 @@ class LoginView extends GetView<LoginController> {
                         hintStyle:
                             typoSuperSmallTextBold.copyWith(color: colorText40),
                         hintText: LocaleKeys.phone_number_of_you.tr,
-                        contentPadding: EdgeInsets.only(
-                            top: 15.h, bottom: 5.h, left: 0, right: 0),
+                        contentPadding:
+                            EdgeInsets.only(top: 20.h, left: 0, right: 0),
                       ),
                     )),
               ),

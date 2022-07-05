@@ -54,19 +54,19 @@ class OrderView extends GetView<OrderController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 200.h,
+                height: 160.h,
                 child: PageView(
                   controller: controller.pageController,
                   children: controller.lDescriptionImage
                       .map((e) => Image.asset(
                             e,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fitHeight
                           ))
                       .toList(),
                 ),
               ),
               const SizedBox(
-                height: 25,
+                height: 10,
               ),
               Center(
                 child: Obx(() => AnimatedSmoothIndicator(
@@ -75,8 +75,8 @@ class OrderView extends GetView<OrderController> {
                       effect: ScrollingDotsEffect(
                           spacing: 6.w,
                           radius: 100,
-                          dotWidth: 7.w,
-                          dotHeight: 7.w,
+                          dotWidth: 6.w,
+                          dotHeight: 6.w,
                           dotColor: colorBackgroundGrey5,
                           activeDotColor: colorGreen60),
                     )),
@@ -197,11 +197,11 @@ class OrderView extends GetView<OrderController> {
                 },
               ),
               const SizedBox(
-                height: 10,
+                height: 5,
               ),
               Obx(
                 () => Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.only(bottom: 0),
                   child: AppText(
                     controller.errorAddress.value,
                     style: typoNormalTextRegular.copyWith(
@@ -219,10 +219,9 @@ class OrderView extends GetView<OrderController> {
                         LocaleKeys.delivery_date.tr,
                         style: typoSuperSmallTextBold,
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      itemSpace(),
                       Obx(() => AppTextField(
+                          isShowErrorText: false,
                           readOnly: true,
                           onTap: () => controller.pickDate(context),
                           controller: controller.dateController,
@@ -255,10 +254,9 @@ class OrderView extends GetView<OrderController> {
                         LocaleKeys.delivery_time.tr,
                         style: typoSuperSmallTextBold,
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      itemSpace(),
                       Obx(() => AppTextField(
+                          isShowErrorText: false,
                           readOnly: true,
                           onTap: () => controller.pickTime(context),
                           errorText: controller.errorDate.value,
@@ -281,7 +279,11 @@ class OrderView extends GetView<OrderController> {
                     ],
                   ))
                 ],
-              ),SizedBox(height: 7,),
+              ),
+              SizedBox(
+                height: 11.h,
+              ),
+              itemSpace(),
               AppText(
                 LocaleKeys.choose_number.tr,
                 style: typoSuperSmallTextBold,
@@ -289,7 +291,7 @@ class OrderView extends GetView<OrderController> {
               itemSpace(),
               qtyWidget(),
               const SizedBox(
-                height: 10,
+                height: 5,
               ),
               Obx(
                 () => Padding(
@@ -371,7 +373,7 @@ class OrderView extends GetView<OrderController> {
         },
       );
 
-  Widget itemSpace() => const SizedBox(
-        height: 10,
+  Widget itemSpace() => SizedBox(
+        height: 3.h,
       );
 }

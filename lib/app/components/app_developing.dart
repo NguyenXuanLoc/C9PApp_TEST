@@ -67,7 +67,7 @@ class AppDeveloping extends StatelessWidget {
             backgroundColor: colorGrey15,
             shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(13.w)),
-            textStyle: typoSmallTextBold.copyWith(color: colorText60),
+            textStyle: typoButton.copyWith(color: colorText60),
             width: MediaQuery.of(context).size.width,
           ),
           const SizedBox(
@@ -80,7 +80,7 @@ class AppDeveloping extends StatelessWidget {
             backgroundColor: colorGreen55,
             shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(13.w)),
-            textStyle: typoSmallTextBold.copyWith(color: colorText0),
+            textStyle: typoButton.copyWith(color: colorText0),
             width: MediaQuery.of(context).size.width,
           ),
           const Spacer(),

@@ -103,7 +103,7 @@ class LoginView extends GetView<LoginController> {
                         prefixIconConstraints:
                             BoxConstraints(maxWidth: 25.w, maxHeight: 30.h),
                         prefixIcon: Container(
-                          padding: EdgeInsets.only(top: 12.h),
+                          padding: EdgeInsets.only(top: 10.h),
                           alignment: Alignment.centerLeft,
                           child: Image.asset(
                             R.assetsVnPng,
@@ -120,7 +120,7 @@ class LoginView extends GetView<LoginController> {
                             typoSuperSmallTextBold.copyWith(color: colorText40),
                         hintText: LocaleKeys.phone_number_of_you.tr,
                         contentPadding: EdgeInsets.only(
-                            top: 15.h, bottom: 2.h, left: 0, right: 0),
+                            top: 15.h, bottom: 5.h, left: 0, right: 0),
                       ),
                     )),
               ),

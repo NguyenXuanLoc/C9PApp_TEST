@@ -281,14 +281,16 @@ class OrderView extends GetView<OrderController> {
                     ],
                   ))
                 ],
-              ),
-              itemSpace(),
+              ),SizedBox(height: 7,),
               AppText(
                 LocaleKeys.choose_number.tr,
                 style: typoSuperSmallTextBold,
               ),
               itemSpace(),
               qtyWidget(),
+              const SizedBox(
+                height: 10,
+              ),
               Obx(
                 () => Padding(
                   padding: const EdgeInsets.only(bottom: 10),

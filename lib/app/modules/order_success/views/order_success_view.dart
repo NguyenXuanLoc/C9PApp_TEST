@@ -78,7 +78,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
             backgroundColor: colorGrey15,
             shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(13.w)),
-            textStyle: typoSmallTextBold.copyWith(color: colorText60),
+            textStyle: typoButton.copyWith(color: colorText60),
             width: MediaQuery.of(context).size.width,
           ),
           const SizedBox(
@@ -91,7 +91,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
             backgroundColor: colorGreen55,
             shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(13.w)),
-            textStyle: typoSmallTextBold.copyWith(color: colorText0),
+            textStyle: typoButton.copyWith(color: colorText0),
             width: MediaQuery.of(context).size.width,
           ),
           const Spacer(),

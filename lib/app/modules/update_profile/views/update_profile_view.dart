@@ -23,93 +23,109 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-        fullStatusBar: true,
         isTabToHideKeyBoard: true,
-        appbar: AppBar(
-          leading: Obx(() => Visibility(
-              visible: controller.isBackToHome.value,
-              child: SizedBox(
-                width: 20.w,
-                child: IconButton(
-                    splashRadius: 20,
-                    padding: const EdgeInsets.all(0),
-                    onPressed: () => Get.back(),
-                    icon: SvgPicture.asset(
-                      R.assetsBackSvg,
-                      color: colorWhite,
-                    )),
-              ))),
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          title: AppText(
-            LocaleKeys.account.tr,
-            style: typoTitleHeader,
-          ),
-          flexibleSpace: Container(
-            alignment: Alignment.bottomCenter,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(R.assetsBackgroundHeaderTabMainPng),
-                    fit: BoxFit.fitWidth)),
-          ),
-        ),
-        body: Padding(
-          padding: EdgeInsets.all(contentPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              AppText(
-                LocaleKeys.full_name.tr,
-                style: typoSuperSmallTextBold,
-              ),
-              itemSpace(),
-              Obx(() => AppTextField(
-                    onChanged: (text) => controller.setDisableButton(text),
-                    controller: controller.fullNameController,
-                    errorText: controller.errorFullName.value,
-                    textInputAction: TextInputAction.next,
-                    textStyle:
+        padding: EdgeInsets.all(contentPadding),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /*SizedBox(
+              width: 20.w,
+              child: IconButton(
+                  splashRadius: 20,
+                  padding: const EdgeInsets.all(0),
+                  onPressed: () => Get.back(),
+                  icon: SvgPicture.asset(R.assetsBackSvg)),
+            ),*/
+            const SizedBox(
+              height: 20,
+            ),
+            AppText(
+              LocaleKeys.register_now.tr,
+              style: typoLargeTextBold.copyWith(fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            AppText(
+              LocaleKeys.input_phone_number_to_order_c9p.tr,
+              style: typoSuperSmallTextRegular.copyWith(
+                  color: colorText40, fontSize: 12.sp),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            RichText(
+                text: TextSpan(
+                    text: LocaleKeys.name.tr,
+                    style: typoSuperSmallTextBold,
+                    children: [
+                  TextSpan(
+                      text: '*',
+                      style: typoSuperSmallTextBold.copyWith(
+                          color: colorSemanticRed100))
+                ])),
+            itemSpace(),
+            Obx(() => AppTextField(
+                  onChanged: (text) => controller.setDisableButton(text),
+                  controller: controller.fullNameController,
+                  errorText: controller.errorFullName.value,
+                  textInputAction: TextInputAction.next,
+                  textStyle:
+                      typoSuperSmallTextBold.copyWith(color: colorText60),
+                  decoration: decoration().copyWith(
+                    hintText: LocaleKeys.full_name.tr,
+                    hintStyle:
                         typoSuperSmallTextBold.copyWith(color: colorText60),
-                    decoration: decorTextFieldOval,
-                  )),
-              AppText(
-                LocaleKeys.phone_number.tr,
-                style: typoSuperSmallTextBold,
-              ),
-              itemSpace(),
-              AppTextField(
-                controller: controller.phoneController,
-                readOnly: true,
-                textInputAction: TextInputAction.next,
-                textStyle: typoSuperSmallTextBold.copyWith(color: colorText60),
-                decoration: decorTextFieldOval,
-              ),
-              const Spacer(),
-              Obx(() => AppButton(
-                    disable: controller.isDisableButton.value,
-                    onPress: () => controller.updateProfile(context),
-                    title: LocaleKeys.update.tr,
-                    textStyle: typoButton.copyWith(
-                        color: controller.isDisableButton.value
-                            ? colorText60
-                            : colorText0),
-                    width: MediaQuery.of(context).size.width,
-                    height: heightContinue,
-                    borderRadius: 17,
-                    backgroundColor: controller.isDisableButton.value
-                        ? colorGrey10
-                        : colorGreen50,
-                  )),
-              const SizedBox(
-                height: 30,
-              )
-            ],
-          ),
+                  ),
+                )),
+            AppText(
+              LocaleKeys.phone_number.tr,
+              style: typoSuperSmallTextBold,
+            ),
+            itemSpace(),
+            AppTextField(
+              controller: controller.phoneController,
+              readOnly: true,
+              textInputAction: TextInputAction.next,
+              textStyle: typoSuperSmallTextBold.copyWith(color: colorText60),
+              decoration: decoration(),
+            ),
+            const Spacer(),
+            Obx(() => AppButton(
+                  disable: controller.isDisableButton.value,
+                  onPress: () => controller.updateProfile(context),
+                  title: LocaleKeys.continues.tr,
+                  textStyle: typoButton.copyWith(
+                      color: controller.isDisableButton.value
+                          ? colorText60
+                          : colorText0),
+                  width: MediaQuery.of(context).size.width,
+                  height: heightContinue,
+                  borderRadius: 17,
+                  backgroundColor: controller.isDisableButton.value
+                      ? colorGrey10
+                      : colorGreen50,
+                )),
+            const SizedBox(
+              height: 30,
+            )
+          ],
         ));
   }
+
+  InputDecoration decoration() => decorTextFieldOval.copyWith(
+      contentPadding: EdgeInsets.only(bottom: 5.h),
+      border: const UnderlineInputBorder(
+          borderSide: BorderSide(color: colorUnderlineTextField)),
+      disabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: colorUnderlineTextField)),
+      focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: colorUnderlineTextField)),
+      errorBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: colorUnderlineTextField)),
+      enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: colorUnderlineTextField)));
+
   Widget itemSpace() => const SizedBox(
         height: 10,
       );

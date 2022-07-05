@@ -19,6 +19,7 @@ abstract class Routes {
   static const YOUR_ORDER = _Paths.YOUR_ORDER;
   static const UPDATE_PROFILE = _Paths.UPDATE_PROFILE;
   static const TEST = _Paths.TEST;
+  static const REGISTER_SUCCESS = _Paths.REGISTER_SUCCESS;
 }
 
 abstract class _Paths {
@@ -39,4 +40,5 @@ abstract class _Paths {
   static const YOUR_ORDER = '/your-order';
   static const UPDATE_PROFILE = '/update-profile';
   static const TEST = '/test';
+  static const REGISTER_SUCCESS = '/register-success';
 }

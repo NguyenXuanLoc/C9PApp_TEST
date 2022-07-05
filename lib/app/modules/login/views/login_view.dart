@@ -125,6 +125,7 @@ class LoginView extends GetView<LoginController> {
                     )),
               ),
               Obx(() => AppButton(
+                    height: heightContinue,
                     title: LocaleKeys.continues.tr,
                     textStyle: typoButton.copyWith(
                         color: controller.isValid.value
@@ -133,7 +134,8 @@ class LoginView extends GetView<LoginController> {
                     borderRadius: 200,
                     onPress: () => controller.openOtp(),
                     width: MediaQuery.of(context).size.width,
-                    backgroundColor: controller.isValid.value ? colorGreen50 :colorGrey10,
+                    backgroundColor:
+                        controller.isValid.value ? colorGreen50 : colorGrey10,
                   )),
             ],
           )),

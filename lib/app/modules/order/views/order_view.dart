@@ -318,7 +318,7 @@ class OrderView extends GetView<OrderController> {
                 onPress: () => controller.continueOnclick(context),
                 title: LocaleKeys.continues.tr,
                 backgroundColor: colorGreen55,
-                height: 40.h,
+                height: heightContinue,
                 shapeBorder: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
                 width: MediaQuery.of(context).size.width,

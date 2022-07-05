@@ -1,3 +1,4 @@
+import 'package:c9p/app/config/globals.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,6 +61,7 @@ class AppDeveloping extends StatelessWidget {
             height: 60,
           ),
           AppButton(
+            height: heightContinue,
             onPress: () => onClickMain.call(),
             title: LocaleKeys.main.tr,
             backgroundColor: colorGrey15,
@@ -72,6 +74,7 @@ class AppDeveloping extends StatelessWidget {
             height: 10,
           ),
           AppButton(
+            height: heightContinue,
             onPress: () => onClickOrder.call(),
             title: LocaleKeys.reorder_rice.tr,
             backgroundColor: colorGreen55,

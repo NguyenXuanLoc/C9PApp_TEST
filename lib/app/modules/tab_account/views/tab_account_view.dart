@@ -87,7 +87,7 @@ class TabAccountView extends GetView<TabAccountController> {
                 title: LocaleKeys.logout.tr,
                 textStyle: typoButton.copyWith(color: colorText60),
                 width: MediaQuery.of(context).size.width,
-                height: 37.h,
+                height: heightContinue,
                 borderRadius: 17,
                 backgroundColor: colorGrey10,
               ),

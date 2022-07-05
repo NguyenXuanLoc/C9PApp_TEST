@@ -1,3 +1,4 @@
+import 'package:c9p/app/config/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -71,6 +72,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
             height: 50,
           ),
           AppButton(
+            height: heightContinue,
             onPress: () => controller.mainOnclick(),
             title: LocaleKeys.main.tr,
             backgroundColor: colorGrey15,
@@ -83,6 +85,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
             height: 10,
           ),
           AppButton(
+            height: heightContinue,
             onPress: () => controller.followOrderOnclick(),
             title: LocaleKeys.follow_order.tr,
             backgroundColor: colorGreen55,

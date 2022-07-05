@@ -115,6 +115,7 @@ class OtpView extends GetView<OtpController> {
                 height: 50.h,
               ),
               Obx(() => AppButton(
+                    height: heightContinue,
                     title: LocaleKeys.continues.tr,
                     textStyle: typoButton.copyWith(
                         color: controller.pin.value.length == 6
@@ -123,7 +124,9 @@ class OtpView extends GetView<OtpController> {
                     borderRadius: 200,
                     onPress: () => controller.confirm(context),
                     width: MediaQuery.of(context).size.width,
-                backgroundColor: controller.pin.value.length ==6 ? colorGreen50 :colorGrey10,
+                    backgroundColor: controller.pin.value.length == 6
+                        ? colorGreen50
+                        : colorGrey10,
                   )),
               Visibility(
                 visible: false,

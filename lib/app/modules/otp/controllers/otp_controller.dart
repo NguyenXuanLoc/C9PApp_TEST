@@ -34,7 +34,7 @@ class OtpController extends GetxController {
           phoneNumber: Utils.standardizePhoneNumber(phoneNumber.value),
           verificationCompleted: (PhoneAuthCredential credential) async {},
           verificationFailed: (FirebaseAuthException e) {
-            toast(e.toString());
+            toast(LocaleKeys.network_error.tr);
           },
           codeSent: (String verificationId, int? resendToken) {
             this.verificationId = verificationId;
@@ -44,7 +44,7 @@ class OtpController extends GetxController {
           },
           timeout: const Duration(seconds: 120));
     } catch (ex) {
-      toast(ex.toString());
+      toast(LocaleKeys.network_error.tr);
     }
   }
 

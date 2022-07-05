@@ -107,6 +107,11 @@ class LocaleKeys {
   static const refresh_list = 'refresh_list';
   static const add_order = 'add_order';
   static const input_phone_number_to_order_c9p = 'input_phone_number_to_order_c9p';
+  static const register_now = 'register_now';
+  static const please_input_info_at_here = 'please_input_info_at_here';
+  static const name = 'name';
+  static const register_success = 'register_success';
+  static const message_register_success = 'message_register_success';
 }
 
 class Locales {
@@ -206,5 +211,11 @@ class Locales {
     'input_phone_number_to_order_c9p': 'Bạn vui lòng nhập số điện thoại của mình vào phía dưới để đặt cơm cùng Cơm 9 phút nhé!',
     'order_succes_choose_option':
         'Đơn hàng của bạn đã được đặt thành công. Vui lòng chọn các thao tác phía dưới',
+    'register_now':'Đăng ký ngay!',
+    'name':'Tên',
+    'please_input_info_at_here':'Bạn vui lòng nhập một số thông tin dưới đây',
+    'register_success':'Đăng ký tài khoản thành công!',
+    'message_register_success':'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
   };
+
 }

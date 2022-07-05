@@ -168,7 +168,7 @@ class DetailOrderView extends GetView<DetailOrderController> {
               onPress: () => controller.reOrderOnclick(),
               width: MediaQuery.of(context).size.width,
               backgroundColor: colorGreen50,
-              height: 40.h,
+              height: heightContinue,
               shapeBorder: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100)),
             ),

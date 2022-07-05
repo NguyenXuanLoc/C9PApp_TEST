@@ -15,4 +15,5 @@ bool isOrderDetail = false;
 int timePackageRemaining = 0;
 int timeOut = 30;
 
+double heightContinue = 36.5.h;
 double contentPadding = 13.w;

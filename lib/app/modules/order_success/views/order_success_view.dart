@@ -1,3 +1,4 @@
+import 'package:c9p/app/config/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -71,24 +72,26 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
             height: 50,
           ),
           AppButton(
+            height: heightContinue,
             onPress: () => controller.mainOnclick(),
             title: LocaleKeys.main.tr,
             backgroundColor: colorGrey15,
             shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(13.w)),
-            textStyle: typoSmallTextBold.copyWith(color: colorText60),
+            textStyle: typoButton.copyWith(color: colorText60),
             width: MediaQuery.of(context).size.width,
           ),
           const SizedBox(
             height: 10,
           ),
           AppButton(
+            height: heightContinue,
             onPress: () => controller.followOrderOnclick(),
             title: LocaleKeys.follow_order.tr,
             backgroundColor: colorGreen55,
             shapeBorder: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(13.w)),
-            textStyle: typoSmallTextBold.copyWith(color: colorText0),
+            textStyle: typoButton.copyWith(color: colorText0),
             width: MediaQuery.of(context).size.width,
           ),
           const Spacer(),

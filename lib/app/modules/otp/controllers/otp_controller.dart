@@ -3,14 +3,12 @@ import 'dart:convert';
 
 import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/components/otp_widget.dart';
-import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/data/model/user_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -72,7 +70,7 @@ class OtpController extends GetxController {
         })
         .whenComplete(() {})
         .onError((error, stackTrace) {
-    /*      if (error.toString().contains(MessageKey.otp_invalid) ||
+          /*      if (error.toString().contains(MessageKey.otp_invalid) ||
               error.toString().contains(MessageKey.verification_id_invalid)) {
             toast(LocaleKeys.wrong_otp.tr);
           } else if (error.toString().contains(MessageKey.otp_expired)) {
@@ -135,6 +133,8 @@ class OtpController extends GetxController {
     startTimer();
     phoneNumber.value = Get.arguments;
     verifyPhone();
+    WidgetsBinding.instance
+        .addPostFrameCallback((timeStamp) => otpController.setFocus(0));
     super.onInit();
   }
 }

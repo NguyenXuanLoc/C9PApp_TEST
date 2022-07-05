@@ -76,7 +76,7 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      runSpacing: 10,
+      runSpacing: 5,
       children: [
         TextField(
           enabled: widget.enable,

@@ -15,7 +15,7 @@ import '../data/model/notify_model.dart';
 class NotificationService {
   // Singleton pattern
   static final NotificationService _notificationService =
-      NotificationService._internal();
+  NotificationService._internal();
 
   factory NotificationService() {
     return _notificationService;
@@ -26,10 +26,10 @@ class NotificationService {
   static const channelId = "1";
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  FlutterLocalNotificationsPlugin();
 
   static const AndroidNotificationDetails _androidNotificationDetails =
-      AndroidNotificationDetails(
+  AndroidNotificationDetails(
     channelId,
     "notifications",
     channelDescription: "notifications",
@@ -39,7 +39,7 @@ class NotificationService {
   );
 
   static const IOSNotificationDetails _iOSNotificationDetails =
-      IOSNotificationDetails();
+  IOSNotificationDetails();
 
   final NotificationDetails notificationDetails = const NotificationDetails(
     android: _androidNotificationDetails,
@@ -58,7 +58,7 @@ class NotificationService {
     );
 
     const InitializationSettings initializationSettings =
-        InitializationSettings(
+    InitializationSettings(
       android: androidInitializationSettings,
       iOS: iOSInitializationSettings,
     );
@@ -68,7 +68,7 @@ class NotificationService {
       onSelectNotification: onSelectNotification,
     );
     final NotificationAppLaunchDetails? notificationAppLaunchDetails =
-        await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+    await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
     String? payload = notificationAppLaunchDetails!.payload;
     if (payload != null) {
       StorageUtils.saveOrderId(payload);
@@ -83,18 +83,49 @@ class NotificationService {
       sound: true,
     );
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      var notifyModel = NotifyModel.fromJson(message.data);
-      if (globals.isOrderDetail) {
-        Utils.fireEvent(RefreshOrderDetailEvent(notifyModel.orderId ?? '  '));
-      } else if (globals.isOpenYourOrder) {
-        Utils.fireEvent(RefreshYourOrderEvent());
-      } else {
-        if (notifyModel.orderId != null && notifyModel.orderId!.isNotEmpty) {
-          Utils.fireEvent(ShowBadgeEvent());
-        }
-      }
-      showNotification(message);
+      print('Got a message !');
+      print('onMessage : Message data: ${message.data}');
+      handleNotification(message);
     });
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      print('Got a message after open!');
+      print('onMessageOpenedApp : Message data: ${message.data}');
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+        showNotification(message);
+      }
+
+      /// Called when received at foreground (for notification message)
+      /// and all case (for data message - Android)
+      print('onMessageOpenedApp onMessage: $message');
+    });
+
+
+
+    RemoteMessage? initialMessage =
+    await FirebaseMessaging.instance.getInitialMessage();
+    // If the message also contains a data property with a "type" of "chat",
+    // navigate to a chat screen
+    if (initialMessage != null) {
+      print("initialMessage ${initialMessage!.data}");
+    }
+  }
+
+  void handleNotification(RemoteMessage message) async
+  {
+    print('Got a message !');
+    print('onMessage : Message data: ${message.data}');
+    var notifyModel = NotifyModel.fromJson(message.data);
+    if (globals.isOrderDetail) {
+      Utils.fireEvent(RefreshOrderDetailEvent(notifyModel.orderId ?? '  '));
+    } else if (globals.isOpenYourOrder) {
+      Utils.fireEvent(RefreshYourOrderEvent());
+    } else {
+      if (notifyModel.orderId != null && notifyModel.orderId!.isNotEmpty) {
+        Utils.fireEvent(ShowBadgeEvent());
+      }
+    }
+    showNotification(message);
   }
 
   Future<void> requestIOSPermissions() async {

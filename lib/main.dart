@@ -68,7 +68,9 @@ class MyHttpOverrides extends HttpOverrides {
 Future<void> configApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   await Firebase.initializeApp();
+
   HttpOverrides.global = MyHttpOverrides();
   configOrientation();
   await GetStorage.init();

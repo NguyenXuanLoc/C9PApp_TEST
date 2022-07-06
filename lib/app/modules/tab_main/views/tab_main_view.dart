@@ -109,11 +109,12 @@ class TabMainView extends GetView<TabMainController> {
                                 textStyle: typoSuperSmallTextBold.copyWith(
                                     decoration: TextDecoration.none),
                                 decoration: decorTextFieldCircle.copyWith(
+                                    contentPadding: EdgeInsets.all(9.h),
                                     isDense: true,
                                     hintText: LocaleKeys.find_order_at_here.tr,
                                     hintStyle:
-                                        typoSuperSmallTextRegular.copyWith(
-                                            fontSize: 12.sp,
+                                        typoSuperSmallTextBold.copyWith(
+                                            // fontSize: 12.sp,
                                             color: colorText60),
                                     prefixIconConstraints:
                                         BoxConstraints(maxWidth: 45.w),
@@ -217,7 +218,7 @@ class TabMainView extends GetView<TabMainController> {
                                             controller.weatherDescription.value,
                                             style:
                                                 typoSuperSmallTextBold.copyWith(
-                                                    fontSize: 12.sp,
+                                                    fontSize: 13.sp,
                                                     fontWeight: FontWeight.w700,
                                                     color: colorText0),
                                           ))

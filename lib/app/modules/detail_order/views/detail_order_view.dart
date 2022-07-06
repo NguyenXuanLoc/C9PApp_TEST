@@ -13,6 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../components/app_line_space.dart';
 import '../../../components/rate_bar_indicator.dart';
@@ -80,7 +81,7 @@ class DetailOrderView extends GetView<DetailOrderController> {
                 Obx(() => AppText(
                       '${LocaleKeys.code.tr} #${controller.orderModer.value.id} / ${controller.orderModer.value.itemQty} ${LocaleKeys.bowl_of_rice.tr} / ${controller.orderModer.value.status}',
                       style:
-                          typoSuperSmallTextBold.copyWith(color: colorGreen60),
+                          typoSuperSmallText500.copyWith(color: colorGreen60),
                     )),
                 const SizedBox(
                   height: 10,
@@ -106,14 +107,14 @@ class DetailOrderView extends GetView<DetailOrderController> {
               ),
               Obx(() => AppText(
                     "${LocaleKeys.order_time.tr} : ${Utils.convertTimeToDDMMYYHHMMSS(controller.orderModer.value.createdTime ?? DateTime.now())}",
-                    style: typoExtraSmallTextBold.copyWith(color: colorText70),
+                    style: typoSuperSmallText500.copyWith(color: colorText70),
                   )),
               const SizedBox(
                 height: 6,
               ),
               Obx(() => AppText(
                     "${LocaleKeys.delivery_time.tr} : ${Utils.convertTimeToDDMMYYHHMMSS(controller.orderModer.value.deliverTime ?? DateTime.now())}",
-                    style: typoExtraSmallTextBold.copyWith(color: colorText70),
+                    style: typoSuperSmallText500.copyWith(color: colorText70),
                   )),
             ],
           ),
@@ -129,10 +130,11 @@ class DetailOrderView extends GetView<DetailOrderController> {
               ),
               Obx(() => AppText(
                     controller.orderModer.value.toAddress ?? '',
-                    style: typoExtraSmallTextBold.copyWith(color: colorText70),
+                    style: typoSuperSmallText500.copyWith(color: colorText70),
                   )),
             ],
           ),
+          const AppLineSpace(),
           Obx(() => Visibility(
                 visible: controller.orderModer.value.shipperName == null
                     ? false
@@ -148,7 +150,7 @@ class DetailOrderView extends GetView<DetailOrderController> {
                     children: [
                       Obx(() => AppText(
                             "${controller.orderModer.value.shipperName ?? ''}  ${controller.orderModer.value.shipperRate}",
-                            style: typoExtraSmallTextBold.copyWith(
+                            style: typoSuperSmallText500.copyWith(
                                 color: colorText70),
                           )),
                       SvgPicture.asset(
@@ -213,7 +215,8 @@ class DetailOrderView extends GetView<DetailOrderController> {
         ),
         AppText(
           title,
-          style: typoSuperSmallTextBold.copyWith(fontWeight: FontWeight.w700),
+          style: typoSuperSmallText500.copyWith(
+              fontSize: 13.sp, fontWeight: FontWeight.w600),
         )
       ],
     );

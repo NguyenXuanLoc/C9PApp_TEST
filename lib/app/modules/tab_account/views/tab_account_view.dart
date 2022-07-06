@@ -80,7 +80,7 @@ class TabAccountView extends GetView<TabAccountController> {
                 controller: controller.phoneController,
                 readOnly: true,
                 textInputAction: TextInputAction.next,
-                textStyle: typoSuperSmallTextBold.copyWith(color: colorText60),
+                textStyle: typoSuperSmallTextBold.copyWith(),
                 decoration: decorTextFieldOval,
               ),
               const Spacer(),

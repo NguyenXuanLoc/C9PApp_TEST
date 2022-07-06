@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'colors.dart';
 
@@ -355,7 +356,7 @@ final typoTitleHeader = GoogleFonts.nunito(
   color: colorText0,
 );
 
-final typoButton= GoogleFonts.nunito(
+final typoButton = GoogleFonts.nunito(
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.w600,
   fontSize: 14.sp,
@@ -455,9 +456,17 @@ final typoExtraSmallTextRegular = GoogleFonts.nunito(
   color: colorBlack,
 );
 
-final typoSuperSmallTextBold = GoogleFonts.nunito(
+var typoSuperSmallTextBold = GoogleFonts.nunito(
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.w600,
+  fontSize: 12.5.sp,
+  letterSpacing: 0.2,
+  color: colorBlack,
+);
+
+final typoSuperSmallText500 = GoogleFonts.nunito(
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.w500,
   fontSize: 12.5.sp,
   letterSpacing: 0.2,
   color: colorBlack,
@@ -466,7 +475,7 @@ final typoSuperSmallTextBold = GoogleFonts.nunito(
 final typoSuperSmallTextRegular = GoogleFonts.nunito(
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.w400,
-  fontSize: 12.sp,
+  fontSize: 12.5.sp,
   letterSpacing: 0.2,
   color: colorBlack,
 );

@@ -215,7 +215,7 @@ class Locales {
     'name':'Tên',
     'please_input_info_at_here':'Bạn vui lòng nhập một số thông tin dưới đây',
     'register_success':'Đăng ký tài khoản thành công!',
-    'message_register_success':'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+    'message_register_success':'Nhấn nút phía dưới để tiếp tục sử dụng dịch vụ của chúng tôi. Chúc bạn luôn có những bữa trưa ngon miệng',
   };
 
 }

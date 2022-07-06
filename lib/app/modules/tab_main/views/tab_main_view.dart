@@ -450,7 +450,7 @@ class TabMainView extends GetView<TabMainController> {
     return Obx(() => controller.isLoadPromotion.value
         ? const AppCircleLoading()
         : controller.lPromotion.isEmpty
-            ? const AppNotDataWidget()
+            ? const AppNotDataWidget(paddingTop: 0,)
             : CarouselSlider(
                 options: CarouselOptions(
                     height: MediaQuery.of(context).size.width / 3.2,

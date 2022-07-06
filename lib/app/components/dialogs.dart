@@ -143,7 +143,7 @@ class Dialogs {
               key: _keyLoader,
               children: <Widget>[
                 SizedBox(
-                  height: 5.h,
+                  height: 10.h,
                 ),
                 AppText(
                   "Bạn có thực sự muốn thoát app?",
@@ -196,10 +196,7 @@ class Dialogs {
                     ],
                   ),
                 ),
-             /*   SizedBox(
-                  height: 10.h,
-                )
-             */ ],
+              ],
             ),
           );
         });
@@ -217,7 +214,7 @@ class Dialogs {
               key: _keyLoader,
               children: <Widget>[
                 SizedBox(
-                  height: 5.h,
+                  height: 10.h,
                 ),
                 AppText(
                   "Bạn có chắc muốn đăng xuất?",
@@ -267,9 +264,6 @@ class Dialogs {
                     ],
                   ),
                 ),
-               /* SizedBox(
-                  height: 10.h,
-                )*/
               ],
             ),
           );

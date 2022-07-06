@@ -7,14 +7,17 @@ import 'package:get/get.dart';
 
 class AppNotDataWidget extends StatelessWidget {
   final String? message;
+  final double? paddingTop;
 
-  const AppNotDataWidget({Key? key, this.message}) : super(key: key);
+  const AppNotDataWidget({Key? key, this.message, this.paddingTop})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.only(
+            left: 15, right: 15, bottom: 15, top: paddingTop ?? 15),
         child: AppText(
           message ?? LocaleKeys.not_data_pull_to_refresh.tr,
           textAlign: TextAlign.center,

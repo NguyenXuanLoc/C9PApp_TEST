@@ -72,7 +72,7 @@ class YourOrderView extends GetView<YourOrderController> {
                   height: 25.h,
                   icon: AppText(
                     LocaleKeys.order_are_coming.tr,
-                    style: typoSuperSmallTextBold.copyWith(color: colorText0),
+                    style: typoSuperSmallText600.copyWith(color: colorText0),
                   )),
               Tab(
                   height: 25.h,

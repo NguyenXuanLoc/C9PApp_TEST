@@ -142,7 +142,7 @@ class TabMainView extends GetView<TabMainController> {
                                     children: [
                                       AppText(
                                         LocaleKeys.temp.tr,
-                                        style: typoSuperSmallTextBold.copyWith(
+                                        style: typoSuperSmallText600.copyWith(
                                             color: colorWhite),
                                       ),
                                       Row(
@@ -217,7 +217,7 @@ class TabMainView extends GetView<TabMainController> {
                                       Obx(() => AppText(
                                             controller.weatherDescription.value,
                                             style:
-                                                typoSuperSmallTextBold.copyWith(
+                                            typoSuperSmallText600.copyWith(
                                                     fontSize: 13.sp,
                                                     fontWeight: FontWeight.w700,
                                                     color: colorText0),

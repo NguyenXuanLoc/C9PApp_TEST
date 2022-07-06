@@ -93,7 +93,7 @@ class DetailOrderView extends GetView<DetailOrderController> {
                     child: Obx(() => AppText(
                           controller.orderModer.value.description ?? '',
                           style: typoExtraSmallTextBold.copyWith(
-                              color: colorText70),
+                              color: Color(0xff999977)),
                         )))),
               ],
             ),
@@ -215,8 +215,7 @@ class DetailOrderView extends GetView<DetailOrderController> {
         ),
         AppText(
           title,
-          style: typoSuperSmallText500.copyWith(
-              fontSize: 13.sp, fontWeight: FontWeight.w600),
+          style: typoSuperSmallText600.copyWith(fontSize: 13.sp),
         )
       ],
     );

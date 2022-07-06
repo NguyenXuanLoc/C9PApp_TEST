@@ -463,6 +463,21 @@ var typoSuperSmallTextBold = GoogleFonts.nunito(
   letterSpacing: 0.2,
   color: colorBlack,
 );
+final typoSuperSmallText600 = GoogleFonts.nunito(
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.w600,
+  fontSize: 12.5.sp,
+  letterSpacing: 0.2,
+  color: colorBlack,
+);
+
+final typoSuperSmallText700 = GoogleFonts.nunito(
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.w700,
+  fontSize: 12.5.sp,
+  letterSpacing: 0.2,
+  color: colorBlack,
+);
 
 final typoSuperSmallText500 = GoogleFonts.nunito(
   fontStyle: FontStyle.normal,

@@ -64,7 +64,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
             child: AppText(
               LocaleKeys.order_succes_choose_option.tr,
               textAlign: TextAlign.center,
-              style: typoSuperSmallTextBold.copyWith(
+              style: typoSuperSmallText500.copyWith(
                   color: colorText60, fontSize: 12.sp),
             ),
           ),

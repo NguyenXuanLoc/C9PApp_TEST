@@ -200,7 +200,7 @@ class Locales {
     'hours': 'Giờ',
     'minutes': 'Phút',
     'received': 'Đã tiếp nhận',
-    'not_data_pull_to_refresh': 'Không có dữ liệu\nKéo xuống để tải lại.',
+    'not_data_pull_to_refresh': 'Chưa có dữ liệu\nKéo xuống để tải lại.',
     'not_order_pull_to_refresh': 'Chưa có đơn hàng\nKéo xuống để tải lại.',
     'not_find_address_please_try_again': 'Không tìm thấy địa chỉ, vui lòng thử lại',
     'save': 'Lưu',

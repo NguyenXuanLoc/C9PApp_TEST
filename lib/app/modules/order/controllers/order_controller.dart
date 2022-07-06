@@ -195,7 +195,7 @@ class OrderController extends GetxController {
   }
 
   void setAddress(Prediction address) {
-    addressController.text = address.structuredFormatting?.secondaryText ?? '';
+    addressController.text = address.description ?? '';
     currentAddress = addressController.text;
     isSelectAddress = true;
     getLocationDetail(address.placeId ?? '');

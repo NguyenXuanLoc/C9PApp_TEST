@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:c9p/app/data/event_bus/reload_user_event.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -71,14 +73,21 @@ class TabAccountController extends GetxController {
   }
 
   void logout(BuildContext context) async {
-    Dialogs.showLoadingDialog(context);
-    var deviceToken = await Utils.getFirebaseToken();
-    await userProvider.unregisterDevice(deviceToken ?? '');
-    await userProvider.logout(deviceToken ?? '');
-    StorageUtils.clearUser();
-    StorageUtils.setRegisterDevice(false);
-    await Dialogs.hideLoadingDialog();
-    Get.offAllNamed(Routes.LOGIN_SPLASH);
+    bool isLogout = false;
+    await Dialogs.showLogoutDialog(context,
+        deleteCallBack: () => isLogout = true);
+    if (isLogout) {
+      Timer(Duration(milliseconds: 300), () async {
+        Dialogs.showLoadingDialog(context);
+        var deviceToken = await Utils.getFirebaseToken();
+        await userProvider.unregisterDevice(deviceToken ?? '');
+        await userProvider.logout(deviceToken ?? '');
+        StorageUtils.clearUser();
+        StorageUtils.setRegisterDevice(false);
+        await Dialogs.hideLoadingDialog();
+        Get.offAllNamed(Routes.LOGIN_SPLASH);
+      });
+    }
   }
 
   Future<UserData?> getProfile() async {

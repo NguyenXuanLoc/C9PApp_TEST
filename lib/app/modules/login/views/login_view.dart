@@ -96,22 +96,20 @@ class LoginView extends GetView<LoginController> {
                                 BorderSide(color: colorUnderlineTextField)),
                         enabled: true,
                         isDense: true,
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.only(top: 16.h),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min, // <-- important
-                            children: [
-                              Image.asset(
-                                R.assetsVnPng,
-                                width: 20.w,
-                              ),
-                              SizedBox(width: 4), // add a small gap
-                              AppText(
-                                "+84 ",
-                                style: typoSuperSmallTextBold.copyWith(),
-                              )
-                            ],
-                          ),
+                        prefixIconConstraints: BoxConstraints(maxHeight: 15.h),
+                        prefixIcon: Row(
+                          mainAxisSize: MainAxisSize.min, // <-- important
+                          children: [
+                            Image.asset(
+                              R.assetsVnPng,
+                              width: 20.w,
+                            ),
+                            const SizedBox(width: 4), // add a small gap
+                            AppText(
+                              "+84 ",
+                              style: typoSuperSmallTextBold.copyWith(),
+                            )
+                          ],
                         ),
                         border: const UnderlineInputBorder(
                             borderSide:
@@ -123,8 +121,6 @@ class LoginView extends GetView<LoginController> {
                         hintStyle:
                             typoSuperSmallTextBold.copyWith(color: colorText40),
                         hintText: LocaleKeys.phone_number_of_you.tr,
-                        contentPadding:
-                            EdgeInsets.only(top: 20.h, left: 0, right: 0),
                       ),
                     )),
               ),

@@ -1,8 +1,13 @@
+import 'dart:async';
+
+import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/config/app_translation.dart';
 import 'package:c9p/app/data/event_bus/jump_to_tab_event.dart';
 import 'package:c9p/app/data/event_bus/new_notify_event.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -16,6 +21,8 @@ class HomeController extends GetxController {
   bool isOpenOrder = false;
   final userProvider = UserProvider();
   final currentIndex = 0.obs;
+  BuildContext? context;
+  var isShowCloseDialog = false;
 
   @override
   void onInit() {
@@ -26,6 +33,39 @@ class HomeController extends GetxController {
     });
     listenerNotify();
     super.onInit();
+  }
+
+  void registerInterceptor() => BackButtonInterceptor.add(myInterceptor);
+
+  void unregisterInterceptor() => BackButtonInterceptor.remove(myInterceptor);
+
+  void setContext(BuildContext context) {
+    this.context = context;
+  }
+
+  Future<bool> myInterceptor(
+      bool stopDefaultButtonEvent, RouteInfo info) async {
+    var isClose = true;
+    if (currentIndex != 0) {
+      jumToTap(0);
+    } else {
+      if (!isShowCloseDialog) {
+        isShowCloseDialog = true;
+        await Dialogs.showCloseAppDialog(context!,
+            closeCallBack: () {
+              isClose = false;
+              isShowCloseDialog = false;
+            },
+            cancelCallBack: () => isShowCloseDialog = false,
+            popCallBack: () => isShowCloseDialog = false);
+      }
+    }
+    return isClose;
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
   }
 
   @override

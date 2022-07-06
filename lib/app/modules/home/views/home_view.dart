@@ -17,44 +17,50 @@ import 'package:get/get.dart';
 import '../../../components/app_keep_alive.dart';
 import '../../../components/app_scalford.dart';
 import '../controllers/home_controller.dart';
+import 'package:focus_detector/focus_detector.dart';
 
 class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
-      resizeToAvoidBottomInset: false,
-      fullStatusBar: true,
-      body: PageView(
-        controller: controller.pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          KeepAliveWrapper(
-            child: TabMainView(),
-          ),
-          KeepAliveWrapper(
-            child: TabPromotionView(),
-          ),
-          KeepAliveWrapper(
-            child: TabNotifyView(),
-          ),
-          KeepAliveWrapper(
-            child: TabAccountView(),
-          ),
-        ],
-      ),
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(top: 15.h),
-        child: FloatingActionButton(
-          backgroundColor: Colors.transparent,
-          child: SvgPicture.asset(
-            R.assetsAddOrderSvg,
-            width: 50.w,
-          ),
-          onPressed: () => Get.toNamed(Routes.ORDER),
+    controller.setContext(context);
+    return FocusDetector(
+      onFocusGained: () => controller.registerInterceptor(),
+      onFocusLost: () => controller.unregisterInterceptor(),
+      child: AppScaffold(
+        resizeToAvoidBottomInset: false,
+        fullStatusBar: true,
+        body: PageView(
+          controller: controller.pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            KeepAliveWrapper(
+              child: TabMainView(),
+            ),
+            KeepAliveWrapper(
+              child: TabPromotionView(),
+            ),
+            KeepAliveWrapper(
+              child: TabNotifyView(),
+            ),
+            KeepAliveWrapper(
+              child: TabAccountView(),
+            ),
+          ],
         ),
+        floatingActionButton: Padding(
+          padding: EdgeInsets.only(top: 15.h),
+          child: FloatingActionButton(
+            backgroundColor: Colors.transparent,
+            child: SvgPicture.asset(
+              R.assetsAddOrderSvg,
+              width: 50.w,
+            ),
+            onPressed: () => Get.toNamed(Routes.ORDER),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: bottomNavigationWidget(),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: bottomNavigationWidget(),
     );
   }
 

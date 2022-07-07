@@ -40,7 +40,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
               height: 20,
             ),
             AppText(
-              LocaleKeys.register_now.tr,
+              LocaleKeys.do_you_not_have_account.tr,
               style: typoLargeTextBold.copyWith(fontWeight: FontWeight.w700),
             ),
             const SizedBox(

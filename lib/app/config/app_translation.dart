@@ -108,6 +108,7 @@ class LocaleKeys {
   static const add_order = 'add_order';
   static const input_phone_number_to_order_c9p = 'input_phone_number_to_order_c9p';
   static const register_now = 'register_now';
+  static const do_you_not_have_account = 'do_you_not_have_account';
   static const please_input_info_at_here = 'please_input_info_at_here';
   static const name = 'name';
   static const register_success = 'register_success';
@@ -208,7 +209,8 @@ class Locales {
     'add_order': 'Đặt đơn hàng',
     'refresh_list': 'Tải lại danh sách',
     'welcome_to_com_9_p': 'Chào mừng bạn đến với C9P',
-    'input_phone_number_to_order_c9p': 'Bạn vui lòng nhập số điện thoại của mình vào phía dưới để đặt cơm cùng Cơm 9 phút nhé!',
+    'input_phone_number_to_order_c9p': 'Bạn vui lòng điền thêm một số thông tin dưới đây',
+    'do_you_not_have_account': 'Chưa có tài khoản',
     'order_succes_choose_option':
         'Đơn hàng của bạn đã được đặt thành công. Vui lòng chọn các thao tác phía dưới',
     'register_now':'Đăng ký ngay!',

@@ -17,7 +17,7 @@
 	<key>CFBundleName</key>
 	<string>c9p</string>
 	<key>CFBundlePackageType</key>
-	<string>Cơm 9 phút</string>
+	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
@@ -52,7 +52,6 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
-		<string>processing</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

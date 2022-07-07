@@ -320,8 +320,7 @@ class OrderView extends GetView<OrderController> {
                 title: LocaleKeys.continues.tr,
                 backgroundColor: colorGreen55,
                 height: heightContinue,
-                shapeBorder: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
+                shapeBorder: shapeBorderButton,
                 width: MediaQuery.of(context).size.width,
                 textStyle: typoButton.copyWith(color: colorWhite),
               )

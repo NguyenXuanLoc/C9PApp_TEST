@@ -121,7 +121,7 @@ class OtpView extends GetView<OtpController> {
                         color: controller.pin.value.length == 6
                             ? colorText0
                             : colorText60),
-                    borderRadius: 200,
+                    shapeBorder: shapeBorderButton,
                     onPress: () => controller.confirm(context),
                     width: MediaQuery.of(context).size.width,
                     backgroundColor: controller.pin.value.length == 6

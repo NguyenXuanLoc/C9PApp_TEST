@@ -15,5 +15,7 @@ bool isOrderDetail = false;
 int timePackageRemaining = 0;
 int timeOut = 30;
 
-double heightContinue = 36.5.h;
+String privacyUrl = 'https://api-mobile.com9phut.vn/privacy.html';
+String tempOfUseUrl = 'https://api-mobile.com9phut.vn/terms-of-use.html';
+double heightContinue = 37.7.h;
 double contentPadding = 13.w;

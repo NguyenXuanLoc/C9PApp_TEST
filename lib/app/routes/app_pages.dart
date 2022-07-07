@@ -30,6 +30,8 @@ import '../modules/tab_promotion/bindings/tab_promotion_binding.dart';
 import '../modules/tab_promotion/views/tab_promotion_view.dart';
 import '../modules/update_profile/bindings/update_profile_binding.dart';
 import '../modules/update_profile/views/update_profile_view.dart';
+import '../modules/webview/bindings/webview_binding.dart';
+import '../modules/webview/views/webview_view.dart';
 import '../modules/your_order/bindings/your_order_binding.dart';
 import '../modules/your_order/views/your_order_view.dart';
 
@@ -127,6 +129,11 @@ class AppPages {
       name: _Paths.REGISTER_SUCCESS,
       page: () => RegisterSuccessView(),
       binding: RegisterSuccessBinding(),
+    ),
+    GetPage(
+      name: _Paths.WEBVIEW,
+      page: () => WebviewView(),
+      binding: WebviewBinding(),
     ),
   ];
 }

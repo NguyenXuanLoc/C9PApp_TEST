@@ -90,7 +90,7 @@ class TabAccountView extends GetView<TabAccountController> {
                 textStyle: typoButton.copyWith(color: colorText60),
                 width: MediaQuery.of(context).size.width,
                 height: heightContinue,
-                borderRadius: 17,
+                shapeBorder: shapeBorderButton,
                 backgroundColor: colorGrey10,
               ),
               const SizedBox(

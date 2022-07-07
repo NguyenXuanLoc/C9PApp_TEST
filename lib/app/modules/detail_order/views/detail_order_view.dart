@@ -171,8 +171,7 @@ class DetailOrderView extends GetView<DetailOrderController> {
               width: MediaQuery.of(context).size.width,
               backgroundColor: colorGreen50,
               height: heightContinue,
-              shapeBorder: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100)),
+              shapeBorder: shapeBorderButton,
             ),
           ),
         ])),

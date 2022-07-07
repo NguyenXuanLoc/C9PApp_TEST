@@ -76,8 +76,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
             onPress: () => controller.mainOnclick(),
             title: LocaleKeys.main.tr,
             backgroundColor: colorGrey15,
-            shapeBorder: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(13.w)),
+            shapeBorder: shapeBorderButton,
             textStyle: typoButton.copyWith(color: colorText60),
             width: MediaQuery.of(context).size.width,
           ),
@@ -89,8 +88,7 @@ class OrderSuccessView extends GetView<OrderSuccessController> {
             onPress: () => controller.followOrderOnclick(),
             title: LocaleKeys.follow_order.tr,
             backgroundColor: colorGreen55,
-            shapeBorder: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(13.w)),
+            shapeBorder: shapeBorderButton,
             textStyle: typoButton.copyWith(color: colorText0),
             width: MediaQuery.of(context).size.width,
           ),

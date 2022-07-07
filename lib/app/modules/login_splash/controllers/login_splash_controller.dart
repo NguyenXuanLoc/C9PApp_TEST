@@ -1,20 +1,13 @@
 import 'package:get/get.dart';
 
-class LoginSplashController extends GetxController {
-  //TODO: Implement LoginSplashController
+import '../../../routes/app_pages.dart';
 
-  final count = 0.obs;
+class LoginSplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  void openWebView(String title, String url) =>    Get.toNamed(Routes.WEBVIEW, arguments: [title, url]);
 
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }

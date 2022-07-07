@@ -30,7 +30,8 @@ class ItemOrder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: contentPadding,right: contentPadding,top: 10.h,bottom: 10.h),
+      padding: EdgeInsets.only(
+          left: contentPadding, right: contentPadding, top: 10.h, bottom: 10.h),
       child: InkWell(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -78,7 +79,7 @@ class ItemOrder extends StatelessWidget {
                                 '${LocaleKeys.code.tr} #${model.id ?? 0} / ${model.itemQty ?? 0} ${LocaleKeys.bowl_of_rice.tr}',
                                 textAlign: TextAlign.center,
                                 style: typoSuperSmallTextBold.copyWith(
-                                    fontSize: 12.sp, color: colorOrange40))
+                                    color: colorOrange40))
                           ],
                         ),
                       ),
@@ -98,13 +99,12 @@ class ItemOrder extends StatelessWidget {
                 AppText(
                   Utils.convertTimeToDDMMYYHHMMSS(
                       model.deliverTime ?? DateTime.now()),
-                  style: typoSuperSmallTextBold.copyWith(fontSize: 11.5.sp),
+                  style: typoSuperSmallTextBold.copyWith(),
                 ),
                 const Spacer(),
                 AppText(
                   model.status ?? '',
-                  style: typoSuperSmallTextBold.copyWith(
-                      fontSize: 11.5.sp, color: colorGreen55),
+                  style: typoSuperSmallTextBold.copyWith(color: colorGreen55),
                 )
               ],
             ),
@@ -117,7 +117,7 @@ class ItemOrder extends StatelessWidget {
             ),
             AppText(
               "${LocaleKeys.address.tr}: ${model.toAddress ?? ''}",
-              style: typoSuperSmallTextBold.copyWith(fontSize: 12.sp),
+              style: typoSuperSmallTextBold.copyWith(),
             ),
             callBackReOrder != null
                 ? Padding(
@@ -128,8 +128,8 @@ class ItemOrder extends StatelessWidget {
                         borderRadius: 100,
                         onPress: () => callBackReOrder!(model),
                         title: LocaleKeys.re_deliver.tr,
-                        textStyle:
-                            typoSuperSmallTextBold.copyWith(color: colorText0),
+                        textStyle: typoSuperSmallTextBold.copyWith(
+                            fontSize: 13.sp, color: colorText0),
                         backgroundColor: colorGreen57,
                         height: 28.h,
                         padding: EdgeInsets.only(left: 20.w, right: 20.w),

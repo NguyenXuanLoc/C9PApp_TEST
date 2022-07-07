@@ -67,17 +67,29 @@ class TabMainView extends GetView<TabMainController> {
                             children: [
                               Row(
                                 children: [
-                                  Obx(() => AppText(
-                                      "Xin chào${controller.fullName.value.isNotEmpty ? " ${controller.fullName.value}" : ''}!",
-                                      style: typoTitleHeader.copyWith())),
+                                  Expanded(
+                                      child: Row(
+                                    children: [
+                                      Flexible(
+                                          child: Obx(() => AppText(
+                                              "Xin chào${controller.fullName.value.isNotEmpty ? " ${controller.fullName.value}" : ''}!",
+                                              maxLine: 1,
+                                              textOverflow:
+                                                  TextOverflow.ellipsis,
+                                              style:
+                                                  typoTitleHeader.copyWith()))),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Image.asset(
+                                        R.assetsPngHand,
+                                        width: 18.w,
+                                      ),
+                                    ],
+                                  )),
                                   const SizedBox(
-                                    width: 5,
+                                    width: 10,
                                   ),
-                                  Image.asset(
-                                    R.assetsPngHand,
-                                    width: 18.w,
-                                  ),
-                                  const Spacer(),
                                   InkWell(
                                     child: SvgPicture.asset(
                                       R.assetsSvgCircleAvatar,
@@ -97,10 +109,13 @@ class TabMainView extends GetView<TabMainController> {
                                 textStyle: typoSuperSmallTextBold.copyWith(
                                     decoration: TextDecoration.none),
                                 decoration: decorTextFieldCircle.copyWith(
+                                    contentPadding: EdgeInsets.all(9.h),
                                     isDense: true,
                                     hintText: LocaleKeys.find_order_at_here.tr,
-                                    hintStyle: typoSuperSmallTextRegular.copyWith(
-                                        fontSize: 12.sp, color: colorText60),
+                                    hintStyle:
+                                        typoSuperSmallTextBold.copyWith(
+                                            // fontSize: 12.sp,
+                                            color: colorText60),
                                     prefixIconConstraints:
                                         BoxConstraints(maxWidth: 45.w),
                                     prefixIcon: Align(
@@ -127,7 +142,7 @@ class TabMainView extends GetView<TabMainController> {
                                     children: [
                                       AppText(
                                         LocaleKeys.temp.tr,
-                                        style: typoSuperSmallTextBold.copyWith(
+                                        style: typoSuperSmallText600.copyWith(
                                             color: colorWhite),
                                       ),
                                       Row(
@@ -202,8 +217,8 @@ class TabMainView extends GetView<TabMainController> {
                                       Obx(() => AppText(
                                             controller.weatherDescription.value,
                                             style:
-                                                typoSuperSmallTextBold.copyWith(
-                                                    fontSize: 12.sp,
+                                            typoSuperSmallText600.copyWith(
+                                                    fontSize: 13.sp,
                                                     fontWeight: FontWeight.w700,
                                                     color: colorText0),
                                           ))
@@ -435,7 +450,7 @@ class TabMainView extends GetView<TabMainController> {
     return Obx(() => controller.isLoadPromotion.value
         ? const AppCircleLoading()
         : controller.lPromotion.isEmpty
-            ? const AppNotDataWidget()
+            ? const AppNotDataWidget(paddingTop: 0,)
             : CarouselSlider(
                 options: CarouselOptions(
                     height: MediaQuery.of(context).size.width / 3.2,

@@ -40,7 +40,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
               height: 20,
             ),
             AppText(
-              LocaleKeys.register_now.tr,
+              LocaleKeys.do_you_not_have_account.tr,
               style: typoLargeTextBold.copyWith(fontWeight: FontWeight.w700),
             ),
             const SizedBox(
@@ -71,7 +71,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                   errorText: controller.errorFullName.value,
                   textInputAction: TextInputAction.next,
                   textStyle:
-                      typoSuperSmallTextBold.copyWith(color: colorText60),
+                      typoSuperSmallTextBold.copyWith(),
                   decoration: decoration().copyWith(
                     hintText: LocaleKeys.full_name.tr,
                     hintStyle:
@@ -87,7 +87,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
               controller: controller.phoneController,
               readOnly: true,
               textInputAction: TextInputAction.next,
-              textStyle: typoSuperSmallTextBold.copyWith(color: colorText60),
+              textStyle: typoSuperSmallTextBold.copyWith(),
               decoration: decoration(),
             ),
             const Spacer(),
@@ -126,7 +126,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
       enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: colorUnderlineTextField)));
 
-  Widget itemSpace() => const SizedBox(
-        height: 10,
+  Widget itemSpace() =>  SizedBox(
+        height: 5.h,
       );
 }

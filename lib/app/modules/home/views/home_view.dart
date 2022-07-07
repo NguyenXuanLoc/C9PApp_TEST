@@ -21,41 +21,45 @@ import '../controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
-      resizeToAvoidBottomInset: false,
-      fullStatusBar: true,
-      body: PageView(
-        controller: controller.pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          KeepAliveWrapper(
-            child: TabMainView(),
+    controller.setContext(context);
+    return WillPopScope(
+        child: AppScaffold(
+          resizeToAvoidBottomInset: false,
+          fullStatusBar: true,
+          body: PageView(
+            controller: controller.pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              KeepAliveWrapper(
+                child: TabMainView(),
+              ),
+              KeepAliveWrapper(
+                child: TabPromotionView(),
+              ),
+              KeepAliveWrapper(
+                child: TabNotifyView(),
+              ),
+              KeepAliveWrapper(
+                child: TabAccountView(),
+              ),
+            ],
           ),
-          KeepAliveWrapper(
-            child: TabPromotionView(),
+          floatingActionButton: Padding(
+            padding: EdgeInsets.only(top: 15.h),
+            child: FloatingActionButton(
+              backgroundColor: Colors.transparent,
+              child: SvgPicture.asset(
+                R.assetsAddOrderSvg,
+                width: 50.w,
+              ),
+              onPressed: () => Get.toNamed(Routes.ORDER),
+            ),
           ),
-          KeepAliveWrapper(
-            child: TabNotifyView(),
-          ),
-          KeepAliveWrapper(
-            child: TabAccountView(),
-          ),
-        ],
-      ),
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(top: 15.h),
-        child: FloatingActionButton(
-          backgroundColor: Colors.transparent,
-          child: SvgPicture.asset(
-            R.assetsAddOrderSvg,
-            width: 50.w,
-          ),
-          onPressed: () => Get.toNamed(Routes.ORDER),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: bottomNavigationWidget(),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: bottomNavigationWidget(),
-    );
+        onWillPop: () async => await controller.onBackPress());
   }
 
   Widget bottomNavigationWidget() {

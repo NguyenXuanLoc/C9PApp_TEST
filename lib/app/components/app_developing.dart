@@ -54,8 +54,7 @@ class AppDeveloping extends StatelessWidget {
           AppText(
             LocaleKeys.developing.tr,
             textAlign: TextAlign.center,
-            style: typoSuperSmallTextBold.copyWith(
-                color: colorText60, fontSize: 12.sp),
+            style: typoSuperSmallText500.copyWith(color: colorText60),
           ),
           const SizedBox(
             height: 60,

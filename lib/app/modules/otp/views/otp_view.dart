@@ -105,7 +105,7 @@ class OtpView extends GetView<OtpController> {
                             ),
                           ))),
                 ],
-              ),SizedBox(height: 6.h,),
+              ),SizedBox(height: 1.h,),
               Obx(() => AppText(
                     controller.errorOtp.value,
                     style: typoSuperSmallTextRegular.copyWith(

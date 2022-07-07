@@ -93,7 +93,7 @@ class OrderView extends GetView<OrderController> {
                   controller: controller.fullNameController,
                   textInputAction: TextInputAction.next,
                   textStyle:
-                      typoSuperSmallTextBold.copyWith(color: colorText60),
+                      typoSuperSmallTextBold.copyWith(),
                   decoration: decorTextFieldOval.copyWith(
                     hintText: LocaleKeys.input_full_name.tr,
                     hintStyle:
@@ -113,7 +113,6 @@ class OrderView extends GetView<OrderController> {
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.phone,
                   textStyle: typoSuperSmallTextBold.copyWith(
-                    color: colorText60,
                   ),
                   decoration: decorTextFieldOval.copyWith(
                     hintText: LocaleKeys.input_phone_number_at_here.tr,
@@ -138,7 +137,7 @@ class OrderView extends GetView<OrderController> {
                     maxLines: 1,
                     onTap: () => controller.scrollToBottom(),
                     autofocus: false,
-                    style: typoSuperSmallTextBold.copyWith(color: colorText60),
+                    style: typoSuperSmallTextBold.copyWith(),
                     decoration: decorTextFieldOval.copyWith(
                       hintText: LocaleKeys.input_address_at_here.tr,
                       hintStyle:
@@ -197,7 +196,7 @@ class OrderView extends GetView<OrderController> {
                 },
               ),
               const SizedBox(
-                height: 5,
+                height: 1,
               ),
               Obx(
                 () => Padding(
@@ -228,7 +227,7 @@ class OrderView extends GetView<OrderController> {
                           errorText: controller.errorDate.value,
                           textInputAction: TextInputAction.next,
                           textStyle: typoSuperSmallTextBold.copyWith(
-                              color: colorText60),
+                          ),
                           decoration: decorTextFieldOval.copyWith(
                             hintText: 'mm/dd/yyy',
                             suffixIconConstraints: BoxConstraints(
@@ -263,7 +262,7 @@ class OrderView extends GetView<OrderController> {
                           controller: controller.hourController,
                           textInputAction: TextInputAction.next,
                           textStyle: typoSuperSmallTextBold.copyWith(
-                              color: colorText60),
+                              ),
                           decoration: decorTextFieldOval.copyWith(
                             hintText: 'hh:mm AM',
                             suffixIconConstraints: BoxConstraints(
@@ -281,7 +280,7 @@ class OrderView extends GetView<OrderController> {
                 ],
               ),
               SizedBox(
-                height: 11.h,
+                height: 8.h,
               ),
               itemSpace(),
               AppText(
@@ -291,16 +290,13 @@ class OrderView extends GetView<OrderController> {
               itemSpace(),
               qtyWidget(),
               const SizedBox(
-                height: 5,
+                height: 1,
               ),
               Obx(
-                () => Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: AppText(
-                    controller.errorCount.value,
-                    style: typoNormalTextRegular.copyWith(
-                        color: colorSemanticRed100, fontSize: 11.sp),
-                  ),
+                () => AppText(
+                  controller.errorCount.value,
+                  style: typoNormalTextRegular.copyWith(
+                      color: colorSemanticRed100, fontSize: 11.sp),
                 ),
               ),
               /*          Obx(() => AppTextField(
@@ -317,6 +313,7 @@ class OrderView extends GetView<OrderController> {
                     suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,
                         color: colorBlack),
                   ))),*/
+              itemSpace(),
               itemSpace(),
               AppButton(
                 onPress: () => controller.continueOnclick(context),
@@ -344,7 +341,7 @@ class OrderView extends GetView<OrderController> {
             maxLines: 1,
             // onTap: () => controller.scrollToBottom(),
             autofocus: false,
-            style: typoSuperSmallTextBold.copyWith(color: colorText60),
+            style: typoSuperSmallTextBold.copyWith(),
             decoration: decorTextFieldOval.copyWith(
               hintText: LocaleKeys.input_qty.tr,
               hintStyle: typoSuperSmallTextBold.copyWith(color: colorText60),
@@ -359,7 +356,7 @@ class OrderView extends GetView<OrderController> {
             padding: EdgeInsets.all(10.w),
             child: Text(
               suggestion,
-              style: typoSuperSmallTextBold.copyWith(color: colorText60),
+              style: typoSuperSmallTextBold.copyWith(),
             ),
           );
         },
@@ -374,6 +371,6 @@ class OrderView extends GetView<OrderController> {
       );
 
   Widget itemSpace() => SizedBox(
-        height: 3.h,
+        height: 5.h,
       );
 }

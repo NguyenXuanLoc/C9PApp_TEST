@@ -108,6 +108,7 @@ class LocaleKeys {
   static const add_order = 'add_order';
   static const input_phone_number_to_order_c9p = 'input_phone_number_to_order_c9p';
   static const register_now = 'register_now';
+  static const do_you_not_have_account = 'do_you_not_have_account';
   static const please_input_info_at_here = 'please_input_info_at_here';
   static const name = 'name';
   static const register_success = 'register_success';
@@ -189,7 +190,7 @@ class Locales {
     'update': 'Cập nhật',
     'gallery': 'Thư viện',
     'camera': 'Máy ảnh',
-    'near_order': 'Đơn hàng gần đây',
+    'near_order': 'Đơn đã giao',
     'bowl_of_rice': 'suất cơm',
     'input_address_at_here': 'Nhập địa chỉ đặt hàng tại đây...',
     'input_qty': 'Nhập số suất',
@@ -200,7 +201,7 @@ class Locales {
     'hours': 'Giờ',
     'minutes': 'Phút',
     'received': 'Đã tiếp nhận',
-    'not_data_pull_to_refresh': 'Không có dữ liệu\nKéo xuống để tải lại.',
+    'not_data_pull_to_refresh': 'Chưa có dữ liệu\nKéo xuống để tải lại.',
     'not_order_pull_to_refresh': 'Chưa có đơn hàng\nKéo xuống để tải lại.',
     'not_find_address_please_try_again': 'Không tìm thấy địa chỉ, vui lòng thử lại',
     'save': 'Lưu',
@@ -208,14 +209,15 @@ class Locales {
     'add_order': 'Đặt đơn hàng',
     'refresh_list': 'Tải lại danh sách',
     'welcome_to_com_9_p': 'Chào mừng bạn đến với C9P',
-    'input_phone_number_to_order_c9p': 'Bạn vui lòng nhập số điện thoại của mình vào phía dưới để đặt cơm cùng Cơm 9 phút nhé!',
+    'input_phone_number_to_order_c9p': 'Bạn vui lòng điền thêm một số thông tin dưới đây',
+    'do_you_not_have_account': 'Chưa có tài khoản',
     'order_succes_choose_option':
         'Đơn hàng của bạn đã được đặt thành công. Vui lòng chọn các thao tác phía dưới',
     'register_now':'Đăng ký ngay!',
     'name':'Tên',
     'please_input_info_at_here':'Bạn vui lòng nhập một số thông tin dưới đây',
     'register_success':'Đăng ký tài khoản thành công!',
-    'message_register_success':'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+    'message_register_success':'Nhấn nút phía dưới để tiếp tục sử dụng dịch vụ của chúng tôi. Chúc bạn luôn có những bữa trưa ngon miệng',
   };
 
 }

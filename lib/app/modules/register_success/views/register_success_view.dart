@@ -42,7 +42,7 @@ class RegisterSuccessView extends GetView<RegisterSuccessController> {
             child: AppText(
               LocaleKeys.message_register_success.tr,
               textAlign: TextAlign.center,
-              style: typoSuperSmallTextBold.copyWith(
+              style: typoSuperSmallTextRegular.copyWith(
                   color: colorText60, fontSize: 12.sp),
             ),
           ),

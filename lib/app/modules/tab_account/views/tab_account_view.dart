@@ -26,7 +26,7 @@ class TabAccountView extends GetView<TabAccountController> {
             Obx(() => Visibility(
                   visible: controller.isSave.value,
                   child: TextButton(
-                      onPressed: () =>controller.updateProfile(context),
+                      onPressed: () => controller.updateProfile(context),
                       child: AppText(
                         LocaleKeys.save.tr,
                         style: typoSmallTextBold.copyWith(color: colorText0),
@@ -65,8 +65,10 @@ class TabAccountView extends GetView<TabAccountController> {
                     controller: controller.fullNameController,
                     errorText: controller.errorFullName.value,
                     textInputAction: TextInputAction.next,
-                    textStyle:
+                    hintText: LocaleKeys.full_name.tr,
+                    hintStyle:
                         typoSuperSmallTextBold.copyWith(color: colorText60),
+                    textStyle: typoSuperSmallTextBold.copyWith(),
                     decoration: decorTextFieldOval,
                   )),
               AppText(
@@ -78,7 +80,7 @@ class TabAccountView extends GetView<TabAccountController> {
                 controller: controller.phoneController,
                 readOnly: true,
                 textInputAction: TextInputAction.next,
-                textStyle: typoSuperSmallTextBold.copyWith(color: colorText60),
+                textStyle: typoSuperSmallTextBold.copyWith(),
                 decoration: decorTextFieldOval,
               ),
               const Spacer(),
@@ -99,7 +101,7 @@ class TabAccountView extends GetView<TabAccountController> {
         ));
   }
 
-  Widget itemSpace() => const SizedBox(
-        height: 10,
+  Widget itemSpace() => SizedBox(
+        height: 5.h,
       );
 }

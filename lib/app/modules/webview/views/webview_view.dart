@@ -56,9 +56,16 @@ class WebviewView extends GetView<WebviewController> {
                   onLoadHttpError: (InAppWebViewController ctrl, Uri? uri,
                           status, String? message) =>
                       controller.setIsLoadError(true),
-                  initialUrlRequest:
-                      URLRequest(url: Uri.parse(controller.url)),
+                  initialUrlRequest: URLRequest(url: Uri.parse(controller.url)),
                 ),
+                Obx(() => Visibility(
+                      visible: controller.isLoading.value,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        color: colorWhite,
+                      ),
+                    )),
                 Obx(() => Visibility(
                       visible: controller.isLoading.value,
                       child: const AppCircleLoading(),

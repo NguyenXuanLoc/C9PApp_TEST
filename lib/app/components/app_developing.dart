@@ -64,8 +64,7 @@ class AppDeveloping extends StatelessWidget {
             onPress: () => onClickMain.call(),
             title: LocaleKeys.main.tr,
             backgroundColor: colorGrey15,
-            shapeBorder: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(13.w)),
+            shapeBorder: shapeBorderButton,
             textStyle: typoButton.copyWith(color: colorText60),
             width: MediaQuery.of(context).size.width,
           ),
@@ -77,8 +76,7 @@ class AppDeveloping extends StatelessWidget {
             onPress: () => onClickOrder.call(),
             title: LocaleKeys.reorder_rice.tr,
             backgroundColor: colorGreen55,
-            shapeBorder: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(13.w)),
+            shapeBorder: shapeBorderButton,
             textStyle: typoButton.copyWith(color: colorText0),
             width: MediaQuery.of(context).size.width,
           ),

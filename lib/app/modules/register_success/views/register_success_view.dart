@@ -52,8 +52,7 @@ class RegisterSuccessView extends GetView<RegisterSuccessController> {
             onPress: () => controller.onClickContinues(),
             title: LocaleKeys.continues.tr,
             backgroundColor: colorGreen55,
-            shapeBorder: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(13.w)),
+            shapeBorder: shapeBorderButton,
             textStyle: typoButton.copyWith(color: colorText0),
             width: MediaQuery.of(context).size.width,
           ),

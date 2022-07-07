@@ -101,7 +101,7 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                           : colorText0),
                   width: MediaQuery.of(context).size.width,
                   height: heightContinue,
-                  borderRadius: 17,
+                  shapeBorder: shapeBorderButton,
                   backgroundColor: controller.isDisableButton.value
                       ? colorGrey10
                       : colorGreen50,

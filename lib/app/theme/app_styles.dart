@@ -674,3 +674,5 @@ final typoVietNamProRegular11 = GoogleFonts.nunito(
   fontSize: 11.sp,
   color: colorBlack,
 );
+final shapeBorderButton =
+    RoundedRectangleBorder(borderRadius: BorderRadius.circular(17));

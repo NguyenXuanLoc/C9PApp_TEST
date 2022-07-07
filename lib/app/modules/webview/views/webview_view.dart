@@ -21,7 +21,7 @@ class WebviewView extends GetView<WebviewController> {
     return AppScaffold(
         appbar: AppBar(
           automaticallyImplyLeading: false,
-          toolbarHeight: 30.h,
+          // toolbarHeight: 30.h,
           centerTitle: true,
           leading: IconButton(
             splashRadius: 20,

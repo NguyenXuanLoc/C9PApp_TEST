@@ -15,7 +15,7 @@ import '../data/model/notify_model.dart';
 class NotificationService {
   // Singleton pattern
   static final NotificationService _notificationService =
-  NotificationService._internal();
+      NotificationService._internal();
 
   factory NotificationService() {
     return _notificationService;
@@ -26,10 +26,10 @@ class NotificationService {
   static const channelId = "1";
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 
   static const AndroidNotificationDetails _androidNotificationDetails =
-  AndroidNotificationDetails(
+      AndroidNotificationDetails(
     channelId,
     "notifications",
     channelDescription: "notifications",
@@ -39,7 +39,7 @@ class NotificationService {
   );
 
   static const IOSNotificationDetails _iOSNotificationDetails =
-  IOSNotificationDetails();
+      IOSNotificationDetails();
 
   final NotificationDetails notificationDetails = const NotificationDetails(
     android: _androidNotificationDetails,
@@ -52,13 +52,12 @@ class NotificationService {
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
     const iOSInitializationSettings = IOSInitializationSettings(
-      defaultPresentAlert: false,
-      defaultPresentBadge: false,
-      defaultPresentSound: false,
-    );
+        requestAlertPermission: false,
+        requestBadgePermission: false,
+        requestSoundPermission: false);
 
     const InitializationSettings initializationSettings =
-    InitializationSettings(
+        InitializationSettings(
       android: androidInitializationSettings,
       iOS: iOSInitializationSettings,
     );
@@ -68,7 +67,7 @@ class NotificationService {
       onSelectNotification: onSelectNotification,
     );
     final NotificationAppLaunchDetails? notificationAppLaunchDetails =
-    await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+        await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
     String? payload = notificationAppLaunchDetails!.payload;
     if (payload != null) {
       StorageUtils.saveOrderId(payload);
@@ -100,10 +99,8 @@ class NotificationService {
       print('onMessageOpenedApp onMessage: $message');
     });
 
-
-
     RemoteMessage? initialMessage =
-    await FirebaseMessaging.instance.getInitialMessage();
+        await FirebaseMessaging.instance.getInitialMessage();
     // If the message also contains a data property with a "type" of "chat",
     // navigate to a chat screen
     if (initialMessage != null) {
@@ -111,8 +108,7 @@ class NotificationService {
     }
   }
 
-  void handleNotification(RemoteMessage message) async
-  {
+  void handleNotification(RemoteMessage message) async {
     print('Got a message !');
     print('onMessage : Message data: ${message.data}');
     var notifyModel = NotifyModel.fromJson(message.data);

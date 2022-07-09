@@ -107,7 +107,7 @@ class NotificationService {
     // If the message also contains a data property with a "type" of "chat",
     // navigate to a chat screen
     if (initialMessage != null) {
-      print("initialMessage ${initialMessage!.data}");
+      print("initialMessage ${initialMessage.data}");
     }
   }
 

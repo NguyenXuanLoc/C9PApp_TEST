@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:c9p/app/utils/app_utils.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../config/app_translation.dart';
 import '../../utils/connection_utils.dart';
@@ -45,6 +47,9 @@ class BaseProvider extends GetConnect {
           data: result,
         );
       } else {
+        if (response.status.code == 401) {
+          await Utils.autoLogout();
+        }
         Logger().e('Error ${response.status.code} - ${response.statusText}');
         var result = response.body;
         return ApiResult<dynamic>(
@@ -88,6 +93,9 @@ class BaseProvider extends GetConnect {
         return ApiResult<dynamic>(
             data: result, statusCode: response.statusCode, message: '');
       } else {
+        if (response.status.code == 401) {
+          await Utils.autoLogout();
+        }
         Logger().e('Error ${response.status.code} - ${response.statusText}');
         var result = response.body;
         return ApiResult<dynamic>(
@@ -141,6 +149,9 @@ class BaseProvider extends GetConnect {
         return ApiResult<dynamic>(
             data: result, statusCode: response.statusCode, message: '');
       } else {
+        if (response.status.code == 401) {
+          await Utils.autoLogout();
+        }
         Logger().e(
             'Error ${response.status.code} - ${response.statusText} - ${response.bodyString}');
         var result = response.body;
@@ -191,6 +202,9 @@ class BaseProvider extends GetConnect {
         return ApiResult<dynamic>(
             data: result, statusCode: response.statusCode, message: '');
       } else {
+        if (response.status.code == 401) {
+          await Utils.autoLogout();
+        }
         Logger().e('Error ${response.status.code} - ${response.statusText}');
         var result = response.body;
         return ApiResult<dynamic>(
@@ -235,6 +249,9 @@ class BaseProvider extends GetConnect {
         return ApiResult<dynamic>(
             data: result, statusCode: response.statusCode, message: '');
       } else {
+        if (response.status.code == 401) {
+          await Utils.autoLogout();
+        }
         Logger().e('Error ${response.status.code} - ${response.statusText}');
         var result = response.body;
         return ApiResult<dynamic>(
@@ -275,6 +292,9 @@ class BaseProvider extends GetConnect {
         return ApiResult<dynamic>(
             data: result, statusCode: response.statusCode, message: '');
       } else {
+        if (response.status.code == 401) {
+          await Utils.autoLogout();
+        }
         Logger().e('Error ${response.status.code} - ${response.statusText}');
         var result = response.body;
         return ApiResult<dynamic>(

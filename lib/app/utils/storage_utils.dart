@@ -37,6 +37,7 @@ class StorageUtils {
   static Future<void> clearUser() async {
     isLogin = false;
     globals.accessToken = '';
+    await setIsFirstOrder(true);
     await GetStorage().remove(StorageKey.AccountInfo);
   }
 

@@ -10,6 +10,7 @@ import 'package:c9p/app/data/model/weather_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

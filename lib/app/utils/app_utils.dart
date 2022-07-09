@@ -1,17 +1,20 @@
+import 'dart:async';
+
+import 'package:c9p/app/config/globals.dart' as globals;
 import 'package:c9p/app/data/model/order_model.dart';
-import 'package:c9p/app/data/provider/api_result.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
-import 'package:c9p/app/utils/log_utils.dart';
+import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:c9p/app/config/globals.dart' as globals;
 import 'package:location/location.dart';
+
 import '../components/date_picker.dart';
 import '../config/app_translation.dart';
+import '../routes/app_pages.dart';
 import '../theme/colors.dart';
 
 class Utils {
@@ -169,18 +172,16 @@ class Utils {
   static Future<String?> getFirebaseToken() async =>
       await FirebaseMessaging.instance.getToken();
 
- static String time24to12Format(DateTime dateTime) {
+  static String time24to12Format(DateTime dateTime) {
     var time = DateFormat.Hm().format(dateTime.toLocal());
     int h = int.parse(time.split(":").first);
     int m = int.parse(time.split(":").last.split(" ").first);
     String send = "";
     if (h > 12) {
       var temp = h - 12;
-      send =
-          "$temp:${m.toString().length == 1 ? "0$m" : m.toString()} " "PM";
+      send = "$temp:${m.toString().length == 1 ? "0$m" : m.toString()} " "PM";
     } else {
-      send =
-          "$h:${m.toString().length == 1 ? "0$m" : m.toString()}  " "AM";
+      send = "$h:${m.toString().length == 1 ? "0$m" : m.toString()}  " "AM";
     }
     return send;
   }
@@ -191,5 +192,12 @@ class Utils {
       return OrderModel.fromJson(response.data['data']);
     }
     return null;
+  }
+
+  static Future<void> autoLogout() async {
+    StorageUtils.clearUser();
+    StorageUtils.setRegisterDevice(false);
+    Timer(
+        const Duration(seconds: 1), () => Get.offAllNamed(Routes.LOGIN_SPLASH));
   }
 }

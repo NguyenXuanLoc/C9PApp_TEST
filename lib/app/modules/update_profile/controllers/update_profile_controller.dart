@@ -6,14 +6,12 @@ import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../utils/storage_utils.dart';
 
 class UpdateProfileController extends GetxController {
   final userProvider = UserProvider();
   final isMale = true.obs;
-  final ImagePicker _picker = ImagePicker();
   final imageUri = ''.obs;
   final fullNameController = TextEditingController();
   final phoneController = TextEditingController();
@@ -85,16 +83,6 @@ class UpdateProfileController extends GetxController {
     }
     errorFullName.value = '';
     return true;
-  }
-
-  void picImage(bool isCamera) async {
-    XFile? file = isCamera
-        ? await _picker.pickImage(source: ImageSource.camera)
-        : await _picker.pickImage(source: ImageSource.gallery);
-    Get.back();
-    if (file != null) {
-      imageUri.value = file.path;
-    }
   }
 
   void changeSex() => isMale.value = !isMale.value;

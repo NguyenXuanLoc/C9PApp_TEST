@@ -5,6 +5,7 @@ import 'package:c9p/app/config/globals.dart' as globals;
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
+import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -198,6 +199,7 @@ class Utils {
   static Future<void> autoLogout() async {
     StorageUtils.clearUser();
     StorageUtils.setRegisterDevice(false);
+    toast(LocaleKeys.token_expire.tr);
     Timer(
         const Duration(seconds: 1), () => Get.offAllNamed(Routes.LOGIN_SPLASH));
   }

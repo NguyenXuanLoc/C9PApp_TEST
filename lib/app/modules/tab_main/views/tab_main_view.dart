@@ -93,7 +93,8 @@ class TabMainView extends GetView<TabMainController> {
                                       R.assetsSvgCircleAvatar,
                                       width: 28.w,
                                     ),
-                                    onTap: () => controller.onClickProfile(),
+                                    onTap: () =>
+                                        controller.onClickProfile(context),
                                   )
                                 ],
                               ),
@@ -230,8 +231,11 @@ class TabMainView extends GetView<TabMainController> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  optionWidget(R.assetsSvgMenu,
-                                      LocaleKeys.menu.tr, TabMainAction.MENU),
+                                  optionWidget(
+                                      R.assetsSvgMenu,
+                                      LocaleKeys.menu.tr,
+                                      TabMainAction.MENU,
+                                      context),
                                   Obx(() => controller.isBadge.value
                                       ? Badge(
                                           position: BadgePosition.topEnd(
@@ -247,18 +251,24 @@ class TabMainView extends GetView<TabMainController> {
                                           child: optionWidget(
                                               R.assetsSvgOrder,
                                               LocaleKeys.order.tr,
-                                              TabMainAction.ORDER),
+                                              TabMainAction.ORDER,
+                                              context),
                                         )
                                       : optionWidget(
                                           R.assetsSvgOrder,
                                           LocaleKeys.order.tr,
-                                          TabMainAction.ORDER)),
+                                          TabMainAction.ORDER,
+                                          context)),
                                   optionWidget(
                                       R.assetsSvgStatistical,
                                       LocaleKeys.statistical.tr,
-                                      TabMainAction.DISCTRICT),
-                                  optionWidget(R.assetsSvgMore,
-                                      LocaleKeys.more.tr, TabMainAction.MORE)
+                                      TabMainAction.DISCTRICT,
+                                      context),
+                                  optionWidget(
+                                      R.assetsSvgMore,
+                                      LocaleKeys.more.tr,
+                                      TabMainAction.MORE,
+                                      context)
                                 ],
                               )
                             ],
@@ -481,7 +491,8 @@ class TabMainView extends GetView<TabMainController> {
               ));
   }
 
-  Widget optionWidget(String resource, String title, TabMainAction action) =>
+  Widget optionWidget(String resource, String title, TabMainAction action,
+          BuildContext context) =>
       InkWell(
         child: Column(
           children: [
@@ -505,6 +516,6 @@ class TabMainView extends GetView<TabMainController> {
             )
           ],
         ),
-        onTap: () => controller.onClickAction(action),
+        onTap: () => controller.onClickAction(action, context),
       );
 }

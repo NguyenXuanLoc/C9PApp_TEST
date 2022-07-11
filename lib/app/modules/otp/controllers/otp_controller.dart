@@ -97,8 +97,7 @@ class OtpController extends GetxController {
         if (model.needUpdate ?? true) {
           Get.offAllNamed(Routes.UPDATE_PROFILE, arguments: phoneNumber.value);
         } else {
-          Get.offAllNamed(Routes.HOME,
-              arguments: await StorageUtils.isFirstOrder());
+          Get.offAllNamed(Routes.HOME, arguments: true);
         }
       } catch (ex) {
         toast(LocaleKeys.network_error.tr);

@@ -116,6 +116,7 @@ class LocaleKeys {
   static const register_success = 'register_success';
   static const message_register_success = 'message_register_success';
   static const net_work_error_click_to_retry = 'net_work_error_click_to_retry';
+  static const token_expire = 'token_expire';
 }
 
 class Locales {
@@ -223,6 +224,7 @@ class Locales {
     'please_input_info_at_here': 'Bạn vui lòng nhập một số thông tin dưới đây',
     'register_success': 'Đăng ký tài khoản thành công!',
     'net_work_error_click_to_retry': 'Lỗi mạng, ấn để thử lại',
+    'token_expire': 'Phiên đăng nhập đã hết hạn',
     'message_register_success':
         'Nhấn nút phía dưới để tiếp tục sử dụng dịch vụ của chúng tôi. Chúc bạn luôn có những bữa trưa ngon miệng',
   };

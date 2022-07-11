@@ -55,8 +55,7 @@ class UpdateProfileController extends GetxController {
           if (isBackToHome.value) {
             Get.back();
           } else {
-            Get.offAllNamed(Routes.REGISTER_SUCCESS,
-                arguments: await StorageUtils.isFirstOrder());
+            Get.offAllNamed(Routes.REGISTER_SUCCESS);
           }
         } else {
           toast(LocaleKeys.network_error.tr);

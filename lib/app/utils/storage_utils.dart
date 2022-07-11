@@ -24,19 +24,28 @@ class StorageUtils {
         globals.phoneNumber = userModel.data?.userData?.phone ?? '';
         return userModel;
       } else {
-        globals.isNeedUpdateProfile = true;
+        globals.accessToken = '';
+        globals.userName = '';
+        globals.phoneNumber = '';
+        globals.isNeedUpdateProfile = false;
         globals.isLogin = false;
       }
     } catch (ex) {
-      globals.isNeedUpdateProfile = true;
+      globals.accessToken = '';
+      globals.userName = '';
+      globals.phoneNumber = '';
+      globals.isNeedUpdateProfile = false;
       globals.isLogin = false;
     }
     return null;
   }
 
   static Future<void> clearUser() async {
-    isLogin = false;
     globals.accessToken = '';
+    globals.userName = '';
+    globals.phoneNumber = '';
+    globals.isNeedUpdateProfile = false;
+    globals.isLogin = false;
     await setIsFirstOrder(true);
     await GetStorage().remove(StorageKey.AccountInfo);
   }

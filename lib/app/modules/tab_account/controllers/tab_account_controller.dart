@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:c9p/app/data/event_bus/jump_to_tab_event.dart';
 import 'package:c9p/app/data/event_bus/reload_user_event.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -85,7 +86,7 @@ class TabAccountController extends GetxController {
         StorageUtils.clearUser();
         StorageUtils.setRegisterDevice(false);
         await Dialogs.hideLoadingDialog();
-        Get.offAllNamed(Routes.LOGIN_SPLASH);
+        Get.offAllNamed(Routes.HOME);
       });
     }
   }

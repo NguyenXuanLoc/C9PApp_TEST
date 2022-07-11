@@ -52,17 +52,17 @@ class HomeView extends GetView<HomeController> {
                 R.assetsAddOrderSvg,
                 width: 50.w,
               ),
-              onPressed: () => Get.toNamed(Routes.ORDER),
+              onPressed: () => controller.openOrder(context),
             ),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: bottomNavigationWidget(),
+          bottomNavigationBar: bottomNavigationWidget(context),
         ),
         onWillPop: () async => await controller.onBackPress());
   }
 
-  Widget bottomNavigationWidget() {
+  Widget bottomNavigationWidget(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: colorWhite,
@@ -90,14 +90,14 @@ class HomeView extends GetView<HomeController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Obx(() =>
-                    itemBottomBar(R.assetsMainSvg, LocaleKeys.main.tr, 0)),
+                    itemBottomBar(R.assetsMainSvg, LocaleKeys.main.tr, 0,context)),
                 Obx(() => itemBottomBar(
-                    R.assetsPromotionSvg, LocaleKeys.promotion.tr, 1)),
+                    R.assetsPromotionSvg, LocaleKeys.promotion.tr, 1,context)),
                 const Expanded(child: SizedBox()),
                 Obx(() =>
-                    itemBottomBar(R.assetsNotifySvg, LocaleKeys.notify.tr, 2)),
+                    itemBottomBar(R.assetsNotifySvg, LocaleKeys.notify.tr, 2,context)),
                 Obx(() =>
-                    itemBottomBar(R.assetsPersonSvg, LocaleKeys.account.tr, 3)),
+                    itemBottomBar(R.assetsPersonSvg, LocaleKeys.account.tr, 3,context)),
               ],
             ),
           ),
@@ -106,7 +106,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Widget itemBottomBar(String assetSvg, String title, int index) {
+  Widget itemBottomBar(String assetSvg, String title, int index,BuildContext context) {
     return Expanded(
         child: Container(
       color: controller.currentIndex.value == index ? colorGrey5 : colorWhite,
@@ -133,7 +133,7 @@ class HomeView extends GetView<HomeController> {
             )
           ],
         ),
-        onTap: () => controller.jumToTap(index),
+        onTap: () => controller.jumToTap(index,context: context),
       ),
     ));
   }

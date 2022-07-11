@@ -19,6 +19,7 @@ class LoginSplashView extends GetView<LoginSplashController> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

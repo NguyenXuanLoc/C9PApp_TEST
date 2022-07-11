@@ -270,6 +270,74 @@ class Dialogs {
         });
   }
 
+  static Future<void> showLoginDialog(BuildContext context,
+      {required VoidCallback loginCallBack}) {
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return WillPopScope(
+            onWillPop: () async => true,
+            child: SimpleDialog(
+              key: _keyLoader,
+              children: <Widget>[
+                SizedBox(
+                  height: 10.h,
+                ),
+                AppText(
+                  "Vui lòng đăng nhập để sử dụng tính năng này.",
+                  style: typoSmallTextBold,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AppButton(
+                        textStyle: typoSuperSmallTextBold.copyWith(
+                            color: colorGreen60),
+                        shapeBorder: RoundedRectangleBorder(
+                            side: const BorderSide(
+                              color: colorGreen60,
+                            ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(5.h))),
+                        title: "Hủy",
+                        onPress: () => hideLoadingDialog(),
+                        width: 90.w,
+                        height: 25.h,
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      AppButton(
+                          title: "Đồng ý",
+                          textStyle: typoSuperSmallTextBold.copyWith(
+                              color: colorWhite),
+                          onPress: () async {
+                            await hideLoadingDialog();
+                            loginCallBack.call();
+                          },
+                          width: 90.w,
+                          height: 25.h,
+                          backgroundColor: colorGreen60,
+                          shapeBorder: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5.h)))),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
   static Future<void> hideLoadingDialog() async {
     await Future.delayed(
         const Duration(milliseconds: 200),

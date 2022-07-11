@@ -13,10 +13,10 @@ class SplashController extends GetxController {
   void openHome() {
     Timer(
         const Duration(seconds: 1),
-        () => globals.isLogin && !globals.isNeedUpdateProfile
-            ? Get.offAllNamed(Routes.HOME)
+        () => !globals.isLogin
+            ? Get.offAllNamed(Routes.HOME,arguments: false)
             : (globals.isLogin && globals.isNeedUpdateProfile
                 ? Get.offAllNamed(Routes.UPDATE_PROFILE)
-                : Get.offAllNamed(Routes.LOGIN_SPLASH)));
+                : Get.offAllNamed(Routes.HOME,arguments: false)));
   }
 }

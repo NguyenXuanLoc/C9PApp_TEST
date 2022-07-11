@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/config/app_translation.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
@@ -8,17 +7,16 @@ import 'package:c9p/app/data/event_bus/jump_to_tab_event.dart';
 import 'package:c9p/app/data/event_bus/new_notify_event.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import '../../../data/event_bus/load_weather_event.dart';
 import '../../../data/provider/user_provider.dart';
 import '../../../utils/storage_utils.dart';
 
 class HomeController extends GetxController {
   final pageController = PageController();
-  bool isOpenOrder = false;
   final userProvider = UserProvider();
   final currentIndex = 0.obs;
   BuildContext? context;
@@ -26,37 +24,28 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Utils.eventBus
-          .on<JumpToTabEvent>()
-          .listen((model) => jumToTap(model.index));
-    });
     listenerNotify();
     super.onInit();
   }
 
   Future<bool> onBackPress() async {
-    // toast("onBasckPress");
     var isClose = false;
     if (currentIndex != 0) {
-      jumToTap(0);
+      jumToTap(0, isBackPress: true);
       return false;
     } else {
       if (!isShowCloseDialog) {
         isShowCloseDialog = true;
-        await Dialogs.showCloseAppDialog(context!,
-            closeCallBack: () {
-              isClose = true;
-              isShowCloseDialog = false;
-            },
-            cancelCallBack: () {
-              isShowCloseDialog = false;
-              isClose = false;
-            },
-            popCallBack: () {
-              isShowCloseDialog = false;
-              isClose = false;
-            });
+        await Dialogs.showCloseAppDialog(context!, closeCallBack: () {
+          isClose = true;
+          isShowCloseDialog = false;
+        }, cancelCallBack: () {
+          isShowCloseDialog = false;
+          isClose = false;
+        }, popCallBack: () {
+          isShowCloseDialog = false;
+          isClose = false;
+        });
       }
     }
     return isClose;
@@ -64,25 +53,23 @@ class HomeController extends GetxController {
     // CommonUtils.showToast(context, "Back presses");
   }
 
-
   void setContext(BuildContext context) {
     this.context = context;
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void openOrder(BuildContext context) async {
+    if (!globals.isLogin) {
+      Utils.requestLogin(context);
+    } else {
+      Get.toNamed(Routes.ORDER);
+    }
   }
 
   @override
   void onReady() async {
-    try {
-      isOpenOrder = Get.arguments;
-      if (isOpenOrder) {
-        await Get.toNamed(Routes.ORDER);
-        Utils.fireEvent(LoadWeatherEvent());
-      }
-    } catch (ex) {}
+    if (Get.arguments) {
+      Get.toNamed(Routes.ORDER);
+    }
     checkOrderIdFromCache();
     checkRegisterDevice();
     super.onReady();
@@ -95,8 +82,10 @@ class HomeController extends GetxController {
   }
 
   void checkOrderIdFromCache() async {
-    var orderId = await StorageUtils.getOrderId();
-    if (orderId.isNotEmpty) openOrderNotify(orderId);
+    if (globals.isLogin) {
+      var orderId = await StorageUtils.getOrderId();
+      if (orderId.isNotEmpty) openOrderNotify(orderId);
+    }
     StorageUtils.saveOrderId('');
   }
 
@@ -111,18 +100,28 @@ class HomeController extends GetxController {
 
   void checkRegisterDevice() async {
     var isRegister = await StorageUtils.isRegisterDevice();
-    if (!isRegister) {
+    if (!isRegister && globals.isLogin) {
       var deviceToken = await Utils.getFirebaseToken();
       var registerDeviceResponse =
-      await userProvider.registerDevice(deviceToken ?? '');
+          await userProvider.registerDevice(deviceToken ?? '');
       if (registerDeviceResponse.error == null) {
         StorageUtils.setRegisterDevice(true);
       }
     }
   }
 
-  void jumToTap(int index) {
-    currentIndex.value = index;
-    pageController.jumpToPage(index);
+  void jumToTap(int index,
+      {BuildContext? context, bool isBackPress = false}) async {
+    if (index == 0 || isBackPress) {
+      currentIndex.value = index;
+      pageController.jumpToPage(index);
+    } else {
+      if (globals.isLogin) {
+        currentIndex.value = index;
+        pageController.jumpToPage(index);
+      } else {
+        Utils.requestLogin(context!);
+      }
+    }
   }
 }

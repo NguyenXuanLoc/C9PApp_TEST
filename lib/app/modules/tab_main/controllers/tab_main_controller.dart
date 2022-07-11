@@ -8,14 +8,16 @@ import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/model/promotion_model.dart';
 import 'package:c9p/app/data/model/weather_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
+import 'package:c9p/app/modules/home/controllers/home_controller.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:location/location.dart';
-
+import 'package:c9p/app/config/globals.dart' as globals;
 import '../../../config/constant.dart';
 
 enum TabMainAction { MENU, ORDER, DISCTRICT, MORE }
@@ -32,7 +34,6 @@ class TabMainController extends GetxController {
   var isFirstOpen = true;
   final fullName = ''.obs;
   var countLoadWeather = 1;
-  StreamSubscription<LoadWeatherEvent>? _weatherStream;
   var isBadge = false.obs;
 
   void onRefresh() {
@@ -52,11 +53,6 @@ class TabMainController extends GetxController {
     getPromotion();
     getUserInfo();
     showBadgeListener();
-    Utils.eventBus.on<ReloadUserEvent>().listen((event) => getUserInfo());
-    _weatherStream = Utils.eventBus.on<LoadWeatherEvent>().listen((event) {
-      checkWeather();
-      _weatherStream?.cancel();
-    });
   }
 
   void showBadgeListener() {
@@ -73,9 +69,9 @@ class TabMainController extends GetxController {
   }
 
   void checkWeather() async {
+    await Utils.requestPermissionLocation();
     var isRequestWeather = await StorageUtils.isRequestWeather();
     var weatherCache = await StorageUtils.getWeather();
-
     if (isRequestWeather || weatherCache == null) {
       getWeatherOnline();
     } else {
@@ -125,20 +121,21 @@ class TabMainController extends GetxController {
 
   void getNearOrder() async {
     isLoadNearOrder.value = true;
-    var response = await userProvider.nearOrder();
-    if (response.error == null && response.data != null) {
-      lNearOrder.value = orderModelFromJson(response.data['data']);
+    if (globals.isLogin) {
+      var response = await userProvider.nearOrder();
+      if (response.error == null && response.data != null) {
+        lNearOrder.value = orderModelFromJson(response.data['data']);
+      }
     }
     isLoadNearOrder.value = false;
   }
 
   Future<LocationData?> getLocation() async {
     Location location = Location();
-    if (await StorageUtils.isFirstOrder()) return null;
     await Utils.requestPermissionLocation();
     if (!await location.serviceEnabled() ||
         await location.hasPermission() == PermissionStatus.denied) {
-      return null;
+      await location.requestPermission();
     }
     return await location.getLocation();
   }
@@ -146,7 +143,11 @@ class TabMainController extends GetxController {
   void openOrderDetail(OrderModel model) =>
       Get.toNamed(Routes.DETAIL_ORDER, arguments: model);
 
-  void onClickAction(TabMainAction action) {
+  void onClickAction(TabMainAction action, BuildContext context) {
+    if (!globals.isLogin) {
+      Utils.requestLogin(context);
+      return;
+    }
     switch (action) {
       case TabMainAction.MORE:
       case TabMainAction.MENU:
@@ -164,5 +165,7 @@ class TabMainController extends GetxController {
     }
   }
 
-  void onClickProfile() => Utils.fireEvent(JumpToTabEvent(3));
+  void onClickProfile(BuildContext context) => globals.isLogin
+      ? Get.find<HomeController>().jumToTap(3)
+      : Utils.requestLogin(context);
 }

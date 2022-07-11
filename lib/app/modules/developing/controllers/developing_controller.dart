@@ -4,5 +4,5 @@ import 'package:get/get.dart';
 class DevelopingController extends GetxController {
   void reOrderOnclick() => Get.toNamed(Routes.ORDER);
 
-  void mainOnclick() => Get.offAllNamed(Routes.HOME);
+  void mainOnclick() => Get.offAllNamed(Routes.HOME, arguments: false);
 }

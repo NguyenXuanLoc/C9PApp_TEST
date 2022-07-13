@@ -67,7 +67,7 @@ class HomeController extends GetxController {
 
   @override
   void onReady() async {
-    if (Get.arguments) {
+    if (Get.arguments != null && Get.arguments) {
       Get.toNamed(Routes.ORDER);
     }
     checkOrderIdFromCache();

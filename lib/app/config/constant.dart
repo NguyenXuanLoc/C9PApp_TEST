@@ -42,6 +42,7 @@ class AppConstant {
   static const FIFTEN_MINIUTES = 900000; //mini giay
   static const REGISTER_DEVICE = 'REGISTER_DEVICE'; //mini giay
   static const URL_WEATHER_ICON = 'http://openweathermap.org/img/wn/';
+  static const URL_MENU = 'https://com9phut.vn/menu/';
   static const URL_WEATHER_ICON_DEFAULT =
       'http://openweathermap.org/img/wn/03d@2x.png';
 }

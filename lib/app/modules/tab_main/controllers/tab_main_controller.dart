@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:c9p/app/config/app_translation.dart';
 import 'package:c9p/app/data/event_bus/jump_to_tab_event.dart';
 import 'package:c9p/app/data/event_bus/load_weather_event.dart';
 import 'package:c9p/app/data/event_bus/reload_user_event.dart';
@@ -144,13 +145,16 @@ class TabMainController extends GetxController {
       Get.toNamed(Routes.DETAIL_ORDER, arguments: model);
 
   void onClickAction(TabMainAction action, BuildContext context) {
+    if (action == TabMainAction.MENU) {
+      Get.toNamed(Routes.WEBVIEW, arguments: [LocaleKeys.menu.tr, AppConstant.URL_MENU]);
+      return;
+    }
     if (!globals.isLogin) {
       Utils.requestLogin(context);
       return;
     }
     switch (action) {
       case TabMainAction.MORE:
-      case TabMainAction.MENU:
       case TabMainAction.DISCTRICT:
         {
           Get.toNamed(Routes.DEVELOPING);

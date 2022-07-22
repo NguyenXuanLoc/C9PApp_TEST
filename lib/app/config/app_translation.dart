@@ -139,7 +139,7 @@ class Locales {
     'continues': 'Tiếp tục',
     'otp': 'OTP',
     'otp_sent': 'Mã được gửi tới số',
-    'resent_otp': 'Gửi lại mã OTP',
+    'resent_otp': 'GỬI LẠI',
     'otp_invalid': 'Mã Otp không hợp lệ',
     'otp_het_han':
         'Mã OTP đã hết hạn, vui lòng click "Gửi lại mã OTP" để lấy 1 mã OTP khác.',

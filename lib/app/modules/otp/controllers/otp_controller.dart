@@ -6,6 +6,7 @@ import 'package:c9p/app/components/otp_widget.dart';
 import 'package:c9p/app/data/model/user_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,11 +19,13 @@ import '../../../config/resource.dart';
 import '../../../utils/app_utils.dart';
 
 class OtpController extends GetxController {
+  final END_TIME =90;
   final phoneNumber = ''.obs;
   final userProvider = UserProvider();
   final otpController = OtpFieldController();
   late Timer _timer;
-  var startCountDown = 30.obs;
+  var startCountDown = 90.obs;
+  var timeDisplay ='01:30'.obs;
   var verificationId = '';
   final pin = ''.obs;
   var errorOtp = ''.obs;
@@ -42,11 +45,15 @@ class OtpController extends GetxController {
           codeAutoRetrievalTimeout: (String verification) {
             verificationId = verification;
           },
-          timeout: const Duration(seconds: 120));
+          timeout: Duration(seconds: END_TIME - 2));
     } catch (ex) {
       toast(LocaleKeys.network_error.tr);
     }
   }
+
+  void getTimeDisplay() => timeDisplay.value = startCountDown.value >= 60
+      ? '01:${(startCountDown.value-60).toString().length == 1 ? '0${startCountDown.value-60}' : startCountDown.value-60}'
+      : '00:${startCountDown.value.toString().length == 1 ? '0${startCountDown.value}' : startCountDown.value}';
 
   void setPin(String pin) => this.pin.value = pin;
 
@@ -114,7 +121,8 @@ class OtpController extends GetxController {
     if (isVerify) {
       verifyPhone();
     }
-    startCountDown.value = 30;
+    startCountDown.value = END_TIME;
+    timeDisplay.value = '01:30';
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (Timer timer) {
@@ -122,6 +130,7 @@ class OtpController extends GetxController {
           timer.cancel();
         } else {
           startCountDown.value--;
+          getTimeDisplay();
         }
       },
     );

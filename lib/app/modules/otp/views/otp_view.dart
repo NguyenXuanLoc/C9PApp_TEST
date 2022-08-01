@@ -97,11 +97,19 @@ class OtpView extends GetView<OtpController> {
                           child: Padding(
                             padding: EdgeInsets.only(top: 10.h),
                             child: Obx(
-                              () => AppText(
-                                '00:${controller.startCountDown.value.toString().length == 1 ? '0${controller.startCountDown.value}' : controller.startCountDown.value}',
-                                style: typoSuperSmallTextBold.copyWith(
-                                    color: colorSemanticRed100),
-                              ),
+                              () =>controller.startCountDown.value==0 ?InkWell(
+                                  onTap: () =>
+                                      controller.startTimer(isVerify: true),
+                                  child: AppText(
+                                    LocaleKeys.resent_otp.tr,
+                                    style: typoSuperSmallTextBold.copyWith(
+                                        color: colorSemanticRed100),
+                                      ))
+                                  : AppText(
+                                      controller.timeDisplay.value,
+                                      style: typoSuperSmallTextBold.copyWith(
+                                          color: colorSemanticRed100),
+                                    ),
                             ),
                           ))),
                 ],

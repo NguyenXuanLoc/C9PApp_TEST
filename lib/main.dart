@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -12,8 +13,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'app/config/app_translation.dart';
+import 'app/config/notification_service.dart';
 import 'app/routes/app_pages.dart';
-import 'app/routes/root_binding.dart';
 
 void main() async {
   await configApp();
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       builder: (w, c) => GetMaterialApp(
-        initialBinding: RootBinding(),
+        // initialBinding: RootBinding(),
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
         theme: ThemeData(
@@ -66,12 +67,30 @@ class MyHttpOverrides extends HttpOverrides {
 
 Future<void> configApp() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   await Firebase.initializeApp();
+
   HttpOverrides.global = MyHttpOverrides();
   configOrientation();
   await GetStorage.init();
   await dotenv.load(fileName: '.env.dev');
   await StorageUtils.getUser();
+  try {
+    var notificationService = NotificationService();
+    await notificationService.init();
+    await notificationService.requestIOSPermissions();
+  } catch (ex) {}
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  try{
+  var notificationService = NotificationService();
+  await notificationService.init();
+  await notificationService.requestIOSPermissions();
+  notificationService.showNotification(message);
+}catch(ex){}
 }
 
 void configOrientation() {

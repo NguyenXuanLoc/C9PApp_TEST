@@ -51,7 +51,7 @@ class OtpView extends GetView<OtpController> {
               ),
               AppText(
                 "${LocaleKeys.otp_sent.tr} ${controller.phoneNumber.value}, ${LocaleKeys.ban_vui_long_kiem_tra_tin_nhan.tr}",
-                style: typoSuperSmallTextBold.copyWith(
+                style: typoSuperSmallTextRegular.copyWith(
                     color: colorText40, fontSize: 12.sp),
               ),
               const SizedBox(
@@ -97,15 +97,23 @@ class OtpView extends GetView<OtpController> {
                           child: Padding(
                             padding: EdgeInsets.only(top: 10.h),
                             child: Obx(
-                              () => AppText(
-                                '00:${controller.startCountDown.value.toString().length == 1 ? '0${controller.startCountDown.value}' : controller.startCountDown.value}',
-                                style: typoSuperSmallTextBold.copyWith(
-                                    color: colorSemanticRed100),
-                              ),
+                              () =>controller.startCountDown.value==0 ?InkWell(
+                                  onTap: () =>
+                                      controller.startTimer(isVerify: true),
+                                  child: AppText(
+                                    LocaleKeys.resent_otp.tr,
+                                    style: typoSuperSmallTextBold.copyWith(
+                                        color: colorSemanticRed100),
+                                      ))
+                                  : AppText(
+                                      controller.timeDisplay.value,
+                                      style: typoSuperSmallTextBold.copyWith(
+                                          color: colorSemanticRed100),
+                                    ),
                             ),
                           ))),
                 ],
-              ),
+              ),SizedBox(height: 1.h,),
               Obx(() => AppText(
                     controller.errorOtp.value,
                     style: typoSuperSmallTextRegular.copyWith(
@@ -114,30 +122,39 @@ class OtpView extends GetView<OtpController> {
               SizedBox(
                 height: 50.h,
               ),
-              AppButton(
-                title: LocaleKeys.continues.tr,
-                textStyle: typoSmallTextBold.copyWith(color: colorText0),
-                borderRadius: 200,
-                onPress: () => controller.confirm(context),
-                width: MediaQuery.of(context).size.width,
-                backgroundColor: colorGreen50,
-              ),
-              Center(
-                child: Obx(() => Visibility(
-                      visible: controller.startCountDown.value == 0,
-                      child: TextButton(
-                          style: ButtonStyle(
-                              padding: MaterialStateProperty.all(
-                                  const EdgeInsets.all(0))),
-                          onPressed: () =>
-                              controller.startTimer(isVerify: true),
-                          child: AppText(
-                            LocaleKeys.resent_otp.tr,
-                            style: typoSmallTextBold.copyWith(
-                                decoration: TextDecoration.underline,
-                                color: colorGreen50),
-                          )),
-                    )),
+              Obx(() => AppButton(
+                    height: heightContinue,
+                    title: LocaleKeys.continues.tr,
+                    textStyle: typoButton.copyWith(
+                        color: controller.pin.value.length == 6
+                            ? colorText0
+                            : colorText60),
+                    shapeBorder: shapeBorderButton,
+                    onPress: () => controller.confirm(context),
+                    width: MediaQuery.of(context).size.width,
+                    backgroundColor: controller.pin.value.length == 6
+                        ? colorGreen50
+                        : colorGrey10,
+                  )),
+              Visibility(
+                visible: false,
+                child: Center(
+                  child: Obx(() => Visibility(
+                        visible: controller.startCountDown.value == 0,
+                        child: TextButton(
+                            style: ButtonStyle(
+                                padding: MaterialStateProperty.all(
+                                    const EdgeInsets.all(0))),
+                            onPressed: () =>
+                                controller.startTimer(isVerify: true),
+                            child: AppText(
+                              LocaleKeys.resent_otp.tr,
+                              style: typoSmallTextBold.copyWith(
+                                  decoration: TextDecoration.underline,
+                                  color: colorGreen50),
+                            )),
+                      )),
+                ),
               )
             ],
           )),

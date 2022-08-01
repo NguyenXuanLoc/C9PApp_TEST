@@ -5,10 +5,11 @@ import 'package:c9p/app/config/app_translation.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/theme/app_styles.dart';
 import 'package:c9p/app/theme/colors.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:c9p/app/config/globals.dart' as globals;
 import 'package:get/get.dart';
 
 import '../../../config/resource.dart';
@@ -18,6 +19,7 @@ class LoginSplashView extends GetView<LoginSplashController> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +68,7 @@ class LoginSplashView extends GetView<LoginSplashController> {
                   height: 20,
                 ),
                 AppButton(
-                  textStyle: typoSmallTextBold.copyWith(
+                  textStyle: typoButton.copyWith(
                       color: colorText0, fontWeight: FontWeight.w700),
                   title: LocaleKeys.login.tr,
                   onPress: () => Get.toNamed(Routes.LOGIN),
@@ -86,6 +88,10 @@ class LoginSplashView extends GetView<LoginSplashController> {
                       children: [
                         TextSpan(
                             text: " ${LocaleKeys.regulation.tr}",
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => controller.openWebView(
+                                  LocaleKeys.regulation.tr,
+                                  globals.tempOfUseUrl),
                             style: typoSmallTextRegular.copyWith(
                                 color: colorGeenBlue60, fontSize: 11.sp)),
                         TextSpan(
@@ -94,6 +100,9 @@ class LoginSplashView extends GetView<LoginSplashController> {
                                 typoSmallTextRegular.copyWith(fontSize: 11.sp)),
                         TextSpan(
                             text: LocaleKeys.rules.tr,
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => controller.openWebView(
+                                  LocaleKeys.rules.tr, globals.privacyUrl),
                             style: typoSmallTextRegular.copyWith(
                                 color: colorGeenBlue60, fontSize: 11.sp))
                       ]),

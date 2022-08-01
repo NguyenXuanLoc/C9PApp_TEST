@@ -16,6 +16,8 @@ import '../modules/order_success/bindings/order_success_binding.dart';
 import '../modules/order_success/views/order_success_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
+import '../modules/register_success/bindings/register_success_binding.dart';
+import '../modules/register_success/views/register_success_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/tab_account/bindings/tab_account_binding.dart';
@@ -28,6 +30,8 @@ import '../modules/tab_promotion/bindings/tab_promotion_binding.dart';
 import '../modules/tab_promotion/views/tab_promotion_view.dart';
 import '../modules/update_profile/bindings/update_profile_binding.dart';
 import '../modules/update_profile/views/update_profile_view.dart';
+import '../modules/webview/bindings/webview_binding.dart';
+import '../modules/webview/views/webview_view.dart';
 import '../modules/your_order/bindings/your_order_binding.dart';
 import '../modules/your_order/views/your_order_view.dart';
 
@@ -47,7 +51,14 @@ class AppPages {
     GetPage(
       name: _Paths.HOME,
       page: () => HomeView(),
-      binding: HomeBinding(),
+      preventDuplicates: false,
+      bindings: [
+        HomeBinding(),
+        TabMainBinding(),
+        TabPromotionBinding(),
+        TabNotifyBinding(),
+        TabAccountBinding()
+      ],
     ),
     GetPage(
       name: _Paths.LOGIN_SPLASH,
@@ -113,6 +124,16 @@ class AppPages {
       name: _Paths.UPDATE_PROFILE,
       page: () => UpdateProfileView(),
       binding: UpdateProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER_SUCCESS,
+      page: () => RegisterSuccessView(),
+      binding: RegisterSuccessBinding(),
+    ),
+    GetPage(
+      name: _Paths.WEBVIEW,
+      page: () => WebviewView(),
+      binding: WebviewBinding(),
     ),
   ];
 }

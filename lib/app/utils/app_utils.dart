@@ -1,9 +1,23 @@
-import 'package:c9p/app/utils/log_utils.dart';
-import 'package:event_bus/event_bus.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
+import 'dart:async';
+
+import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
+import 'package:c9p/app/data/model/order_model.dart';
+import 'package:c9p/app/data/provider/user_provider.dart';
+import 'package:c9p/app/utils/storage_utils.dart';
+import 'package:c9p/app/utils/toast_utils.dart';
+import 'package:event_bus/event_bus.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:location/location.dart';
+
 import '../components/date_picker.dart';
+import '../config/app_translation.dart';
+import '../routes/app_pages.dart';
+import '../theme/colors.dart';
 
 class Utils {
   static var eventBus = EventBus();
@@ -78,7 +92,7 @@ class Utils {
     }, currentTime: DateTime.now(), locale: LocaleType.vi);
   }
 
-  static void showTimePicker(
+  static void showTimePickers(
       BuildContext context, Function(DateTime) callback) {
     DatePicker.showTimePicker(context,
         showTitleActions: true, onChanged: (date) {}, onConfirm: (date) {
@@ -90,19 +104,108 @@ class Utils {
       DateFormat('MMMM-yyyy-dd').format(time).toString().split(' ')[0];
 
   static String convertTimeToYYMMDD(DateTime time) =>
-      DateFormat('yyyy-M-dd').format(time).toString().split(' ')[0];
+      DateFormat('yyyy-M-dd').format(time.toLocal()).toString().split(' ')[0];
 
   static String convertTimeToDDMMYY(DateTime time) =>
-      DateFormat('dd-MM-yyyy').format(time).toString().split(' ')[0];
+      DateFormat('dd-MM-yyyy').format(time.toLocal()).toString().split(' ')[0];
 
-  static String convertTimeToHHMMSS(DateTime time) =>
-      DateFormat('hh:mm:ss').format(time);
+  static String convertTimeToHHMM(DateTime time) =>
+      DateFormat.Hm().format(time.toLocal());
 
   static String formatMoney(int money) =>
       NumberFormat('#,###,###,#,###,###,###', 'vi').format(money);
 
-  static String convertTimeToDDMMYYHHMMSS(DateTime time) =>
-      DateFormat('dd/MM/yyy hh:mm:ss').format(time);
+  static String convertTimeToDDMMYYHHMMSS(DateTime time) {
+    var result = DateFormat('dd/MM/yyy HH:mm:ss').format(time.toLocal());
+    return result;
+  }
+
+  static Future<TimeOfDay?> pickTime(BuildContext context) async =>
+      await showTimePicker(
+        context: context,
+        useRootNavigator: false,
+        cancelText: LocaleKeys.cancel.tr,
+        confirmText: LocaleKeys.yes.tr,
+        helpText: '',
+        minuteLabelText: LocaleKeys.minutes.tr,
+        hourLabelText: LocaleKeys.hours.tr,
+        initialTime:
+            TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute),
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              colorScheme: const ColorScheme.light(
+                // change the border color
+                primary: colorGreen60,
+                // change the text color
+                onSurface: colorText60,
+              ),
+              // button colors
+              buttonTheme: const ButtonThemeData(
+                colorScheme: ColorScheme.light(
+                  primary: Colors.green,
+                ),
+              ),
+            ),
+            child: child!,
+          );
+        },
+      );
 
   bool isLogin() => globals.isLogin;
+
+  static Future<void> requestPermissionLocation() async {
+    Location location = Location();
+    bool serviceEnabled;
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+    }
+    var permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+    }
+    await location.hasPermission();
+  }
+
+  static String convertTimeToHHMMA(DateTime time) =>
+      DateFormat.Hm().format(time.toLocal());
+
+  static Future<String?> getFirebaseToken() async =>
+      await FirebaseMessaging.instance.getToken();
+
+  static String time24to12Format(DateTime dateTime) {
+    var time = DateFormat.Hm().format(dateTime.toLocal());
+    int h = int.parse(time.split(":").first);
+    int m = int.parse(time.split(":").last.split(" ").first);
+    String send = "";
+    if (h > 12) {
+      var temp = h - 12;
+      send = "$temp:${m.toString().length == 1 ? "0$m" : m.toString()} " "PM";
+    } else {
+      send = "$h:${m.toString().length == 1 ? "0$m" : m.toString()}  " "AM";
+    }
+    return send;
+  }
+
+  static Future<OrderModel?> getOrderById(String orderId) async {
+    var response = await UserProvider().getOrderById(orderId);
+    if (response.error == null && response.data != null) {
+      return OrderModel.fromJson(response.data['data']);
+    }
+    return null;
+  }
+
+  static Future<void> autoLogout() async {
+    StorageUtils.clearUser();
+    StorageUtils.setRegisterDevice(false);
+    toast(LocaleKeys.token_expire.tr);
+    Timer(
+        const Duration(seconds: 1), () => Get.offAllNamed(Routes.LOGIN_SPLASH));
+  }
+
+  static Future<void> requestLogin(BuildContext context) async {
+    await Dialogs.showLoginDialog(context,
+        loginCallBack: () => Get.toNamed(Routes.LOGIN_SPLASH));
+  }
 }

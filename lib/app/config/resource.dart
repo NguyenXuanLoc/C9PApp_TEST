@@ -20,6 +20,10 @@ class R {
   static const String assetsPngOrderSuccess = 'assets/png/order_success.png';
   static const String assetsPngBackgroundStatusBar =
       'assets/png/background_status_bar.png';
+  static const String assetsPngItemSplash1 = 'assets/png/item_splash1.png';
+  static const String assetsPngItemSplash2 = 'assets/png/item_splash2.png';
+  static const String assetsPngItemSplash3 = 'assets/png/item_splash3.png';
+  static const String assetsPngCircleAvatar = 'assets/png/circle_avatar.png';
 
   ///SVG
   static const String assetsLocationLoginSvg = 'assets/svg/location_login.svg';
@@ -50,6 +54,9 @@ class R {
   static const String assetsSvgPen = 'assets/svg/pen.svg';
   static const String assetsSvgCamera = 'assets/svg/camera.svg';
   static const String assetsSvgGallery = 'assets/svg/gallery.svg';
+  static const String assetsSvgCircleAvatar = 'assets/svg/circle_avatar.svg';
+  static const String assetsSvgCalendar = 'assets/svg/calendar.svg';
+  static const String assetsSvgRegisterSuccess = 'assets/svg/register_success.svg';
   static const String assetsSvgLocationCircle =
       'assets/svg/location_circle.svg';
   static const String assetsBackgroundHeaderTabMainSvg =

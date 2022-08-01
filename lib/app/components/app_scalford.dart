@@ -31,37 +31,43 @@ class AppScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isTabToHideKeyBoard) {
-      return GestureDetector(
-        child: Scaffold(
-          backgroundColor: backgroundColor ?? colorBackgroundColor,
-          resizeToAvoidBottomInset: resizeToAvoidBottomInset ?? true,
-          appBar: appbar,
-          floatingActionButton: floatingActionButton,
-          floatingActionButtonLocation: floatingActionButtonLocation,
-          body: fullStatusBar
-              ? body
-              : SafeArea(
-                  minimum: padding,
-                  child: body,
-                ),
-          bottomNavigationBar: bottomNavigationBar,
+      return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+        child: GestureDetector(
+          child: Scaffold(
+            backgroundColor: backgroundColor ?? colorBackgroundColor,
+            resizeToAvoidBottomInset: resizeToAvoidBottomInset ?? true,
+            appBar: appbar,
+            floatingActionButton: floatingActionButton,
+            floatingActionButtonLocation: floatingActionButtonLocation,
+            body: fullStatusBar
+                ? body
+                : SafeArea(
+                    minimum: padding,
+                    child: body,
+                  ),
+            bottomNavigationBar: bottomNavigationBar,
+          ),
+          onTap: () => Utils.hideKeyboard(context),
         ),
-        onTap: () => Utils.hideKeyboard(context),
       );
     }
-    return Scaffold(
-      backgroundColor: backgroundColor ?? colorBackgroundColor,
-      resizeToAvoidBottomInset: resizeToAvoidBottomInset ?? true,
-      appBar: appbar,
-      floatingActionButton: floatingActionButton,
-      floatingActionButtonLocation: floatingActionButtonLocation,
-      body: fullStatusBar
-          ? body
-          : SafeArea(
-              minimum: padding,
-              child: body,
-            ),
-      bottomNavigationBar: bottomNavigationBar,
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+      child: Scaffold(
+        backgroundColor: backgroundColor ?? colorBackgroundColor,
+        resizeToAvoidBottomInset: resizeToAvoidBottomInset ?? true,
+        appBar: appbar,
+        floatingActionButton: floatingActionButton,
+        floatingActionButtonLocation: floatingActionButtonLocation,
+        body: fullStatusBar
+            ? body
+            : SafeArea(
+                minimum: padding,
+                child: body,
+              ),
+        bottomNavigationBar: bottomNavigationBar,
+      ),
     );
   }
 }

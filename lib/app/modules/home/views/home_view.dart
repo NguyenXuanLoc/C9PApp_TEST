@@ -21,41 +21,48 @@ import '../controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
-      resizeToAvoidBottomInset: false,
-      fullStatusBar: true,
-      body: PageView(
-        controller: controller.pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          KeepAliveWrapper(
-            child: TabMainView(),
+    controller.setContext(context);
+    return WillPopScope(
+        child: AppScaffold(
+          resizeToAvoidBottomInset: false,
+          fullStatusBar: true,
+          body: PageView(
+            controller: controller.pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              KeepAliveWrapper(
+                child: TabMainView(),
+              ),
+              KeepAliveWrapper(
+                child: TabPromotionView(),
+              ),
+              KeepAliveWrapper(
+                child: TabNotifyView(),
+              ),
+              KeepAliveWrapper(
+                child: TabAccountView(),
+              ),
+            ],
           ),
-          KeepAliveWrapper(
-            child: TabPromotionView(),
+          floatingActionButton: Padding(
+            padding: EdgeInsets.only(top: 15.h),
+            child: FloatingActionButton(
+              backgroundColor: Colors.transparent,
+              child: SvgPicture.asset(
+                R.assetsAddOrderSvg,
+                width: 50.w,
+              ),
+              onPressed: () => controller.openOrder(context),
+            ),
           ),
-          KeepAliveWrapper(
-            child: TabNotifyView(),
-          ),
-          KeepAliveWrapper(
-            child: TabAccountView(),
-          ),
-        ],
-      ),
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(top: 15.h),
-        child: FloatingActionButton(
-          backgroundColor: Colors.transparent,
-          child: SvgPicture.asset(R.assetsAddOrderSvg,width: 50.w,),
-          onPressed: () => Get.toNamed(Routes.ORDER),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: bottomNavigationWidget(context),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: bottomNavigationWidget(),
-    );
+        onWillPop: () async => await controller.onBackPress());
   }
 
-  Widget bottomNavigationWidget() {
+  Widget bottomNavigationWidget(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: colorWhite,
@@ -82,11 +89,15 @@ class HomeView extends GetView<HomeController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                itemBottomBar(R.assetsMainSvg, LocaleKeys.main.tr, 0),
-                itemBottomBar(R.assetsPromotionSvg, LocaleKeys.promotion.tr, 1),
+                Obx(() =>
+                    itemBottomBar(R.assetsMainSvg, LocaleKeys.main.tr, 0,context)),
+                Obx(() => itemBottomBar(
+                    R.assetsPromotionSvg, LocaleKeys.promotion.tr, 1,context)),
                 const Expanded(child: SizedBox()),
-                itemBottomBar(R.assetsNotifySvg, LocaleKeys.notify.tr, 2),
-                itemBottomBar(R.assetsPersonSvg, LocaleKeys.account.tr, 3),
+                Obx(() =>
+                    itemBottomBar(R.assetsNotifySvg, LocaleKeys.notify.tr, 2,context)),
+                Obx(() =>
+                    itemBottomBar(R.assetsPersonSvg, LocaleKeys.account.tr, 3,context)),
               ],
             ),
           ),
@@ -95,32 +106,35 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Widget itemBottomBar(String assetSvg, String title, int index) {
+  Widget itemBottomBar(String assetSvg, String title, int index,BuildContext context) {
     return Expanded(
-        child: InkWell(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 20.w,
-            height: 20.w,
-            child: SvgPicture.asset(
-              assetSvg,
-              fit: BoxFit.contain,
+        child: Container(
+      color: controller.currentIndex.value == index ? colorGrey5 : colorWhite,
+      child: InkWell(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 20.w,
+              height: 20.w,
+              child: SvgPicture.asset(
+                assetSvg,
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 3,
-          ),
-          AppText(
-            title,
-            style: typoSuperSmallTextBold.copyWith(
-                color: colorText40, fontSize: 9.5.sp),
-          )
-        ],
+            const SizedBox(
+              height: 3,
+            ),
+            AppText(
+              title,
+              style: typoSuperSmallTextBold.copyWith(
+                  color: colorText40, fontSize: 9.5.sp),
+            )
+          ],
+        ),
+        onTap: () => controller.jumToTap(index,context: context),
       ),
-      onTap: () => controller.jumToTap(index),
     ));
   }
 }

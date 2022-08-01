@@ -19,6 +19,7 @@ class LocaleKeys {
   static const ask_existing_page = 'ask_existing_page';
   static const network_error = 'network_error';
   static const com_9p_wellcome = 'com_9p_wellcome';
+  static const welcome_to_com_9_p = 'welcome_to_com_9_p';
   static const here_have_dish = 'here_have_dish';
   static const login = 'login';
   static const accept_with = 'accept_with';
@@ -88,6 +89,34 @@ class LocaleKeys {
   static const gallery = 'gallery';
   static const camera = 'camera';
   static const near_order = 'near_order';
+  static const bowl_of_rice = 'bowl_of_rice';
+  static const input_phone_number_at_here = 'input_phone_number_at_here';
+  static const input_full_name = 'input_full_name';
+  static const input_address_at_here = 'input_address_at_here';
+  static const input_qty = 'input_qty';
+  static const cancel = 'cancel';
+  static const yes = 'yes';
+  static const hours = 'hours';
+  static const minutes = 'minutes';
+  static const not_data_pull_to_refresh = 'not_data_pull_to_refresh';
+  static const not_find_address_please_try_again =
+      'not_find_address_please_try_again';
+  static const not_order_pull_to_refresh = 'not_order_pull_to_refresh';
+  static const received = 'received';
+  static const save = 'save';
+  static const logout = 'logout';
+  static const refresh_list = 'refresh_list';
+  static const add_order = 'add_order';
+  static const input_phone_number_to_order_c9p =
+      'input_phone_number_to_order_c9p';
+  static const register_now = 'register_now';
+  static const do_you_not_have_account = 'do_you_not_have_account';
+  static const please_input_info_at_here = 'please_input_info_at_here';
+  static const name = 'name';
+  static const register_success = 'register_success';
+  static const message_register_success = 'message_register_success';
+  static const net_work_error_click_to_retry = 'net_work_error_click_to_retry';
+  static const token_expire = 'token_expire';
 }
 
 class Locales {
@@ -110,7 +139,7 @@ class Locales {
     'continues': 'Tiếp tục',
     'otp': 'OTP',
     'otp_sent': 'Mã được gửi tới số',
-    'resent_otp': 'Gửi lại mã OTP',
+    'resent_otp': 'GỬI LẠI',
     'otp_invalid': 'Mã Otp không hợp lệ',
     'otp_het_han':
         'Mã OTP đã hết hạn, vui lòng click "Gửi lại mã OTP" để lấy 1 mã OTP khác.',
@@ -135,7 +164,7 @@ class Locales {
     'address': 'Địa chỉ',
     'code': 'Mã',
     'temp': 'Nhiệt độ',
-    'find_order_at_here': 'Tìm kiếm đơn hàng tại đây',
+    'find_order_at_here': 'Tìm ID đơn hàng tại đây',
     'com_suong_9p': 'Cơm sườn ngon 9 phút',
     'time': 'Thời gian',
     'address_order': 'Địa chỉ nhận hàng',
@@ -147,12 +176,12 @@ class Locales {
     'delivery_date': 'Ngày nhận hàng',
     'choose_number': 'Chọn số suất',
     'please_input_full_name': 'Vui lòng nhập họ và tên',
-    'please_input_delivery_add': 'Vui lòng nhập địa chỉ nhận hàng',
+    'please_input_delivery_add': 'Vui lòng nhập và chọn đúng địa chỉ nhận hàng',
     'please_input_delivery_date': 'Thiếu thông tin',
     'please_input_delivery_hours': 'Thiếu thông tin',
     'please_input_count': 'Vui lòng chọn số suất',
     'developing':
-        'Tính năng đang được phát triển, bạn vui lòng thử lại vào lần sau nhé',
+        'Tính năng đang được phát triển, bạn vui lòng\nthử lại vào lần sau nhé',
     'reorder_rice': 'Đặt cơm ngay',
     'order_success': 'Đặt đơn hàng thành công!',
     'follow_order': 'Theo dõi đơn hàng',
@@ -165,8 +194,38 @@ class Locales {
     'update': 'Cập nhật',
     'gallery': 'Thư viện',
     'camera': 'Máy ảnh',
-    'near_order': 'Đơn hàng gần đây',
+    'near_order': 'Đơn đã giao',
+    'bowl_of_rice': 'suất cơm',
+    'input_address_at_here': 'Nhập địa chỉ đặt hàng tại đây...',
+    'input_qty': 'Nhập số suất',
+    'input_phone_number_at_here': 'Nhập số điện thoại',
+    'input_full_name': 'Nhập họ & tên',
+    'cancel': 'Hủy',
+    'yes': 'Đồng ý',
+    'hours': 'Giờ',
+    'minutes': 'Phút',
+    'received': 'Đã tiếp nhận',
+    'not_data_pull_to_refresh': 'Chưa có dữ liệu\nKéo xuống để tải lại.',
+    'not_order_pull_to_refresh': 'Chưa có đơn hàng\nKéo xuống để tải lại.',
+    'not_find_address_please_try_again':
+        'Không tìm thấy địa chỉ, vui lòng thử lại',
+    'save': 'Lưu',
+    'logout': 'Đăng xuất',
+    'add_order': 'Đặt đơn hàng',
+    'refresh_list': 'Tải lại danh sách',
+    'welcome_to_com_9_p': 'Chào mừng bạn đến với C9P',
+    'input_phone_number_to_order_c9p':
+        'Bạn vui lòng điền thêm một số thông tin dưới đây',
+    'do_you_not_have_account': 'Chưa có tài khoản',
     'order_succes_choose_option':
         'Đơn hàng của bạn đã được đặt thành công. Vui lòng chọn các thao tác phía dưới',
+    'register_now': 'Đăng ký ngay!',
+    'name': 'Tên',
+    'please_input_info_at_here': 'Bạn vui lòng nhập một số thông tin dưới đây',
+    'register_success': 'Đăng ký tài khoản thành công!',
+    'net_work_error_click_to_retry': 'Lỗi mạng, ấn để thử lại',
+    'token_expire': 'Phiên đăng nhập đã hết hạn',
+    'message_register_success':
+        'Nhấn nút phía dưới để tiếp tục sử dụng dịch vụ của chúng tôi. Chúc bạn luôn có những bữa trưa ngon miệng',
   };
 }

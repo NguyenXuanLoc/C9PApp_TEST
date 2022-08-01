@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/components/otp_widget.dart';
-import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/data/model/user_model.dart';
+import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
@@ -20,12 +19,15 @@ import '../../../config/resource.dart';
 import '../../../utils/app_utils.dart';
 
 class OtpController extends GetxController {
+  final END_TIME =90;
   final phoneNumber = ''.obs;
+  final userProvider = UserProvider();
   final otpController = OtpFieldController();
   late Timer _timer;
-  var startCountDown = 30.obs;
+  var startCountDown = 90.obs;
+  var timeDisplay ='01:30'.obs;
   var verificationId = '';
-  var pin = '';
+  final pin = ''.obs;
   var errorOtp = ''.obs;
   var auth = FirebaseAuth.instance;
 
@@ -34,21 +36,29 @@ class OtpController extends GetxController {
       await FirebaseAuth.instance.verifyPhoneNumber(
           phoneNumber: Utils.standardizePhoneNumber(phoneNumber.value),
           verificationCompleted: (PhoneAuthCredential credential) async {},
-          verificationFailed: (FirebaseAuthException e) {},
+          verificationFailed: (FirebaseAuthException e) {
+            toast(LocaleKeys.network_error.tr);
+          },
           codeSent: (String verificationId, int? resendToken) {
             this.verificationId = verificationId;
           },
           codeAutoRetrievalTimeout: (String verification) {
             verificationId = verification;
           },
-          timeout: const Duration(seconds: 120));
-    } catch (ex) {}
+          timeout: Duration(seconds: END_TIME - 2));
+    } catch (ex) {
+      toast(LocaleKeys.network_error.tr);
+    }
   }
 
-  void setPin(String pin) => this.pin = pin;
+  void getTimeDisplay() => timeDisplay.value = startCountDown.value >= 60
+      ? '01:${(startCountDown.value-60).toString().length == 1 ? '0${startCountDown.value-60}' : startCountDown.value-60}'
+      : '00:${startCountDown.value.toString().length == 1 ? '0${startCountDown.value}' : startCountDown.value}';
+
+  void setPin(String pin) => this.pin.value = pin;
 
   bool isValid() {
-    if (pin.length != 6) {
+    if (pin.value.length != 6) {
       errorOtp.value = LocaleKeys.otp_invalid.tr;
       return false;
     }
@@ -61,24 +71,48 @@ class OtpController extends GetxController {
     Dialogs.showLoadingDialog(context);
     await FirebaseAuth.instance
         .signInWithCredential(PhoneAuthProvider.credential(
-            verificationId: verificationId, smsCode: pin))
+            verificationId: verificationId, smsCode: pin.value))
         .then((value) async {
-          await Dialogs.hideLoadingDialog();
-          StorageUtils.saveUser(await fakeUser());
-          Get.offAllNamed(Routes.HOME, arguments: true);
+          _handleLogin(value);
         })
         .whenComplete(() {})
         .onError((error, stackTrace) {
-          if (error.toString().contains(MessageKey.otp_invalid) ||
+          /*      if (error.toString().contains(MessageKey.otp_invalid) ||
               error.toString().contains(MessageKey.verification_id_invalid)) {
             toast(LocaleKeys.wrong_otp.tr);
           } else if (error.toString().contains(MessageKey.otp_expired)) {
             toast(LocaleKeys.otp_het_han.tr);
-          }
+          }*/
+          toast(LocaleKeys.wrong_otp.tr);
           Dialogs.hideLoadingDialog();
         });
   }
 
+  Future<void> _handleLogin(UserCredential model) async {
+    var deviceToken = await Utils.getFirebaseToken();
+    var response = await userProvider.login(model.user!.uid, deviceToken ?? '');
+    await Dialogs.hideLoadingDialog();
+    if (response.error == null && response.data != null) {
+      try {
+        var model = UserModel.fromJson(response.data);
+        await StorageUtils.saveUser(model);
+        var registerDeviceResponse =
+            await userProvider.registerDevice(deviceToken ?? '');
+        if (registerDeviceResponse.error == null) {
+          await StorageUtils.setRegisterDevice(true);
+        }
+        if (model.needUpdate ?? true) {
+          Get.offAllNamed(Routes.UPDATE_PROFILE, arguments: phoneNumber.value);
+        } else {
+          Get.offAllNamed(Routes.HOME, arguments: true);
+        }
+      } catch (ex) {
+        toast(LocaleKeys.network_error.tr);
+      }
+    } else {
+      toast(LocaleKeys.network_error.tr);
+    }
+  }
 
   Future<UserModel> fakeUser() async => UserModel.fromJson(
       json.decode(await rootBundle.loadString(R.assetsJsonUser)));
@@ -87,7 +121,8 @@ class OtpController extends GetxController {
     if (isVerify) {
       verifyPhone();
     }
-    startCountDown.value = 30;
+    startCountDown.value = END_TIME;
+    timeDisplay.value = '01:30';
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (Timer timer) {
@@ -95,6 +130,7 @@ class OtpController extends GetxController {
           timer.cancel();
         } else {
           startCountDown.value--;
+          getTimeDisplay();
         }
       },
     );
@@ -105,6 +141,8 @@ class OtpController extends GetxController {
     startTimer();
     phoneNumber.value = Get.arguments;
     verifyPhone();
+    WidgetsBinding.instance
+        .addPostFrameCallback((timeStamp) => otpController.setFocus(0));
     super.onInit();
   }
 }

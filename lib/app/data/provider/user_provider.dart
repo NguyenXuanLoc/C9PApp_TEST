@@ -12,9 +12,18 @@ class UserProvider extends BaseProvider {
     initProvider();
   }
 
-/*Future<ApiKey> getAddress(String query){
+  Future<ApiResult> getAddress(String query) async {
+    return await GET(
+        'AutoComplete?api_key=${ApiKey.api_key_google_map}&location=20.8467333,106.6637271&input=$query',
+        baseUrl: 'https://rsapi.goong.io/Place/');
+  }
 
-}*/
+  Future<ApiResult> getLocationDetail(String placeId) async {
+    return await GET(
+        'Detail?place_id=$placeId&api_key=${ApiKey.api_key_google_map}',
+        baseUrl: 'https://rsapi.goong.io/Place/');
+  }
+
   Future<ApiResult> nearOrder() async {
     return await GET('user/top5orders');
   }
@@ -29,7 +38,7 @@ class UserProvider extends BaseProvider {
           required String deliverTime,
           required String productId}) async =>
       await POST(
-          'order',
+          'user/order',
           {
             ApiKey.name: name,
             ApiKey.address: address,
@@ -51,4 +60,32 @@ class UserProvider extends BaseProvider {
         baseUrl: 'https://api.openweathermap.org/data/2.5/',
         isNewFormat: true);
   }
+
+  Future<ApiResult> login(String uid, String deviceToken) async => await POST(
+      'user/firebase', {ApiKey.uid: uid, ApiKey.device_token: deviceToken});
+
+  Future<ApiResult> updateProfile(String fullName) async =>
+      await POST('user/info', {ApiKey.name: fullName});
+
+  Future<ApiResult> getProfile() async => await GET('user/info');
+
+  Future<ApiResult> gePromotion() async => await GET('banner');
+
+  Future<ApiResult> getPendingOrder({String paging = ''}) async =>
+      await GET('user/orders/pending$paging');
+
+  Future<ApiResult> getDoneOrder({String paging = ''}) async =>
+      await GET('user/orders/done$paging');
+
+  Future<ApiResult> registerDevice(String deviceToken) async =>
+      await POST('user/register_device', {ApiKey.device_token: deviceToken});
+
+  Future<ApiResult> unregisterDevice(String deviceToken) async =>
+      await DELETE_WITH_BODY('user/register_device', {ApiKey.device_token: deviceToken});
+
+  Future<ApiResult> logout(String deviceToken) async =>
+      await POST('user/logout', {ApiKey.device_token: deviceToken});
+
+  Future<ApiResult> getOrderById(String id) async =>
+      await GET('user/order/$id');
 }

@@ -1,15 +1,16 @@
+import 'package:c9p/app/components/app_button.dart';
+import 'package:c9p/app/components/app_loading_widget.dart';
+import 'package:c9p/app/components/app_not_data_widget.dart';
 import 'package:c9p/app/components/app_scalford.dart';
 import 'package:c9p/app/components/app_text.dart';
+import 'package:c9p/app/components/item_order.dart';
 import 'package:c9p/app/theme/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import '../../../app_line.dart';
-import '../../../components/app_button.dart';
 import '../../../config/app_translation.dart';
-import '../../../config/globals.dart';
 import '../../../config/resource.dart';
 import '../../../theme/colors.dart';
 import '../controllers/your_order_controller.dart';
@@ -19,277 +20,177 @@ class YourOrderView extends GetView<YourOrderController> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: 2,
-        child: AppScaffold(
-            appbar: AppBar(
-              automaticallyImplyLeading: false,
-              toolbarHeight: 25.h,
-              centerTitle: true,
-              flexibleSpace: Container(
-                alignment: Alignment.bottomCenter,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(R.assetsBackgroundHeaderTabMainPng),
-                        fit: BoxFit.fitWidth)),
-                child: Center(
-                  child: AppText(
+    return AppScaffold(
+        appbar: AppBar(
+          automaticallyImplyLeading: false,
+          toolbarHeight: 30.h,
+          centerTitle: true,
+          flexibleSpace: Container(
+            alignment: Alignment.bottomCenter,
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(R.assetsBackgroundHeaderTabMainPng),
+                    fit: BoxFit.fitWidth)),
+            child: Center(
+              child: Row(
+                children: [
+                  IconButton(
+                    splashRadius: 20,
+                    icon: SvgPicture.asset(
+                      R.assetsBackSvg,
+                      color: colorWhite,
+                    ),
+                    onPressed: () => Get.back(),
+                  ),
+                  const Spacer(),
+                  AppText(
                     LocaleKeys.your_order.tr,
-                    style: typoMediumTextBold.copyWith(
+                    style: typoTitleHeader.copyWith(
                         fontWeight: FontWeight.w700, color: colorText0),
                   ),
-                ),
-              ),
-              bottom: TabBar(
-                indicatorColor: colorOrange60,
-                indicatorSize: TabBarIndicatorSize.label,
-                unselectedLabelColor: Colors.black,
-                tabs: [
-                  Tab(
-                      height: 25.h,
-                      icon: AppText(
-                        LocaleKeys.order_are_coming.tr,
-                        style:
-                            typoSuperSmallTextBold.copyWith(color: colorText0),
-                      )),
-                  Tab(
-                      height: 25.h,
-                      icon: AppText(
-                        LocaleKeys.order_delivered.tr,
-                        style:
-                            typoSuperSmallTextBold.copyWith(color: colorText0),
-                      )),
+                  const Spacer(),
+                  IconButton(
+                    splashRadius: 20,
+                    icon: SvgPicture.asset(
+                      R.assetsBackSvg,
+                      color: Colors.transparent,
+                    ),
+                    onPressed: () {},
+                  ),
                 ],
               ),
             ),
-            body: TabBarView(
+          ),
+          bottom: TabBar(
+            controller: controller.tabController,
+            onTap: (index) => controller.setIndex(index),
+            indicatorColor: colorOrange60,
+            indicatorSize: TabBarIndicatorSize.label,
+            unselectedLabelColor: Colors.black,
+            tabs: [
+              Tab(
+                  height: 25.h,
+                  icon: AppText(
+                    LocaleKeys.order_are_coming.tr,
+                    style: typoSuperSmallText600.copyWith(color: colorText0),
+                  )),
+              Tab(
+                  height: 25.h,
+                  icon: AppText(
+                    LocaleKeys.order_delivered.tr,
+                    style: typoSuperSmallTextBold.copyWith(color: colorText0),
+                  )),
+            ],
+          ),
+        ),
+        body: Stack(
+          children: [
+            TabBarView(
+              controller: controller.tabController,
               children: <Widget>[
-                orderComingWidget(context),
-                orderDeliveredWidget(context)
+                pendingOrderWidget(context),
+                doneOrderWidget(context)
               ],
-            )));
-  }
-
-  Widget orderDeliveredWidget(BuildContext context) {
-    return ListView.separated(
-        padding: const EdgeInsets.all(0),
-        itemBuilder: (c, i) => Padding(
-              padding: EdgeInsets.all(contentPadding),
-              child: InkWell(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          R.assetsPngComSuon9p,
-                          height: 50.h,
-                          fit: BoxFit.fitHeight,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                              AppText(
-                                'Cơm sườn ngon 9 phút',
-                                style: typoSmallTextBold.copyWith(
-                                    fontWeight: FontWeight.w800),
-                              ),
-                              SizedBox(
-                                height: 30,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    AppText('45.000d',
-                                        style: typoSmallTextBold.copyWith(
-                                            color: colorSemanticRed100,
-                                            fontWeight: FontWeight.w800)),
-                                    Spacer(),
-                                    AppText(
-                                        '${LocaleKeys.code.tr} #1235 / 1 suất cơm',
-                                        textAlign: TextAlign.center,
-                                        style: typoSuperSmallTextBold.copyWith(
-                                            fontSize: 12.sp,
-                                            color: colorOrange40))
-                                  ],
-                                ),
-                              ),
-                            ]))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    const AppLineWidget(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AppText(
-                          '16/06/2022 12:30:15',
-                          style: typoSuperSmallTextBold.copyWith(
-                              fontSize: 11.5.sp),
-                        ),
-                        Spacer(),
-                        AppText(
-                          LocaleKeys.delivered.tr,
-                          style: typoSuperSmallTextBold.copyWith(
-                              fontSize: 11.5.sp, color: colorGreen55),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const AppLineWidget(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    AppText(
-                      'Địa chỉ:  18 hoàng diệu, phường minh khai, quận hồng bàng, minh khai, hồng bàng, hải phòng ',
-                      style: typoSuperSmallTextBold.copyWith(fontSize: 12.sp),
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                  ],
-                ),
-                onTap: () {},
-              ),
             ),
-        separatorBuilder: (i, c) => Container(
-              color: colorSeparatorListView,
-              height: 10.h,
-              width: MediaQuery.of(context).size.width,
-            ),
-        itemCount: 10);
-  }
-
-  Widget orderComingWidget(BuildContext context) {
-    return ListView.separated(
-        padding: const EdgeInsets.all(0),
-        itemBuilder: (c, i) => Padding(
-              padding: EdgeInsets.all(contentPadding),
-              child: InkWell(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          R.assetsPngComSuon9p,
-                          height: 50.h,
-                          fit: BoxFit.fitHeight,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                              AppText(
-                                'Cơm sườn ngon 9 phút',
-                                style: typoSmallTextBold.copyWith(
-                                    fontWeight: FontWeight.w800),
-                              ),
-                              SizedBox(
-                                height: 30,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    AppText('45.000d',
-                                        style: typoSmallTextBold.copyWith(
-                                            color: colorSemanticRed100,
-                                            fontWeight: FontWeight.w800)),
-                                    Spacer(),
-                                    AppText(
-                                        '${LocaleKeys.code.tr} #1235 / 1 suất cơm',
-                                        textAlign: TextAlign.center,
-                                        style: typoSuperSmallTextBold.copyWith(
-                                            fontSize: 12.sp,
-                                            color: colorOrange40))
-                                  ],
-                                ),
-                              ),
-                            ]))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    const AppLineWidget(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AppText(
-                          '16/06/2022 12:30:15',
-                          style: typoSuperSmallTextBold.copyWith(
-                              fontSize: 11.5.sp),
-                        ),
-                        Spacer(),
-                        AppText(
-                          LocaleKeys.delivered.tr,
-                          style: typoSuperSmallTextBold.copyWith(
-                              fontSize: 11.5.sp, color: colorGreen55),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const AppLineWidget(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    AppText(
-                      'Địa chỉ:  18 hoàng diệu, phường minh khai, quận hồng bàng, minh khai, hồng bàng, hải phòng ',
-                      style: typoSuperSmallTextBold.copyWith(fontSize: 12.sp),
-                    ),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
+            Obx(() => Visibility(
+                  visible: controller.isShowRefreshButton.value,
+                  child: Positioned.fill(
+                      child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Opacity(
+                      opacity: 0.9,
                       child: AppButton(
-                        borderRadius: 100,
-                        onPress: () => controller.onClickReOrder(),
-                        title: LocaleKeys.re_deliver.tr,
-                        textStyle:
-                            typoSuperSmallTextBold.copyWith(color: colorText0),
-                        backgroundColor: colorGreen57,
+                        onPress: () => controller.refreshAll(),
+                        title: LocaleKeys.refresh_list.tr,
+                        textStyle: typoSuperSmallTextBold.copyWith(
+                            color: colorText0, fontSize: 11.sp),
+                        backgroundColor: colorGreen60,
+                        borderRadius: 100.w,
                         height: 28.h,
-                        padding: EdgeInsets.only(left: 20.w, right: 20.w),
                       ),
-                    )
-                  ],
-                ),
-                onTap: () => {},
-              ),
-            ),
-        separatorBuilder: (i, c) => Container(
-              color: colorSeparatorListView,
-              height: 10.h,
-              width: MediaQuery.of(context).size.width,
-            ),
-        itemCount: 10);
+                    ),
+                  )),
+                ))
+          ],
+        ));
+  }
+
+  Widget doneOrderWidget(BuildContext context) {
+    return Obx(() => RefreshIndicator(
+        color: colorGreen60,
+        child: controller.isLoadingDoneOrder.value &&
+                controller.lDoneOrder.isEmpty
+            ? const AppCircleLoading()
+            : controller.lDoneOrder.isEmpty
+                ? Stack(
+                    children: [
+                      ListView(),
+                      AppNotDataWidget(
+                        message: LocaleKeys.not_order_pull_to_refresh.tr,
+                      )
+                    ],
+                  )
+                : ListView.separated(
+                    controller: controller.doneOrderScrollController,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(0),
+                    itemBuilder: (c, i) => (i == controller.lDoneOrder.length)
+                        ? const AppCircleLoading()
+                        : ItemOrder(
+                            model: controller.lDoneOrder[i],
+                            callBackReOrder: (model) =>
+                                controller.openReOrder(model),
+                            callBackOrderDetail: (model) =>
+                                controller.openOrderDetail(model)),
+                    separatorBuilder: (i, c) => Container(
+                          color: colorSeparatorListView,
+                          height: 10.h,
+                          width: MediaQuery.of(context).size.width,
+                        ),
+                    itemCount: !controller.isReadEndDoneOrder.value &&
+                            controller.lDoneOrder.isNotEmpty &&
+                            controller.isLoadingDoneOrder.value
+                        ? controller.lDoneOrder.length + 1
+                        : controller.lDoneOrder.length),
+        onRefresh: () async => controller.refreshDoneOrder()));
+  }
+
+  Widget pendingOrderWidget(BuildContext context) {
+    return Obx(() => RefreshIndicator(
+        color: colorGreen60,
+        child: controller.isLoadingPendingOrder.value &&
+                controller.lPendingOrder.isEmpty
+            ? const AppCircleLoading()
+            : controller.lPendingOrder.isEmpty
+                ? Stack(
+                    children: [
+                      ListView(),
+                      AppNotDataWidget(
+                        message: LocaleKeys.not_order_pull_to_refresh.tr,
+                      )
+                    ],
+                  )
+                : ListView.separated(
+                    controller: controller.pendingOrderScrollController,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(0),
+                    itemBuilder: (c, i) =>
+                        (i == controller.lPendingOrder.length)
+                            ? const AppCircleLoading()
+                            : ItemOrder(
+                                model: controller.lPendingOrder[i],
+                                callBackOrderDetail: (model) =>
+                                    controller.openOrderDetail(model)),
+                    separatorBuilder: (i, c) => Container(
+                          color: colorSeparatorListView,
+                          height: 10.h,
+                          width: MediaQuery.of(context).size.width,
+                        ),
+                    itemCount: (!controller.isReadEndPendingOrder.value &&
+                            controller.lPendingOrder.isNotEmpty &&
+                            controller.isLoadingPendingOrder.value)
+                        ? controller.lPendingOrder.length + 1
+                        : controller.lPendingOrder.length),
+        onRefresh: () async => controller.refreshPendingOrder()));
   }
 }

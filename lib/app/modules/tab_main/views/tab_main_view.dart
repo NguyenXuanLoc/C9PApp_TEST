@@ -322,25 +322,90 @@ class TabMainView extends GetView<TabMainController> {
         ? const AppCircleLoading()
         : !controller.isLoadNearOrder.value && controller.lNearOrder.isEmpty
             ? AppNotDataWidget(message: LocaleKeys.not_order_pull_to_refresh.tr)
-            : ListView.separated(
-                padding: const EdgeInsets.all(0),
-                shrinkWrap: true,
-                primary: false,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (c, i) => ItemOrder(
-                    model: controller.lNearOrder[i],
-                    callBackOrderDetail: (model) =>
-                        controller.openOrderDetail(model),
-                    callBackReOrder: (model) => controller.openReOrder(model)),
-                separatorBuilder: (i, c) => Container(
-                      color: colorSeparatorListView,
-                      height: 10.h,
-                      width: MediaQuery.of(context).size.width,
-                    ),
-                itemCount: controller.lNearOrder.length));
+            : Container(
+                padding: EdgeInsets.only(left: contentPadding,top: contentPadding,bottom: contentPadding),
+                height: 200.h,
+                child: ListView.separated(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                     itemBuilder: (c, i) =>
+                        itemNearOrder(controller.lNearOrder[0], context),
+                    separatorBuilder: (i, c) => Container(
+                          color: colorWhite,
+                      width: 10.h,
+                          // width: MediaQuery.of(context).size.width,
+                        ),
+                    itemCount: controller.lNearOrder.length),
+              ));
   }
 
-  Widget itemNearOrder(OrderModel model) {
+  Widget itemNearOrder(OrderModel model,BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(color: colorWhite,boxShadow:  [BoxShadow(
+        color: colorBlack.withOpacity(0.1),
+        spreadRadius: 1,
+        blurRadius: 2,
+        offset: const Offset(0, 0),
+      ),],borderRadius: BorderRadius.circular(20),border:Border.all(color: Colors.green)),
+      alignment: Alignment.center,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: model.imageUrl != null && model.imageUrl.isNotEmpty
+                ? AppNetworkImage(
+                    source: model.imageUrl,
+                    height: 60.h,
+                  )
+                : Image.asset(
+                    R.assetsPngComSuon9p,
+                    height: 60.h,
+                    fit: BoxFit.fitHeight,
+                  ),
+          ),
+          AppText(
+            LocaleKeys.com_suong_9p.tr,
+            style: typoSuperSmallText700,
+          ),
+         const Spacer(),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              AppText('${Utils.formatMoney(model.amount ?? 0)}đ',
+                  style: typoSuperSmallTextBold.copyWith(
+                      color: colorSemanticRed100,
+                      fontWeight: FontWeight.w800)),
+              const SizedBox(
+                width: 10,
+              ),
+              AppText(
+                  '${LocaleKeys.code.tr} #${model.id ?? 0} / ${model.itemQty ?? 0} ${LocaleKeys.bowl_of_rice.tr}',
+                  textAlign: TextAlign.center,
+                  style: typoSuperSmallTextBold.copyWith(
+                      fontSize: 9.sp, color: colorText40)),
+
+            ],
+          ),
+          AppText(
+            Utils.convertTimeToDDMMYYHHMMSS(model.deliverTime ?? DateTime.now()),
+            style: typoSuperSmallText500.copyWith(color: colorText80),
+          ),
+          AppButton(
+            borderRadius: 100,
+            onPress: (){},
+            title: LocaleKeys.re_deliver.tr,
+            textStyle: typoSuperSmallTextBold.copyWith(
+                fontSize: 13.sp, color: colorText0),
+            backgroundColor: colorGreen55,
+            height: 30.h,
+            width: 180.w,
+            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+          )
+        ],
+      ),
+    );
     return Padding(
       padding: EdgeInsets.all(contentPadding),
       child: InkWell(

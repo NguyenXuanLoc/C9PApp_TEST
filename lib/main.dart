@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +72,7 @@ Future<void> configApp() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   await Firebase.initializeApp();
-
+  test();
   HttpOverrides.global = MyHttpOverrides();
   configOrientation();
   await GetStorage.init();
@@ -81,6 +83,10 @@ Future<void> configApp() async {
     await notificationService.init();
     await notificationService.requestIOSPermissions();
   } catch (ex) {}
+}
+
+void test(){
+  logE("TAG FirebaseAuth.instance.currentUser?.uid;: ${FirebaseAuth.instance.currentUser?.uid}");
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {

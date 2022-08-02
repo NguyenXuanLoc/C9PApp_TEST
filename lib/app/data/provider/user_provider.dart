@@ -88,4 +88,5 @@ class UserProvider extends BaseProvider {
 
   Future<ApiResult> getOrderById(String id) async =>
       await GET('user/order/$id');
+  Future<ApiResult> checkPasswordExits() async => await GET('user/password');
 }

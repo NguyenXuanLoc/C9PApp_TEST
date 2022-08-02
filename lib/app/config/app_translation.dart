@@ -117,6 +117,8 @@ class LocaleKeys {
   static const message_register_success = 'message_register_success';
   static const net_work_error_click_to_retry = 'net_work_error_click_to_retry';
   static const token_expire = 'token_expire';
+  static const create_pin = 'create_pin';
+  static const please_update_pin_to_login = 'please_update_pin_to_login';
 }
 
 class Locales {
@@ -225,7 +227,11 @@ class Locales {
     'register_success': 'Đăng ký tài khoản thành công!',
     'net_work_error_click_to_retry': 'Lỗi mạng, ấn để thử lại',
     'token_expire': 'Phiên đăng nhập đã hết hạn',
+    'create_pin': 'Tạo mã pin',
+    'please_update_pin_to_login': 'Bạn vui lòng cập nhật mã pin để đăng nhập dễ dàng hơn nhé',
     'message_register_success':
         'Nhấn nút phía dưới để tiếp tục sử dụng dịch vụ của chúng tôi. Chúc bạn luôn có những bữa trưa ngon miệng',
   };
+  static const create_pin = 'create_pin';
+  static const please_update_pin_to_login = 'please_update_pin_to_login';
 }

@@ -128,7 +128,7 @@ class LoginView extends GetView<LoginController> {
                             ? colorText0
                             : colorText60),
                     shapeBorder: shapeBorderButton,
-                    onPress: () => controller.openOtp(),
+                    onPress: () => controller.onClickContinue(),
                     width: MediaQuery.of(context).size.width,
                     backgroundColor:
                         controller.isValid.value ? colorGreen50 : colorGrey10,

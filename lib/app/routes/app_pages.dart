@@ -16,6 +16,8 @@ import '../modules/order_success/bindings/order_success_binding.dart';
 import '../modules/order_success/views/order_success_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
+import '../modules/register_pin/bindings/register_pin_binding.dart';
+import '../modules/register_pin/views/register_pin_view.dart';
 import '../modules/register_success/bindings/register_success_binding.dart';
 import '../modules/register_success/views/register_success_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -134,6 +136,11 @@ class AppPages {
       name: _Paths.WEBVIEW,
       page: () => WebviewView(),
       binding: WebviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER_PIN,
+      page: () => RegisterPinView(),
+      binding: RegisterPinBinding(),
     ),
   ];
 }

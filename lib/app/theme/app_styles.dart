@@ -323,6 +323,21 @@ final typoSuperLargeTextBold = GoogleFonts.nunito(
   letterSpacing: 0.2,
   color: colorBlack,
 );
+final typoSuperLargeTextBold600 = GoogleFonts.nunito(
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.w600,
+  fontSize: 24.sp,
+  letterSpacing: 0.2,
+  color: colorBlack,
+);
+
+final typoLargeTextBold600 = GoogleFonts.nunito(
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.w600,
+  fontSize: 20.sp,
+  letterSpacing: 0.2,
+  color: colorBlack,
+);
 
 final typoLargeTextBold = GoogleFonts.nunito(
   fontStyle: FontStyle.normal,

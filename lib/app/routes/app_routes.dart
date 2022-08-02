@@ -21,6 +21,7 @@ abstract class Routes {
   static const TEST = _Paths.TEST;
   static const REGISTER_SUCCESS = _Paths.REGISTER_SUCCESS;
   static const WEBVIEW = _Paths.WEBVIEW;
+  static const REGISTER_PIN = _Paths.REGISTER_PIN;
 }
 
 abstract class _Paths {
@@ -43,4 +44,5 @@ abstract class _Paths {
   static const TEST = '/test';
   static const REGISTER_SUCCESS = '/register-success';
   static const WEBVIEW = '/webview';
+  static const REGISTER_PIN = '/register-pin';
 }

@@ -81,11 +81,17 @@ class UserProvider extends BaseProvider {
       await POST('user/register_device', {ApiKey.device_token: deviceToken});
 
   Future<ApiResult> unregisterDevice(String deviceToken) async =>
-      await DELETE_WITH_BODY('user/register_device', {ApiKey.device_token: deviceToken});
+      await DELETE_WITH_BODY(
+          'user/register_device', {ApiKey.device_token: deviceToken});
 
   Future<ApiResult> logout(String deviceToken) async =>
       await POST('user/logout', {ApiKey.device_token: deviceToken});
 
   Future<ApiResult> getOrderById(String id) async =>
       await GET('user/order/$id');
+
+  Future<ApiResult> getComboBestSellerModel() async =>
+      await GET('sales/combo/active');
+
+  Future<ApiResult> getMyCombo() async => await GET('user/combo');
 }

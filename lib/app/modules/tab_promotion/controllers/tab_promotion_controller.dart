@@ -4,16 +4,13 @@ import 'package:c9p/app/utils/log_utils.dart';
 import 'package:get/get.dart';
 
 class TabPromotionController extends GetxController {
-  var lPromotion = [
-    "https://vcdn-dulich.vnecdn.net/2020/09/04/1-Meo-chup-anh-dep-khi-di-bien-9310-1599219010.jpg",
-    "https://toanthaydinh.com/wp-content/uploads/2020/04/wallpaper-4k-hinh-nen-4k-hinh-anh-ve-ruong-bac-thang-dep_101311157-1400x788-1.jpg",
-    "https://nhattientuu.com/wp-content/uploads/2020/08/hinh-anh-dep-1.jpg"
-  ];
   var userProvider = UserProvider();
-  final lComboBestSellerModel = List<ComboBestSellerModel>.empty(growable: true).obs;
+  final lComboBestSellerModel =
+      List<ComboBestSellerModel>.empty(growable: true).obs;
+  final lMyCombo = List<ComboBestSellerModel>.empty(growable: true).obs;
   final isLoadingBestSeller = true.obs;
+  final isLoadingMyCombo = true.obs;
 
-  final isLoadingMyCombo= true.obs;
   @override
   void onInit() {
     getComboBestSellerModel();
@@ -28,11 +25,23 @@ class TabPromotionController extends GetxController {
 
   @override
   void onClose() {}
-void getMyCombo()async{
+
+  void onRefresh() {
+    lMyCombo.value = [];
+    lComboBestSellerModel.value = [];
+    getMyCombo();
+    getComboBestSellerModel();
+  }
+
+  void getMyCombo() async {
     isLoadingMyCombo.value = true;
     var response = await userProvider.getMyCombo();
     isLoadingMyCombo.value = false;
-}
+    if (response.error == null && response.data != null) {
+      lMyCombo.value = comboBestSellerModelFromJson(response.data['data']);
+    }
+  }
+
   void getComboBestSellerModel() async {
     isLoadingBestSeller.value = true;
     var response = await userProvider.getComboBestSellerModel();
@@ -40,7 +49,6 @@ void getMyCombo()async{
     if (response.error == null && response.data != null) {
       lComboBestSellerModel.value =
           comboBestSellerModelFromJson(response.data['data']['data']);
-      logE("TAG lComboBestSellerModel: ${lComboBestSellerModel.value.length}");
     }
   }
 }

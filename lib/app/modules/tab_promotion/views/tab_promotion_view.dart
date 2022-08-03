@@ -31,7 +31,6 @@ class TabPromotionView extends GetView<TabPromotionController> {
         fullStatusBar: true,
         isTabToHideKeyBoard: true,
         appbar: AppBar(
-          actions: [],
           automaticallyImplyLeading: false,
           centerTitle: true,
           title: AppText(
@@ -60,7 +59,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
                     children: [
                       itemSpace(),
                       Container(
-                        height: 37.h,
+                        height: 35.h,
                         decoration: BoxDecoration(
                           border: Border.all(color: colorLine, width: 0.2),
                           borderRadius: BorderRadius.circular(17),
@@ -114,47 +113,23 @@ class TabPromotionView extends GetView<TabPromotionController> {
                         ),
                       ),
                       itemSpace(),
-                      CarouselSlider(
-                        options: CarouselOptions(
-                            height: 130.h,
-                            viewportFraction: 0.95,
-                            enlargeCenterPage: true,
-                            enableInfiniteScroll: false,
-                            disableCenter: true,
-                            padEnds: false,
-                            enlargeStrategy: CenterPageEnlargeStrategy.height),
-                        items: controller.lPromotion.map((model) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return Padding(
-                                padding: EdgeInsets.only(right: 10.w),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: SizedBox(
-                                    width: MediaQuery.of(context).size.width,
-                                    child: AppNetworkImage(
-                                      fit: BoxFit.cover,
-                                      source: model,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        }).toList(),
+                      SizedBox(
+                        height: 130.h,
+                        child: myCombWidget(),
                       ),
                       itemSpace(),
-                      Center(
-                        child: AnimatedSmoothIndicator(
-                            effect: ScrollingDotsEffect(
-                                spacing: 6.w,
-                                radius: 100,
-                                dotWidth: 6.w,
-                                dotHeight: 6.w,
-                                dotColor: colorBackgroundGrey5,
-                                activeDotColor: colorGreen60),
-                            activeIndex: 0,
-                            count: 4),
+                      Obx(
+                        () => Center(
+                            child: AnimatedSmoothIndicator(
+                                effect: ScrollingDotsEffect(
+                                    spacing: 6.w,
+                                    radius: 100,
+                                    dotWidth: 6.w,
+                                    dotHeight: 6.w,
+                                    dotColor: colorBackgroundGrey5,
+                                    activeDotColor: colorGreen60),
+                                activeIndex: 0,
+                                count: controller.lMyCombo.length)),
                       ),
                       itemSpace(),
                     ],
@@ -176,7 +151,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
                         LocaleKeys.combo_best_seller.tr,
                         style: typoSmallText700,
                       ),
-                      Spacer(),
+                      const Spacer(),
                       AppText(
                         LocaleKeys.see_more.tr,
                         style: typoSuperSmallTextBold.copyWith(
@@ -192,20 +167,54 @@ class TabPromotionView extends GetView<TabPromotionController> {
                 ),
                 itemSpace(),
                 SizedBox(
-                  height: 240.h,
+                  height: 230.h,
                   child: bestSellerWidget(),
                 )
               ],
             ),
           ),
-          onRefresh: () {},
+          onRefresh: () => controller.onRefresh(),
         ));
   }
+
+  Widget myCombWidget() => Obx(() => controller.isLoadingMyCombo.value
+      ? const Center(child: ItemLoading())
+      : controller.lMyCombo.isEmpty
+          ? const AppNotDataWidget()
+          : CarouselSlider(
+              options: CarouselOptions(
+                  height: 130.h,
+                  viewportFraction: 0.95,
+                  enlargeCenterPage: true,
+                  enableInfiniteScroll: false,
+                  disableCenter: true,
+                  padEnds: false,
+                  enlargeStrategy: CenterPageEnlargeStrategy.height),
+              items: controller.lMyCombo.map((model) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Padding(
+                      padding: EdgeInsets.only(right: 10.w),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: AppNetworkImage(
+                            fit: BoxFit.cover,
+                            source: model.img,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }).toList(),
+            ));
 
   Widget bestSellerWidget() => Obx(() => controller.isLoadingBestSeller.value
       ? const Center(child: ItemLoading())
       : controller.lComboBestSellerModel.isEmpty
-          ? AppNotDataWidget()
+          ? const AppNotDataWidget()
           : Padding(
               padding: EdgeInsets.only(left: contentPadding),
               child: CarouselSlider(
@@ -253,31 +262,32 @@ class TabPromotionView extends GetView<TabPromotionController> {
                 AppNetworkImage(
                   fit: BoxFit.cover,
                   source: model.img,
-                  height: 160.h,
+                  height: 150.h,
                   width: MediaQuery.of(context).size.width,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
+                const Spacer(),
                 Padding(
-                  padding: EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.only(left: 8.w, right: 8.w),
                   child: AppText(
                     model.name ?? '',
                     style: typoSmallTextBold,
                   ),
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 3,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  padding: EdgeInsets.only(left: 8.w, right: 8.w, bottom: 8.w),
                   child: AppText(
-                    model.description ?? '',
+                    'Đặt càng nhiều, ưu đãi càng lớn mua ngay mua ngay, mại zo mại zoa anh em ơi' /* model.description ?? ''*/,
                     style: typoSuperSmallText500.copyWith(fontSize: 11.sp),
                     maxLine: 2,
                     textOverflow: TextOverflow.ellipsis,
                   ),
-                )
+                ),
               ],
             ),
           ),

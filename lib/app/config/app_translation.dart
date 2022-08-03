@@ -117,6 +117,9 @@ class LocaleKeys {
   static const message_register_success = 'message_register_success';
   static const net_work_error_click_to_retry = 'net_work_error_click_to_retry';
   static const token_expire = 'token_expire';
+  static const my_promotion = 'my_promotion';
+  static const see_more = 'see_more';
+  static const combo_best_seller = 'combo_best_seller';
 }
 
 class Locales {
@@ -225,6 +228,9 @@ class Locales {
     'register_success': 'Đăng ký tài khoản thành công!',
     'net_work_error_click_to_retry': 'Lỗi mạng, ấn để thử lại',
     'token_expire': 'Phiên đăng nhập đã hết hạn',
+    'my_promotion': 'Khuyến mại của tôi',
+    'combo_best_seller': 'Combo bán chạy',
+    'see_more': 'Xem thêm',
     'message_register_success':
         'Nhấn nút phía dưới để tiếp tục sử dụng dịch vụ của chúng tôi. Chúc bạn luôn có những bữa trưa ngon miệng',
   };

@@ -125,6 +125,7 @@ const colorBackgroundColor = Color(0xffffffff);
 const colorBackgroundWhite = Color(0xfff6f6f7);
 const colorBackgroundGrey80 = Color(0xF65D605D);
 const colorBackgroundGrey30 = Color(0xFFE9EAEC);
+const colorBackgroundGrey15 = Color(0xFFF8F8F8);
 const colorBackgroundGrey20 = Color(0xF6F7F8F7);
 const colorBackgroundGrey10 = Color(0xFFF7F7F8);
 const colorBackgroundGrey5 = Color(0xFFDADADA);

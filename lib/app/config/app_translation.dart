@@ -119,6 +119,14 @@ class LocaleKeys {
   static const token_expire = 'token_expire';
   static const create_pin = 'create_pin';
   static const please_update_pin_to_login = 'please_update_pin_to_login';
+  static const my_promotion = 'my_promotion';
+  static const see_more = 'see_more';
+  static const combo_selling = 'combo_selling';
+  static const payment_by_momo_money_vnpay='payment_by_momo_money_vnpay';
+  static const economy='economy';
+  static const still='still';
+  static const slot='slot';
+  static const order_rice='order_rice';
 }
 
 class Locales {
@@ -196,7 +204,7 @@ class Locales {
     'update': 'Cập nhật',
     'gallery': 'Thư viện',
     'camera': 'Máy ảnh',
-    'near_order': 'Đơn đã giao',
+    'near_order': 'Đơn gần đây của bạn',
     'bowl_of_rice': 'suất cơm',
     'input_address_at_here': 'Nhập địa chỉ đặt hàng tại đây...',
     'input_qty': 'Nhập số suất',
@@ -227,6 +235,14 @@ class Locales {
     'register_success': 'Đăng ký tài khoản thành công!',
     'net_work_error_click_to_retry': 'Lỗi mạng, ấn để thử lại',
     'token_expire': 'Phiên đăng nhập đã hết hạn',
+    'my_promotion': 'Khuyến mại của tôi',
+    'combo_selling': 'Combo đang bán',
+    'see_more': 'Xem thêm',
+    'payment_by_momo_money_vnpay': 'Thanh toán: Momo, Tiền mặt, Vnpay',
+    'economy': 'Tiết kiệm',
+    'still': 'Còn',
+    'slot': 'suất',
+    'order_rice': 'Đặt cơm',
     'create_pin': 'Tạo mã pin',
     'please_update_pin_to_login': 'Bạn vui lòng cập nhật mã pin để đăng nhập dễ dàng hơn nhé',
     'message_register_success':

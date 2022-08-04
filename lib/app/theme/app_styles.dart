@@ -354,7 +354,13 @@ final typoLargeTextRegular = GoogleFonts.nunito(
   letterSpacing: 0.2,
   color: colorBlack,
 );
-
+final typoMediumText700 = GoogleFonts.nunito(
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.w700,
+  fontSize: 18.sp,
+  letterSpacing: 0.2,
+  color: colorBlack,
+);
 final typoMediumTextBold = GoogleFonts.nunito(
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.w500,
@@ -394,7 +400,13 @@ final typoNormalTextBold = GoogleFonts.nunito(
   letterSpacing: 0.2,
   color: colorBlack,
 );
-
+final typoNormalText700 = GoogleFonts.nunito(
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.w700,
+  fontSize: 16.sp,
+  letterSpacing: 0.2,
+  color: colorBlack,
+);
 final typoNormalTextBEBold = GoogleFonts.nunito(
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.w500,
@@ -431,7 +443,13 @@ final typoNormalTextThinRegular = GoogleFonts.nunito(
   fontSize: 16.sp,
   color: colorBlack,
 );
-
+final typoSmallText700 = GoogleFonts.nunito(
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.w700,
+  fontSize: 15.sp,
+  letterSpacing: 0.2,
+  color: colorBlack,
+);
 final typoSmallTextBold = GoogleFonts.nunito(
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.w600,

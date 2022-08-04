@@ -51,7 +51,7 @@ class OrderModel {
     this.shipperName,
     this.shipperPhone,
     this.shipperNumber,
-    this.shipperRate,
+    this.shipperRate,this.isSelect
   });
 
   int? id;
@@ -96,6 +96,7 @@ class OrderModel {
   String? shipperPhone;
   String? shipperNumber;
   int? shipperRate;
+  bool? isSelect;
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
     id: json["id"],
@@ -140,6 +141,7 @@ class OrderModel {
     shipperPhone: json["shipper_phone"],
     shipperNumber: json["shipper_number"],
     shipperRate: json["shipper_rate"],
+    isSelect: false,
   );
 
   Map<String, dynamic> toJson() => {
@@ -185,5 +187,6 @@ class OrderModel {
     "shipper_phone": shipperPhone,
     "shipper_number": shipperNumber,
     "shipper_rate": shipperRate,
+    "is_select": isSelect,
   };
 }

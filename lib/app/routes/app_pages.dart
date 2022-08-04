@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/combo_selling/bindings/combo_selling_binding.dart';
+import '../modules/combo_selling/views/combo_selling_view.dart';
 import '../modules/detail_order/bindings/detail_order_binding.dart';
 import '../modules/detail_order/views/detail_order_view.dart';
 import '../modules/developing/bindings/developing_binding.dart';
@@ -10,6 +12,8 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/login_splash/bindings/login_splash_binding.dart';
 import '../modules/login_splash/views/login_splash_view.dart';
+import '../modules/my_combo/bindings/my_combo_binding.dart';
+import '../modules/my_combo/views/my_combo_view.dart';
 import '../modules/order/bindings/order_binding.dart';
 import '../modules/order/views/order_view.dart';
 import '../modules/order_success/bindings/order_success_binding.dart';
@@ -136,6 +140,16 @@ class AppPages {
       name: _Paths.WEBVIEW,
       page: () => WebviewView(),
       binding: WebviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_COMBO,
+      page: () => MyComboView(),
+      binding: MyComboBinding(),
+    ),
+    GetPage(
+      name: _Paths.COMBO_SELLING,
+      page: () => ComboSellingView(),
+      binding: ComboSellingBinding(),
     ),
     GetPage(
       name: _Paths.REGISTER_PIN,

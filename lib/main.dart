@@ -72,7 +72,6 @@ Future<void> configApp() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   await Firebase.initializeApp();
-  test();
   HttpOverrides.global = MyHttpOverrides();
   configOrientation();
   await GetStorage.init();
@@ -83,10 +82,6 @@ Future<void> configApp() async {
     await notificationService.init();
     await notificationService.requestIOSPermissions();
   } catch (ex) {}
-}
-
-void test(){
-  logE("TAG FirebaseAuth.instance.currentUser?.uid;: ${FirebaseAuth.instance.currentUser?.uid}");
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {

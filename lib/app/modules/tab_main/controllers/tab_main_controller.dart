@@ -117,9 +117,14 @@ class TabMainController extends GetxController {
     isLoadPromotion.value = false;
   }
 
-  void openReOrder(OrderModel model) =>
-      Get.toNamed(Routes.ORDER, arguments: model);
-
+  void openReOrder(OrderModel model, index){
+    for(int i =0;i<lNearOrder.length;i++) {
+      lNearOrder[i].isSelect = false;
+    }
+    lNearOrder[index].isSelect = true;
+    lNearOrder.refresh();
+    Get.toNamed(Routes.ORDER, arguments: model);
+  }
   void getNearOrder() async {
     isLoadNearOrder.value = true;
     if (globals.isLogin) {
@@ -141,8 +146,14 @@ class TabMainController extends GetxController {
     return await location.getLocation();
   }
 
-  void openOrderDetail(OrderModel model) =>
-      Get.toNamed(Routes.DETAIL_ORDER, arguments: model);
+  void openOrderDetail(OrderModel model, int index){
+    for(int i =0;i<lNearOrder.length;i++) {
+      lNearOrder[i].isSelect = false;
+    }
+    lNearOrder[index].isSelect = true;
+    lNearOrder.refresh();
+    Get.toNamed(Routes.DETAIL_ORDER, arguments: model);
+  }
 
   void onClickAction(TabMainAction action, BuildContext context) {
     if (action == TabMainAction.MENU) {

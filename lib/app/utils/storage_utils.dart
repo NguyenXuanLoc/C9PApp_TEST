@@ -19,7 +19,7 @@ class StorageUtils {
         var userModel = UserModel.fromJson(userString);
         globals.isLogin = true;
         globals.accessToken = userModel.data?.token?.token ?? '';
-        globals.accessToken = "NjM2.fkfMwEt4IJG0VNPV-510MleIjwjFRXrSuTYw-MKqiJSPkBCKBD-fiGJEbFCn";
+        // globals.accessToken = "NjM2.fkfMwEt4IJG0VNPV-510MleIjwjFRXrSuTYw-MKqiJSPkBCKBD-fiGJEbFCn";
         globals.isNeedUpdateProfile = userModel.needUpdate ?? true;
         globals.userName = userModel.data?.userData?.name ?? '';
         globals.phoneNumber = userModel.data?.userData?.phone ?? '';

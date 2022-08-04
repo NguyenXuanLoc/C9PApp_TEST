@@ -58,13 +58,7 @@ class ComboSellingController extends GetxController {
         lMyCombo.addAll(lResponse);
         update();
       } else {
-        // lMyCombo.value = lResponse;
-        lMyCombo.addAll(lResponse);
-        lMyCombo.addAll(lResponse);
-        lMyCombo.addAll(lResponse);
-        lMyCombo.addAll(lResponse);
-        lMyCombo.addAll(lResponse);
-        lMyCombo.addAll(lResponse);
+        lMyCombo.value = lResponse;
         update();
       }
     }

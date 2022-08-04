@@ -93,5 +93,5 @@ class UserProvider extends BaseProvider {
   Future<ApiResult> getComboBestSellerModel() async =>
       await GET('sales/combo/active');
 
-  Future<ApiResult> getMyCombo() async => await GET('user/combo');
+  Future<ApiResult> getMyCombo({int nextPage = 1}) async => await GET('user/combo/?page=$nextPage');
 }

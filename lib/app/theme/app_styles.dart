@@ -469,7 +469,6 @@ var typoSuperSmallTextBold = GoogleFonts.nunito(
   letterSpacing: 0.2,
   color: colorBlack,
 );
-
 final typoSuperSmallText600 = GoogleFonts.nunito(
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.w600,

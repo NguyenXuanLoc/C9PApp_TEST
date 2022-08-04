@@ -197,7 +197,7 @@ class Locales {
     'update': 'Cập nhật',
     'gallery': 'Thư viện',
     'camera': 'Máy ảnh',
-    'near_order': 'Đơn đã giao',
+    'near_order': 'Đơn gần đây của bạn',
     'bowl_of_rice': 'suất cơm',
     'input_address_at_here': 'Nhập địa chỉ đặt hàng tại đây...',
     'input_qty': 'Nhập số suất',

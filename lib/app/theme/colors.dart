@@ -85,6 +85,7 @@ const colorWarning100 = Color(0xffE6A23C);
 const colorText100 = Color(0xff303133);
 const colorText80 = Color(0xff060e1e);
 const colorText50 = Color(0xff060e1e);
+const colorText85 = Color(0xff333333);
 const colorText70 = Color(0xff636973);
 const colorText60 = Color(0xff909399);
 const colorText45 = Color(0xff909399);

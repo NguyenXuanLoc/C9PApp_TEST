@@ -119,7 +119,7 @@ class LocaleKeys {
   static const token_expire = 'token_expire';
   static const my_promotion = 'my_promotion';
   static const see_more = 'see_more';
-  static const combo_best_seller = 'combo_best_seller';
+  static const combo_selling = 'combo_selling';
   static const payment_by_momo_money_vnpay='payment_by_momo_money_vnpay';
   static const economy='economy';
   static const still='still';
@@ -234,7 +234,7 @@ class Locales {
     'net_work_error_click_to_retry': 'Lỗi mạng, ấn để thử lại',
     'token_expire': 'Phiên đăng nhập đã hết hạn',
     'my_promotion': 'Khuyến mại của tôi',
-    'combo_best_seller': 'Combo bán chạy',
+    'combo_selling': 'Combo đang bán',
     'see_more': 'Xem thêm',
     'payment_by_momo_money_vnpay': 'Thanh toán: Momo, Tiền mặt, Vnpay',
     'economy': 'Tiết kiệm',

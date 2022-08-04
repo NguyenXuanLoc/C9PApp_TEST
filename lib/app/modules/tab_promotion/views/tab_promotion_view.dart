@@ -1,12 +1,7 @@
-import 'package:c9p/app/components/app_developing.dart';
 import 'package:c9p/app/components/app_not_data_widget.dart';
 import 'package:c9p/app/components/app_refresh_widget.dart';
-import 'package:c9p/app/components/expanded_pageview.dart';
-import 'package:c9p/app/data/event_bus/jump_to_tab_event.dart';
 import 'package:c9p/app/data/model/combo_best_seller_model.dart';
-import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/theme/colors.dart';
-import 'package:c9p/app/utils/app_utils.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -130,7 +125,8 @@ class TabPromotionView extends GetView<TabPromotionController> {
                                     dotHeight: 6.w,
                                     dotColor: colorBackgroundGrey5,
                                     activeDotColor: colorGreen60),
-                                activeIndex: 0,
+                                activeIndex:
+                                    controller.currentIndexMyCombo.value,
                                 count: controller.lMyCombo.length)),
                       ),
                       itemSpace(),
@@ -150,14 +146,17 @@ class TabPromotionView extends GetView<TabPromotionController> {
                   child: Row(
                     children: [
                       AppText(
-                        LocaleKeys.combo_best_seller.tr,
+                        LocaleKeys.combo_selling.tr,
                         style: typoSmallText700,
                       ),
                       const Spacer(),
-                      AppText(
-                        LocaleKeys.see_more.tr,
-                        style: typoSuperSmallTextBold.copyWith(
-                            fontSize: 11.sp, color: colorGreen55),
+                      InkWell(
+                        child: AppText(
+                          LocaleKeys.see_more.tr,
+                          style: typoSuperSmallTextBold.copyWith(
+                              fontSize: 11.sp, color: colorGreen55),
+                        ),
+                        onTap: () => controller.onClickSeeMore(),
                       ),
                       const Icon(
                         Icons.arrow_forward_ios_outlined,
@@ -191,6 +190,8 @@ class TabPromotionView extends GetView<TabPromotionController> {
                   enableInfiniteScroll: false,
                   disableCenter: true,
                   padEnds: false,
+                  onPageChanged: (index, reason) =>
+                      controller.setIndexMyCombo(index),
                   enlargeStrategy: CenterPageEnlargeStrategy.height),
               items: controller.lMyCombo.map((model) {
                 return Builder(
@@ -204,6 +205,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
                           child: AppNetworkImage(
                             fit: BoxFit.cover,
                             source: model.sale?.img,
+                            errorSource: errorBanner,
                           ),
                         ),
                       ),
@@ -215,7 +217,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
 
   Widget bestSellerWidget() => Obx(() => controller.isLoadingBestSeller.value
       ? const Center(child: ItemLoading())
-      : controller.lComboBestSellerModel.isEmpty
+      : controller.lComboSellingModel.isEmpty
           ? const AppNotDataWidget()
           : Padding(
               padding: EdgeInsets.only(left: contentPadding),
@@ -227,7 +229,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
                     disableCenter: true,
                     padEnds: false,
                     enlargeStrategy: CenterPageEnlargeStrategy.height),
-                items: controller.lComboBestSellerModel
+                items: controller.lComboSellingModel
                     .map((model) => Builder(
                           builder: (BuildContext context) =>
                               itemBestSeller(model, context),
@@ -236,7 +238,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
               ),
             ));
 
-  Widget itemBestSeller(ComboBestSellerModel model, BuildContext context) =>
+  Widget itemBestSeller(ComboSellingModel model, BuildContext context) =>
       SizedBox(
         width: MediaQuery.of(context).size.width / 1.7,
         child: Container(
@@ -265,6 +267,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
                   fit: BoxFit.cover,
                   source: model.img,
                   height: 150.h,
+                  errorSource: errorBanner,
                   width: MediaQuery.of(context).size.width,
                 ),
                 const SizedBox(

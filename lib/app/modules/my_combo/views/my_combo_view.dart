@@ -109,7 +109,7 @@ class MyComboView extends GetView<MyComboController> {
                   height: 123.h,
                   width: MediaQuery.of(context).size.width,
                   child: AppNetworkImage(
-                      fit: BoxFit.cover, source: model.sale?.img),
+                      fit: BoxFit.cover, source: model.sale?.img,errorSource: errorBanner,width: MediaQuery.of(context).size.width,),
                 ),
               ),
               itemSpace(),

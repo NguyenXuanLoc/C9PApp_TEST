@@ -1,12 +1,7 @@
-import 'package:c9p/app/components/app_developing.dart';
 import 'package:c9p/app/components/app_not_data_widget.dart';
 import 'package:c9p/app/components/app_refresh_widget.dart';
-import 'package:c9p/app/components/expanded_pageview.dart';
-import 'package:c9p/app/data/event_bus/jump_to_tab_event.dart';
 import 'package:c9p/app/data/model/combo_best_seller_model.dart';
-import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/theme/colors.dart';
-import 'package:c9p/app/utils/app_utils.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -130,7 +125,8 @@ class TabPromotionView extends GetView<TabPromotionController> {
                                     dotHeight: 6.w,
                                     dotColor: colorBackgroundGrey5,
                                     activeDotColor: colorGreen60),
-                                activeIndex: 0,
+                                activeIndex:
+                                    controller.currentIndexMyCombo.value,
                                 count: controller.lMyCombo.length)),
                       ),
                       itemSpace(),
@@ -154,11 +150,14 @@ class TabPromotionView extends GetView<TabPromotionController> {
                         style: typoSmallText700,
                       ),
                       const Spacer(),
-                      InkWell(child: AppText(
-                        LocaleKeys.see_more.tr,
-                        style: typoSuperSmallTextBold.copyWith(
-                            fontSize: 11.sp, color: colorGreen55),
-                      ),onTap: ()=>controller.onClickSeeMore(),),
+                      InkWell(
+                        child: AppText(
+                          LocaleKeys.see_more.tr,
+                          style: typoSuperSmallTextBold.copyWith(
+                              fontSize: 11.sp, color: colorGreen55),
+                        ),
+                        onTap: () => controller.onClickSeeMore(),
+                      ),
                       const Icon(
                         Icons.arrow_forward_ios_outlined,
                         size: 10,
@@ -191,6 +190,8 @@ class TabPromotionView extends GetView<TabPromotionController> {
                   enableInfiniteScroll: false,
                   disableCenter: true,
                   padEnds: false,
+                  onPageChanged: (index, reason) =>
+                      controller.setIndexMyCombo(index),
                   enlargeStrategy: CenterPageEnlargeStrategy.height),
               items: controller.lMyCombo.map((model) {
                 return Builder(
@@ -265,7 +266,8 @@ class TabPromotionView extends GetView<TabPromotionController> {
                 AppNetworkImage(
                   fit: BoxFit.cover,
                   source: model.img,
-                  height: 150.h,errorSource: errorBanner,
+                  height: 150.h,
+                  errorSource: errorBanner,
                   width: MediaQuery.of(context).size.width,
                 ),
                 const SizedBox(

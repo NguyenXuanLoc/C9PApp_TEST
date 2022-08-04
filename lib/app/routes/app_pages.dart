@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/combo_selling/bindings/combo_selling_binding.dart';
+import '../modules/combo_selling/views/combo_selling_view.dart';
 import '../modules/detail_order/bindings/detail_order_binding.dart';
 import '../modules/detail_order/views/detail_order_view.dart';
 import '../modules/developing/bindings/developing_binding.dart';
@@ -141,6 +143,11 @@ class AppPages {
       name: _Paths.MY_COMBO,
       page: () => MyComboView(),
       binding: MyComboBinding(),
+    ),
+    GetPage(
+      name: _Paths.COMBO_SELLING,
+      page: () => ComboSellingView(),
+      binding: ComboSellingBinding(),
     ),
   ];
 }

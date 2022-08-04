@@ -1,17 +1,17 @@
 // To parse this JSON data, do
 //
-//     final ComboBestSellerModel = ComboBestSellerModelFromJson(jsonString);
+//     final ComboSellingModel = ComboSellingModelFromJson(jsonString);
 
 import 'dart:convert';
 
-List<ComboBestSellerModel> comboBestSellerModelFromJson(List<dynamic> str) =>
-    List<ComboBestSellerModel>.from(str.map((x) => ComboBestSellerModel.fromJson(x)));
+List<ComboSellingModel> comboSellingModelFromJson(List<dynamic> str) =>
+    List<ComboSellingModel>.from(str.map((x) => ComboSellingModel.fromJson(x)));
 
-String comboBestSellerModelToJson(List<ComboBestSellerModel> data) =>
+String comboSellingModelToJson(List<ComboSellingModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class ComboBestSellerModel {
-  ComboBestSellerModel({
+class ComboSellingModel {
+  ComboSellingModel({
     this.id,
     this.name,
     this.startDate,
@@ -45,8 +45,8 @@ class ComboBestSellerModel {
   String? price;
   String? saleId;
 
-  factory ComboBestSellerModel.fromJson(Map<String, dynamic> json) =>
-      ComboBestSellerModel(
+  factory ComboSellingModel.fromJson(Map<String, dynamic> json) =>
+      ComboSellingModel(
         id: json["id"],
         name: json["name"],
         startDate: DateTime.parse(json["start_date"]),

@@ -22,6 +22,7 @@ abstract class Routes {
   static const REGISTER_SUCCESS = _Paths.REGISTER_SUCCESS;
   static const WEBVIEW = _Paths.WEBVIEW;
   static const MY_COMBO = _Paths.MY_COMBO;
+  static const COMBO_SELLING = _Paths.COMBO_SELLING;
 }
 
 abstract class _Paths {
@@ -45,4 +46,5 @@ abstract class _Paths {
   static const REGISTER_SUCCESS = '/register-success';
   static const WEBVIEW = '/webview';
   static const MY_COMBO = '/my-combo';
+  static const COMBO_SELLING = '/combo-selling';
 }

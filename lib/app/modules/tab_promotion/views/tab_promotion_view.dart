@@ -150,15 +150,15 @@ class TabPromotionView extends GetView<TabPromotionController> {
                   child: Row(
                     children: [
                       AppText(
-                        LocaleKeys.combo_best_seller.tr,
+                        LocaleKeys.combo_selling.tr,
                         style: typoSmallText700,
                       ),
                       const Spacer(),
-                      AppText(
+                      InkWell(child: AppText(
                         LocaleKeys.see_more.tr,
                         style: typoSuperSmallTextBold.copyWith(
                             fontSize: 11.sp, color: colorGreen55),
-                      ),
+                      ),onTap: ()=>controller.onClickSeeMore(),),
                       const Icon(
                         Icons.arrow_forward_ios_outlined,
                         size: 10,
@@ -204,6 +204,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
                           child: AppNetworkImage(
                             fit: BoxFit.cover,
                             source: model.sale?.img,
+                            errorSource: errorBanner,
                           ),
                         ),
                       ),
@@ -215,7 +216,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
 
   Widget bestSellerWidget() => Obx(() => controller.isLoadingBestSeller.value
       ? const Center(child: ItemLoading())
-      : controller.lComboBestSellerModel.isEmpty
+      : controller.lComboSellingModel.isEmpty
           ? const AppNotDataWidget()
           : Padding(
               padding: EdgeInsets.only(left: contentPadding),
@@ -227,7 +228,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
                     disableCenter: true,
                     padEnds: false,
                     enlargeStrategy: CenterPageEnlargeStrategy.height),
-                items: controller.lComboBestSellerModel
+                items: controller.lComboSellingModel
                     .map((model) => Builder(
                           builder: (BuildContext context) =>
                               itemBestSeller(model, context),
@@ -236,7 +237,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
               ),
             ));
 
-  Widget itemBestSeller(ComboBestSellerModel model, BuildContext context) =>
+  Widget itemBestSeller(ComboSellingModel model, BuildContext context) =>
       SizedBox(
         width: MediaQuery.of(context).size.width / 1.7,
         child: Container(
@@ -264,7 +265,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
                 AppNetworkImage(
                   fit: BoxFit.cover,
                   source: model.img,
-                  height: 150.h,
+                  height: 150.h,errorSource: errorBanner,
                   width: MediaQuery.of(context).size.width,
                 ),
                 const SizedBox(

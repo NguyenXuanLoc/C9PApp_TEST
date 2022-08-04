@@ -8,20 +8,22 @@ import '../../../routes/app_pages.dart';
 
 class TabPromotionController extends GetxController {
   var userProvider = UserProvider();
-  final lComboBestSellerModel =
-      List<ComboBestSellerModel>.empty(growable: true).obs;
+  final lComboSellingModel =
+      List<ComboSellingModel>.empty(growable: true).obs;
   final lMyCombo = List<MyComboModel>.empty(growable: true).obs;
   final isLoadingBestSeller = true.obs;
   final isLoadingMyCombo = true.obs;
 
   @override
   void onInit() {
-    getComboBestSellerModel();
+    getComboSelling();
     getMyCombo();
     super.onInit();
   }
 
   void openMyCombo() => Get.toNamed(Routes.MY_COMBO);
+
+  void onClickSeeMore() => Get.toNamed(Routes.COMBO_SELLING);
 
   @override
   void onReady() {
@@ -33,9 +35,9 @@ class TabPromotionController extends GetxController {
 
   void onRefresh() {
     lMyCombo.value = [];
-    lComboBestSellerModel.value = [];
+    lComboSellingModel.value = [];
     getMyCombo();
-    getComboBestSellerModel();
+    getComboSelling();
   }
 
   void getMyCombo() async {
@@ -47,13 +49,13 @@ class TabPromotionController extends GetxController {
     }
   }
 
-  void getComboBestSellerModel() async {
+  void getComboSelling() async {
     isLoadingBestSeller.value = true;
-    var response = await userProvider.getComboBestSellerModel();
+    var response = await userProvider.getComboSelling();
     isLoadingBestSeller.value = false;
     if (response.error == null && response.data != null) {
-      lComboBestSellerModel.value =
-          comboBestSellerModelFromJson(response.data['data']['data']);
+      lComboSellingModel.value =
+          comboSellingModelFromJson(response.data['data']['data']);
     }
   }
 }

@@ -90,8 +90,8 @@ class UserProvider extends BaseProvider {
   Future<ApiResult> getOrderById(String id) async =>
       await GET('user/order/$id');
 
-  Future<ApiResult> getComboBestSellerModel() async =>
-      await GET('sales/combo/active');
+  Future<ApiResult> getComboSelling({int nextPage=1}) async =>
+      await GET('sales/combo/active?page=$nextPage');
 
   Future<ApiResult> getMyCombo({int nextPage = 1}) async => await GET('user/combo/?page=$nextPage');
 }

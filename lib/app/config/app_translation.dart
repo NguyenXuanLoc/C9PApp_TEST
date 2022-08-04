@@ -120,6 +120,11 @@ class LocaleKeys {
   static const my_promotion = 'my_promotion';
   static const see_more = 'see_more';
   static const combo_best_seller = 'combo_best_seller';
+  static const payment_by_momo_money_vnpay='payment_by_momo_money_vnpay';
+  static const economy='economy';
+  static const still='still';
+  static const slot='slot';
+  static const order_rice='order_rice';
 }
 
 class Locales {
@@ -231,6 +236,11 @@ class Locales {
     'my_promotion': 'Khuyến mại của tôi',
     'combo_best_seller': 'Combo bán chạy',
     'see_more': 'Xem thêm',
+    'payment_by_momo_money_vnpay': 'Thanh toán: Momo, Tiền mặt, Vnpay',
+    'economy': 'Tiết kiệm',
+    'still': 'Còn',
+    'slot': 'suất',
+    'order_rice': 'Đặt cơm',
     'message_register_success':
         'Nhấn nút phía dưới để tiếp tục sử dụng dịch vụ của chúng tôi. Chúc bạn luôn có những bữa trưa ngon miệng',
   };

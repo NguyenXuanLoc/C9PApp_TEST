@@ -393,7 +393,6 @@ class TabMainView extends GetView<TabMainController> {
   Widget itemNearOrder(OrderModel model, BuildContext context, int index,
       {required Function(OrderModel model) onClickReOrder,
       required Function(OrderModel model) onClickCallBack}) {
-    logE("TAG model.isSelect: index: $index ${model.isSelect}");
     return InkWell(
       child: Container(
         width: MediaQuery.of(context).size.width / 1.85,

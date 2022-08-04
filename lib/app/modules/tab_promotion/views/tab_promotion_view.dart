@@ -58,60 +58,62 @@ class TabPromotionView extends GetView<TabPromotionController> {
                   child: Column(
                     children: [
                       itemSpace(),
-                      Container(
-                        height: 35.h,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: colorLine, width: 0.2),
-                          borderRadius: BorderRadius.circular(17),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              width: 3,
+                      InkWell(
+                          child: Container(
+                            height: 35.h,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: colorLine, width: 0.2),
+                              borderRadius: BorderRadius.circular(17),
                             ),
-                            Stack(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Container(
-                                  width: 40.w,
+                                const SizedBox(
+                                  width: 3,
                                 ),
-                                Positioned.fill(
-                                    child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: SvgPicture.asset(R.assetsSvgDots),
-                                )),
-                                Positioned.fill(
-                                    child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Image.asset(
-                                    R.assetsPngGift,
-                                    width: 25.w,
+                                Stack(
+                                  children: [
+                                    Container(
+                                      width: 40.w,
+                                    ),
+                                    Positioned.fill(
+                                        child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: SvgPicture.asset(R.assetsSvgDots),
+                                    )),
+                                    Positioned.fill(
+                                        child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Image.asset(
+                                        R.assetsPngGift,
+                                        width: 25.w,
+                                      ),
+                                    ))
+                                  ],
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 5),
+                                  child: AppText(
+                                    LocaleKeys.my_promotion.tr,
+                                    style: typoSuperSmallTextBold,
                                   ),
-                                ))
+                                ),
+                                const Spacer(),
+                                SvgPicture.asset(
+                                  R.assetsSvgNextCircle,
+                                  width: 12.w,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
                               ],
                             ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 5),
-                              child: AppText(
-                                LocaleKeys.my_promotion.tr,
-                                style: typoSuperSmallTextBold,
-                              ),
-                            ),
-                            const Spacer(),
-                            SvgPicture.asset(
-                              R.assetsSvgNextCircle,
-                              width: 12.w,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                          ],
-                        ),
-                      ),
+                          ),
+                          onTap: () => controller.openMyCombo()),
                       itemSpace(),
                       SizedBox(
                         height: 130.h,
@@ -201,7 +203,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
                           width: MediaQuery.of(context).size.width,
                           child: AppNetworkImage(
                             fit: BoxFit.cover,
-                            source: model.img,
+                            source: model.sale?.img,
                           ),
                         ),
                       ),

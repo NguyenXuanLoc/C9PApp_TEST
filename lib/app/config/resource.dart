@@ -26,6 +26,7 @@ class R {
   static const String assetsPngCircleAvatar = 'assets/png/circle_avatar.png';
   static const String assetsPngGift = 'assets/png/gift.png';
   static const String assetsPngHalfCircle = 'assets/png/half_circle.png';
+  static const String assetsPngPig= 'assets/png/pig.png';
 
   ///SVG
   static const String assetsLocationLoginSvg = 'assets/svg/location_login.svg';

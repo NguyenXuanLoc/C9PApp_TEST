@@ -93,6 +93,9 @@ class UserProvider extends BaseProvider {
   Future<ApiResult> getComboSelling({int nextPage=1}) async =>
       await GET('sales/combo/active?page=$nextPage');
 
+  Future<ApiResult> loginByAccount(
+          {required String phone, required String pass}) async =>
+      await POST('user/login', {ApiKey.phone: phone, ApiKey.password: pass});
   Future<ApiResult> getMyCombo({int nextPage = 1}) async => await GET('user/combo/?page=$nextPage');
-  Future<ApiResult> checkPasswordExits() async => await GET('user/password');
+  Future<ApiResult> checkPasswordExits(String phoneNumber) async => await GET('user/password?phone=$phoneNumber');
 }

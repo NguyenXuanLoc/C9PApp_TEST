@@ -35,6 +35,7 @@ class ApiKey {
   static const product_id = 'product_id';
   static const uid = 'uid';
   static const device_token = 'device_token';
+  static const password = 'password';
 }
 
 class AppConstant {

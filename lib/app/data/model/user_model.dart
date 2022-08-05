@@ -49,7 +49,7 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         userData: UserData.fromJson(json["userData"] ?? json["user"]),
-        token: Token.fromJson(json["token"]),
+        token: Token.fromJson(json["token"] ?? json["bearerToken"]),
       );
 
   Data copyOf({UserData? userData, Token? token}) =>
@@ -94,6 +94,7 @@ class UserData {
     this.roleId,
     this.isActive,
     this.note,
+    this.status,
   });
 
   int? id;
@@ -106,6 +107,7 @@ class UserData {
   DateTime? updatedAt;
   int? roleId;
   int? isActive;
+  String? status;
   dynamic note;
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
@@ -120,6 +122,7 @@ class UserData {
         roleId: json["role_id"],
         isActive: json["is_active"],
         note: json["note"],
+        status: json["status"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -134,5 +137,6 @@ class UserData {
         "role_id": roleId,
         "is_active": isActive,
         "note": note,
+        "status": status,
       };
 }

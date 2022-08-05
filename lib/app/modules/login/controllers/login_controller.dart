@@ -1,5 +1,6 @@
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -25,9 +26,9 @@ class LoginController extends GetxController {
     if (isValid.value) {
       var isPassExist = await checkPasswordExist();
       if (isPassExist == null) return;
-      if (isPassExist)
-        toast("Login  == PIN");
-      else {
+      if (isPassExist) {
+        Get.toNamed(Routes.LOGIN_BY_PIN,arguments: Utils.formatPhone(phoneController.text));
+      } else {
         Get.toNamed(Routes.OTP,
             arguments: Utils.formatPhone(phoneController.text));
       }
@@ -50,7 +51,7 @@ class LoginController extends GetxController {
   }
 
   Future<bool?> checkPasswordExist() async {
-    var response = await userProvider.checkPasswordExits();
+    var response = await userProvider.checkPasswordExits(Utils.standardizePhoneNumber(phoneController.text));
     if (response.error == null && response.data != null) {
       var isExist = response.data['data']['exist'] ?? false;
       return isExist;

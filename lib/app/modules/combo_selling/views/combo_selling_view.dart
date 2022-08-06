@@ -5,6 +5,7 @@ import 'package:c9p/app/components/app_not_data_widget.dart';
 import 'package:c9p/app/components/item_loading.dart';
 import 'package:c9p/app/data/model/combo_best_seller_model.dart';
 import 'package:c9p/app/data/model/my_combo_model.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -104,8 +105,10 @@ class ComboSellingView extends GetView<ComboSellingController> {
             ClipRRect(
               borderRadius: BorderRadius.circular(17),
               child: AppNetworkImage(
-                source: model.img,fit: BoxFit.cover,
-                height: 110.h,errorSource: errorBanner,
+                source: model.img,
+                fit: BoxFit.cover,
+                height: 110.h,
+                errorSource: errorBanner,
                 width: 110.h,
               ),
             ),
@@ -134,7 +137,7 @@ class ComboSellingView extends GetView<ComboSellingController> {
                     ),
                     Expanded(
                         child: AppText(
-                      "${LocaleKeys.economy.tr} ${Utils.formatMoney((int.parse(model.price ?? "0") / (100 - (model.discount ?? 0)) * (model.discount ?? 0)).toInt())}đ",
+                      "${LocaleKeys.economy.tr} ${Utils.formatMoney((model.discount ?? 1) * 45000 + (model.getFree ?? 1) * 45000 - int.parse(model.price!))}đ",
                       style: typoSuperSmallTextRegular.copyWith(
                           fontSize: 12.sp, color: colorGrey50),
                       textOverflow: TextOverflow.ellipsis,
@@ -149,7 +152,7 @@ class ComboSellingView extends GetView<ComboSellingController> {
                   textOverflow: TextOverflow.ellipsis,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () => controller.onClickByNew(model),
                   child: Container(
                     height: 22.h,
                     alignment: Alignment.center,
@@ -158,7 +161,7 @@ class ComboSellingView extends GetView<ComboSellingController> {
                         borderRadius: BorderRadius.circular(12),
                         color: colorGreen40),
                     child: AppText(
-                      LocaleKeys.order_rice.tr,
+                      LocaleKeys.buy_now.tr,
                       style: typoSuperSmallText600.copyWith(
                           color: colorWhite, fontSize: 12.sp),
                     ),

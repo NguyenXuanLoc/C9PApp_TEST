@@ -130,6 +130,11 @@ class LocaleKeys {
   static const slot='slot';
   static const order_rice='order_rice';
   static const pin_invalid='pin_invalid';
+  static const by_sale_combo='by_sale_combo';
+  static const qty_package='qty_package';
+  static const you_order_success='you_order_success';
+  static const rice_portion_and_free='rice_portion_and_free';
+  static const buy_now='buy_now';
 }
 
 class Locales {
@@ -251,6 +256,11 @@ class Locales {
     'input_pin': 'Nhập mã pin',
     'please_input_pin_to_login': 'Bạn vui lòng cập nhật mã pin để đăng nhập dễ dàng hơn nhé',
     'pin_invalid': 'Mã pin không hợp lệ',
+    'by_sale_combo': 'Mua gói khuyến mại',
+    'qty_package': 'Số gói khuyến mại',
+    'you_order_success': 'Bạn đã đặt thành công',
+    'rice_portion_and_free': 'suất cơm và được tặng kèm',
+    'buy_now': 'Mua ngay',
     'message_register_success':
         'Nhấn nút phía dưới để tiếp tục sử dụng dịch vụ của chúng tôi. Chúc bạn luôn có những bữa trưa ngon miệng',
   };

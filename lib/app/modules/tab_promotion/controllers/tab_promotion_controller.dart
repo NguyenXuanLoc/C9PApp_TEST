@@ -59,4 +59,7 @@ class TabPromotionController extends GetxController {
           comboSellingModelFromJson(response.data['data']['data']);
     }
   }
+
+  void openSaleCombo(ComboSellingModel model) =>
+      Get.toNamed(Routes.BY_COMBO, arguments: model);
 }

@@ -70,6 +70,7 @@ class R {
   static const String assetsSvgDecorate3 = 'assets/svg/decorate_3.svg';
   static const String assetsSvgDecorate4 = 'assets/svg/decorate_4.svg';
   static const String assetsSvgPromotionCircle= 'assets/svg/promotion_circle.svg';
+  static const String assetsSvgOpenGift= 'assets/svg/open_gift.svg';
   static const String assetsSvgLocationCircle =
       'assets/svg/location_circle.svg';
   static const String assetsBackgroundHeaderTabMainSvg =

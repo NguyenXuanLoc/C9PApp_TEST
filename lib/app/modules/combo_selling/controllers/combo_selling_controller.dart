@@ -1,4 +1,5 @@
 import 'package:c9p/app/data/model/combo_best_seller_model.dart';
+import 'package:c9p/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -63,6 +64,6 @@ class ComboSellingController extends GetxController {
       }
     }
   }
-  void onClickOrderRice(ComboSellingModel model){}
+  void onClickByNew(ComboSellingModel model)=> Get.toNamed(Routes.BY_COMBO,arguments: model);
   void openComboDetail(ComboSellingModel model){}
 }

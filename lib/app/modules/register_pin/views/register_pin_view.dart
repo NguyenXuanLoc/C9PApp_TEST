@@ -25,14 +25,6 @@ class RegisterPinView extends GetView<RegisterPinController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-          SizedBox(
-          width: 20.w,
-          child: IconButton(
-              splashRadius: 20,
-              padding: const EdgeInsets.all(0),
-              onPressed: () => Get.back(),
-              icon: SvgPicture.asset(R.assetsBackSvg)),
-        ),
         const SizedBox(
           height: 20,
         ),
@@ -54,7 +46,8 @@ class RegisterPinView extends GetView<RegisterPinController> {
         Padding(
           padding: EdgeInsets.only(left: 30.w, right: 30.w),
           child: OTPTextField(cursorColor: colorGreen57,
-            hintText: '',
+                controller: controller.otpController,
+                hintText: '',
             boxDecoration: BoxDecoration(
               borderRadius: BorderRadius.circular(7),
               color: Colors.white,
@@ -93,8 +86,8 @@ class RegisterPinView extends GetView<RegisterPinController> {
                 ? colorText0
                     : colorText60),
                 shapeBorder: shapeBorderButton,
-                onPress: () {},
-          width: MediaQuery
+                  onPress: () => controller.onClickContinue(),
+                  width: MediaQuery
               .of(context)
               .size
               .width,

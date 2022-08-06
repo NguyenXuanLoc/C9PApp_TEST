@@ -53,7 +53,9 @@ class LoginByPinView extends GetView<LoginByPinController> {
             ),
             Padding(
               padding: EdgeInsets.only(left: 30.w, right: 30.w),
-              child: OTPTextField(cursorColor: colorGreen57,
+              child: OTPTextField(
+                cursorColor: colorGreen57,
+                controller: controller.otpController,
                 hintText: '',
                 boxDecoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),

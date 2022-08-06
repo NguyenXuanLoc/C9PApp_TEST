@@ -97,5 +97,9 @@ class UserProvider extends BaseProvider {
           {required String phone, required String pass}) async =>
       await POST('user/login', {ApiKey.phone: phone, ApiKey.password: pass});
   Future<ApiResult> getMyCombo({int nextPage = 1}) async => await GET('user/combo/?page=$nextPage');
+
+  Future<ApiResult> createNewPass({required String pass}) async => await POST(
+      'user/password/new',
+      {ApiKey.password: pass, ApiKey.password_confirmation: pass});
   Future<ApiResult> checkPasswordExits(String phoneNumber) async => await GET('user/password?phone=$phoneNumber');
 }

@@ -1,4 +1,5 @@
 import 'package:c9p/app/components/dialogs.dart';
+import 'package:c9p/app/components/otp_widget.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/log_utils.dart';
@@ -18,11 +19,18 @@ class LoginByPinController extends GetxController {
   final errorPin = ''.obs;
   final userProvider = UserProvider();
   var phone = '';
-
+  var otpController = OtpFieldController();
   @override
   void onInit() {
     phone = Get.arguments;
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    WidgetsBinding.instance
+        .addPostFrameCallback((timeStamp) => otpController.setFocus(0));
+    super.onReady();
   }
 
   @override
@@ -49,7 +57,7 @@ class LoginByPinController extends GetxController {
     Dialogs.showLoadingDialog(context);
     var response = await userProvider.loginByAccount(
         phone: phone.replaceAll('+84', '0'), pass: pin.value);
-    Dialogs.hideLoadingDialog();
+   await Dialogs.hideLoadingDialog();
     if (response.error == null && response.data != null) {
       try {
         var model = UserModel.fromJson(response.data);

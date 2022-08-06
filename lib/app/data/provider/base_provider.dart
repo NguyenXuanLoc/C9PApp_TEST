@@ -40,9 +40,9 @@ class BaseProvider extends GetConnect {
             'Content-Type': 'application/json'
           },
           query: queryParam);
+      Logger().d(response.body);
       if (response.isOk && response.body != null) {
         var result = response.body;
-        Logger().d(result);
         return ApiResult<dynamic>(
           data: result,
         );
@@ -53,7 +53,7 @@ class BaseProvider extends GetConnect {
         Logger().e('Error ${response.status.code} - ${response.statusText}');
         var result = response.body;
         return ApiResult<dynamic>(
-          error: response.statusText ?? '',
+          error:response.body['message'] ?? response.statusText ?? '',
           data: result,
         );
       }

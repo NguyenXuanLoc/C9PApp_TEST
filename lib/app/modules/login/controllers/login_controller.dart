@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../config/app_translation.dart';
+import '../../../config/constant.dart';
 import '../../../utils/app_utils.dart';
 import '../../../utils/toast_utils.dart';
 
@@ -56,7 +57,11 @@ class LoginController extends GetxController {
       var isExist = response.data['data']['exist'] ?? false;
       return isExist;
     } else {
-      toast(response.error.toString());
+      if(response.error.toString() ==MessageKey.NOT_FOUND_ANY_USER){
+        return false;
+      }else {
+        toast(response.error.toString());
+      }
       return null;
     }
   }

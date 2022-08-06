@@ -135,6 +135,12 @@ class LocaleKeys {
   static const you_order_success='you_order_success';
   static const rice_portion_and_free='rice_portion_and_free';
   static const buy_now='buy_now';
+  static const receiver='receiver';
+  static const payment='payment';
+  static const price='price';
+  static const total_price='total_price';
+  static const vn_pay='vn_pay';
+  static const confirm_order='confirm_order';
 }
 
 class Locales {
@@ -222,7 +228,7 @@ class Locales {
     'yes': 'Đồng ý',
     'hours': 'Giờ',
     'minutes': 'Phút',
-    'received': 'Đã tiếp nhận',
+    'received': 'Người nhận',
     'not_data_pull_to_refresh': 'Chưa có dữ liệu\nKéo xuống để tải lại.',
     'not_order_pull_to_refresh': 'Chưa có đơn hàng\nKéo xuống để tải lại.',
     'not_find_address_please_try_again':
@@ -260,7 +266,12 @@ class Locales {
     'qty_package': 'Số gói khuyến mại',
     'you_order_success': 'Bạn đã đặt thành công',
     'rice_portion_and_free': 'suất cơm và được tặng kèm',
+    'price': 'Giá tiền',
+    'payment': 'Thanh toán',
+    'total_price': 'Tổng tiền cần thanh toán',
     'buy_now': 'Mua ngay',
+    'vn_pay': 'VNPAY',
+    'confirm_order': 'Xác nhận đơn hàng',
     'message_register_success':
         'Nhấn nút phía dưới để tiếp tục sử dụng dịch vụ của chúng tôi. Chúc bạn luôn có những bữa trưa ngon miệng',
   };

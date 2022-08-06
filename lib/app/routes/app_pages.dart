@@ -4,6 +4,8 @@ import '../modules/by_combo/bindings/by_combo_binding.dart';
 import '../modules/by_combo/views/by_combo_view.dart';
 import '../modules/combo_selling/bindings/combo_selling_binding.dart';
 import '../modules/combo_selling/views/combo_selling_view.dart';
+import '../modules/confirm_order/bindings/confirm_order_binding.dart';
+import '../modules/confirm_order/views/confirm_order_view.dart';
 import '../modules/detail_order/bindings/detail_order_binding.dart';
 import '../modules/detail_order/views/detail_order_view.dart';
 import '../modules/developing/bindings/developing_binding.dart';
@@ -169,6 +171,11 @@ class AppPages {
       name: _Paths.BY_COMBO,
       page: () => ByComboView(),
       binding: ByComboBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONFIRM_ORDER,
+      page: () => ConfirmOrderView(),
+      binding: ConfirmOrderBinding(),
     ),
   ];
 }

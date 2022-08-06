@@ -1,5 +1,6 @@
 import 'package:c9p/app/config/app_translation.dart';
 import 'package:c9p/app/data/model/combo_best_seller_model.dart';
+import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,7 +36,10 @@ class ByComboController extends GetxController {
   }
 
   void onClickContinues() {
-    if (isValid()) {}
+    if (isValid()) {
+      Get.toNamed(Routes.CONFIRM_ORDER,
+          arguments: [model, qtyController.text, fullNameController.text]);
+    }
   }
 
   void checkUserCache() async {

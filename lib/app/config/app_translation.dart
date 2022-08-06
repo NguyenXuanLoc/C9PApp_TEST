@@ -141,6 +141,11 @@ class LocaleKeys {
   static const total_price='total_price';
   static const vn_pay='vn_pay';
   static const confirm_order='confirm_order';
+  static const you_have_successfully_placed_order_number='you_have_successfully_placed_order_number';
+  static const method_payment='method_payment';
+  static const buyer='buyer';
+  static const trading_code='trading_code';
+  static const vnpay_wallet='vnpay_wallet';
 }
 
 class Locales {
@@ -270,8 +275,13 @@ class Locales {
     'payment': 'Thanh toán',
     'total_price': 'Tổng tiền cần thanh toán',
     'buy_now': 'Mua ngay',
-    'vn_pay': 'VNPAY',
+    'vn_pay': 'Vnpay',
     'confirm_order': 'Xác nhận đơn hàng',
+    'you_have_successfully_placed_order_number': 'Bạn vừa đặt thành công mã đơn hàng',
+    'method_payment': 'Phương thức thanh toán',
+    'buyer': 'Người mua hàng',
+    'trading_code': 'Mã giao dịch',
+    'vnpay_wallet': 'Ví Vnpay',
     'message_register_success':
         'Nhấn nút phía dưới để tiếp tục sử dụng dịch vụ của chúng tôi. Chúc bạn luôn có những bữa trưa ngon miệng',
   };

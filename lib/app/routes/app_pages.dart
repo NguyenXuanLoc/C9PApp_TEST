@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/buy_combo_success/bindings/buy_combo_success_binding.dart';
+import '../modules/buy_combo_success/views/buy_combo_success_view.dart';
 import '../modules/by_combo/bindings/by_combo_binding.dart';
 import '../modules/by_combo/views/by_combo_view.dart';
 import '../modules/combo_selling/bindings/combo_selling_binding.dart';
@@ -176,6 +178,11 @@ class AppPages {
       name: _Paths.CONFIRM_ORDER,
       page: () => ConfirmOrderView(),
       binding: ConfirmOrderBinding(),
+    ),
+    GetPage(
+      name: _Paths.BUY_COMBO_SUCCESS,
+      page: () => BuyComboSuccessView(),
+      binding: BuyComboSuccessBinding(),
     ),
   ];
 }

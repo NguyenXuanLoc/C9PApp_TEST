@@ -198,7 +198,7 @@ class Locales {
     'full_name': 'Họ & tên',
     'delivery_address': 'Địa chỉ nhận hàng',
     'delivery_date': 'Ngày nhận hàng',
-    'choose_number': 'Chọn số suất',
+    'choose_number': 'Số suất cơm',
     'please_input_full_name': 'Vui lòng nhập họ và tên',
     'please_input_delivery_add': 'Vui lòng nhập và chọn đúng địa chỉ nhận hàng',
     'please_input_delivery_date': 'Thiếu thông tin',

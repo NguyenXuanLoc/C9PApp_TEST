@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/by_combo/bindings/by_combo_binding.dart';
+import '../modules/by_combo/views/by_combo_view.dart';
 import '../modules/combo_selling/bindings/combo_selling_binding.dart';
 import '../modules/combo_selling/views/combo_selling_view.dart';
 import '../modules/detail_order/bindings/detail_order_binding.dart';
@@ -162,6 +164,11 @@ class AppPages {
       name: _Paths.LOGIN_BY_PIN,
       page: () => LoginByPinView(),
       binding: LoginByPinBinding(),
+    ),
+    GetPage(
+      name: _Paths.BY_COMBO,
+      page: () => ByComboView(),
+      binding: ByComboBinding(),
     ),
   ];
 }

@@ -198,17 +198,19 @@ class TabPromotionView extends GetView<TabPromotionController> {
                   builder: (BuildContext context) {
                     return Padding(
                       padding: EdgeInsets.only(right: 10.w),
-                      child: ClipRRect(
+                      child: InkWell(
+                          child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: AppNetworkImage(
                             fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width,
                             source: model.sale?.img,
                             errorSource: errorBanner,
                           ),
                         ),
-                      ),
+                      )),
                     );
                   },
                 );
@@ -239,64 +241,68 @@ class TabPromotionView extends GetView<TabPromotionController> {
             ));
 
   Widget itemBestSeller(ComboSellingModel model, BuildContext context) =>
-      SizedBox(
-        width: MediaQuery.of(context).size.width / 1.7,
-        child: Container(
-          margin: EdgeInsets.only(right: 10.w, bottom: 10.w, left: 2, top: 2),
-          decoration: BoxDecoration(
-            color: colorWhite,
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20)),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  spreadRadius: 1,
-                  blurRadius: 1)
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AppNetworkImage(
-                  fit: BoxFit.cover,
-                  source: model.img,
-                  height: 150.h,
-                  errorSource: errorBanner,
-                  width: MediaQuery.of(context).size.width,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Spacer(),
-                Padding(
-                  padding: EdgeInsets.only(left: 8.w, right: 8.w),
-                  child: AppText(
-                    model.name ?? '',
-                    style: typoSmallTextBold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 8.w, right: 8.w, bottom: 8.w),
-                  child: AppText(
-                    'Đặt càng nhiều, ưu đãi càng lớn mua ngay mua ngay, mại zo mại zoa anh em ơi' /* model.description ?? ''*/,
-                    style: typoSuperSmallText500.copyWith(fontSize: 11.sp),
-                    maxLine: 2,
-                    textOverflow: TextOverflow.ellipsis,
-                  ),
-                ),
+      InkWell(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width / 1.7,
+          child: Container(
+            margin: EdgeInsets.only(right: 10.w, bottom: 10.w, left: 2, top: 2),
+            decoration: BoxDecoration(
+              color: colorWhite,
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20)),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 1,
+                    blurRadius: 1)
               ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AppNetworkImage(
+                    fit: BoxFit.cover,
+                    source: model.img,
+                    height: 150.h,
+                    errorSource: errorBanner,
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: EdgeInsets.only(left: 8.w, right: 8.w),
+                    child: AppText(
+                      model.name ?? '',
+                      style: typoSmallTextBold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 8.w, right: 8.w, bottom: 8.w),
+                    child: AppText(
+                      model.description ?? '',
+                      style: typoSuperSmallText500.copyWith(fontSize: 11.sp),
+                      maxLine: 2,
+                      textOverflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
+        onTap: () => controller.openSaleCombo(model),
       );
 
   Widget itemSpace() => const SizedBox(

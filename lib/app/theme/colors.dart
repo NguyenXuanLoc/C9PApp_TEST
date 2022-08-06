@@ -164,7 +164,9 @@ const colorGreen50 = Color(0xFF239B2E);
 const colorGreen40 = Color(0xFF50AC17);
 
 const colorOrange60 = Color(0xFFCD8E15);
+const colorOrange50 = Color(0xFFBE9720);
 const colorOrange40 = Color(0xFFE5B110);
+
 const colorGreenGradient = [
   Color(0xff20b860),
   Color(0xff08b04f),

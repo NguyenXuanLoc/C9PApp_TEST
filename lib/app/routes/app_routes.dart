@@ -25,6 +25,7 @@ abstract class Routes {
   static const MY_COMBO = _Paths.MY_COMBO;
   static const COMBO_SELLING = _Paths.COMBO_SELLING;
   static const LOGIN_BY_PIN = _Paths.LOGIN_BY_PIN;
+  static const BY_COMBO = _Paths.BY_COMBO;
 }
 
 abstract class _Paths {
@@ -51,4 +52,5 @@ abstract class _Paths {
   static const COMBO_SELLING = '/combo-selling';
   static const REGISTER_PIN = '/register-pin';
   static const LOGIN_BY_PIN = '/login-by-pin';
+  static const BY_COMBO = '/by-combo';
 }

@@ -109,7 +109,7 @@ class ByComboView extends GetView<ByComboController> {
                           text:
                               "${LocaleKeys.you_order_success.tr} ${controller.model.discount} ",
                           style: typoSuperSmallText500.copyWith(
-                              fontSize: 10.sp, color: colorOrange50),
+                              fontSize: 10.sp, color: colorOrange50,fontStyle: FontStyle.italic),
                           children: [
                             TextSpan(
                               text:

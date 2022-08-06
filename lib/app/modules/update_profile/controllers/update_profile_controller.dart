@@ -55,7 +55,7 @@ class UpdateProfileController extends GetxController {
           if (isBackToHome.value) {
             Get.back();
           } else {
-            Get.offAllNamed(Routes.REGISTER_SUCCESS);
+            Get.offAllNamed(Routes.REGISTER_PIN);
           }
         } else {
           toast(LocaleKeys.network_error.tr);

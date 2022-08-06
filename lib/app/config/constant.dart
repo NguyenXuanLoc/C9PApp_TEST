@@ -17,6 +17,7 @@ class MessageKey {
       'The sms verification code used to create the phone auth credential is invalid';
   static const String otp_expired = 'The sms code has expired';
   static const String OK = 'OK';
+  static const String NOT_FOUND_ANY_USER = 'Not found any user';
 }
 
 class ApiKey {
@@ -35,6 +36,8 @@ class ApiKey {
   static const product_id = 'product_id';
   static const uid = 'uid';
   static const device_token = 'device_token';
+  static const password = 'password';
+  static const password_confirmation = 'password_confirmation';
 }
 
 class AppConstant {

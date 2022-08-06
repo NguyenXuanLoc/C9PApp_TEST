@@ -117,6 +117,10 @@ class LocaleKeys {
   static const message_register_success = 'message_register_success';
   static const net_work_error_click_to_retry = 'net_work_error_click_to_retry';
   static const token_expire = 'token_expire';
+  static const create_pin = 'create_pin';
+  static const input_pin = 'input_pin';
+  static const please_input_pin_to_login = 'please_input_pin_to_login';
+  static const please_update_pin_to_login = 'please_update_pin_to_login';
   static const my_promotion = 'my_promotion';
   static const see_more = 'see_more';
   static const combo_selling = 'combo_selling';
@@ -125,6 +129,7 @@ class LocaleKeys {
   static const still='still';
   static const slot='slot';
   static const order_rice='order_rice';
+  static const pin_invalid='pin_invalid';
 }
 
 class Locales {
@@ -241,6 +246,11 @@ class Locales {
     'still': 'Còn',
     'slot': 'suất',
     'order_rice': 'Đặt cơm',
+    'create_pin': 'Tạo mã pin',
+    'please_update_pin_to_login': 'Bạn vui lòng cập nhật mã pin để đăng nhập dễ dàng hơn nhé',
+    'input_pin': 'Nhập mã pin',
+    'please_input_pin_to_login': 'Bạn vui lòng cập nhật mã pin để đăng nhập dễ dàng hơn nhé',
+    'pin_invalid': 'Mã pin không hợp lệ',
     'message_register_success':
         'Nhấn nút phía dưới để tiếp tục sử dụng dịch vụ của chúng tôi. Chúc bạn luôn có những bữa trưa ngon miệng',
   };

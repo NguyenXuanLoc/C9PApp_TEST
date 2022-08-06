@@ -23,8 +23,13 @@ class StorageUtils {
         globals.isNeedUpdateProfile = userModel.needUpdate ?? true;
         globals.userName = userModel.data?.userData?.name ?? '';
         globals.phoneNumber = userModel.data?.userData?.phone ?? '';
+        globals.isActive =
+            ((userModel.data?.userData?.status ?? '') == 'active')
+                ? true
+                : false;
         return userModel;
       } else {
+        globals.isActive = false;
         globals.accessToken = '';
         globals.userName = '';
         globals.phoneNumber = '';
@@ -32,6 +37,7 @@ class StorageUtils {
         globals.isLogin = false;
       }
     } catch (ex) {
+      globals.isActive = false;
       globals.accessToken = '';
       globals.userName = '';
       globals.phoneNumber = '';

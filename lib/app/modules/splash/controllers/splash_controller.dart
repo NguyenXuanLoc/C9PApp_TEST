@@ -16,7 +16,9 @@ class SplashController extends GetxController {
         () => !globals.isLogin
             ? Get.offAllNamed(Routes.HOME,arguments: false)
             : (globals.isLogin && globals.isNeedUpdateProfile
-                ? Get.offAllNamed(Routes.UPDATE_PROFILE)
+                ? globals.isActive
+                    ? Get.offAllNamed(Routes.HOME, arguments: false)
+                    : Get.offAllNamed(Routes.UPDATE_PROFILE)
                 : Get.offAllNamed(Routes.HOME,arguments: false)));
   }
 }

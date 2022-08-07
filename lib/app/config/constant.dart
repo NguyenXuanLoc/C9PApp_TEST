@@ -39,6 +39,7 @@ class ApiKey {
   static const saleId = 'saleId';
   static const password = 'password';
   static const password_confirmation = 'password_confirmation';
+  static const vnp_ResponseCode = 'vnp_ResponseCode';
 }
 
 class AppConstant {
@@ -49,4 +50,5 @@ class AppConstant {
   static const URL_MENU = 'https://com9phut.vn/menu/';
   static const URL_WEATHER_ICON_DEFAULT =
       'http://openweathermap.org/img/wn/03d@2x.png';
+  static const PAYMENT_SUCCESSFULL='00';
 }

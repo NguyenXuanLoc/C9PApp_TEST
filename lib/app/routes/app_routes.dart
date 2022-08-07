@@ -28,6 +28,7 @@ abstract class Routes {
   static const BY_COMBO = _Paths.BY_COMBO;
   static const CONFIRM_ORDER = _Paths.CONFIRM_ORDER;
   static const BUY_COMBO_SUCCESS = _Paths.BUY_COMBO_SUCCESS;
+  static const PAYMENT = _Paths.PAYMENT;
 }
 
 abstract class _Paths {
@@ -57,4 +58,5 @@ abstract class _Paths {
   static const BY_COMBO = '/by-combo';
   static const CONFIRM_ORDER = '/confirm-order';
   static const BUY_COMBO_SUCCESS = '/buy-combo-success';
+  static const PAYMENT = '/payment';
 }

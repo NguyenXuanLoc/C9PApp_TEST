@@ -106,7 +106,10 @@ class UserProvider extends BaseProvider {
 
   Future<ApiResult> checkPasswordExits(String phoneNumber) async =>
       await GET('user/password?phone=$phoneNumber');
-
-  Future<ApiResult> buyCombo(String saleId) async =>
+  // payment/check_payment
+  Future<ApiResult> buyCombo(int saleId) async =>
       await POST('user/combo', {ApiKey.saleId: saleId});
+
+  Future<ApiResult> checkPayment(String orderId) async =>
+      await GET('payment/check_payment?orderId=$orderId');
 }

@@ -193,7 +193,7 @@ class MyComboView extends GetView<MyComboController> {
               )
             ],
           ),
-          onTap: () => controller.openComboDetail(model),
+          // onTap: () => controller.openComboDetail(model),
         ),
       );
 

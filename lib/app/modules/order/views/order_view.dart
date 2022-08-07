@@ -58,10 +58,7 @@ class OrderView extends GetView<OrderController> {
                 child: PageView(
                   controller: controller.pageController,
                   children: controller.lDescriptionImage
-                      .map((e) => Image.asset(
-                            e,
-                            fit: BoxFit.fitHeight
-                          ))
+                      .map((e) => Image.asset(e, fit: BoxFit.fitHeight))
                       .toList(),
                 ),
               ),
@@ -92,8 +89,7 @@ class OrderView extends GetView<OrderController> {
                   errorText: controller.errorFullName.value,
                   controller: controller.fullNameController,
                   textInputAction: TextInputAction.next,
-                  textStyle:
-                      typoSuperSmallTextBold.copyWith(),
+                  textStyle: typoSuperSmallTextBold.copyWith(),
                   decoration: decorTextFieldOval.copyWith(
                     hintText: LocaleKeys.input_full_name.tr,
                     hintStyle:
@@ -112,8 +108,7 @@ class OrderView extends GetView<OrderController> {
                   controller: controller.phoneController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.phone,
-                  textStyle: typoSuperSmallTextBold.copyWith(
-                  ),
+                  textStyle: typoSuperSmallTextBold.copyWith(),
                   decoration: decorTextFieldOval.copyWith(
                     hintText: LocaleKeys.input_phone_number_at_here.tr,
                     hintStyle:
@@ -226,8 +221,7 @@ class OrderView extends GetView<OrderController> {
                           controller: controller.dateController,
                           errorText: controller.errorDate.value,
                           textInputAction: TextInputAction.next,
-                          textStyle: typoSuperSmallTextBold.copyWith(
-                          ),
+                          textStyle: typoSuperSmallTextBold.copyWith(),
                           decoration: decorTextFieldOval.copyWith(
                             hintText: 'mm/dd/yyy',
                             suffixIconConstraints: BoxConstraints(
@@ -261,8 +255,7 @@ class OrderView extends GetView<OrderController> {
                           errorText: controller.errorDate.value,
                           controller: controller.hourController,
                           textInputAction: TextInputAction.next,
-                          textStyle: typoSuperSmallTextBold.copyWith(
-                              ),
+                          textStyle: typoSuperSmallTextBold.copyWith(),
                           decoration: decorTextFieldOval.copyWith(
                             hintText: 'hh:mm AM',
                             suffixIconConstraints: BoxConstraints(
@@ -299,20 +292,28 @@ class OrderView extends GetView<OrderController> {
                       color: colorSemanticRed100, fontSize: 11.sp),
                 ),
               ),
-              /*          Obx(() => AppTextField(
-                  keyboardType: TextInputType.number,
-                  controller: controller.countController,
-                  errorText: controller.errorCount.value,
-                  textInputAction: TextInputAction.done,
-                  textStyle:
-                      typoSuperSmallTextBold.copyWith(color: colorText60),
-                  decoration: decorTextFieldOval.copyWith(
-                    hintText: LocaleKeys.input_qty.tr,
-                    hintStyle:
-                        typoSuperSmallTextBold.copyWith(color: colorText60),
-                    suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,
-                        color: colorBlack),
-                  ))),*/
+        Visibility(visible: controller.myComboModel!=null,child:       Row(
+          children: [
+            SvgPicture.asset(R.assetsSvgOpenGift),
+            const SizedBox(
+              width: 7,
+            ),
+            Expanded(
+                child: RichText(
+                  text: TextSpan(
+                      text: "${LocaleKeys.remaining_rice.tr} ",
+                      style: typoSuperSmallText500.copyWith(
+                          fontSize: 10.sp,
+                          color: colorOrange50,
+                          fontStyle: FontStyle.italic),
+                          children: [
+                            TextSpan(
+                                text:
+                                    "${controller.myComboModel?.remainsCombo ?? 0} ${LocaleKeys.slot.tr}")
+                          ]),
+                    ))
+          ],
+        ),),
               itemSpace(),
               itemSpace(),
               AppButton(

@@ -141,6 +141,11 @@ class LocaleKeys {
   static const total_price='total_price';
   static const vn_pay='vn_pay';
   static const confirm_order='confirm_order';
+  static const remaining_rice='remaining_rice';
+  static const notify_slot_order_bigger_remain_in_combo='notify_slot_order_bigger_remain_in_combo';
+  static const delivery_to='delivery_to';
+  static const add_note = 'add_note';
+  static const ship_price = 'ship_price';
 }
 
 class Locales {
@@ -272,7 +277,15 @@ class Locales {
     'buy_now': 'Mua ngay',
     'vn_pay': 'VNPAY',
     'confirm_order': 'Xác nhận đơn hàng',
+    'remaining_rice': 'Số suất cơm còn lại trong gói khuyến mãi của bạn là',
+    'notify_slot_order_bigger_remain_in_combo': 'Số suất cơm phải nhỏ hơn hoặc bằng số suất cơm còn lại trong gói khuyến mãi',
     'message_register_success':
         'Nhấn nút phía dưới để tiếp tục sử dụng dịch vụ của chúng tôi. Chúc bạn luôn có những bữa trưa ngon miệng',
+  'delivery_to':'Giao hàng đến',
+  'add_note':'+ Thêm ghi chú cho người giao hàng',
+  'ship_price':'Phí ship',
   };
+  static const delivery_to='delivery_to';
+  static const add_note = 'add_note';
+  static const ship_price = 'ship_price';
 }

@@ -27,6 +27,7 @@ abstract class Routes {
   static const LOGIN_BY_PIN = _Paths.LOGIN_BY_PIN;
   static const BY_COMBO = _Paths.BY_COMBO;
   static const CONFIRM_ORDER = _Paths.CONFIRM_ORDER;
+  static const CONFIRM_RICE_ORDER = _Paths.CONFIRM_RICE_ORDER;
 }
 
 abstract class _Paths {
@@ -55,4 +56,5 @@ abstract class _Paths {
   static const LOGIN_BY_PIN = '/login-by-pin';
   static const BY_COMBO = '/by-combo';
   static const CONFIRM_ORDER = '/confirm-order';
+  static const CONFIRM_RICE_ORDER = '/confirm-rice-order';
 }

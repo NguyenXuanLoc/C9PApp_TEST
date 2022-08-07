@@ -21,6 +21,9 @@ class TabPromotionController extends GetxController {
     getMyCombo();
     super.onInit();
   }
+
+  void openOrder(MyComboModel model) =>
+      Get.toNamed(Routes.ORDER, arguments: model);
   void setIndexMyCombo(int index)=> currentIndexMyCombo.value= index;
   void openMyCombo() => Get.toNamed(Routes.MY_COMBO);
 

@@ -198,7 +198,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
                   builder: (BuildContext context) {
                     return Padding(
                       padding: EdgeInsets.only(right: 10.w),
-                      child: InkWell(
+                      child: InkWell(onTap: ()=>controller.openOrder(model),
                           child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: SizedBox(

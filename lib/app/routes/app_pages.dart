@@ -6,6 +6,8 @@ import '../modules/combo_selling/bindings/combo_selling_binding.dart';
 import '../modules/combo_selling/views/combo_selling_view.dart';
 import '../modules/confirm_order/bindings/confirm_order_binding.dart';
 import '../modules/confirm_order/views/confirm_order_view.dart';
+import '../modules/confirm_rice_order/bindings/confirm_rice_order_binding.dart';
+import '../modules/confirm_rice_order/views/confirm_rice_order_view.dart';
 import '../modules/detail_order/bindings/detail_order_binding.dart';
 import '../modules/detail_order/views/detail_order_view.dart';
 import '../modules/developing/bindings/developing_binding.dart';
@@ -176,6 +178,11 @@ class AppPages {
       name: _Paths.CONFIRM_ORDER,
       page: () => ConfirmOrderView(),
       binding: ConfirmOrderBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONFIRM_RICE_ORDER,
+      page: () => ConfirmRiceOrderView(),
+      binding: ConfirmRiceOrderBinding(),
     ),
   ];
 }

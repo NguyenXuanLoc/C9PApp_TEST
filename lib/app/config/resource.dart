@@ -27,6 +27,8 @@ class R {
   static const String assetsPngGift = 'assets/png/gift.png';
   static const String assetsPngHalfCircle = 'assets/png/half_circle.png';
   static const String assetsPngPig= 'assets/png/pig.png';
+  static const String assetsPngClearCircle= 'assets/png/clear_circle.png';
+  static const String assetsPngPromotionPopup= 'assets/png/promotion_popup.png';
   static const String assetsPngOrderSuccessLike= 'assets/png/order_success_like.png';
 
   ///SVG

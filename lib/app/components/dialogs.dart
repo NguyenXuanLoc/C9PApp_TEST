@@ -1,4 +1,6 @@
 import 'package:c9p/app/components/app_button.dart';
+import 'package:c9p/app/components/app_network_image.dart';
+import 'package:c9p/app/config/globals.dart';
 import 'package:c9p/app/theme/app_styles.dart';
 import 'package:c9p/app/theme/colors.dart';
 import 'package:c9p/app/utils/log_utils.dart';
@@ -7,11 +9,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../config/resource.dart';
 import 'app_text.dart';
 
 class Dialogs {
   static final GlobalKey<State> _keyLoader = GlobalKey<State>();
-  static final GlobalKey<State> _keyCloseApp = GlobalKey<State>();
+  static final GlobalKey<State> _keyPromotion = GlobalKey<State>();
+  static final  _keyCloseApp = GlobalKey<State>();
 
   static Future<void>? showLoadingDialog(BuildContext? context) {
     if (context == null) {
@@ -338,6 +342,52 @@ class Dialogs {
         });
   }
 
+  static Future<void> showPopupPromotion(BuildContext context,
+      {required VoidCallback loginCallBack}) {
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return WillPopScope(
+              onWillPop: () async => true,
+              child: SimpleDialog(
+                key: _keyPromotion,
+                backgroundColor: Colors.transparent,contentPadding: EdgeInsets.all(5.w),
+                children: <Widget>[
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          child: Image.asset(
+                            R.assetsPngClearCircle,
+                            width: 20.w,
+                          ),onTap: ()=>hidePromotion(),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child:  Image.asset(R.assetsPngPromotionPopup,fit: BoxFit.fitHeight,
+                          height: 260.h
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ));
+        });
+  }
+
+  static Future<void> hidePromotion() async {
+    await Future.delayed(
+        const Duration(milliseconds: 200),
+        () => Navigator.of(_keyPromotion.currentContext!, rootNavigator: true)
+            .pop());
+  }
   static Future<void> hideLoadingDialog() async {
     await Future.delayed(
         const Duration(milliseconds: 200),

@@ -28,6 +28,11 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
+  void showLoading(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+        (_) => Dialogs.showPopupPromotion(context, loginCallBack: () {}));
+  }
+
   Future<bool> onBackPress() async {
     var isClose = false;
     if (currentIndex != 0) {
@@ -55,6 +60,7 @@ class HomeController extends GetxController {
 
   void setContext(BuildContext context) {
     this.context = context;
+    showLoading(context);
   }
 
   void openOrder(BuildContext context) async {

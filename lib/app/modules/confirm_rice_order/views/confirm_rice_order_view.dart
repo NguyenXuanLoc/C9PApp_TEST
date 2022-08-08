@@ -2,6 +2,7 @@ import 'package:c9p/app/components/app_line_space.dart';
 import 'package:c9p/app/data/model/weather_model.dart';
 import 'package:c9p/app/extension/string_extension.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,7 +25,7 @@ class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
   Widget build(BuildContext context) {
     return AppScaffold(
       fullStatusBar: true,
-      isTabToHideKeyBoard: true,
+      isTabToHideKeyBoard: false,
       appbar: AppBar(
         leading: Padding(
           padding: EdgeInsets.only(left: contentPadding),
@@ -120,17 +121,19 @@ class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
                 line(context),
                 itemContent(LocaleKeys.receiver.tr, controller.model.name),
                 const AppLineSpace(),
+                itemSpace(),
+                itemTitle(R.assetsSvgCoin, LocaleKeys.payment.tr),
                 itemContent(LocaleKeys.price.tr,
-                    controller.model.myComboModel != null ? '0đ' : '1'),
+                    "${Utils.formatMoney(controller.getPrice())}đ"),
                 line(context),
-                itemContent(
-                    LocaleKeys.ship_price.tr, "${Utils.formatMoney(10000)}đ"),
+                itemContent(LocaleKeys.ship_price.tr,
+                    "${Utils.formatMoney(shipPrice)}đ"),
                 line(context),
                 itemContent(LocaleKeys.promotion.tr,
-                    controller.model.myComboModel != null ? '0đ' : '1'),
+                    "${Utils.formatMoney(controller.getPromotion())}đ"),
                 line(context),
-                itemContent(
-                    LocaleKeys.total_price.tr, "${Utils.formatMoney(10000)}đ"),
+                itemContent(LocaleKeys.total_price.tr,
+                    "${Utils.formatMoney(controller.getTotalPrice())}đ"),
                 itemSpace(),
                 Container(
                   padding: EdgeInsets.only(left: contentPadding),
@@ -254,27 +257,6 @@ class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
                 const SizedBox(
                   width: 7,
                 ),
-                SimpleTooltip(
-                  tooltipTap: () {
-                    print("Tooltip tap");
-                  },
-                  animationDuration: Duration(seconds: 3),
-                  show: true,
-                  tooltipDirection: TooltipDirection.up,
-                  child: Container(
-                    width: 200,
-                    height: 120,
-                    child: Placeholder(),
-                  ),
-                  content: Text(
-                    "Some text example!!!!",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      decoration: TextDecoration.none,
-                    ),
-                  ),
-                ),
                 Container(
                   decoration: BoxDecoration(
                       color: colorBackgroundGrey2,
@@ -289,25 +271,16 @@ class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
                             left: 10, right: 5, top: 2, bottom: 2),
                         child: Row(
                           children: [
-                            Obx(() => Tooltip(
-                                triggerMode: TooltipTriggerMode.tap,
-                                verticalOffset: 10.h,
-                                preferBelow: false,
-                                message: !controller.isPaymentByCash.value
-                                    ? LocaleKeys.cash.tr
-                                    : LocaleKeys.vn_pay.tr,
-                                showDuration: const Duration(seconds: 10),
-                                waitDuration: const Duration(seconds: 0),
-                                textStyle: typoSuperSmallText600.copyWith(
-                                  color: colorText0,
-                                ),
-                                child: AppText(
-                                  controller.isPaymentByCash.value
-                                      ? LocaleKeys.cash.tr
-                                      : LocaleKeys.vn_pay.tr,
-                                  style: typoSuperSmallText600.copyWith(
-                                      color: colorWhite),
-                                ))),
+                            Obx(() => InkWell(
+                                  child: AppText(
+                                    controller.isPaymentByCash.value
+                                        ? LocaleKeys.cash.tr
+                                        : LocaleKeys.vn_pay.tr,
+                                    style: typoSuperSmallText600.copyWith(
+                                        color: colorText0),
+                                  ),
+                                  onTap: () => showMethodPaymentWidget(context),
+                                )),
                             Icon(
                               Icons.keyboard_arrow_down_rounded,
                               color: colorWhite,
@@ -320,16 +293,7 @@ class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
                         width: 10,
                       ),
                       AppText(
-                        getPrice(),
-                        style: typoSuperSmallText600.copyWith(
-                            fontSize: 9.sp,
-                            decoration: TextDecoration.lineThrough),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      AppText(
-                        getTotalPrice(),
+                        "${Utils.formatMoney(controller.getTotalPrice())}đ",
                         style: typoSuperSmallText600.copyWith(fontSize: 11.sp),
                       ),
                       const SizedBox(
@@ -345,24 +309,117 @@ class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
             itemSpace(),
             AppButton(
               height: heightContinue,
-              onPress: () {},
+              onPress: () => controller.paymentOnclick(context),
               title: LocaleKeys.payment.tr.toCapitalized(),
               textStyle: typoSuperSmallText600.copyWith(
                   fontSize: 16.sp, color: colorWhite),
               backgroundColor: colorGreen40,
               width: MediaQuery.of(context).size.width,
-              shapeBorder:
-                  shapeBorderButton /*RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(17))*/
-              ,
+              shapeBorder: shapeBorderButton,
             )
           ],
         ),
       );
 
-  String getPrice() => "${Utils.formatMoney((10))}đ";
+  Widget itemPaymentDialog(
+          String icon, String title, bool isSelect, VoidCallback callBack) =>
+      Padding(
+        padding: EdgeInsets.only(
+            left: contentPadding, right: contentPadding, top: 7, bottom: 7),
+        child: InkWell(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                icon,
+                width: 20.w,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              AppText(
+                title,
+                style: typoSuperSmallText600,
+              ),
+              Spacer(),
+              Icon(
+                Icons.check,
+                color: isSelect ? colorGreen55 : Colors.transparent,
+                size: 17.w,
+              )
+            ],
+          ),
+          onTap: () => callBack.call(),
+        ),
+      );
 
-  String getTotalPrice() => "${Utils.formatMoney(10000)}đ";
+  void showMethodPaymentWidget(BuildContext context) {
+    showModalBottomSheet<void>(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) {
+          return Container(
+            padding: EdgeInsets.only(
+              top: 15.h,
+            ),
+            decoration: const BoxDecoration(
+                color: colorWhite,
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(10),
+                    topLeft: Radius.circular(10))),
+            height: 140.h,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Stack(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width,
+                        child: AppText(
+                          LocaleKeys.method_payment.tr,
+                          style: typoSmallText700.copyWith(fontSize: 14.sp),
+                        ),
+                      ),
+                      Positioned.fill(
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.only(left: contentPadding),
+                          child: InkWell(
+                            child: Icon(Icons.arrow_back),
+                            onTap: () => Navigator.pop(context),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),itemSpace(),
+                  Container(
+                    height: 0.1,
+                    color: colorBlack,
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  itemPaymentDialog(
+                      R.assetsPngVnpay,
+                      LocaleKeys.vn_pay.tr.toUpperCase(),
+                      !controller.isPaymentByCash.value,
+                      () => controller.changeMethodPayment(context)),
+                  line(context),
+                  itemPaymentDialog(
+                      R.assetsPngDola,
+                      LocaleKeys.cash.tr.toCapitalized(),
+                      controller.isPaymentByCash.value,
+                      () => controller.changeMethodPayment(context)),
+                  itemSpace()
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
   Widget itemContent(String title, String content) => Padding(
         padding: EdgeInsets.only(

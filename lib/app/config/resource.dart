@@ -29,6 +29,8 @@ class R {
   static const String assetsPngPig= 'assets/png/pig.png';
   static const String assetsPngDeliveryMan= 'assets/png/delivery_man.png';
   static const String assetsPngOrderSuccessLike= 'assets/png/order_success_like.png';
+  static const String assetsPngDola= 'assets/png/dola.png';
+  static const String assetsPngVnpay= 'assets/png/vnpay.png';
 
   ///SVG
   static const String assetsLocationLoginSvg = 'assets/svg/location_login.svg';

@@ -193,5 +193,10 @@ class AppPages {
       page: () => PaymentView(),
       binding: PaymentBinding(),
     ),
+    GetPage(
+      name: _Paths.CONFIRM_RICE_ORDER,
+      page: () => ConfirmRiceOrderView(),
+      binding: ConfirmRiceOrderBinding(),
+    ),
   ];
 }

@@ -18,7 +18,7 @@ import '../../order/controllers/order_controller.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 
 class ConfirmRiceOrderController extends GetxController {
-  RiceOrderParam model = Get.arguments;
+ late RiceOrderParam model;
   final isPaymentByCash = true.obs;
   final isSelectMethodPayment = false.obs;
   final userProvider = UserProvider();
@@ -28,7 +28,7 @@ class ConfirmRiceOrderController extends GetxController {
     isPaymentByCash.value = isShow ?? !isPaymentByCash.value;
     Navigator.pop(context);  }
 
-
+  void getAgurment() => model = Get.arguments;
   @override
   void onReady() {
     super.onReady();

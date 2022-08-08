@@ -23,6 +23,7 @@ import '../controllers/confirm_rice_order_controller.dart';
 class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
   @override
   Widget build(BuildContext context) {
+    controller.getAgurment();
     return AppScaffold(
       fullStatusBar: true,
       isTabToHideKeyBoard: false,

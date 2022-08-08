@@ -28,6 +28,7 @@ class R {
   static const String assetsPngHalfCircle = 'assets/png/half_circle.png';
   static const String assetsPngPig= 'assets/png/pig.png';
   static const String assetsPngDeliveryMan= 'assets/png/delivery_man.png';
+  static const String assetsPngOrderSuccessLike= 'assets/png/order_success_like.png';
 
   ///SVG
   static const String assetsLocationLoginSvg = 'assets/svg/location_login.svg';
@@ -74,6 +75,7 @@ class R {
   static const String assetsSvgOpenGift= 'assets/svg/open_gift.svg';
   static const String assetsSvgCoin= 'assets/svg/coin.svg';
   static const String assetsSvgBag= 'assets/svg/bag.svg';
+  static const String assetsSvgPerson2= 'assets/svg/person_2.svg';
   static const String assetsSvgBackGroundMyCombo= 'assets/svg/background_info_combo.svg';
   static const String assetsSvgLocationCircle =
       'assets/svg/location_circle.svg';

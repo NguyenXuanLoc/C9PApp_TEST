@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/buy_combo_success/bindings/buy_combo_success_binding.dart';
+import '../modules/buy_combo_success/views/buy_combo_success_view.dart';
 import '../modules/by_combo/bindings/by_combo_binding.dart';
 import '../modules/by_combo/views/by_combo_view.dart';
 import '../modules/combo_selling/bindings/combo_selling_binding.dart';
@@ -28,6 +30,8 @@ import '../modules/order_success/bindings/order_success_binding.dart';
 import '../modules/order_success/views/order_success_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
+import '../modules/payment/bindings/payment_binding.dart';
+import '../modules/payment/views/payment_view.dart';
 import '../modules/register_pin/bindings/register_pin_binding.dart';
 import '../modules/register_pin/views/register_pin_view.dart';
 import '../modules/register_success/bindings/register_success_binding.dart';
@@ -180,9 +184,14 @@ class AppPages {
       binding: ConfirmOrderBinding(),
     ),
     GetPage(
-      name: _Paths.CONFIRM_RICE_ORDER,
-      page: () => ConfirmRiceOrderView(),
-      binding: ConfirmRiceOrderBinding(),
+      name: _Paths.BUY_COMBO_SUCCESS,
+      page: () => BuyComboSuccessView(),
+      binding: BuyComboSuccessBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAYMENT,
+      page: () => PaymentView(),
+      binding: PaymentBinding(),
     ),
   ];
 }

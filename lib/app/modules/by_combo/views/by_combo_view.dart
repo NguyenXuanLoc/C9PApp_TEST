@@ -124,9 +124,9 @@ class ByComboView extends GetView<ByComboController> {
                 AppButton(
                   onPress: () => controller.onClickContinues(),
                   title: LocaleKeys.continues.tr,
-                  textStyle: typoSmallTextBold.copyWith(color: colorWhite),
-                  height: 37.h,
-                  backgroundColor: colorGreen55,
+                  textStyle: typoButton.copyWith(color: colorWhite),
+                  height: heightContinue,
+                  backgroundColor: colorGreen40,
                   width: MediaQuery.of(context).size.width,
                   shapeBorder: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(17)),

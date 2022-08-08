@@ -380,7 +380,7 @@ final typoTitleHeader = GoogleFonts.nunito(
 final typoButton = GoogleFonts.nunito(
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.w600,
-  fontSize: 14.sp,
+  fontSize: 15.sp,
   letterSpacing: 0.2,
   color: colorText0,
 );

@@ -38,7 +38,7 @@ class ByComboController extends GetxController {
   void onClickContinues() {
     if (isValid()) {
       Get.toNamed(Routes.CONFIRM_ORDER,
-          arguments: [model, qtyController.text, fullNameController.text]);
+          arguments: [model, qtyController.text, fullNameController.text,phoneController.text]);
     }
   }
 

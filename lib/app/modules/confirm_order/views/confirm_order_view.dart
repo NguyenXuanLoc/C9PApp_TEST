@@ -175,8 +175,7 @@ class ConfirmOrderView extends GetView<ConfirmOrderController> {
               height: heightContinue,
               onPress: () => controller.onClickPayment(context),
               title: LocaleKeys.payment.tr.toCapitalized(),
-              textStyle: typoSuperSmallText600.copyWith(
-                  fontSize: 16.sp, color: colorWhite),
+              textStyle: typoButton.copyWith(color: colorWhite),
               backgroundColor: colorGreen40,
               width: MediaQuery.of(context).size.width,
               shapeBorder:

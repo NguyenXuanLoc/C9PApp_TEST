@@ -142,6 +142,11 @@ class LocaleKeys {
   static const total_price='total_price';
   static const vn_pay='vn_pay';
   static const confirm_order='confirm_order';
+  static const you_have_successfully_placed_order_number='you_have_successfully_placed_order_number';
+  static const method_payment='method_payment';
+  static const buyer='buyer';
+  static const trading_code='trading_code';
+  static const vnpay_wallet='vnpay_wallet';
   static const remaining_rice='remaining_rice';
   static const notify_slot_order_bigger_remain_in_combo='notify_slot_order_bigger_remain_in_combo';
   static const delivery_to='delivery_to';
@@ -282,6 +287,11 @@ class Locales {
     'buy_now': 'Mua ngay',
     'vn_pay': 'Vnpay',
     'confirm_order': 'Xác nhận đơn hàng',
+    'you_have_successfully_placed_order_number': 'Bạn vừa đặt thành công mã đơn hàng',
+    'method_payment': 'Phương thức thanh toán',
+    'buyer': 'Người mua hàng',
+    'trading_code': 'Mã giao dịch',
+    'vnpay_wallet': 'Ví Vnpay',
     'remaining_rice': 'Số suất cơm còn lại trong gói khuyến mãi của bạn là',
     'notify_slot_order_bigger_remain_in_combo': 'Số suất cơm phải nhỏ hơn hoặc bằng số suất cơm còn lại trong gói khuyến mãi',
     'message_register_success':

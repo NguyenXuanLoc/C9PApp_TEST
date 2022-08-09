@@ -18,6 +18,9 @@ class MessageKey {
   static const String otp_expired = 'The sms code has expired';
   static const String OK = 'OK';
   static const String NOT_FOUND_ANY_USER = 'Not found any user';
+  static const String CHANGE_PASSWORD = 'Change Password';
+  static const String CREATE_PASSWORD = 'Create password';
+
 }
 
 class ApiKey {

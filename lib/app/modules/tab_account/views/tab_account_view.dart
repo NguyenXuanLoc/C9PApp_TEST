@@ -91,7 +91,10 @@ class TabAccountView extends GetView<TabAccountController> {
             line(context),
             itemTitle(R.assetsSvChangePin, LocaleKeys.change_pin.tr),
             line(context),
-            itemTitle(R.assetsSvgLogout, LocaleKeys.profile.tr),
+            InkWell(
+              child: itemTitle(R.assetsSvgLogout, LocaleKeys.logout.tr),
+              onTap: () => controller.logout(context),
+            ),
             Expanded(
                 child: Container(
               color: colorSeparatorListView,

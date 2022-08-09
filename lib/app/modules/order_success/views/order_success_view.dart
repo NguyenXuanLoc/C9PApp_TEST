@@ -1,4 +1,6 @@
+import 'package:c9p/app/components/app_line_space.dart';
 import 'package:c9p/app/config/globals.dart';
+import 'package:c9p/app/utils/app_utils.dart';
 import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +21,135 @@ class OrderSuccessView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return controller?.model != null ?
+    WillPopScope(
+        child: AppScaffold(
+          appbar: AppBar(
+            centerTitle: true,
+            automaticallyImplyLeading: false,
+            flexibleSpace: Container(
+              alignment: Alignment.bottomCenter,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(R.assetsBackgroundHeaderTabMainPng),
+                      fit: BoxFit.fitWidth)),
+              child: Container(
+                height: 30.h,
+                decoration: BoxDecoration(
+                    color: colorWhite,
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(15.w),
+                        topLeft: Radius.circular(15.w))),
+              ),
+            ),
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Center(
+                  child: Image.asset(
+                    R.assetsPngOrderSuccessLike,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 2.2,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                  child: AppText(
+                    LocaleKeys.order_success.tr,
+                    textAlign: TextAlign.center,
+                    style: typoMediumTextBold.copyWith(
+                        fontWeight: FontWeight.w800),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                  child: AppText(
+                    LocaleKeys.you_have_just_order_success.tr +
+                        controller!.model!.orderId.toString(),
+                    textAlign: TextAlign.center,
+                    style: typoSuperSmallText500.copyWith(
+                        color: colorText60, fontSize: 12.sp),
+                  ),
+                ),
+                itemSpace(),
+                itemSpace(),
+                itemSpace(),
+                const AppLineSpace(),
+                itemTitle(R.assetsSvgBag, LocaleKeys.order.tr),
+                line(context),
+                itemContent(LocaleKeys.com_suong_9p.tr,
+                    'x${controller?.model?.itemQty.toString() ?? ''}'),
+                line(context),
+                itemContent(LocaleKeys.payment.tr,
+                    "${Utils.formatMoney(controller?.model?.amount ?? 0)}đ"),
+                line(context),
+                itemContent(LocaleKeys.method_payment.tr, "Tiền mặt"),
+                const AppLineSpace(),
+                itemTitle(R.assetsSvgPerson3, LocaleKeys.buyer.tr),
+                line(context),
+                itemContent(LocaleKeys.full_name.tr,
+                    controller?.model?.buyerName ?? ''),
+                line(context),
+                itemContent(LocaleKeys.phone_number.tr, '0999999999'),
+                line(context),
+                itemContent(
+                    LocaleKeys.address.tr, controller?.model?.toAddress ?? ''),
+                itemSpace(),
+                itemSpace(),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: contentPadding, right: contentPadding),
+                  child: AppButton(
+                    height: heightContinue,
+                    onPress: () => controller?.mainOnclick(),
+                    title: LocaleKeys.main.tr,
+                    backgroundColor: colorWhite,
+                    shapeBorder: shapeBorderButton.copyWith(
+                        side: BorderSide(color: colorGreen55)),
+                    textStyle: typoButton.copyWith(color: colorText100),
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: contentPadding, right: contentPadding),
+                  child: AppButton(
+                    height: heightContinue,
+                    onPress: () => controller?.myOrderOnclick(),
+                    title: LocaleKeys.my_order.tr,
+                    backgroundColor: colorGreen55,
+                    shapeBorder: shapeBorderButton,
+                    textStyle: typoButton.copyWith(color: colorText0),
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                )
+              ],
+            ),
+          ),
+        ),
+        onWillPop: () async => controller!.onBackPress()) :
+     WillPopScope(
         child: AppScaffold(
           padding: EdgeInsets.all(15.w),
           appbar: AppBar(
@@ -54,7 +184,7 @@ class OrderSuccessView extends StatelessWidget {
                   LocaleKeys.order_success.tr,
                   textAlign: TextAlign.center,
                   style:
-                      typoMediumTextBold.copyWith(fontWeight: FontWeight.w800),
+                  typoMediumTextBold.copyWith(fontWeight: FontWeight.w800),
                 ),
               ),
               const SizedBox(
@@ -76,22 +206,29 @@ class OrderSuccessView extends StatelessWidget {
                 height: heightContinue,
                 onPress: () => controller?.mainOnclick(),
                 title: LocaleKeys.main.tr,
-                backgroundColor: colorGrey15,
-                shapeBorder: shapeBorderButton,
-                textStyle: typoButton.copyWith(color: colorText60),
-                width: MediaQuery.of(context).size.width,
+                backgroundColor: colorWhite,
+                shapeBorder: shapeBorderButton.copyWith(
+                    side: BorderSide(color: colorGreen55)),
+                textStyle: typoButton.copyWith(color: colorText100),
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
               ),
               const SizedBox(
                 height: 10,
               ),
               AppButton(
                 height: heightContinue,
-                onPress: () => controller?.followOrderOnclick(),
-                title: LocaleKeys.follow_order.tr,
+                onPress: () => controller?.myOrderOnclick(),
+                title: LocaleKeys.my_order.tr,
                 backgroundColor: colorGreen55,
                 shapeBorder: shapeBorderButton,
                 textStyle: typoButton.copyWith(color: colorText0),
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
               ),
               const Spacer(),
               const Spacer(),
@@ -100,4 +237,55 @@ class OrderSuccessView extends StatelessWidget {
         ),
         onWillPop: () async => controller!.onBackPress());
   }
+
+  Widget itemTitle(String icon, String title) => Padding(
+        padding: EdgeInsets.only(
+            left: contentPadding, right: contentPadding, top: 10, bottom: 10),
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              icon,
+              width: 15.w,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            AppText(
+              title,
+              style: typoSuperSmallText600,
+            )
+          ],
+        ),
+      );
+
+  Widget itemContent(String title, String content) => Padding(
+        padding: EdgeInsets.only(
+            left: contentPadding, right: contentPadding, bottom: 10, top: 10),
+        child: Row(
+          children: [
+            AppText(
+              title,
+              style: typoSuperSmallText500,
+            ),
+            Expanded(
+                child: AppText(
+              content,
+              style: typoSuperSmallText500,
+              textAlign: TextAlign.end,
+              maxLine: 1,
+            ))
+          ],
+        ),
+      );
+
+  Widget itemSpace() => const SizedBox(
+        height: 10,
+      );
+
+  Widget line(BuildContext context) => Container(
+        margin: EdgeInsets.only(left: contentPadding, right: contentPadding),
+        height: 0.1,
+        color: colorBlack,
+        width: MediaQuery.of(context).size.width,
+      );
 }

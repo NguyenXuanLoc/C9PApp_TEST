@@ -161,6 +161,7 @@ class LocaleKeys {
   static const profile = 'profile';
   static const my_order = 'my_order';
   static const more_setting = 'more_setting';
+  static const you_have_just_order_success = 'you_have_just_order_success';
 }
 
 class Locales {
@@ -314,5 +315,6 @@ class Locales {
   'profile':'Hồ sơ cá nhân',
   'my_order':'Đơn hàng của tôi',
   'more_setting':'Cài đặt khác',
+  'you_have_just_order_success':'Bạn vừa đặt thành công mã đơn hàng #',
   };
 }

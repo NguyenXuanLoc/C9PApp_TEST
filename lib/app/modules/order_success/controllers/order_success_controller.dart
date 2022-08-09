@@ -25,6 +25,6 @@ class OrderSuccessController extends GetxController {
 
   void mainOnclick() => Get.offAllNamed(Routes.HOME);
 
-  void followOrderOnclick() =>
-      Get.toNamed(Routes.DETAIL_ORDER, arguments: Get.arguments);
+  void myOrderOnclick() =>
+      Get.toNamed(Routes.YOUR_ORDER, arguments: Get.arguments);
 }

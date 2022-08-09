@@ -3,6 +3,7 @@ import 'package:c9p/app/config/globals.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
 import 'package:c9p/app/data/model/user_model.dart';
 import 'package:c9p/app/data/model/weather_model.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:get_storage/get_storage.dart';
 
 class StorageUtils {
@@ -23,6 +24,8 @@ class StorageUtils {
         globals.isNeedUpdateProfile = userModel.needUpdate ?? true;
         globals.userName = userModel.data?.userData?.name ?? '';
         globals.phoneNumber = userModel.data?.userData?.phone ?? '';
+        globals.isMissPinCode = userModel.missingPinCode?? false;
+        logE("TAG userModel: ${ globals.isMissPinCode}");
         globals.isActive =
             ((userModel.data?.userData?.status ?? '') == 'active')
                 ? true
@@ -30,6 +33,7 @@ class StorageUtils {
         return userModel;
       } else {
         globals.isActive = false;
+        globals.isMissPinCode = false;
         globals.accessToken = '';
         globals.userName = '';
         globals.phoneNumber = '';
@@ -38,6 +42,7 @@ class StorageUtils {
       }
     } catch (ex) {
       globals.isActive = false;
+      globals.isMissPinCode = false;
       globals.accessToken = '';
       globals.userName = '';
       globals.phoneNumber = '';

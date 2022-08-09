@@ -12,6 +12,7 @@ String phoneNumber = '';
 bool isLogin = false;
 bool isNeedUpdateProfile = true;
 bool isActive = false;
+bool isMissPinCode = false;
 bool isOpenYourOrder = false;
 bool isOrderDetail = false;
 int timePackageRemaining = 0;

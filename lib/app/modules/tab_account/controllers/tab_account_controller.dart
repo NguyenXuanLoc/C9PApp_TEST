@@ -38,7 +38,6 @@ class TabAccountController extends GetxController {
           userModel.data?.userData?.phone?.replaceAll('+84', '0') ?? '';
       currentName.value = fullNameController.text;
     }
-    logE("TAG CURRENT NAME: $currentName");
 
   }
 

@@ -54,10 +54,11 @@ class LoginController extends GetxController {
   Future<bool?> checkPasswordExist() async {
     var response = await userProvider.checkPasswordExits(Utils.standardizePhoneNumber(phoneController.text));
     if (response.error == null && response.data != null) {
-      var isExist = response.data['data']['exist'] ?? false;
-      return isExist;
+      var isExist = response.data['message'] ?? MessageKey.NOT_FOUND_ANY_USER;
+      return isExist == MessageKey.CHANGE_PASSWORD ? true : false;
     } else {
-      if(response.error.toString() ==MessageKey.NOT_FOUND_ANY_USER){
+      if (response.error.toString() == MessageKey.NOT_FOUND_ANY_USER ||
+          response.error.toString() == MessageKey.CREATE_PASSWORD) {
         return false;
       }else {
         toast(response.error.toString());

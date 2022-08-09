@@ -5,6 +5,7 @@ import 'package:c9p/app/config/globals.dart' as globals;
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -27,6 +28,7 @@ class DetailOrderController extends GetxController {
   @override
   void onClose() {
     globals.isOrderDetail = false;
+    TagUtils().tagsDetailRiceOrder.removeAt(0);
     _reloadStream?.cancel();
     super.onClose();
   }

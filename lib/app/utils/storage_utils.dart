@@ -25,7 +25,6 @@ class StorageUtils {
         globals.userName = userModel.data?.userData?.name ?? '';
         globals.phoneNumber = userModel.data?.userData?.phone ?? '';
         globals.isMissPinCode = userModel.missingPinCode?? false;
-        logE("TAG userModel: ${ globals.isMissPinCode}");
         globals.isActive =
             ((userModel.data?.userData?.status ?? '') == 'active')
                 ? true

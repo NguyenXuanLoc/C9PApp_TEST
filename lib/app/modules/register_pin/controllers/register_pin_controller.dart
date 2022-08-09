@@ -1,5 +1,6 @@
 import 'package:c9p/app/components/otp_widget.dart';
 import 'package:c9p/app/routes/app_pages.dart';
+import 'package:c9p/app/utils/storage_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +33,13 @@ class RegisterPinController extends GetxController {
   void onClickContinue() async{
     if(isValid()){
       var response = await userProvider.createNewPass(pass: pin.value);
-      if(response.error ==null) Get.offAllNamed(Routes.REGISTER_SUCCESS);
+      if(response.error ==null){
+        var userModel = await StorageUtils.getUser();
+        if (userModel != null) {
+          StorageUtils.saveUser(userModel.copyOf(missingPinCode: false));
+        }
+        Get.offAllNamed(Routes.REGISTER_SUCCESS);
+      }
     }
   }
 }

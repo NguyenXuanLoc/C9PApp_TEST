@@ -116,219 +116,209 @@ class TabMainView extends GetView<TabMainController> {
         ));
   }
 
-  Widget categoryWidget(BuildContext context) => Stack(
-        children: [
-          Positioned.fill(
-              child: Container(
-            padding: EdgeInsets.only(top: 30),
-            alignment: Alignment.bottomCenter,
-            child: SvgPicture.asset(R.assetsSvgDecorate4),
-          )),
-          Container(
-            padding: EdgeInsets.only(
-                bottom: 15.h, left: contentPadding, right: contentPadding),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(20.w),
-                    bottomLeft: Radius.circular(20.w)),
-                image: const DecorationImage(
-                    image: AssetImage(R.assetsBackgroundHeaderTabMainPng),
-                    fit: BoxFit.cover)),
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).padding.top + 15.h),
-                  child: Column(
-                    children: [
-                      Row(
+  Widget categoryWidget(BuildContext context) => Container(
+    padding: EdgeInsets.only(
+        bottom: 15.h, left: contentPadding, right: contentPadding),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(20.w),
+            bottomLeft: Radius.circular(20.w)),
+        image: const DecorationImage(
+            image: AssetImage(R.assetsBackgroundHeaderTabMainPng),
+            fit: BoxFit.cover)),
+    child: Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top + 15.h),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                      child: Row(
                         children: [
-                          Expanded(
-                              child: Row(
-                            children: [
-                              Flexible(
-                                  child: Obx(() => AppText(
-                                      "Xin chào${controller.fullName.value.isNotEmpty ? " ${controller.fullName.value}" : ''}!",
-                                      maxLine: 1,
-                                      style: typoTitleHeader.copyWith()))),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Image.asset(
-                                R.assetsPngHand,
-                                width: 18.w,
-                              ),
-                            ],
-                          )),
+                          Flexible(
+                              child: Obx(() => AppText(
+                                  "Xin chào${controller.fullName.value.isNotEmpty ? " ${controller.fullName.value}" : ''}!",
+                                  maxLine: 1,
+                                  style: typoTitleHeader.copyWith()))),
                           const SizedBox(
-                            width: 10,
+                            width: 5,
                           ),
-                          InkWell(
-                            child: SvgPicture.asset(
-                              R.assetsSvgCircleAvatar,
-                              width: 28.w,
-                            ),
-                            onTap: () => controller.onClickProfile(context),
-                          )
+                          Image.asset(
+                            R.assetsPngHand,
+                            width: 18.w,
+                          ),
                         ],
+                      )),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    child: SvgPicture.asset(
+                      R.assetsSvgCircleAvatar,
+                      width: 28.w,
+                    ),
+                    onTap: () => controller.onClickProfile(context),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 17.h,
+              ),
+              AppTextField(
+                onTap: () => Get.toNamed(Routes.DEVELOPING),
+                readOnly: true,
+                isShowErrorText: false,
+                textStyle: typoSuperSmallTextBold.copyWith(
+                    decoration: TextDecoration.none),
+                decoration: decorTextFieldCircle.copyWith(
+                    contentPadding: EdgeInsets.all(9.h),
+                    isDense: true,
+                    hintText: LocaleKeys.find_order_at_here.tr,
+                    hintStyle: typoSuperSmallTextBold.copyWith(
+                      // fontSize: 12.sp,
+                        color: colorText60),
+                    prefixIconConstraints:
+                    BoxConstraints(maxWidth: 45.w),
+                    prefixIcon: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: SvgPicture.asset(R.assetsSvgSearch),
                       ),
-                      SizedBox(
-                        height: 17.h,
+                    )),
+              ),
+              SizedBox(
+                height: 17.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText(
+                        LocaleKeys.temp.tr,
+                        style: typoSuperSmallText600.copyWith(
+                            color: colorWhite),
                       ),
-                      AppTextField(
-                        onTap: () => Get.toNamed(Routes.DEVELOPING),
-                        readOnly: true,
-                        isShowErrorText: false,
-                        textStyle: typoSuperSmallTextBold.copyWith(
-                            decoration: TextDecoration.none),
-                        decoration: decorTextFieldCircle.copyWith(
-                            contentPadding: EdgeInsets.all(9.h),
-                            isDense: true,
-                            hintText: LocaleKeys.find_order_at_here.tr,
-                            hintStyle: typoSuperSmallTextBold.copyWith(
-                                // fontSize: 12.sp,
-                                color: colorText60),
-                            prefixIconConstraints:
-                                BoxConstraints(maxWidth: 45.w),
-                            prefixIcon: Align(
-                              alignment: Alignment.centerRight,
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Obx(() => AppText(
+                            controller.weatherModel.value.main?.temp
+                                ?.toString()
+                                .split('.')[0] ??
+                                '',
+                            style: typoSuperLargeTextBold.copyWith(
+                                fontSize: 30.sp,
+                                fontWeight: FontWeight.w700,
+                                color: colorYellow100),
+                          )),
+                          Obx(() => Visibility(
+                              visible: controller
+                                  .weatherDescription.value.isNotEmpty,
                               child: Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: SvgPicture.asset(R.assetsSvgSearch),
-                              ),
-                            )),
-                      ),
-                      SizedBox(
-                        height: 17.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AppText(
-                                LocaleKeys.temp.tr,
-                                style: typoSuperSmallText600.copyWith(
-                                    color: colorWhite),
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Obx(() => AppText(
-                                        controller.weatherModel.value.main?.temp
-                                                ?.toString()
-                                                .split('.')[0] ??
-                                            '',
-                                        style: typoSuperLargeTextBold.copyWith(
-                                            fontSize: 30.sp,
-                                            fontWeight: FontWeight.w700,
-                                            color: colorYellow100),
-                                      )),
-                                  Obx(() => Visibility(
-                                      visible: controller
-                                          .weatherDescription.value.isNotEmpty,
-                                      child: Padding(
-                                        padding: EdgeInsets.only(top: 3.h),
-                                        child: SvgPicture.asset(
-                                          R.assetsSvgTemp,
-                                          width: 6.w,
-                                        ),
-                                      ))),
-                                  Obx(() => Visibility(
-                                      visible: controller
-                                          .weatherDescription.value.isNotEmpty,
-                                      child: AppText(
-                                        'C',
-                                        style: typoSuperLargeTextBold.copyWith(
-                                            fontSize: 30.sp,
-                                            fontWeight: FontWeight.w700,
-                                            color: colorYellow100),
-                                      )))
-                                ],
-                              )
-                            ],
-                          ),
-                          const Spacer(),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Transform.scale(
-                                scale: 1.7,
-                                child: Obx(() => AppNetworkImage(
-                                      width: 30.w,
-                                      fit: BoxFit.cover,
-                                      source: controller
-                                              .weatherDetail.value.icon ??
-                                          AppConstant.URL_WEATHER_ICON_DEFAULT,
-                                      errorSource:
-                                          AppConstant.URL_WEATHER_ICON_DEFAULT,
-                                    )),
-                              ),
-                              Obx(() => AppText(
-                                    controller.weatherDescription.value,
-                                    style: typoSuperSmallText600.copyWith(
-                                        fontSize: 13.sp,
-                                        fontWeight: FontWeight.w700,
-                                        color: colorText0),
-                                  ))
-                            ],
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          optionWidget(R.assetsSvgMenu, LocaleKeys.menu.tr,
-                              TabMainAction.MENU, context),
-                          Obx(() => controller.isBadge.value
-                              ? Badge(
-                                  position:
-                                      BadgePosition.topEnd(end: -4, top: -15),
-                                  badgeContent: Padding(
-                                    padding: EdgeInsets.all(2.w),
-                                    child: AppText(
-                                      '!',
-                                      style: typoSmallTextBold.copyWith(
-                                          color: colorText0),
-                                    ),
-                                  ),
-                                  child: optionWidget(
-                                      R.assetsSvgOrder,
-                                      LocaleKeys.order.tr,
-                                      TabMainAction.ORDER,
-                                      context),
-                                )
-                              : optionWidget(
-                                  R.assetsSvgOrder,
-                                  LocaleKeys.order.tr,
-                                  TabMainAction.ORDER,
-                                  context)),
-                          optionWidget(
-                              R.assetsSvgPromotionCircle,
-                              LocaleKeys.promotion.tr,
-                              TabMainAction.DISCTRICT,
-                              context),
-                          optionWidget(R.assetsSvgMore, LocaleKeys.more.tr,
-                              TabMainAction.MORE, context)
+                                padding: EdgeInsets.only(top: 3.h),
+                                child: SvgPicture.asset(
+                                  R.assetsSvgTemp,
+                                  width: 6.w,
+                                ),
+                              ))),
+                          Obx(() => Visibility(
+                              visible: controller
+                                  .weatherDescription.value.isNotEmpty,
+                              child: AppText(
+                                'C',
+                                style: typoSuperLargeTextBold.copyWith(
+                                    fontSize: 30.sp,
+                                    fontWeight: FontWeight.w700,
+                                    color: colorYellow100),
+                              )))
                         ],
                       )
                     ],
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
-      );
+                  const Spacer(),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Transform.scale(
+                        scale: 1.7,
+                        child: Obx(() => AppNetworkImage(
+                          width: 30.w,
+                          fit: BoxFit.cover,
+                          source: controller
+                              .weatherDetail.value.icon ??
+                              AppConstant.URL_WEATHER_ICON_DEFAULT,
+                          errorSource:
+                          AppConstant.URL_WEATHER_ICON_DEFAULT,
+                        )),
+                      ),
+                      Obx(() => AppText(
+                        controller.weatherDescription.value,
+                        style: typoSuperSmallText600.copyWith(
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w700,
+                            color: colorText0),
+                      ))
+                    ],
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  optionWidget(R.assetsSvgMenu, LocaleKeys.menu.tr,
+                      TabMainAction.MENU, context),
+                  Obx(() => controller.isBadge.value
+                      ? Badge(
+                    position:
+                    BadgePosition.topEnd(end: -4, top: -15),
+                    badgeContent: Padding(
+                      padding: EdgeInsets.all(2.w),
+                      child: AppText(
+                        '!',
+                        style: typoSmallTextBold.copyWith(
+                            color: colorText0),
+                      ),
+                    ),
+                    child: optionWidget(
+                        R.assetsSvgOrder,
+                        LocaleKeys.order.tr,
+                        TabMainAction.ORDER,
+                        context),
+                  )
+                      : optionWidget(
+                      R.assetsSvgOrder,
+                      LocaleKeys.order.tr,
+                      TabMainAction.ORDER,
+                      context)),
+                  optionWidget(
+                      R.assetsSvgPromotionCircle,
+                      LocaleKeys.promotion.tr,
+                      TabMainAction.DISCTRICT,
+                      context),
+                  optionWidget(R.assetsSvgMore, LocaleKeys.more.tr,
+                      TabMainAction.MORE, context)
+                ],
+              )
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
 
   Widget itemSpace() => Container(
         height: 12,

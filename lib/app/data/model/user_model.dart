@@ -30,11 +30,13 @@ class UserModel {
         "missingPinCode": missingPinCode,
       };
 
-  UserModel copyOf({Data? data, bool? needUpdate, String? message}) =>
+  UserModel copyOf({Data? data, bool? needUpdate, String? message,bool? missingPinCode}) =>
       UserModel(
-          data: data ?? this.data,
-          needUpdate: needUpdate ?? this.needUpdate,
-          message: message ?? this.message);
+        data: data ?? this.data,
+        needUpdate: needUpdate ?? this.needUpdate,
+        message: message ?? this.message,
+        missingPinCode: missingPinCode ?? this.missingPinCode,
+      );
 }
 
 class Data {

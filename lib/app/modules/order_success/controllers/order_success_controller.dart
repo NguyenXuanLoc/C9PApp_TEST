@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/routes/app_pages.dart';
+import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:get/get.dart';
 
 class OrderSuccessController extends GetxController {
@@ -20,6 +22,7 @@ class OrderSuccessController extends GetxController {
 
   @override
   void onClose() {
+    TagUtils().tagsRiceOrderSuccess.removeAt(0);
     super.onInit();
   }
 

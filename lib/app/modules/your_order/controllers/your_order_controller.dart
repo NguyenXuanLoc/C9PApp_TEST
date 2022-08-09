@@ -10,9 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
 import '../../../data/event_bus/refresh_your_order_event.dart';
+import '../../../utils/tag_utils.dart';
 
 class YourOrderController extends GetxController
     with GetSingleTickerProviderStateMixin {
+  String tag;
+  YourOrderController(): tag = Utils.getRandomTag();
   final userProvider = UserProvider();
   final isLoadingDoneOrder = true.obs;
   final isLoadingPendingOrder = true.obs;
@@ -45,6 +48,7 @@ class YourOrderController extends GetxController
   @override
   void onClose() {
     globals.isOpenYourOrder = false;
+    TagUtils().tagsYourOrder.removeAt(0);
     _showRefreshStream?.cancel();
     super.onClose();
   }

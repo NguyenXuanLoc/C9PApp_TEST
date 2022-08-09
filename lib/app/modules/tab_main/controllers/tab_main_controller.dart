@@ -19,7 +19,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:location/location.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
+import 'package:url_launcher/url_launcher.dart';
 import '../../../config/constant.dart';
+import '../../../data/model/combo_best_seller_model.dart';
+import '../../../data/model/my_combo_model.dart';
 
 enum TabMainAction { MENU, ORDER, DISCTRICT, MORE }
 
@@ -31,7 +34,7 @@ class TabMainController extends GetxController {
   final lNearOrder = List<OrderModel>.empty(growable: true).obs;
   final isLoadNearOrder = true.obs;
   final isLoadPromotion = true.obs;
-  var lPromotion = List<PromotionModel>.empty(growable: true).obs;
+  var lPromotion = List<ComboSellingModel>.empty(growable: true).obs;
   var isFirstOpen = true;
   final fullName = ''.obs;
   var countLoadWeather = 1;
@@ -110,9 +113,10 @@ class TabMainController extends GetxController {
 
   void getPromotion() async {
     isLoadPromotion.value = true;
-    var response = await userProvider.gePromotion();
+    var response = await userProvider.getComboSelling();
     if (response.error == null && response.data != null) {
-      lPromotion.value = promotionModelFromJson(response.data['data']);
+      lPromotion.value = comboSellingModelFromJson(response.data['data']['data']);
+      update();
     }
     isLoadPromotion.value = false;
   }
@@ -183,4 +187,13 @@ class TabMainController extends GetxController {
   void onClickProfile(BuildContext context) => globals.isLogin
       ? Get.find<HomeController>().jumToTap(3)
       : Utils.requestLogin(context);
+
+
+  void openSaleCombo(ComboSellingModel model) =>
+      Get.toNamed(Routes.BY_COMBO, arguments: model);
+
+  void openDialThePhone() => launchUrl(Uri(
+        scheme: 'tel',
+        path: '0332005445',
+      ));
 }

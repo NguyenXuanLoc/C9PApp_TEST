@@ -208,4 +208,13 @@ class Utils {
     await Dialogs.showLoginDialog(context,
         loginCallBack: () => Get.toNamed(Routes.LOGIN_SPLASH));
   }
+  static void openBrowser(String url) async {
+    print("open url: $url");
+/*    if (await canLaunch(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not open the map.';
+    }*/
+  }
+
 }

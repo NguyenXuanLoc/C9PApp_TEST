@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
@@ -216,5 +217,6 @@ class Utils {
       throw 'Could not open the map.';
     }*/
   }
+static  String getRandomTag()=> Random().nextInt(100).toString();
 
 }

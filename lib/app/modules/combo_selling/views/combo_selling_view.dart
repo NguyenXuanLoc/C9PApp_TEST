@@ -137,7 +137,7 @@ class ComboSellingView extends GetView<ComboSellingController> {
                     ),
                     Expanded(
                         child: AppText(
-                      "${LocaleKeys.economy.tr} ${Utils.formatMoney((model.discount ?? 1) * 45000 + (model.getFree ?? 1) * 45000 - int.parse(model.price!))}đ",
+                      "${LocaleKeys.economy.tr} ${Utils.formatMoney((model.discount ?? 1) * ricePrice + (model.getFree ?? 1) * ricePrice - int.parse(model.price!))}đ",
                       style: typoSuperSmallTextRegular.copyWith(
                           fontSize: 12.sp, color: colorGrey50),
                       textOverflow: TextOverflow.ellipsis,

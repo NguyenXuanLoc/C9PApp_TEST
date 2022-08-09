@@ -19,8 +19,21 @@ import 'package:intl/intl.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
 import '../../../config/resource.dart';
 import '../../../data/model/address_model.dart';
+import '../../../data/model/my_combo_model.dart';
 import '../../../utils/log_utils.dart';
-
+class RiceOrderParam{
+ final String name;
+ final String phone;
+ final String address;
+ final DateTime deliverDate;
+ final String deliverHour;
+  final String qty;
+  final double lat;
+  final double long;
+  final String productId;
+  final MyComboModel? myComboModel;
+  RiceOrderParam(this.name, this.phone, this.address, this.deliverDate, this.deliverHour, this.qty, this.lat, this.long, this.productId, this.myComboModel);
+}
 class OrderController extends GetxController {
   final lDescriptionImage = [
     R.assetsPngComSuon9p,
@@ -60,9 +73,10 @@ class OrderController extends GetxController {
   var isSelectAddress = true;
   OrderModel? orderModel;
   late StreamSubscription<Position> locationStream;
-
+  MyComboModel? myComboModel;
   @override
   void onInit() {
+    myComboModel = (Get.arguments is MyComboModel) ? Get.arguments : null;
     getCurrentAddress();
     getInfoReOrder();
     switchPageListener();
@@ -76,7 +90,7 @@ class OrderController extends GetxController {
   }
 
   void getInfoReOrder() {
-    if (Get.arguments != null) {
+    if (Get.arguments != null && Get.arguments is OrderModel) {
       orderModel = Get.arguments;
       fullNameController.text = orderModel?.buyerName ?? '';
       phoneController.text = orderModel?.buyerPhone ?? '';
@@ -128,7 +142,21 @@ class OrderController extends GetxController {
 
   void continueOnclick(BuildContext context) async {
     if (isValid()) {
-      Dialogs.showLoadingDialog(context);
+      if (myComboModel != null &&
+          (myComboModel!.remainsCombo ?? 0) <
+              int.parse(countController.text)) {
+        toast(LocaleKeys.notify_slot_order_bigger_remain_in_combo.tr);
+        return;
+      }
+      var name = fullNameController.text;
+      var address = addressController.text;
+      var phone = phoneController.text;
+      var qty = countController.text;
+       var productId = '2';
+      var orderParam = RiceOrderParam(name, phone, address, deliverDate!,
+          deliverHours!, qty, currentLat, currentLng, productId, myComboModel);
+      Get.toNamed(Routes.CONFIRM_RICE_ORDER, arguments: orderParam);
+      /* Dialogs.showLoadingDialog(context);
       var response = await addOrder();
       await Dialogs.hideLoadingDialog();
       if (response.statusCode == 201) {
@@ -140,7 +168,7 @@ class OrderController extends GetxController {
         } catch (ex) {
           toast(LocaleKeys.network_error.tr);
         }
-      }
+      }*/
     }
   }
 
@@ -259,7 +287,7 @@ class OrderController extends GetxController {
   }
 
   void getCurrentAddress() async {
-    if (Get.arguments != null) return;
+    if (Get.arguments != null && Get.arguments is OrderModel) return;
     await Utils.requestPermissionLocation();
     bool serviceEnabled;
     LocationPermission permission;

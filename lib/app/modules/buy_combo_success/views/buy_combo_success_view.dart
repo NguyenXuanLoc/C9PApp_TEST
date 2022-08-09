@@ -140,7 +140,7 @@ class BuyComboSuccessView extends GetView<BuyComboSuccessController> {
   }
 
   String getPrice() =>
-      "${Utils.formatMoney(((controller.model.getFree ?? 1) * 45000 + int.parse(controller.model.price!)) * int.parse(controller.qty))}đ";
+      "${Utils.formatMoney(((controller.model.getFree ?? 1) * ricePrice + int.parse(controller.model.price!)) * int.parse(controller.qty))}đ";
 
   String getTotalPrice() =>
       "${Utils.formatMoney((int.parse(controller.model.price ?? '')) * int.parse(controller.qty))}đ";

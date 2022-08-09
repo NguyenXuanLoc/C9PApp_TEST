@@ -40,6 +40,8 @@ class ApiKey {
   static const password = 'password';
   static const password_confirmation = 'password_confirmation';
   static const vnp_ResponseCode = 'vnp_ResponseCode';
+  static const combo_id = 'combo_id';
+  static const useCombo = 'useCombo';
 }
 
 class AppConstant {

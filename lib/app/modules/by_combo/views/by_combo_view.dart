@@ -107,13 +107,13 @@ class ByComboView extends GetView<ByComboController> {
                         child: RichText(
                       text: TextSpan(
                           text:
-                              "${LocaleKeys.you_order_success.tr} ${controller.model.discount} ",
+                              "${LocaleKeys.you_order_success.tr} ${controller.model.discount!*int.parse(controller.qtyController.text)} ",
                           style: typoSuperSmallText500.copyWith(
                               fontSize: 10.sp, color: colorOrange50,fontStyle: FontStyle.italic),
                           children: [
                             TextSpan(
                               text:
-                                  "${LocaleKeys.rice_portion_and_free.tr} ${controller.model.getFree} ${LocaleKeys.bowl_of_rice.tr}",
+                                  "${LocaleKeys.rice_portion_and_free.tr} ${controller.model.getFree!*int.parse(controller.qtyController.text)} ${LocaleKeys.bowl_of_rice.tr}",
                             )
                           ]),
                     ))

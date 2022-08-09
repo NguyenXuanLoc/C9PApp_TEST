@@ -201,8 +201,8 @@ class ConfirmRiceOrderView extends StatelessWidget{
     );
   }
 
-  Widget itemSpace() => const SizedBox(
-        height: 10,
+  Widget itemSpace() =>  SizedBox(
+        height: 11.h,
       );
 
   Widget line(BuildContext context) => Container(

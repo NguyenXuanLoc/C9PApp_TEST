@@ -187,8 +187,8 @@ class ConfirmOrderView extends GetView<ConfirmOrderController> {
         ),
       );
 
-  Widget itemSpace() => const SizedBox(
-        height: 10,
+  Widget itemSpace() =>  SizedBox(
+        height: 11.h,
       );
 
   String getPrice() =>

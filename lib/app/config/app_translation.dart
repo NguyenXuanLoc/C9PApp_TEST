@@ -156,6 +156,11 @@ class LocaleKeys {
   static const name_package_promotion = 'name_package_promotion';
   static const slot_remain = 'slot_remain';
   static const cash = 'cash';
+  static const change_pin = 'change_pin';
+  static const my_location = 'my_location';
+  static const profile = 'profile';
+  static const my_order = 'my_order';
+  static const more_setting = 'more_setting';
 }
 
 class Locales {
@@ -304,6 +309,10 @@ class Locales {
   'time_rice_receive':'Thời gian nhận cơm',
   'slot_remain':'Số suất còn lại',
   'cash':'Tiền mặt',
+  'change_pin':'Đổi mã pin',
+  'my_location':'Địa chỉ của tôi',
+  'profile':'Hồ sơ cá nhân',
+  'my_order':'Đơn hàng của tôi',
+  'more_setting':'Cài đặt khác',
   };
-
 }

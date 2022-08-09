@@ -79,6 +79,13 @@ class R {
   static const String assetsSvgBag= 'assets/svg/bag.svg';
   static const String assetsSvgPerson2= 'assets/svg/person_2.svg';
   static const String assetsSvgBackGroundMyCombo= 'assets/svg/background_info_combo.svg';
+  static const String assetsSvgPromotionCircleOrange= 'assets/svg/promotion_circle_orange.svg';
+  static const String assetsSvgPerson3= 'assets/svg/person_3.svg';
+  static const String assetsSvgOrangeLocation= 'assets/svg/orange_location.svg';
+  static const String assetsSvgLogout= 'assets/svg/logout.svg';
+  static const String assetsSvgFile= 'assets/svg/file.svg';
+  static const String assetsSvgDolaCircle= 'assets/svg/dola_circle.svg';
+  static const String assetsSvChangePin= 'assets/svg/change_pin.svg';
   static const String assetsSvgLocationCircle =
       'assets/svg/location_circle.svg';
   static const String assetsBackgroundHeaderTabMainSvg =

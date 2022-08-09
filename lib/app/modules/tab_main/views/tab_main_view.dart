@@ -90,10 +90,10 @@ class TabMainView extends GetView<TabMainController> {
                   itemSpace(),
                   SizedBox(
                     height: 162.h,
-                    child: SvgPicture.asset(
+                    child: InkWell(child: SvgPicture.asset(
                       R.assetsSvgHotline,
                       fit: BoxFit.fitWidth,
-                    ),
+                    ),onTap: ()=>controller.openDialThePhone(),),
                   ),
                   itemSpace(),
                   Opacity(
@@ -495,9 +495,9 @@ class TabMainView extends GetView<TabMainController> {
               )
             : CarouselSlider(
                 options: CarouselOptions(
-                    height: MediaQuery.of(context).size.width / 3.2,
-                    viewportFraction: 0.85,
-                    autoPlayInterval: const Duration(seconds: 2),
+                    height: MediaQuery.of(context).size.width / 3,
+                    viewportFraction: 0.92,
+                    autoPlayInterval: const Duration(seconds: 4),
                     enlargeCenterPage: true,
                     enableInfiniteScroll: false,
                     enlargeStrategy: CenterPageEnlargeStrategy.height,
@@ -511,10 +511,10 @@ class TabMainView extends GetView<TabMainController> {
                           borderRadius: BorderRadius.circular(20),
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width,
-                            child: AppNetworkImage(
+                            child: InkWell(child: AppNetworkImage(
                               fit: BoxFit.cover,
-                              source: model.imageUrl,
-                            ),
+                              source: model.img,
+                            ),onTap: ()=>controller.openSaleCombo(model),),
                           ),
                         ),
                       );

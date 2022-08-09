@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/utils/log_utils.dart';
@@ -18,17 +19,23 @@ import '../../order/controllers/order_controller.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 
 class ConfirmRiceOrderController extends GetxController {
- late RiceOrderParam model;
+  final String tag;
+  late RiceOrderParam model;
   final isPaymentByCash = true.obs;
   final isSelectMethodPayment = false.obs;
   final userProvider = UserProvider();
   int countCheckPayment = 0;
 
-  void changeMethodPayment(BuildContext context,{bool? isShow}){
-    isPaymentByCash.value = isShow ?? !isPaymentByCash.value;
+  ConfirmRiceOrderController() : tag = Random().nextInt(100).toString();
+  void changeMethodPayment(BuildContext context,bool isCash){
+    isPaymentByCash.value = isCash;
     Navigator.pop(context);  }
 
-  void getAgurment() => model = Get.arguments;
+  @override
+  void onInit() {
+    model = Get.arguments;
+    super.onInit();
+  }
   @override
   void onReady() {
     super.onReady();

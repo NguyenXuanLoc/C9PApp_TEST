@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:c9p/app/config/globals.dart' as globals;
 import 'package:c9p/app/data/model/order_model.dart';
@@ -10,14 +11,16 @@ import 'package:get/get.dart';
 import '../../../data/event_bus/refresh_order_detail_event.dart';
 
 class DetailOrderController extends GetxController {
+  final String tag;
   var orderModer = OrderModel().obs;
   StreamSubscription<RefreshOrderDetailEvent>? _reloadStream;
+  DetailOrderController() : tag = Random().nextInt(100).toString();
 
   @override
   void onInit() {
+    orderModer.value = Get.arguments;
     globals.isOrderDetail = true;
     refreshOrderListener();
-
     super.onInit();
   }
 

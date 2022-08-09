@@ -1,8 +1,7 @@
 import 'package:c9p/app/components/app_line_space.dart';
-import 'package:c9p/app/data/model/weather_model.dart';
 import 'package:c9p/app/extension/string_extension.dart';
 import 'package:c9p/app/utils/app_utils.dart';
-import 'package:c9p/app/utils/log_utils.dart';
+import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,12 +16,12 @@ import '../../../config/globals.dart';
 import '../../../config/resource.dart';
 import '../../../theme/app_styles.dart';
 import '../../../theme/colors.dart';
-import '../controllers/confirm_rice_order_controller.dart';
 
-class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
+class ConfirmRiceOrderView extends StatelessWidget{
+  var controller = TagUtils().findConfirmRiceOrderController();
+
   @override
   Widget build(BuildContext context) {
-    controller.getAgurment();
     return AppScaffold(
       fullStatusBar: true,
       isTabToHideKeyBoard: false,
@@ -79,7 +78,7 @@ class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
                                 color: colorText40),
                           ),
                           AppText(
-                            controller.model.address,
+                            controller!.model.address,
                             style: typoMediumText700,
                           ),
                           AppText(
@@ -96,50 +95,50 @@ class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
                 itemSpace(),
                 itemTitle(R.assetsSvgBag, LocaleKeys.order.tr),
                 itemContent(
-                    LocaleKeys.com_suon_ngon.tr, "x${controller.model.qty}"),
+                    LocaleKeys.com_suon_ngon.tr, "x${controller!.model.qty}"),
                 line(context),
                 itemContent(LocaleKeys.time_rice_receive.tr,
-                    '${Utils.convertTimeToDDMMYY(controller.model.deliverDate).replaceAll('-', '/')} - ${controller.model.deliverHour}'),
+                    '${Utils.convertTimeToDDMMYY(controller!.model.deliverDate).replaceAll('-', '/')} - ${controller!.model.deliverHour}'),
                 Visibility(
-                  visible: controller.model.myComboModel != null,
+                  visible: controller!.model.myComboModel != null,
                   child: line(context),
                 ),
                 Visibility(
-                  visible: controller.model.myComboModel != null,
+                  visible: controller!.model.myComboModel != null,
                   child: itemContent(LocaleKeys.name_package_promotion.tr,
-                      controller.model.myComboModel?.sale?.name ?? ''),
+                      controller!.model.myComboModel?.sale?.name ?? ''),
                 ),
                 Visibility(
-                  visible: controller.model.myComboModel != null,
+                  visible: controller!.model.myComboModel != null,
                   child: line(context),
                 ),
                 Visibility(
-                  visible: controller.model.myComboModel != null,
+                  visible: controller!.model.myComboModel != null,
                   child: itemContent(LocaleKeys.slot_remain.tr,
-                      "${(controller.model.myComboModel?.remainsCombo ?? 0) - int.parse(controller.model.qty)}"),
+                      "${(controller!.model.myComboModel?.remainsCombo ?? 0) - int.parse(controller!.model.qty)}"),
                 ),
                 line(context),
-                itemContent(LocaleKeys.receiver.tr, controller.model.name),
+                itemContent(LocaleKeys.receiver.tr, controller!.model.name),
                 const AppLineSpace(),
                 itemSpace(),
                 itemTitle(R.assetsSvgCoin, LocaleKeys.payment.tr),
                 itemContent(LocaleKeys.price.tr,
-                    "${Utils.formatMoney(controller.getPrice())}đ"),
+                    "${Utils.formatMoney(controller!.getPrice())}đ"),
                 line(context),
                 itemContent(LocaleKeys.ship_price.tr,
                     "${Utils.formatMoney(shipPrice)}đ"),
                 line(context),
                 itemContent(LocaleKeys.promotion.tr,
-                    "${Utils.formatMoney(controller.getPromotion())}đ"),
+                    "${Utils.formatMoney(controller!.getPromotion())}đ"),
                 line(context),
                 itemContent(LocaleKeys.total_price.tr,
-                    "${Utils.formatMoney(controller.getTotalPrice())}đ"),
+                    "${Utils.formatMoney(controller!.getTotalPrice())}đ"),
                 itemSpace(),
                 Container(
                   padding: EdgeInsets.only(left: contentPadding),
                   alignment: Alignment.centerLeft,
                   child: Visibility(
-                    visible: controller.model.myComboModel != null,
+                    visible: controller!.model.myComboModel != null,
                     child: Container(
                       width: MediaQuery.of(context).size.width -
                           MediaQuery.of(context).size.width / 3,
@@ -164,7 +163,7 @@ class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
                                     padding: const EdgeInsets.only(
                                         left: 5, right: 5),
                                     child: AppText(
-                                      "${controller.model.myComboModel?.sale?.saleId ?? ''}\n${(controller.model.myComboModel?.sale?.name ?? '')}",
+                                      "${controller!.model.myComboModel?.sale?.saleId ?? ''}\n${(controller!.model.myComboModel?.sale?.name ?? '')}",
                                       style: typoSuperSmallText700.copyWith(
                                           color: colorText0, fontSize: 11.sp),
                                       textAlign: TextAlign.start,
@@ -273,7 +272,7 @@ class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
                           children: [
                             Obx(() => InkWell(
                                   child: AppText(
-                                    controller.isPaymentByCash.value
+                                    controller!.isPaymentByCash.value
                                         ? LocaleKeys.cash.tr
                                         : LocaleKeys.vn_pay.tr,
                                     style: typoSuperSmallText600.copyWith(
@@ -293,7 +292,7 @@ class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
                         width: 10,
                       ),
                       AppText(
-                        "${Utils.formatMoney(controller.getTotalPrice())}đ",
+                        "${Utils.formatMoney(controller!.getTotalPrice())}đ",
                         style: typoSuperSmallText600.copyWith(fontSize: 11.sp),
                       ),
                       const SizedBox(
@@ -309,7 +308,7 @@ class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
             itemSpace(),
             AppButton(
               height: heightContinue,
-              onPress: () => controller.paymentOnclick(context),
+              onPress: () => controller!.paymentOnclick(context),
               title: LocaleKeys.payment.tr.toCapitalized(),
               textStyle: typoSuperSmallText600.copyWith(
                   fontSize: 16.sp, color: colorWhite),
@@ -405,14 +404,14 @@ class ConfirmRiceOrderView extends GetView<ConfirmRiceOrderController> {
                   itemPaymentDialog(
                       R.assetsPngVnpay,
                       LocaleKeys.vn_pay.tr.toUpperCase(),
-                      !controller.isPaymentByCash.value,
-                      () => controller.changeMethodPayment(context)),
+                      !controller!.isPaymentByCash.value,
+                      () => controller!.changeMethodPayment(context,false)),
                   line(context),
                   itemPaymentDialog(
                       R.assetsPngDola,
                       LocaleKeys.cash.tr.toCapitalized(),
-                      controller.isPaymentByCash.value,
-                      () => controller.changeMethodPayment(context)),
+                      controller!.isPaymentByCash.value,
+                      () => controller!.changeMethodPayment(context,true)),
                   itemSpace()
                 ],
               ),

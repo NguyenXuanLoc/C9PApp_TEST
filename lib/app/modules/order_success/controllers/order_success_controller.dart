@@ -1,31 +1,26 @@
+import 'dart:math';
+
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/routes/app_pages.dart';
-import 'package:c9p/app/utils/log_utils.dart';
 import 'package:get/get.dart';
-import 'package:back_button_interceptor/back_button_interceptor.dart';
 
 class OrderSuccessController extends GetxController {
+  String tag;
   OrderModel? model;
-
+  OrderSuccessController(): tag = Random().nextInt(100).toString();
   @override
   void onInit() {
     model = Get.arguments;
     super.onInit();
   }
-
-  void init() {
-    BackButtonInterceptor.add(myInterceptor);
+  Future<bool> onBackPress() async {
+    Get.offAllNamed(Routes.HOME);
+    return false;
   }
 
   @override
   void onClose() {
     super.onInit();
-  }
-
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
-    Get.offAllNamed(Routes.HOME, arguments: false);
-    BackButtonInterceptor.remove(myInterceptor);
-    return true;
   }
 
   void mainOnclick() => Get.offAllNamed(Routes.HOME);

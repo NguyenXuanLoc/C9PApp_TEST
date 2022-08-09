@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:c9p/app/data/event_bus/jump_to_tab_event.dart';
 import 'package:c9p/app/data/event_bus/reload_user_event.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +22,7 @@ class TabAccountController extends GetxController {
   final errorFullName = ''.obs;
   var isFirstOpen = true;
   var isSave = false.obs;
-  var currentName = '';
+  final currentName = ''.obs;
 
   @override
   void onInit() {
@@ -35,8 +36,10 @@ class TabAccountController extends GetxController {
       fullNameController.text = userModel.data?.userData?.name ?? '';
       phoneController.text =
           userModel.data?.userData?.phone?.replaceAll('+84', '0') ?? '';
-      currentName = fullNameController.text;
+      currentName.value = fullNameController.text;
     }
+    logE("TAG CURRENT NAME: $currentName");
+
   }
 
   bool isValid() {
@@ -61,7 +64,7 @@ class TabAccountController extends GetxController {
           var userModel = userCache.copyOf(
               data: userCache.data!.copyOf(userData: userData),
               needUpdate: false);
-          currentName = userModel.data?.userData?.name ?? '';
+          currentName.value = userModel.data?.userData?.name ?? '';
           isSave.value = false;
           await StorageUtils.saveUser(userModel);
           Utils.fireEvent(ReloadUserEvent());

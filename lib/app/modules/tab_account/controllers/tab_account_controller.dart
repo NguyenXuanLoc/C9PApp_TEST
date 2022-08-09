@@ -104,9 +104,10 @@ class TabAccountController extends GetxController {
   void onFullNameChange(String text) =>
       isSave.value = (text == currentName) ? false : true;
 
-  void handleAction(AccountAction action) {
+  void handleAction(AccountAction action,BuildContext context) {
     switch (action) {
       case AccountAction.PROFILE:
+        Get.toNamed(Routes.PROFILE);
         break;
       case AccountAction.MY_COMBO:
         Get.toNamed(Routes.MY_COMBO);
@@ -122,6 +123,10 @@ class TabAccountController extends GetxController {
       case AccountAction.REGULATION:
         Get.toNamed(Routes.WEBVIEW,
             arguments: [LocaleKeys.regulation.tr, globals.tempOfUseUrl]);
+        break;
+      case AccountAction.LOGOUT:
+        logout(context);
+        break;
     }
   }
 }

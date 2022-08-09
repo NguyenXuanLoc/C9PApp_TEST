@@ -1,3 +1,5 @@
+import 'package:c9p/app/modules/profile/bindings/profile_binding.dart';
+import 'package:c9p/app/modules/profile/views/profile_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/buy_combo_success/bindings/buy_combo_success_binding.dart';
@@ -197,6 +199,11 @@ class AppPages {
       name: _Paths.CONFIRM_RICE_ORDER,
       page: () => ConfirmRiceOrderView(),
       binding: ConfirmRiceOrderBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => ProfileView(),
+      binding: ProfileBinding(),
     ),
   ];
 }

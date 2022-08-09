@@ -66,17 +66,17 @@ class TabAccountView extends GetView<TabAccountController> {
         ),
         body: Column(
           children: [
-            itemTitle(R.assetsSvgPerson3, LocaleKeys.profile.tr,AccountAction.PROFILE),
+            itemTitle(R.assetsSvgPerson3, LocaleKeys.profile.tr,AccountAction.PROFILE,context,),
             line(context),
             itemTitle(
-                R.assetsSvgPromotionCircleOrange, LocaleKeys.my_promotion.tr,AccountAction.MY_COMBO),
+                R.assetsSvgPromotionCircleOrange, LocaleKeys.my_promotion.tr,AccountAction.MY_COMBO,context,),
             line(context),
-            itemTitle(R.assetsSvgOrangeLocation, LocaleKeys.my_location.tr,AccountAction.MY_LOCATION),
+            itemTitle(R.assetsSvgOrangeLocation, LocaleKeys.my_location.tr,AccountAction.MY_LOCATION,context,),
             line(context),
-            itemTitle(R.assetsSvgDolaCircle, LocaleKeys.method_payment.tr,AccountAction.METHOD_PAYMENT),
+            itemTitle(R.assetsSvgDolaCircle, LocaleKeys.method_payment.tr,AccountAction.METHOD_PAYMENT,context,),
             line(context),
             line(context),
-            itemTitle(R.assetsSvgOrder, LocaleKeys.my_order.tr,AccountAction.MY_ORDER),
+            itemTitle(R.assetsSvgOrder, LocaleKeys.my_order.tr,AccountAction.MY_ORDER,context,),
             Container(
               width: MediaQuery.of(context).size.width,
               color: colorSeparatorListView,
@@ -86,13 +86,13 @@ class TabAccountView extends GetView<TabAccountController> {
                 style: typoSmallTextBold.copyWith(fontSize: 14.sp),
               ),
             ),
-            itemTitle(R.assetsSvgFile, LocaleKeys.regulation.tr,AccountAction.REGULATION),
+            itemTitle(R.assetsSvgFile, LocaleKeys.regulation.tr,AccountAction.REGULATION,context,),
             line(context),
-            itemTitle(R.assetsSvChangePin, LocaleKeys.change_pin.tr,AccountAction.CHANGE_PIN),
+            itemTitle(R.assetsSvChangePin, LocaleKeys.change_pin.tr,AccountAction.CHANGE_PIN,context,),
             line(context),
             InkWell(
               child: itemTitle(
-                  R.assetsSvgLogout, LocaleKeys.logout.tr, AccountAction.LOGOUT,
+                  R.assetsSvgLogout, LocaleKeys.logout.tr, AccountAction.LOGOUT,context,
                   isShowSuffixIcon: false),
               onTap: () => controller.logout(context),
             ),
@@ -110,7 +110,7 @@ class TabAccountView extends GetView<TabAccountController> {
         width: MediaQuery.of(context).size.width,
       );
 
-  Widget itemTitle(String icon, String title,AccountAction action,{bool isShowSuffixIcon = true}) => Padding(
+  Widget itemTitle(String icon, String title,AccountAction action,BuildContext context,{bool isShowSuffixIcon = true}) => Padding(
         padding: EdgeInsets.only(
             left: contentPadding,
             right: contentPadding,
@@ -138,6 +138,6 @@ class TabAccountView extends GetView<TabAccountController> {
                 ),
               )
             ],
-        ),onTap: ()=>controller.handleAction(action),),
+        ),onTap: ()=>controller.handleAction(action,context),),
       );
 }

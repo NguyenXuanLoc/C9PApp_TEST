@@ -22,7 +22,7 @@ class ConfirmOrderController extends GetxController {
 
   void onClickPayment(BuildContext context) async {
     Dialogs.showLoadingDialog(context);
-    var response = await userProvider.buyCombo(model.id ?? 0);
+    var response = await userProvider.buyCombo(model.id ?? 0,qty);
     await Dialogs.hideLoadingDialog();
     if (response.error == null && response.data != null) {
       var paymentInfoModel = PaymentInfoModel.fromJson(response.data);

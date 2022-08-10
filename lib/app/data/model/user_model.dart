@@ -9,33 +9,34 @@ UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 String userModelToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
-  UserModel({
-    this.data,
-    this.needUpdate,
-    this.message,
-  });
+  UserModel({this.data, this.needUpdate, this.message, this.missingPinCode});
 
   Data? data;
   bool? needUpdate;
+  bool? missingPinCode;
   String? message;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         data: Data.fromJson(json["data"]),
         needUpdate: json["needUpdate"],
         message: json["message"],
+        missingPinCode: json["missingPinCode"],
       );
 
   Map<String, dynamic> toJson() => {
         "data": data!.toJson(),
         "needUpdate": needUpdate,
         "message": message,
+        "missingPinCode": missingPinCode,
       };
 
-  UserModel copyOf({Data? data, bool? needUpdate, String? message}) =>
+  UserModel copyOf({Data? data, bool? needUpdate, String? message,bool? missingPinCode}) =>
       UserModel(
-          data: data ?? this.data,
-          needUpdate: needUpdate ?? this.needUpdate,
-          message: message ?? this.message);
+        data: data ?? this.data,
+        needUpdate: needUpdate ?? this.needUpdate,
+        message: message ?? this.message,
+        missingPinCode: missingPinCode ?? this.missingPinCode,
+      );
 }
 
 class Data {

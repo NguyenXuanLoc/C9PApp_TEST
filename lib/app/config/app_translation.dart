@@ -65,6 +65,7 @@ class LocaleKeys {
   static const shipper = 'shipper';
   static const order_time = 'order_time';
   static const delivery_time = 'delivery_time';
+  static const time_rice_receive = 'time_rice_receive';
   static const full_name = 'full_name';
   static const delivery_address = 'delivery_address';
   static const delivery_date = 'delivery_date';
@@ -146,6 +147,27 @@ class LocaleKeys {
   static const buyer='buyer';
   static const trading_code='trading_code';
   static const vnpay_wallet='vnpay_wallet';
+  static const remaining_rice='remaining_rice';
+  static const notify_slot_order_bigger_remain_in_combo='notify_slot_order_bigger_remain_in_combo';
+  static const delivery_to='delivery_to';
+  static const add_note = 'add_note';
+  static const ship_price = 'ship_price';
+  static const com_suon_ngon = 'com_suon_ngon';
+  static const name_package_promotion = 'name_package_promotion';
+  static const slot_remain = 'slot_remain';
+  static const cash = 'cash';
+  static const change_pin = 'change_pin';
+  static const my_location = 'my_location';
+  static const profile = 'profile';
+  static const my_order = 'my_order';
+  static const more_setting = 'more_setting';
+  static const you_have_just_order_success = 'you_have_just_order_success';
+  static const please_input_pass = 'please_input_pass';
+  static const pass_invalid = 'pass_invalid';
+  static const pass_not_match = 'pass_not_match';
+  static const input_current_pin = 'input_current_pin';
+  static const input_new_pin = 'input_new_pin';
+  static const input_retype_new_pin = 'input_retype_new_pin';
 }
 
 class Locales {
@@ -282,7 +304,30 @@ class Locales {
     'buyer': 'Người mua hàng',
     'trading_code': 'Mã giao dịch',
     'vnpay_wallet': 'Ví Vnpay',
+    'remaining_rice': 'Số suất cơm còn lại trong gói khuyến mãi của bạn là',
+    'notify_slot_order_bigger_remain_in_combo': 'Số suất cơm phải nhỏ hơn hoặc bằng số suất cơm còn lại trong gói khuyến mãi',
     'message_register_success':
         'Nhấn nút phía dưới để tiếp tục sử dụng dịch vụ của chúng tôi. Chúc bạn luôn có những bữa trưa ngon miệng',
+  'delivery_to':'Giao hàng đến',
+  'add_note':'+ Thêm ghi chú cho người giao hàng...',
+  'ship_price':'Phí ship',
+  'com_suon_ngon':'Cơm sườn ngon',
+  'name_package_promotion':'Gói khuyến mãi',
+  'time_rice_receive':'Thời gian nhận cơm',
+  'slot_remain':'Số suất còn lại',
+  'cash':'Tiền mặt',
+  'change_pin':'Đổi mã pin',
+  'my_location':'Địa chỉ của tôi',
+  'profile':'Hồ sơ cá nhân',
+  'my_order':'Đơn hàng của tôi',
+  'more_setting':'Cài đặt khác',
+  'you_have_just_order_success':'Bạn vừa đặt thành công mã đơn hàng #',
+  'receiver':'Người nhận',
+  'please_input_pass':'Vui lòng nhập mật khẩu',
+  'pass_invalid':'Mật khẩu không hợp lệ',
+  'pass_not_match':'Mật khẩu và xác thực mật khẩu không tương đồng',
+  'input_current_pin':'Nhập mã pin hiện tại',
+  'input_new_pin':'Nhập mã pin mới',
+  'input_retype_new_pin':'Nhập lại mã pin mới',
   };
 }

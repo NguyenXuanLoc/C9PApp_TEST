@@ -71,6 +71,6 @@ class MyComboController extends GetxController {
       update();
     }
   }
-  void onClickOrderRice(MyComboModel model){}
+  void onClickOrderRice(MyComboModel model)=>Get.toNamed(Routes.ORDER,arguments: model);
   void openComboDetail(MyComboModel model){}
 }

@@ -4,16 +4,25 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 
-import '../../../components/app_button.dart';
 import '../../../components/app_scalford.dart';
 import '../../../components/app_text.dart';
-import '../../../components/app_text_field.dart';
 import '../../../config/app_translation.dart';
 import '../../../config/globals.dart';
 import '../../../config/resource.dart';
 import '../../../theme/app_styles.dart';
 import '../../../theme/colors.dart';
 import '../controllers/tab_account_controller.dart';
+
+enum AccountAction {
+  PROFILE,
+  MY_COMBO,
+  MY_LOCATION,
+  METHOD_PAYMENT,
+  MY_ORDER,
+  REGULATION,
+  CHANGE_PIN,
+  LOGOUT
+}
 
 class TabAccountView extends GetView<TabAccountController> {
   @override
@@ -34,10 +43,18 @@ class TabAccountView extends GetView<TabAccountController> {
                 ))
           ],
           automaticallyImplyLeading: false,
-          centerTitle: true,
-          title: AppText(
-            LocaleKeys.account.tr,
-            style: typoTitleHeader,
+          // centerTitle: true,
+          title: Row(
+            children: [
+              SvgPicture.asset(R.assetsSvgCircleAvatar),
+              const SizedBox(
+                width: 10,
+              ),
+              Obx(() => AppText(
+                controller.currentName.value,
+                style: typoSmallText700.copyWith(color: colorText0),
+              ))
+            ],
           ),
           flexibleSpace: Container(
             alignment: Alignment.bottomCenter,
@@ -47,61 +64,80 @@ class TabAccountView extends GetView<TabAccountController> {
                     fit: BoxFit.fitWidth)),
           ),
         ),
-        body: Padding(
-          padding: EdgeInsets.all(contentPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 20,
+        body: Column(
+          children: [
+            itemTitle(R.assetsSvgPerson3, LocaleKeys.profile.tr,AccountAction.PROFILE,context,),
+            line(context),
+            itemTitle(
+                R.assetsSvgPromotionCircleOrange, LocaleKeys.my_promotion.tr,AccountAction.MY_COMBO,context,),
+            line(context),
+            itemTitle(R.assetsSvgOrangeLocation, LocaleKeys.my_location.tr,AccountAction.MY_LOCATION,context,),
+            line(context),
+            itemTitle(R.assetsSvgDolaCircle, LocaleKeys.method_payment.tr,AccountAction.METHOD_PAYMENT,context,),
+            line(context),
+            line(context),
+            itemTitle(R.assetsSvgOrder, LocaleKeys.my_order.tr,AccountAction.MY_ORDER,context,),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: colorSeparatorListView,
+              padding: EdgeInsets.all(contentPadding),
+              child: AppText(
+                LocaleKeys.more_setting.tr,
+                style: typoSmallTextBold.copyWith(fontSize: 14.sp),
               ),
-              AppText(
-                LocaleKeys.full_name.tr,
-                style: typoSuperSmallTextBold,
-              ),
-              itemSpace(),
-              Obx(() => AppTextField(
-                    onChanged: (text) => controller.onFullNameChange(text),
-                    controller: controller.fullNameController,
-                    errorText: controller.errorFullName.value,
-                    textInputAction: TextInputAction.next,
-                    hintText: LocaleKeys.full_name.tr,
-                    hintStyle:
-                        typoSuperSmallTextBold.copyWith(color: colorText60),
-                    textStyle: typoSuperSmallTextBold.copyWith(),
-                    decoration: decorTextFieldOval,
-                  )),
-              AppText(
-                LocaleKeys.phone_number.tr,
-                style: typoSuperSmallTextBold,
-              ),
-              itemSpace(),
-              AppTextField(
-                controller: controller.phoneController,
-                readOnly: true,
-                textInputAction: TextInputAction.next,
-                textStyle: typoSuperSmallTextBold.copyWith(),
-                decoration: decorTextFieldOval,
-              ),
-              const Spacer(),
-              AppButton(
-                onPress: () => controller.logout(context),
-                title: LocaleKeys.logout.tr,
-                textStyle: typoButton.copyWith(color: colorText60),
-                width: MediaQuery.of(context).size.width,
-                height: heightContinue,
-                shapeBorder: shapeBorderButton,
-                backgroundColor: colorGrey10,
-              ),
-              const SizedBox(
-                height: 30,
-              )
-            ],
-          ),
+            ),
+            itemTitle(R.assetsSvgFile, LocaleKeys.regulation.tr,AccountAction.REGULATION,context,),
+            line(context),
+            itemTitle(R.assetsSvChangePin, LocaleKeys.change_pin.tr,AccountAction.CHANGE_PIN,context,),
+            line(context),
+            InkWell(
+              child: itemTitle(
+                  R.assetsSvgLogout, LocaleKeys.logout.tr, AccountAction.LOGOUT,context,
+                  isShowSuffixIcon: false),
+              onTap: () => controller.logout(context),
+            ),
+            Expanded(
+                child: Container(
+              color: colorSeparatorListView,
+            ))
+          ],
         ));
   }
 
-  Widget itemSpace() => SizedBox(
-        height: 5.h,
+  Widget line(BuildContext context) => Container(
+        height: 0.1,
+        color: colorBlack,
+        width: MediaQuery.of(context).size.width,
+      );
+
+  Widget itemTitle(String icon, String title,AccountAction action,BuildContext context,{bool isShowSuffixIcon = true}) => Padding(
+        padding: EdgeInsets.only(
+            left: contentPadding,
+            right: contentPadding,
+            top: 11.h,
+            bottom: 11.h),
+        child: InkWell(child: Row(
+          children: [
+            SvgPicture.asset(
+              icon,
+              width: 15.w,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            AppText(
+              title,
+              style: typoSuperSmallText600.copyWith(fontSize: 13.sp),
+            ),
+            const Spacer(),
+              Visibility(
+                visible: isShowSuffixIcon,
+                child: const Icon(
+                  Icons.arrow_forward_ios_outlined,
+                  size: 11,
+                ),
+              )
+            ],
+        ),onTap: ()=>controller.handleAction(action,context),),
       );
 }

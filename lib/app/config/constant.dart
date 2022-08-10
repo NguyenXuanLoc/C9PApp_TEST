@@ -18,6 +18,9 @@ class MessageKey {
   static const String otp_expired = 'The sms code has expired';
   static const String OK = 'OK';
   static const String NOT_FOUND_ANY_USER = 'Not found any user';
+  static const String CHANGE_PASSWORD = 'Change Password';
+  static const String CREATE_PASSWORD = 'Create password';
+
 }
 
 class ApiKey {
@@ -39,7 +42,10 @@ class ApiKey {
   static const saleId = 'saleId';
   static const password = 'password';
   static const password_confirmation = 'password_confirmation';
+  static const current_password = 'current_password';
   static const vnp_ResponseCode = 'vnp_ResponseCode';
+  static const combo_id = 'combo_id';
+  static const useCombo = 'useCombo';
 }
 
 class AppConstant {

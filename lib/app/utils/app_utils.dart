@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
@@ -18,6 +19,7 @@ import '../components/date_picker.dart';
 import '../config/app_translation.dart';
 import '../routes/app_pages.dart';
 import '../theme/colors.dart';
+import 'package:images_picker/images_picker.dart';
 
 class Utils {
   static var eventBus = EventBus();
@@ -208,4 +210,21 @@ class Utils {
     await Dialogs.showLoginDialog(context,
         loginCallBack: () => Get.toNamed(Routes.LOGIN_SPLASH));
   }
+  static void openBrowser(String url) async {
+    print("open url: $url");
+/*    if (await canLaunch(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not open the map.';
+    }*/
+  }
+static  String getRandomTag()=> Random().nextInt(100).toString();
+  static Future<List<Media>?> imagePicker(int count, int lengthList) async =>
+      await ImagesPicker.pick(
+        count: count - lengthList,
+        pickType: PickType.image,
+        gif: false,
+        quality: 0.8,
+        maxSize: 500,
+      );
 }

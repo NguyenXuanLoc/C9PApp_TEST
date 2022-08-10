@@ -47,14 +47,13 @@ class TabPromotionView extends GetView<TabPromotionController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.only(
-                      left: contentPadding, right: contentPadding),
                   color: colorWhite,
                   child: Column(
                     children: [
                       itemSpace(),
                       InkWell(
-                          child: Container(
+                          child: Container(margin: EdgeInsets.only(
+                              left: contentPadding, right: contentPadding),
                             height: 35.h,
                             decoration: BoxDecoration(
                               border: Border.all(color: colorLine, width: 0.2),
@@ -110,7 +109,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
                           ),
                           onTap: () => controller.openMyCombo()),
                       itemSpace(),
-                      SizedBox(
+                      Container(padding: EdgeInsets.only(left: contentPadding),
                         height: 130.h,
                         child: myCombWidget(),
                       ),
@@ -186,7 +185,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
               options: CarouselOptions(
                   height: 130.h,
                   viewportFraction: 0.95,
-                  enlargeCenterPage: true,
+                  // enlargeCenterPage: true,
                   enableInfiniteScroll: false,
                   disableCenter: true,
                   padEnds: false,
@@ -198,7 +197,7 @@ class TabPromotionView extends GetView<TabPromotionController> {
                   builder: (BuildContext context) {
                     return Padding(
                       padding: EdgeInsets.only(right: 10.w),
-                      child: InkWell(
+                      child: InkWell(onTap: ()=>controller.openOrder(model),
                           child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: SizedBox(

@@ -76,7 +76,7 @@ class ConfirmOrderView extends GetView<ConfirmOrderController> {
           line(context),
           itemSpace(),
           itemContent(LocaleKeys.promotion.tr,
-              "${(Utils.formatMoney(((controller.model.getFree ?? 1) * 45000) * int.parse(controller.qty)))}đ"),
+              "${(Utils.formatMoney(((controller.model.getFree ?? 1) * ricePrice) * int.parse(controller.qty)))}đ"),
           line(context),
           itemSpace(),
           itemContent(LocaleKeys.total_price.tr, getTotalPrice()),
@@ -187,12 +187,12 @@ class ConfirmOrderView extends GetView<ConfirmOrderController> {
         ),
       );
 
-  Widget itemSpace() => const SizedBox(
-        height: 10,
+  Widget itemSpace() =>  SizedBox(
+        height: 11.h,
       );
 
   String getPrice() =>
-      "${Utils.formatMoney(((controller.model.getFree ?? 1) * 45000 + int.parse(controller.model.price!)) * int.parse(controller.qty))}đ";
+      "${Utils.formatMoney(((controller.model.getFree ?? 1) * ricePrice + int.parse(controller.model.price!)) * int.parse(controller.qty))}đ";
 
   String getTotalPrice() =>
       "${Utils.formatMoney((int.parse(controller.model.price ?? '')) * int.parse(controller.qty))}đ";

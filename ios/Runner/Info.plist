@@ -65,5 +65,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>tel</string>
+    </array>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Cơm 9 phút cần truy cập thư viện ảnh</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Cơm 9 phút cần truy cập camera của bạn</string>
 </dict>
 </plist>

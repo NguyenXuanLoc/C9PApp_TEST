@@ -26,7 +26,10 @@ class LoginController extends GetxController {
   void onClickContinue() async {
     if (isValid.value) {
       var isPassExist = await checkPasswordExist();
-      if (isPassExist == null) return;
+      if (isPassExist == null){
+        toast(LocaleKeys.network_error.tr);
+        return;
+      }
       if (isPassExist) {
         Get.toNamed(Routes.LOGIN_BY_PIN,arguments: Utils.formatPhone(phoneController.text));
       } else {
@@ -53,11 +56,14 @@ class LoginController extends GetxController {
 
   Future<bool?> checkPasswordExist() async {
     var response = await userProvider.checkPasswordExits(Utils.standardizePhoneNumber(phoneController.text));
+    try{
+      return response.data['isSucess'] ?? false;
+    }catch(ex){}
     if (response.error == null && response.data != null) {
-      var isExist = response.data['data']['exist'] ?? false;
-      return isExist;
+    return response.data['isSucess'] ?? false;
     } else {
-      if(response.error.toString() ==MessageKey.NOT_FOUND_ANY_USER){
+      if (response.error.toString() == MessageKey.NOT_FOUND_ANY_USER ||
+          response.error.toString() == MessageKey.CREATE_PASSWORD) {
         return false;
       }else {
         toast(response.error.toString());

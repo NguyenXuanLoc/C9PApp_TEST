@@ -27,8 +27,11 @@ abstract class Routes {
   static const LOGIN_BY_PIN = _Paths.LOGIN_BY_PIN;
   static const BY_COMBO = _Paths.BY_COMBO;
   static const CONFIRM_ORDER = _Paths.CONFIRM_ORDER;
+  static const CONFIRM_RICE_ORDER = _Paths.CONFIRM_RICE_ORDER;
   static const BUY_COMBO_SUCCESS = _Paths.BUY_COMBO_SUCCESS;
   static const PAYMENT = _Paths.PAYMENT;
+  static const PROFILE = _Paths.PROFILE;
+  static const CHANGE_PASS = _Paths.CHANGE_PASS;
 }
 
 abstract class _Paths {
@@ -59,4 +62,7 @@ abstract class _Paths {
   static const CONFIRM_ORDER = '/confirm-order';
   static const BUY_COMBO_SUCCESS = '/buy-combo-success';
   static const PAYMENT = '/payment';
+  static const CONFIRM_RICE_ORDER = '/confirm-rice-order';
+  static const PROFILE = '/profile';
+  static const CHANGE_PASS = '/change-pass';
 }

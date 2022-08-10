@@ -4,10 +4,14 @@ import '../modules/buy_combo_success/bindings/buy_combo_success_binding.dart';
 import '../modules/buy_combo_success/views/buy_combo_success_view.dart';
 import '../modules/by_combo/bindings/by_combo_binding.dart';
 import '../modules/by_combo/views/by_combo_view.dart';
+import '../modules/change_pass/bindings/change_pass_binding.dart';
+import '../modules/change_pass/views/change_pass_view.dart';
 import '../modules/combo_selling/bindings/combo_selling_binding.dart';
 import '../modules/combo_selling/views/combo_selling_view.dart';
 import '../modules/confirm_order/bindings/confirm_order_binding.dart';
 import '../modules/confirm_order/views/confirm_order_view.dart';
+import '../modules/confirm_rice_order/bindings/confirm_rice_order_binding.dart';
+import '../modules/confirm_rice_order/views/confirm_rice_order_view.dart';
 import '../modules/detail_order/bindings/detail_order_binding.dart';
 import '../modules/detail_order/views/detail_order_view.dart';
 import '../modules/developing/bindings/developing_binding.dart';
@@ -30,6 +34,8 @@ import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/payment/bindings/payment_binding.dart';
 import '../modules/payment/views/payment_view.dart';
+import '../modules/profile/bindings/profile_binding.dart';
+import '../modules/profile/views/profile_view.dart';
 import '../modules/register_pin/bindings/register_pin_binding.dart';
 import '../modules/register_pin/views/register_pin_view.dart';
 import '../modules/register_success/bindings/register_success_binding.dart';
@@ -190,6 +196,21 @@ class AppPages {
       name: _Paths.PAYMENT,
       page: () => PaymentView(),
       binding: PaymentBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONFIRM_RICE_ORDER,
+      page: () => ConfirmRiceOrderView(),
+      binding: ConfirmRiceOrderBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => ProfileView(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHANGE_PASS,
+      page: () => ChangePassView(),
+      binding: ChangePassBinding(),
     ),
   ];
 }

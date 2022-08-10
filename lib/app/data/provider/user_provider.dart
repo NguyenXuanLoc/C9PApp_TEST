@@ -36,20 +36,53 @@ class UserProvider extends BaseProvider {
           required String lat,
           required String lng,
           required String deliverTime,
-          required String productId}) async =>
-      await POST(
-          'user/order',
-          {
-            ApiKey.name: name,
-            ApiKey.address: address,
-            ApiKey.phone: phone,
-            ApiKey.qty: qty,
-            ApiKey.lat: lat,
-            ApiKey.lng: lng,
-            ApiKey.deliverTime: /*'2023-6-15 08:32:21'*/ deliverTime,
-            ApiKey.product_id: productId
-          },
-          isFormData: true);
+      required String productId,
+      int? comboId,
+      int useCombo = 0}) async {
+    var body = {
+      ApiKey.name: name,
+      ApiKey.address: address,
+      ApiKey.phone: phone,
+      ApiKey.qty: qty,
+      ApiKey.lat: lat,
+      ApiKey.lng: lng,
+      ApiKey.deliverTime: /*'2023-6-15 08:32:21'*/ deliverTime,
+      ApiKey.product_id: productId
+    };
+    if (comboId != null) {
+      body[ApiKey.combo_id] = comboId.toString();
+      body[ApiKey.useCombo] = useCombo.toString();
+    }
+    return await POST('user/order', body, isFormData: true);
+  }
+
+  Future<ApiResult> paymentRiceOrderByVnPay(
+      {required String name,
+        required String address,
+        required String phone,
+        required String qty,
+        required String lat,
+        required String lng,
+        required String deliverTime,
+        required String productId,
+        int? comboId,
+        int useCombo = 0}) async {
+    var body = {
+      ApiKey.name: name,
+      ApiKey.address: address,
+      ApiKey.phone: phone,
+      ApiKey.qty: qty,
+      ApiKey.lat: lat,
+      ApiKey.lng: lng,
+      ApiKey.deliverTime: /*'2023-6-15 08:32:21'*/ deliverTime,
+      ApiKey.product_id: productId
+    };
+    if (comboId != null) {
+      body[ApiKey.combo_id] = comboId.toString();
+      body[ApiKey.useCombo] = useCombo.toString();
+    }
+    return await POST('user/order/payment/vnpay', body, isFormData: true);
+  }
 
   Future<ApiResult> getWeather(
     double lat,
@@ -107,9 +140,17 @@ class UserProvider extends BaseProvider {
   Future<ApiResult> checkPasswordExits(String phoneNumber) async =>
       await GET('user/password?phone=$phoneNumber');
   // payment/check_payment
-  Future<ApiResult> buyCombo(int saleId) async =>
-      await POST('user/combo', {ApiKey.saleId: saleId});
+  Future<ApiResult> buyCombo(int saleId,String qty) async =>
+      await POST('user/combo', {ApiKey.saleId: saleId,ApiKey.qty: qty});
 
   Future<ApiResult> checkPayment(String orderId) async =>
       await GET('payment/check_payment?orderId=$orderId');
+
+  Future<ApiResult> changePass(
+          String oldPass, String newPass, String confirmPass) async =>
+      await POST('user/password', {
+        ApiKey.password: newPass,
+        ApiKey.password_confirmation: confirmPass,
+        ApiKey.current_password: oldPass
+      });
 }

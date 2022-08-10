@@ -12,11 +12,13 @@ String phoneNumber = '';
 bool isLogin = false;
 bool isNeedUpdateProfile = true;
 bool isActive = false;
+bool isMissPinCode = false;
 bool isOpenYourOrder = false;
 bool isOrderDetail = false;
 int timePackageRemaining = 0;
 int timeOut = 30;
-
+int shipPrice =10000;
+int ricePrice =45000;
 String privacyUrl = 'https://api-mobile.com9phut.vn/privacy.html';
 String tempOfUseUrl = 'https://api-mobile.com9phut.vn/terms-of-use.html';
 double heightContinue = 37.7.h;

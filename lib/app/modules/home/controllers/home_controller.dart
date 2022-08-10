@@ -28,6 +28,10 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
+  void showLoading(BuildContext context) => WidgetsBinding.instance
+      .addPostFrameCallback((_) => Dialogs.showPopupPromotion(context,
+          bannerCallBack: () => Get.toNamed(Routes.COMBO_SELLING)));
+
   Future<bool> onBackPress() async {
     var isClose = false;
     if (currentIndex != 0) {
@@ -70,6 +74,7 @@ class HomeController extends GetxController {
     if (Get.arguments != null && Get.arguments) {
       Get.toNamed(Routes.ORDER);
     }
+    checkToShowPopUp();
     checkOrderIdFromCache();
     checkRegisterDevice();
     super.onReady();
@@ -121,6 +126,18 @@ class HomeController extends GetxController {
         pageController.jumpToPage(index);
       } else {
         Utils.requestLogin(context!);
+      }
+    }
+  }
+
+  void checkToShowPopUp() async {
+    if (!globals.isLogin) return;
+    var response = await userProvider.getMyCombo();
+    if (response.error == null && response.data != null) {
+      var isSuccess = response.data['isSucess'] ?? false;
+      if (!isSuccess) {
+        WidgetsBinding.instance
+            .addPostFrameCallback((timeStamp) => showLoading(context!));
       }
     }
   }

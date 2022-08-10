@@ -1,4 +1,6 @@
 import 'package:c9p/app/components/app_button.dart';
+import 'package:c9p/app/components/app_network_image.dart';
+import 'package:c9p/app/config/globals.dart';
 import 'package:c9p/app/theme/app_styles.dart';
 import 'package:c9p/app/theme/colors.dart';
 import 'package:c9p/app/utils/log_utils.dart';
@@ -7,11 +9,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../config/resource.dart';
 import 'app_text.dart';
 
 class Dialogs {
   static final GlobalKey<State> _keyLoader = GlobalKey<State>();
-  static final GlobalKey<State> _keyCloseApp = GlobalKey<State>();
+  static final GlobalKey<State> _keyPromotion = GlobalKey<State>();
+  static final  _keyCloseApp = GlobalKey<State>();
 
   static Future<void>? showLoadingDialog(BuildContext? context) {
     if (context == null) {
@@ -338,6 +342,63 @@ class Dialogs {
         });
   }
 
+  static Future<bool?> showPopupPromotion(BuildContext context,
+      {required VoidCallback bannerCallBack}) async{
+    return await showGeneralDialog(
+        barrierDismissible: false,
+        context: context,
+        barrierLabel:
+        MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: Colors.black45,
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
+          return WillPopScope(
+              onWillPop: () async => true,
+              child: SimpleDialog(
+                key: _keyPromotion,
+                backgroundColor: Colors.transparent,contentPadding: EdgeInsets.all(5.w),
+                children: <Widget>[
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(right: 2),
+                        alignment: Alignment.bottomRight,
+                        child: InkWell(
+                          child: Image.asset(
+                            R.assetsPngClearCircle,
+                            height: 20.w,
+                            fit: BoxFit.fitHeight,
+                          ),
+                          onTap: () => hidePromotion(),
+                        ),
+                      ),
+                    InkWell(child:   ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child:  Image.asset(R.assetsPngPromotionPopup,fit: BoxFit.fitWidth,
+                        // height: 260.h,
+                        width: MediaQuery.of(context).size.width * 2 / 3.4,
+                          ),
+                        ),
+                        onTap: () {
+                          Get.back();
+                          bannerCallBack.call();
+                        },
+                      )
+                    ],
+                  )
+                ],
+              ));
+        });
+  }
+
+  static Future<void> hidePromotion() async {
+    await Future.delayed(
+        const Duration(milliseconds: 200),
+        () => Navigator.of(_keyPromotion.currentContext!, rootNavigator: true)
+            .pop());
+  }
   static Future<void> hideLoadingDialog() async {
     await Future.delayed(
         const Duration(milliseconds: 200),

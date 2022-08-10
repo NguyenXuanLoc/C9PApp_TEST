@@ -42,6 +42,7 @@ class ApiKey {
   static const saleId = 'saleId';
   static const password = 'password';
   static const password_confirmation = 'password_confirmation';
+  static const current_password = 'current_password';
   static const vnp_ResponseCode = 'vnp_ResponseCode';
   static const combo_id = 'combo_id';
   static const useCombo = 'useCombo';

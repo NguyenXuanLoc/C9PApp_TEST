@@ -30,7 +30,8 @@ class AppTextField extends StatefulWidget {
   final double? height;
   final bool isShowErrorText;
   final int? maxLine;
-
+  final List<TextInputFormatter>? inputFormatters;
+  final String? obscuringCharacter;
   const AppTextField(
       {this.controller,
       this.hintText,
@@ -56,7 +57,7 @@ class AppTextField extends StatefulWidget {
       this.enable,
       this.height,
       this.isShowErrorText = true,
-      this.maxLine})
+      this.maxLine, this.inputFormatters, this.obscuringCharacter})
       : super(key: key);
 
   @override
@@ -79,6 +80,7 @@ class _AppTextFieldState extends State<AppTextField> {
       runSpacing: 1,
       children: [
         TextField(
+          inputFormatters: widget.inputFormatters,
           enabled: widget.enable,
           readOnly: widget.readOnly ?? false,
           maxLengthEnforcement: widget.maxLengthEnforcement,
@@ -86,6 +88,7 @@ class _AppTextFieldState extends State<AppTextField> {
           controller: widget.controller,
           style: widget.textStyle?.copyWith(height: widget.height) ??
               styleTextField.copyWith(height: widget.height),
+          obscuringCharacter: widget.obscuringCharacter ?? '*',
           obscureText: widget.obscureText ?? false,
           keyboardType: widget.keyboardType,
           textInputAction: widget.textInputAction,
@@ -107,7 +110,6 @@ class _AppTextFieldState extends State<AppTextField> {
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: colorGrey20, width: 1),
               ),
-              /*contentPadding: EdgeInsets.only(),*/
               hintText: widget.hintText,
               prefixIcon: widget.prefixIcon,
               suffixIcon: widget.suffixIcon,

@@ -33,22 +33,19 @@ class AppScaffold extends StatelessWidget {
     if (isTabToHideKeyBoard) {
       return MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-        child: GestureDetector(
-          child: Scaffold(
-            backgroundColor: backgroundColor ?? colorBackgroundColor,
-            resizeToAvoidBottomInset: resizeToAvoidBottomInset ?? true,
-            appBar: appbar,
-            floatingActionButton: floatingActionButton,
-            floatingActionButtonLocation: floatingActionButtonLocation,
-            body: fullStatusBar
-                ? body
-                : SafeArea(
-                    minimum: padding,
-                    child: body,
-                  ),
-            bottomNavigationBar: bottomNavigationBar,
-          ),
-          onTap: () => Utils.hideKeyboard(context),
+        child: Scaffold(
+          backgroundColor: backgroundColor ?? colorBackgroundColor,
+          resizeToAvoidBottomInset: resizeToAvoidBottomInset ?? true,
+          appBar: appbar,
+          floatingActionButton: floatingActionButton,
+          floatingActionButtonLocation: floatingActionButtonLocation,
+          body: GestureDetector(child: fullStatusBar
+              ? body
+              : SafeArea(
+            minimum: padding,
+            child: body,
+          ),  onTap: () => Utils.hideKeyboard(context),),
+          bottomNavigationBar: bottomNavigationBar,
         ),
       );
     }

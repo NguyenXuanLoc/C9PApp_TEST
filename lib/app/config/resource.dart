@@ -86,6 +86,7 @@ class R {
   static const String assetsSvgFile= 'assets/svg/file.svg';
   static const String assetsSvgDolaCircle= 'assets/svg/dola_circle.svg';
   static const String assetsSvChangePin= 'assets/svg/change_pin.svg';
+  static const String assetsSvChangePinBlack= 'assets/svg/change_pin_black.svg';
   static const String assetsSvgLocationCircle =
       'assets/svg/location_circle.svg';
   static const String assetsBackgroundHeaderTabMainSvg =

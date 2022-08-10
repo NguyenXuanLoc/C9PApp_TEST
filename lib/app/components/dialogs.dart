@@ -342,12 +342,17 @@ class Dialogs {
         });
   }
 
-  static Future<void> showPopupPromotion(BuildContext context,
-      {required VoidCallback loginCallBack}) {
-    return showDialog<void>(
+  static Future<bool?> showPopupPromotion(BuildContext context,
+      {required VoidCallback bannerCallBack}) async{
+    return await showGeneralDialog(
+        barrierDismissible: false,
         context: context,
-        barrierDismissible: true,
-        builder: (BuildContext context) {
+        barrierLabel:
+        MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: Colors.black45,
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
           return WillPopScope(
               onWillPop: () async => true,
               child: SimpleDialog(
@@ -357,23 +362,29 @@ class Dialogs {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Align(
-                        alignment: Alignment.centerRight,
+                      Container(
+                        padding: const EdgeInsets.only(right: 2),
+                        alignment: Alignment.bottomRight,
                         child: InkWell(
                           child: Image.asset(
                             R.assetsPngClearCircle,
-                            width: 20.w,
-                          ),onTap: ()=>hidePromotion(),
+                            height: 20.w,
+                            fit: BoxFit.fitHeight,
+                          ),
+                          onTap: () => hidePromotion(),
                         ),
                       ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child:  Image.asset(R.assetsPngPromotionPopup,fit: BoxFit.fitHeight,
-                          height: 260.h
+                    InkWell(child:   ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child:  Image.asset(R.assetsPngPromotionPopup,fit: BoxFit.fitWidth,
+                        // height: 260.h,
+                        width: MediaQuery.of(context).size.width * 2 / 3.4,
+                          ),
                         ),
+                        onTap: () {
+                          Get.back();
+                          bannerCallBack.call();
+                        },
                       )
                     ],
                   )

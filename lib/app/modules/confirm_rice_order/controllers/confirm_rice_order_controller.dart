@@ -48,11 +48,11 @@ class ConfirmRiceOrderController extends GetxController {
   }
 
   int getPrice() => model.myComboModel != null
-      ? 0
+      ? double.parse(model.qty).toInt() * ricePrice
       : double.parse(model.qty).toInt() * ricePrice;
 
   int getPromotion() => model.myComboModel != null
-      ? 0
+      ? double.parse(model.qty).toInt() * ricePrice
       : double.parse(model.qty).toInt() * ricePrice;
 
   int getTotalPrice() => model.myComboModel != null

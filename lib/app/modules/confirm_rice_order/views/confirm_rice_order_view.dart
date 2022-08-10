@@ -192,6 +192,7 @@ class ConfirmRiceOrderView extends StatelessWidget{
                     ),
                   ),
                 ),
+                SizedBox(height: 20,),
               ],
             ),
           )),

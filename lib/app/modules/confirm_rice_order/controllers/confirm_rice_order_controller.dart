@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/utils/log_utils.dart';
+import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,13 +41,18 @@ class ConfirmRiceOrderController extends GetxController {
   void onReady() {
     super.onReady();
   }
+  @override
+  void onClose() {
+    TagUtils().tagsConfirmRiceOrder.removeAt(0);
+    super.onReady();
+  }
 
   int getPrice() => model.myComboModel != null
-      ? 0
+      ? double.parse(model.qty).toInt() * ricePrice
       : double.parse(model.qty).toInt() * ricePrice;
 
   int getPromotion() => model.myComboModel != null
-      ? 0
+      ? double.parse(model.qty).toInt() * ricePrice
       : double.parse(model.qty).toInt() * ricePrice;
 
   int getTotalPrice() => model.myComboModel != null

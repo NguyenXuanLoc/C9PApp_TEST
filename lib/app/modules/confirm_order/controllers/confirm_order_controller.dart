@@ -5,6 +5,7 @@ import 'package:c9p/app/data/model/payment_success_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/log_utils.dart';
+import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,9 +21,10 @@ class ConfirmOrderController extends GetxController {
   var userProvider = UserProvider();
   int countCheckPayment = 0;
 
+
   void onClickPayment(BuildContext context) async {
     Dialogs.showLoadingDialog(context);
-    var response = await userProvider.buyCombo(model.id ?? 0);
+    var response = await userProvider.buyCombo(model.id ?? 0,qty);
     await Dialogs.hideLoadingDialog();
     if (response.error == null && response.data != null) {
       var paymentInfoModel = PaymentInfoModel.fromJson(response.data);
@@ -71,4 +73,5 @@ class ConfirmOrderController extends GetxController {
       toast(response.error.toString());
     }
   }
+
 }

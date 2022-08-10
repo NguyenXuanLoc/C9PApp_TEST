@@ -30,6 +30,7 @@ abstract class Routes {
   static const CONFIRM_RICE_ORDER = _Paths.CONFIRM_RICE_ORDER;
   static const BUY_COMBO_SUCCESS = _Paths.BUY_COMBO_SUCCESS;
   static const PAYMENT = _Paths.PAYMENT;
+  static const PROFILE = _Paths.PROFILE;
 }
 
 abstract class _Paths {
@@ -61,4 +62,5 @@ abstract class _Paths {
   static const BUY_COMBO_SUCCESS = '/buy-combo-success';
   static const PAYMENT = '/payment';
   static const CONFIRM_RICE_ORDER = '/confirm-rice-order';
+  static const PROFILE = '/profile';
 }

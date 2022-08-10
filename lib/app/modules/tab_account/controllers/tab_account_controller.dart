@@ -14,7 +14,8 @@ import '../../../data/provider/user_provider.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/storage_utils.dart';
 import '../../../utils/toast_utils.dart';
-
+import '../views/tab_account_view.dart';
+import 'package:c9p/app/config/globals.dart'as globals;
 class TabAccountController extends GetxController {
   final userProvider = UserProvider();
   final fullNameController = TextEditingController();
@@ -23,13 +24,19 @@ class TabAccountController extends GetxController {
   var isFirstOpen = true;
   var isSave = false.obs;
   final currentName = ''.obs;
+  StreamSubscription<ReloadUserEvent>? _reloadUserStream;
 
   @override
   void onInit() {
+    _reloadUserStream= Utils.eventBus.on<ReloadUserEvent>().listen((event) =>getUserInfo());
     getUserInfo();
     super.onInit();
   }
-
+  @override
+  onClose() {
+    _reloadUserStream?.cancel();
+    super.onClose();
+  }
   void getUserInfo() async {
     var userModel = await StorageUtils.getUser();
     if (userModel != null) {
@@ -38,7 +45,6 @@ class TabAccountController extends GetxController {
           userModel.data?.userData?.phone?.replaceAll('+84', '0') ?? '';
       currentName.value = fullNameController.text;
     }
-
   }
 
   bool isValid() {
@@ -103,4 +109,30 @@ class TabAccountController extends GetxController {
 
   void onFullNameChange(String text) =>
       isSave.value = (text == currentName) ? false : true;
+
+  void handleAction(AccountAction action,BuildContext context) {
+    switch (action) {
+      case AccountAction.PROFILE:
+        Get.toNamed(Routes.PROFILE);
+        break;
+      case AccountAction.MY_COMBO:
+        Get.toNamed(Routes.MY_COMBO);
+        break;
+      case AccountAction.MY_LOCATION:
+        // Get.toNamed(Routes.YOUR_ORDER);
+        break;
+      case AccountAction.METHOD_PAYMENT:
+        break;
+      case AccountAction.MY_ORDER:
+        Get.toNamed(Routes.YOUR_ORDER);
+        break;
+      case AccountAction.REGULATION:
+        Get.toNamed(Routes.WEBVIEW,
+            arguments: [LocaleKeys.regulation.tr, globals.tempOfUseUrl]);
+        break;
+      case AccountAction.LOGOUT:
+        logout(context);
+        break;
+    }
+  }
 }

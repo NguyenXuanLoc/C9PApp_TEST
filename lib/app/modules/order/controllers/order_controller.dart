@@ -35,6 +35,8 @@ class RiceOrderParam{
   RiceOrderParam(this.name, this.phone, this.address, this.deliverDate, this.deliverHour, this.qty, this.lat, this.long, this.productId, this.myComboModel);
 }
 class OrderController extends GetxController {
+  String tag;
+  OrderController(): tag = Utils.getRandomTag();
   final lDescriptionImage = [
     R.assetsPngComSuon9p,
     R.assetsPngComSuon9p,

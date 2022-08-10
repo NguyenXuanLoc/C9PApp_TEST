@@ -101,9 +101,12 @@ class OtpController extends GetxController {
         if (registerDeviceResponse.error == null) {
           await StorageUtils.setRegisterDevice(true);
         }
-        if (model.needUpdate ?? true) {
+        if (model.needUpdate?? true) {
           Get.offAllNamed(Routes.UPDATE_PROFILE, arguments: phoneNumber.value);
-        } else {
+        } else if(model.missingPinCode ?? true){
+          Get.offAllNamed(Routes.REGISTER_PIN, arguments: phoneNumber.value);
+        }
+        else {
           Get.offAllNamed(Routes.HOME, arguments: true);
         }
       } catch (ex) {

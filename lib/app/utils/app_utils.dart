@@ -19,6 +19,7 @@ import '../components/date_picker.dart';
 import '../config/app_translation.dart';
 import '../routes/app_pages.dart';
 import '../theme/colors.dart';
+import 'package:images_picker/images_picker.dart';
 
 class Utils {
   static var eventBus = EventBus();
@@ -218,5 +219,12 @@ class Utils {
     }*/
   }
 static  String getRandomTag()=> Random().nextInt(100).toString();
-
+  static Future<List<Media>?> imagePicker(int count, int lengthList) async =>
+      await ImagesPicker.pick(
+        count: count - lengthList,
+        pickType: PickType.image,
+        gif: false,
+        quality: 0.8,
+        maxSize: 500,
+      );
 }

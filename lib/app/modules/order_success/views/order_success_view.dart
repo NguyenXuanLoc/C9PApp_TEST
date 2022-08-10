@@ -90,7 +90,7 @@ class OrderSuccessView extends StatelessWidget {
                     'x${controller?.model?.itemQty.toString() ?? ''}'),
                 line(context),
                 itemContent(LocaleKeys.payment.tr,
-                    "${Utils.formatMoney(controller?.model?.amount ?? 0)}đ"),
+                    "${Utils.formatMoney((controller?.model?.amount ?? 0)+(controller?.model?.shippingFee ?? 0))}đ"),
                 line(context),
                 itemContent(LocaleKeys.method_payment.tr, "Tiền mặt"),
                 const AppLineSpace(),
@@ -261,18 +261,18 @@ class OrderSuccessView extends StatelessWidget {
   Widget itemContent(String title, String content) => Padding(
         padding: EdgeInsets.only(
             left: contentPadding, right: contentPadding, bottom: 10, top: 10),
-        child: Row(
+        child: Row(crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppText(
+            Expanded(child: AppText(
               title,
               style: typoSuperSmallText500,
-            ),
+            )),
             Expanded(
                 child: AppText(
               content,
               style: typoSuperSmallText500,
               textAlign: TextAlign.end,
-              maxLine: 1,
+              maxLine: 2,
             ))
           ],
         ),

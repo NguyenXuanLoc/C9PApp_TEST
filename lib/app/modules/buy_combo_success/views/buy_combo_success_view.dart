@@ -145,8 +145,8 @@ class BuyComboSuccessView extends GetView<BuyComboSuccessController> {
   String getTotalPrice() =>
       "${Utils.formatMoney((int.parse(controller.model.price ?? '')) * int.parse(controller.qty))}đ";
 
-  Widget itemSpace() => const SizedBox(
-        height: 10,
+  Widget itemSpace() => SizedBox(
+        height: 11.h,
       );
 
   Widget line(BuildContext context) => Container(

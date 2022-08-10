@@ -7,7 +7,7 @@ class DetailOrderBinding extends Bindings {
   @override
   void dependencies() {
     var tag = DetailOrderController().tag;
-    TagUtils().tagsRiceOrder.add(tag);
+    TagUtils().tagsDetailRiceOrder.add(tag);
     Get.lazyPut<DetailOrderController>(() => DetailOrderController(), tag: tag);
   }
 }

@@ -66,18 +66,17 @@ class TabAccountView extends GetView<TabAccountController> {
         ),
         body: Column(
           children: [
-            itemTitle(R.assetsSvgPerson3, LocaleKeys.profile.tr),
+            itemTitle(R.assetsSvgPerson3, LocaleKeys.profile.tr,AccountAction.PROFILE,context,),
             line(context),
             itemTitle(
-                R.assetsSvgPromotionCircleOrange, LocaleKeys.my_promotion.tr),
+                R.assetsSvgPromotionCircleOrange, LocaleKeys.my_promotion.tr,AccountAction.MY_COMBO,context,),
             line(context),
-            itemTitle(R.assetsSvgOrangeLocation, LocaleKeys.my_location.tr),
+            itemTitle(R.assetsSvgOrangeLocation, LocaleKeys.my_location.tr,AccountAction.MY_LOCATION,context,),
             line(context),
-            itemTitle(R.assetsSvgDolaCircle, LocaleKeys.method_payment.tr),
+            itemTitle(R.assetsSvgDolaCircle, LocaleKeys.method_payment.tr,AccountAction.METHOD_PAYMENT,context,),
             line(context),
-            itemTitle(R.assetsSvgPerson3, LocaleKeys.profile.tr),
             line(context),
-            itemTitle(R.assetsSvgOrder, LocaleKeys.my_order.tr),
+            itemTitle(R.assetsSvgOrder, LocaleKeys.my_order.tr,AccountAction.MY_ORDER,context,),
             Container(
               width: MediaQuery.of(context).size.width,
               color: colorSeparatorListView,
@@ -87,12 +86,14 @@ class TabAccountView extends GetView<TabAccountController> {
                 style: typoSmallTextBold.copyWith(fontSize: 14.sp),
               ),
             ),
-            itemTitle(R.assetsSvgFile, LocaleKeys.regulation.tr),
+            itemTitle(R.assetsSvgFile, LocaleKeys.regulation.tr,AccountAction.REGULATION,context,),
             line(context),
-            itemTitle(R.assetsSvChangePin, LocaleKeys.change_pin.tr),
+            itemTitle(R.assetsSvChangePin, LocaleKeys.change_pin.tr,AccountAction.CHANGE_PIN,context,),
             line(context),
             InkWell(
-              child: itemTitle(R.assetsSvgLogout, LocaleKeys.logout.tr),
+              child: itemTitle(
+                  R.assetsSvgLogout, LocaleKeys.logout.tr, AccountAction.LOGOUT,context,
+                  isShowSuffixIcon: false),
               onTap: () => controller.logout(context),
             ),
             Expanded(
@@ -109,13 +110,13 @@ class TabAccountView extends GetView<TabAccountController> {
         width: MediaQuery.of(context).size.width,
       );
 
-  Widget itemTitle(String icon, String title) => Padding(
+  Widget itemTitle(String icon, String title,AccountAction action,BuildContext context,{bool isShowSuffixIcon = true}) => Padding(
         padding: EdgeInsets.only(
             left: contentPadding,
             right: contentPadding,
             top: 11.h,
             bottom: 11.h),
-        child: Row(
+        child: InkWell(child: Row(
           children: [
             SvgPicture.asset(
               icon,
@@ -129,11 +130,14 @@ class TabAccountView extends GetView<TabAccountController> {
               style: typoSuperSmallText600.copyWith(fontSize: 13.sp),
             ),
             const Spacer(),
-            const Icon(
-              Icons.arrow_forward_ios_outlined,
-              size: 11,
-            )
-          ],
-        ),
+              Visibility(
+                visible: isShowSuffixIcon,
+                child: const Icon(
+                  Icons.arrow_forward_ios_outlined,
+                  size: 11,
+                ),
+              )
+            ],
+        ),onTap: ()=>controller.handleAction(action,context),),
       );
 }

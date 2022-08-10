@@ -145,4 +145,12 @@ class UserProvider extends BaseProvider {
 
   Future<ApiResult> checkPayment(String orderId) async =>
       await GET('payment/check_payment?orderId=$orderId');
+
+  Future<ApiResult> changePass(
+          String oldPass, String newPass, String confirmPass) async =>
+      await POST('user/password', {
+        ApiKey.password: newPass,
+        ApiKey.password_confirmation: confirmPass,
+        ApiKey.current_password: oldPass
+      });
 }

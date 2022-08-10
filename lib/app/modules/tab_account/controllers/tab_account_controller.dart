@@ -133,6 +133,9 @@ class TabAccountController extends GetxController {
       case AccountAction.LOGOUT:
         logout(context);
         break;
+      case AccountAction.CHANGE_PIN:
+        Get.toNamed(Routes.CHANGE_PASS);
+        break;
     }
   }
 }

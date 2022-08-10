@@ -162,6 +162,12 @@ class LocaleKeys {
   static const my_order = 'my_order';
   static const more_setting = 'more_setting';
   static const you_have_just_order_success = 'you_have_just_order_success';
+  static const please_input_pass = 'please_input_pass';
+  static const pass_invalid = 'pass_invalid';
+  static const pass_not_match = 'pass_not_match';
+  static const input_current_pin = 'input_current_pin';
+  static const input_new_pin = 'input_new_pin';
+  static const input_retype_new_pin = 'input_retype_new_pin';
 }
 
 class Locales {
@@ -317,5 +323,11 @@ class Locales {
   'more_setting':'Cài đặt khác',
   'you_have_just_order_success':'Bạn vừa đặt thành công mã đơn hàng #',
   'receiver':'Người nhận',
+  'please_input_pass':'Vui lòng nhập mật khẩu',
+  'pass_invalid':'Mật khẩu không hợp lệ',
+  'pass_not_match':'Mật khẩu và xác thực mật khẩu không tương đồng',
+  'input_current_pin':'Nhập mã pin hiện tại',
+  'input_new_pin':'Nhập mã pin mới',
+  'input_retype_new_pin':'Nhập lại mã pin mới',
   };
 }

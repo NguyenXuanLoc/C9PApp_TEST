@@ -24,13 +24,19 @@ class TabAccountController extends GetxController {
   var isFirstOpen = true;
   var isSave = false.obs;
   final currentName = ''.obs;
+  StreamSubscription<ReloadUserEvent>? _reloadUserStream;
 
   @override
   void onInit() {
+    _reloadUserStream= Utils.eventBus.on<ReloadUserEvent>().listen((event) =>getUserInfo());
     getUserInfo();
     super.onInit();
   }
-
+  @override
+  onClose() {
+    _reloadUserStream?.cancel();
+    super.onClose();
+  }
   void getUserInfo() async {
     var userModel = await StorageUtils.getUser();
     if (userModel != null) {

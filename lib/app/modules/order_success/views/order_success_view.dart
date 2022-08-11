@@ -92,14 +92,19 @@ class OrderSuccessView extends StatelessWidget {
                 itemContent(LocaleKeys.payment.tr,
                     "${Utils.formatMoney((controller?.model?.amount ?? 0)+(controller?.model?.shippingFee ?? 0))}đ"),
                 line(context),
-                itemContent(LocaleKeys.method_payment.tr, "Tiền mặt"),
-                const AppLineSpace(),
+                    itemContent(
+                        LocaleKeys.method_payment.tr,
+                        (controller?.model?.amount ?? 0) > 0
+                            ? LocaleKeys.cash.tr
+                            : LocaleKeys.vn_pay.tr),
+                    const AppLineSpace(),
                 itemTitle(R.assetsSvgPerson3, LocaleKeys.buyer.tr),
                 line(context),
                 itemContent(LocaleKeys.full_name.tr,
                     controller?.model?.buyerName ?? ''),
                 line(context),
-                itemContent(LocaleKeys.phone_number.tr, '0999999999'),
+                itemContent(LocaleKeys.phone_number.tr, controller?.model?.buyerPhone
+                    ?? ''),
                 line(context),
                 itemContent(
                     LocaleKeys.address.tr, controller?.model?.toAddress ?? ''),

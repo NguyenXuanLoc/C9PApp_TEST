@@ -24,6 +24,7 @@ class TabAccountController extends GetxController {
   var isFirstOpen = true;
   var isSave = false.obs;
   final currentName = ''.obs;
+  final avatarUrl = ''.obs;
   StreamSubscription<ReloadUserEvent>? _reloadUserStream;
 
   @override
@@ -44,6 +45,7 @@ class TabAccountController extends GetxController {
       phoneController.text =
           userModel.data?.userData?.phone?.replaceAll('+84', '0') ?? '';
       currentName.value = fullNameController.text;
+      avatarUrl.value = userModel.data?.userData?.image ?? '';
     }
   }
 

@@ -9,13 +9,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../config/app_translation.dart';
 import '../config/resource.dart';
 import 'app_text.dart';
 
 class Dialogs {
   static final GlobalKey<State> _keyLoader = GlobalKey<State>();
   static final GlobalKey<State> _keyPromotion = GlobalKey<State>();
-  static final  _keyCloseApp = GlobalKey<State>();
+  static final _keyCloseApp = GlobalKey<State>();
 
   static Future<void>? showLoadingDialog(BuildContext? context) {
     if (context == null) {
@@ -342,13 +343,13 @@ class Dialogs {
         });
   }
 
-  static Future<bool?> showPopupPromotion(BuildContext context,
-      {required VoidCallback bannerCallBack}) async{
+  static Future<bool?> showMethodPickImage(BuildContext context,
+      {required VoidCallback cameraCallBack,required VoidCallback galleryCallBack}) async {
     return await showGeneralDialog(
-        barrierDismissible: false,
+        barrierDismissible: true,
         context: context,
         barrierLabel:
-        MaterialLocalizations.of(context).modalBarrierDismissLabel,
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
         barrierColor: Colors.black45,
         transitionDuration: const Duration(milliseconds: 200),
         pageBuilder: (BuildContext buildContext, Animation animation,
@@ -357,7 +358,62 @@ class Dialogs {
               onWillPop: () async => true,
               child: SimpleDialog(
                 key: _keyPromotion,
-                backgroundColor: Colors.transparent,contentPadding: EdgeInsets.all(5.w),
+                backgroundColor: Colors.transparent,
+                contentPadding: EdgeInsets.all(5.w),
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(left: contentPadding,top: 5,bottom: 5),
+                    alignment: Alignment.centerLeft,
+                    width: MediaQuery.of(context).size.width,
+                    height: 80.h,
+                    color: colorGrey70,
+                    child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Get.back();
+                            cameraCallBack.call();
+                          },
+                          child: AppText(LocaleKeys.take_photo.tr,
+                              style: typoNormalTextBold.copyWith(
+                                  color: colorWhite)),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.back();
+                            galleryCallBack.call();
+                          },
+                          child: AppText(LocaleKeys.pick_photo_from_gallery.tr,
+                              style: typoNormalTextBold.copyWith(
+                                  color: colorWhite)),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ));
+        });
+  }
+
+  static Future<bool?> showPopupPromotion(BuildContext context,
+      {required VoidCallback bannerCallBack}) async {
+    return await showGeneralDialog(
+        barrierDismissible: false,
+        context: context,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: Colors.black45,
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
+          return WillPopScope(
+              onWillPop: () async => true,
+              child: SimpleDialog(
+                key: _keyPromotion,
+                backgroundColor: Colors.transparent,
+                contentPadding: EdgeInsets.all(5.w),
                 children: <Widget>[
                   Column(
                     mainAxisSize: MainAxisSize.min,
@@ -374,11 +430,13 @@ class Dialogs {
                           onTap: () => hidePromotion(),
                         ),
                       ),
-                    InkWell(child:   ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child:  Image.asset(R.assetsPngPromotionPopup,fit: BoxFit.fitWidth,
-                        // height: 260.h,
-                        width: MediaQuery.of(context).size.width * 2 / 3.4,
+                      InkWell(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            R.assetsPngPromotionPopup, fit: BoxFit.fitWidth,
+                            // height: 260.h,
+                            width: MediaQuery.of(context).size.width * 2 / 3.4,
                           ),
                         ),
                         onTap: () {
@@ -399,6 +457,7 @@ class Dialogs {
         () => Navigator.of(_keyPromotion.currentContext!, rootNavigator: true)
             .pop());
   }
+
   static Future<void> hideLoadingDialog() async {
     await Future.delayed(
         const Duration(milliseconds: 200),

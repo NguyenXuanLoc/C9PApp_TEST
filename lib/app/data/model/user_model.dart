@@ -92,6 +92,7 @@ class UserData {
     this.authToken,
     this.createdAt,
     this.updatedAt,
+    this.image,
     this.roleId,
     this.isActive,
     this.note,
@@ -106,6 +107,7 @@ class UserData {
   String? authToken;
   DateTime? createdAt;
   DateTime? updatedAt;
+  String? image;
   int? roleId;
   int? isActive;
   String? status;
@@ -120,6 +122,7 @@ class UserData {
         authToken: json["auth_token"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        image: json["image"],
         roleId: json["role_id"],
         isActive: json["is_active"],
         note: json["note"],
@@ -135,6 +138,7 @@ class UserData {
         "auth_token": authToken,
         "created_at": createdAt!.toIso8601String(),
         "updated_at": updatedAt!.toIso8601String(),
+        "image": image,
         "role_id": roleId,
         "is_active": isActive,
         "note": note,

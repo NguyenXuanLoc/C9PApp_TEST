@@ -38,6 +38,7 @@ class TabMainController extends GetxController {
   StreamSubscription<ReloadUserEvent>? _reloadUserStream;
   var isFirstOpen = true;
   final fullName = ''.obs;
+  final avatarUrl = ''.obs;
   var countLoadWeather = 1;
   var isBadge = false.obs;
 
@@ -75,6 +76,9 @@ class TabMainController extends GetxController {
     var userModel = await StorageUtils.getUser();
     if (userModel != null) {
       fullName.value = userModel.data?.userData?.name ?? '';
+      avatarUrl.value = userModel.data?.userData?.image ?? '';
+      refresh();
+      logE("TAG UPDATE AVATAAR TAB MAIN");
     }
   }
 

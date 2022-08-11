@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 
+import '../../../components/app_circle_image.dart';
 import '../../../components/app_scalford.dart';
 import '../../../components/app_text.dart';
 import '../../../config/app_translation.dart';
@@ -46,14 +47,26 @@ class TabAccountView extends GetView<TabAccountController> {
           // centerTitle: true,
           title: Row(
             children: [
-              SvgPicture.asset(R.assetsSvgCircleAvatar),
+              InkWell(
+                child: Obx(() => controller.avatarUrl.value.isNotEmpty
+                    ? AppCircleImage(
+                  url: controller.avatarUrl.value,
+                  size: 28.w,
+                )
+                    : SvgPicture.asset(
+                  R.assetsSvgCircleAvatar,
+                  width: 28.w,
+                )),
+              ),
               const SizedBox(
                 width: 10,
               ),
-              Obx(() => AppText(
-                controller.currentName.value,
-                style: typoSmallText700.copyWith(color: colorText0),
-              ))
+              Expanded(child: Obx(() => AppText(
+                        controller.currentName.value,
+                        maxLine: 1,
+                        textOverflow: TextOverflow.ellipsis,
+                        style: typoSmallText700.copyWith(color: colorText0),
+                      )))
             ],
           ),
           flexibleSpace: Container(

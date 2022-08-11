@@ -10,6 +10,8 @@ class StorageUtils {
   static Future<void> saveUser(UserModel userModel) async {
     globals.isLogin = true;
     globals.accessToken = userModel.data?.token?.token ?? '';
+    globals.avatarUrl = userModel.data?.userData?.image ?? '';
+    globals.userName = userModel.data?.userData?.name ?? '';
     await GetStorage().write(StorageKey.AccountInfo, userModel.toJson());
   }
 
@@ -24,6 +26,7 @@ class StorageUtils {
         globals.isNeedUpdateProfile = userModel.needUpdate ?? true;
         globals.userName = userModel.data?.userData?.name ?? '';
         globals.phoneNumber = userModel.data?.userData?.phone ?? '';
+        globals.avatarUrl = userModel.data?.userData?.image ?? '';
         globals.isMissPinCode = userModel.missingPinCode?? false;
         globals.isActive =
             ((userModel.data?.userData?.status ?? '') == 'active')
@@ -36,6 +39,7 @@ class StorageUtils {
         globals.accessToken = '';
         globals.userName = '';
         globals.phoneNumber = '';
+        globals.avatarUrl = '';
         globals.isNeedUpdateProfile = false;
         globals.isLogin = false;
       }
@@ -44,6 +48,7 @@ class StorageUtils {
       globals.isMissPinCode = false;
       globals.accessToken = '';
       globals.userName = '';
+      globals.avatarUrl = '';
       globals.phoneNumber = '';
       globals.isNeedUpdateProfile = false;
       globals.isLogin = false;
@@ -55,6 +60,7 @@ class StorageUtils {
     globals.accessToken = '';
     globals.userName = '';
     globals.phoneNumber = '';
+    globals.avatarUrl = '';
     globals.isNeedUpdateProfile = false;
     globals.isLogin = false;
     await setIsFirstOrder(true);

@@ -82,25 +82,18 @@ class ProfileView extends GetView<ProfileController> {
                     alignment: Alignment.bottomCenter,
                     child: Stack(
                       children: [
-                       Obx(() =>  Container(
-                         decoration: BoxDecoration(
-                           color: colorWarning10,
-                           borderRadius: BorderRadius.circular(100),
-                           border: Border.all(color: colorYellow100, width: 1),
-                         ),
-                         child: AppCircleImage(
-                           size: 90.w,
-                           url: '',
-                           urlError: '',
-                           uri: controller.filePath.value,
-                         ),
+                       Obx(() =>  AppCircleImage(
+                         size: 90.w,
+                         url:  controller.urlImage.value,
+                         urlError: '',
+                         uri: controller.filePath.value,
                        )),
                         Positioned.fill(
                             child: Container(
                           // padding: const EdgeInsets.only(bottom: 10, left: 10),
                           alignment: Alignment.bottomRight,
                           child: InkWell(
-                            onTap: () => controller.pickImage(),
+                            onTap: () => controller.pickImage(context),
                             child: SvgPicture.asset(R.assetsSvgPen),
                           ),
                         ))

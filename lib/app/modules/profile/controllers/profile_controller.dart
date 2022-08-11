@@ -1,4 +1,5 @@
 import 'package:c9p/app/data/model/user_model.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -19,6 +20,7 @@ class ProfileController extends GetxController {
   final count = 0.obs;
   final errorFullName = ''.obs;
   final currentName = ''.obs;
+  final urlImage = ''.obs;
   final filePath = ''.obs;
 
   @override
@@ -34,6 +36,7 @@ class ProfileController extends GetxController {
       phoneController.text =
           userModel.data?.userData?.phone?.replaceAll('+84', '0') ?? '';
       currentName.value = fullNameController.text;
+      urlImage.value = userModel.data?.userData?.image??'';
       update();
     }
   }
@@ -57,6 +60,7 @@ class ProfileController extends GetxController {
       Utils.hideKeyboard(context);
       Dialogs.showLoadingDialog(context);
       var response = await userProvider.updateProfile(fullNameController.text);
+      if(filePath.value.isNotEmpty) userProvider.uploadAvatar(filePath.value);
       await Dialogs.hideLoadingDialog();
       if (response.error == null && response.data != null) {
         var userData = await getProfile();
@@ -84,11 +88,16 @@ class ProfileController extends GetxController {
     }
     return null;
   }
-  void pickImage() async {
-    var lResult = await Utils.imagePicker(1, 0);
-    if (lResult != null) {
-      filePath.value = lResult[0].path;
-    }
+  void pickImage(BuildContext context) async {
+    Dialogs.showMethodPickImage(context,
+        cameraCallBack: () async{
+          var lResult = await Utils.takePhoto(1, 0);
+      if (lResult != null) filePath.value = lResult[0].path;
+    }, galleryCallBack: () async{
+          var lResult = await Utils.imagePicker(1, 0);
+          if (lResult != null) filePath.value = lResult[0].path;
+          });
+
   }
   @override
   void onClose() {}

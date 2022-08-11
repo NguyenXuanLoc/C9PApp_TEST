@@ -35,6 +35,7 @@ class ApiKey {
   static const qty = 'qty';
   static const lat = 'lat';
   static const lng = 'lng';
+  static const description = 'description';
   static const deliverTime = 'deliverTime';
   static const product_id = 'product_id';
   static const uid = 'uid';

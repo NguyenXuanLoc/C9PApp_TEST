@@ -255,24 +255,6 @@ class OrderController extends GetxController {
     return [];
   }
 
-  Future<ApiResult> addOrder() async {
-    var name = fullNameController.text;
-    var address = addressController.text;
-    var phone = phoneController.text;
-    var qty = countController.text;
-    var deliverTimeStr =
-        "${Utils.convertTimeToYYMMDD(deliverDate!)} ${deliverHours!.replaceAll('.000Z', '')}";
-    var productId = '2';
-    return await userProvider.addOrder(
-        name: name,
-        address: address,
-        phone: phone,
-        qty: qty,
-        lat: currentLat.toString(),
-        lng: currentLng.toString(),
-        deliverTime: deliverTimeStr,
-        productId: productId);
-  }
 
   void pickTime(BuildContext context) async {
     var selectedTime24Hour = await Utils.pickTime(context);

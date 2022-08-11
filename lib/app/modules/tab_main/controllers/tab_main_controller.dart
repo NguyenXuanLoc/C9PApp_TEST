@@ -78,7 +78,6 @@ class TabMainController extends GetxController {
       fullName.value = userModel.data?.userData?.name ?? '';
       avatarUrl.value = userModel.data?.userData?.image ?? '';
       refresh();
-      logE("TAG UPDATE AVATAAR TAB MAIN");
     }
   }
 

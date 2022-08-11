@@ -25,9 +25,11 @@ class ConfirmRiceOrderController extends GetxController {
   final isPaymentByCash = true.obs;
   final isSelectMethodPayment = false.obs;
   final userProvider = UserProvider();
+  final descriptionController =TextEditingController();
   int countCheckPayment = 0;
-
+  final noteCounter = 0.obs;
   ConfirmRiceOrderController() : tag = Random().nextInt(100).toString();
+  final description = ''.obs;
   void changeMethodPayment(BuildContext context,bool isCash){
     isPaymentByCash.value = isCash;
     Navigator.pop(context);  }
@@ -129,7 +131,7 @@ class ConfirmRiceOrderController extends GetxController {
                 ? model.myComboModel!.remainsCombo! - int.parse(qty)
                 : model.myComboModel!.remainsCombo!)
             : 0,
-        comboId: model.myComboModel?.id);
+        comboId: model.myComboModel?.id, description: description.value);
   }
   Future<ApiResult> paymentRiceOrderByVnPay() async {
     var name = model.name;
@@ -155,7 +157,7 @@ class ConfirmRiceOrderController extends GetxController {
                 ? model.myComboModel!.remainsCombo! - int.parse(qty)
                 : model.myComboModel!.remainsCombo!)
             : 0,
-        comboId: model.myComboModel?.id);
+        comboId: model.myComboModel?.id,description: description.value);
   }
 
   void checkPayment(PaymentInfoModel model) async {
@@ -181,4 +183,17 @@ class ConfirmRiceOrderController extends GetxController {
     }
   }
 
+  void cancelDescriptionDialog() {
+    Get.back();
+    setDescription('');
+  }
+
+  void finishDescriptionDialog() {
+    Get.back();
+    setDescription(descriptionController.text);
+  }
+
+  void setDescription(String text) => description.value = text;
+
+  void counterChange(String text) => noteCounter.value = text.length;
 }

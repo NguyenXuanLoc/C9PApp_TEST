@@ -21,6 +21,7 @@ class HomeController extends GetxController {
   final currentIndex = 0.obs;
   BuildContext? context;
   var isShowCloseDialog = false;
+  var isShowPopUpDialog = true;
 
   @override
   void onInit() {
@@ -28,9 +29,13 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  void showLoading(BuildContext context) => WidgetsBinding.instance
-      .addPostFrameCallback((_) => Dialogs.showPopupPromotion(context,
-          bannerCallBack: () => Get.toNamed(Routes.COMBO_SELLING)));
+  void showPopupPromotion(BuildContext context) => WidgetsBinding.instance
+      .addPostFrameCallback((_){
+        if(!isShowPopUpDialog) return;
+        isShowPopUpDialog = false;
+    Dialogs.showPopupPromotion(context,
+        bannerCallBack: () => Get.toNamed(Routes.COMBO_SELLING));
+  });
 
   Future<bool> onBackPress() async {
     var isClose = false;
@@ -136,8 +141,7 @@ class HomeController extends GetxController {
     if (response.error == null && response.data != null) {
       var isSuccess = response.data['isSucess'] ?? false;
       if (!isSuccess) {
-        WidgetsBinding.instance
-            .addPostFrameCallback((timeStamp) => showLoading(context!));
+        showPopupPromotion(Get.context!);
       }
     }
   }

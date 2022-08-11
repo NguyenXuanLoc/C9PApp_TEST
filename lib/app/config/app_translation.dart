@@ -168,6 +168,8 @@ class LocaleKeys {
   static const input_current_pin = 'input_current_pin';
   static const input_new_pin = 'input_new_pin';
   static const input_retype_new_pin = 'input_retype_new_pin';
+  static const take_photo = 'take_photo';
+  static const pick_photo_from_gallery = 'pick_photo_from_gallery';
 }
 
 class Locales {
@@ -329,5 +331,7 @@ class Locales {
   'input_current_pin':'Nhập mã pin hiện tại',
   'input_new_pin':'Nhập mã pin mới',
   'input_retype_new_pin':'Nhập lại mã pin mới',
+  'take_photo':'Chụp ảnh',
+  'pick_photo_from_gallery':'Chọn ảnh từ thư viện',
   };
 }

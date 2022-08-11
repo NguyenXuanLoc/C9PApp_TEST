@@ -152,18 +152,23 @@ class TabMainView extends GetView<TabMainController> {
                           ),
                         ],
                       )),
-                  const SizedBox(
-                    width: 10,
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Obx(() => InkWell(
+                            child: controller.avatarUrl.value.isNotEmpty
+                                ? AppCircleImage(
+                                    url: controller.avatarUrl.value,
+                                    size: 28.w,
+                                  )
+                                : SvgPicture.asset(
+                                    R.assetsSvgCircleAvatar,
+                                    width: 28.w,
+                                  ),
+                            onTap: () => controller.onClickProfile(context),
+                          ))
+                    ],
                   ),
-                  InkWell(
-                    child: SvgPicture.asset(
-                      R.assetsSvgCircleAvatar,
-                      width: 28.w,
-                    ),
-                    onTap: () => controller.onClickProfile(context),
-                  )
-                ],
-              ),
               SizedBox(
                 height: 17.h,
               ),

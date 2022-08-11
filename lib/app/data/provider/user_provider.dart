@@ -1,5 +1,6 @@
 import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/data/provider/base_provider.dart';
+import 'package:get/get.dart';
 
 import 'api_result.dart';
 
@@ -153,4 +154,9 @@ class UserProvider extends BaseProvider {
         ApiKey.password_confirmation: confirmPass,
         ApiKey.current_password: oldPass
       });
+
+  Future<ApiResult> uploadAvatar(String path) async => await POST(
+      'user/info/avatar',
+      {"image": MultipartFile(path, filename: path.split("/").last)},
+      isFormData: true);
 }

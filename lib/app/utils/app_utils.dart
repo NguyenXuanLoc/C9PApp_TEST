@@ -227,4 +227,11 @@ static  String getRandomTag()=> Random().nextInt(100).toString();
         quality: 0.8,
         maxSize: 500,
       );
+
+  static Future<List<Media>?> takePhoto(int count, int lengthList) async =>
+      await ImagesPicker.openCamera(
+        pickType: PickType.image,
+        quality: 0.8,
+        maxSize: 500,
+      );
 }

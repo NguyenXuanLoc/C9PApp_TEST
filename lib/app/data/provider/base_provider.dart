@@ -132,7 +132,7 @@ class BaseProvider extends GetConnect {
     print('============================================================');
     print('[POST] ' + httpClient.baseUrl! + url);
     print("Bearer " + globals.accessToken);
-    print('[PARAMS] ' + json.encode(body));
+    print('[PARAMS] ' + (!isFormData ?json.encode(body):""));
     try {
       var headers = {
         'Authorization': 'Bearer ${globals.accessToken}',

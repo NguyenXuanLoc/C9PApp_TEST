@@ -25,19 +25,18 @@ class TabAccountController extends GetxController {
   var isSave = false.obs;
   final currentName = ''.obs;
   final avatarUrl = ''.obs;
-  StreamSubscription<ReloadUserEvent>? _reloadUserStream;
 
   @override
   void onInit() {
-    _reloadUserStream= Utils.eventBus.on<ReloadUserEvent>().listen((event) =>getUserInfo());
     getUserInfo();
     super.onInit();
   }
+
   @override
   onClose() {
-    _reloadUserStream?.cancel();
     super.onClose();
   }
+
   void getUserInfo() async {
     var userModel = await StorageUtils.getUser();
     if (userModel != null) {
@@ -112,10 +111,11 @@ class TabAccountController extends GetxController {
   void onFullNameChange(String text) =>
       isSave.value = (text == currentName) ? false : true;
 
-  void handleAction(AccountAction action,BuildContext context) {
+  void handleAction(AccountAction action,BuildContext context) async{
     switch (action) {
       case AccountAction.PROFILE:
-        Get.toNamed(Routes.PROFILE);
+        await Get.toNamed(Routes.PROFILE);
+        getUserInfo();
         break;
       case AccountAction.MY_COMBO:
         Get.toNamed(Routes.MY_COMBO);

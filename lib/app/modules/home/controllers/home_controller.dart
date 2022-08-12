@@ -5,15 +5,19 @@ import 'package:c9p/app/config/app_translation.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
 import 'package:c9p/app/data/event_bus/jump_to_tab_event.dart';
 import 'package:c9p/app/data/event_bus/new_notify_event.dart';
+import 'package:c9p/app/modules/tab_main/controllers/tab_main_controller.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 
+import '../../../data/event_bus/reload_user_event.dart';
 import '../../../data/provider/user_provider.dart';
 import '../../../utils/storage_utils.dart';
+import '../../tab_account/controllers/tab_account_controller.dart';
 
 class HomeController extends GetxController {
   final pageController = PageController();
@@ -22,9 +26,13 @@ class HomeController extends GetxController {
   BuildContext? context;
   var isShowCloseDialog = false;
   var isShowPopUpDialog = true;
-
+  StreamSubscription<ReloadUserEvent>? _reloadUserStream;
+ bool isReloadUser = false;
   @override
   void onInit() {
+    _reloadUserStream = Utils.eventBus
+        .on<ReloadUserEvent>()
+        .listen((event) => isReloadUser = true);
     listenerNotify();
     super.onInit();
   }
@@ -76,9 +84,9 @@ class HomeController extends GetxController {
 
   @override
   void onReady() async {
-    if (Get.arguments != null && Get.arguments) {
+    /*if (Get.arguments != null && Get.arguments) {
       Get.toNamed(Routes.ORDER);
-    }
+    }*/
     checkToShowPopUp();
     checkOrderIdFromCache();
     checkRegisterDevice();
@@ -125,6 +133,11 @@ class HomeController extends GetxController {
     if (index == 0 || isBackPress) {
       currentIndex.value = index;
       pageController.jumpToPage(index);
+      if (isReloadUser) {
+        isReloadUser = false;
+        Timer(const Duration(seconds: 1),
+            () => Get.find<TabMainController>().getUserInfo());
+      }
     } else {
       if (globals.isLogin) {
         currentIndex.value = index;

@@ -35,7 +35,6 @@ class TabMainController extends GetxController {
   final isLoadNearOrder = true.obs;
   final isLoadPromotion = true.obs;
   var lPromotion = List<ComboSellingModel>.empty(growable: true).obs;
-  StreamSubscription<ReloadUserEvent>? _reloadUserStream;
   var isFirstOpen = true;
   final fullName = ''.obs;
   final avatarUrl = ''.obs;
@@ -49,13 +48,11 @@ class TabMainController extends GetxController {
 
   @override
   onInit() {
-    _reloadUserStream= Utils.eventBus.on<ReloadUserEvent>().listen((event) =>getUserInfo());
     init();
     super.onInit();
   }
   @override
   onClose() {
-    _reloadUserStream?.cancel();
     super.onClose();
   }
   void init() {

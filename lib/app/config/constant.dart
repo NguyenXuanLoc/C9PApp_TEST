@@ -20,6 +20,8 @@ class MessageKey {
   static const String NOT_FOUND_ANY_USER = 'Not found any user';
   static const String CHANGE_PASSWORD = 'Change Password';
   static const String CREATE_PASSWORD = 'Create password';
+  static const String COD  = 'cod';
+  static const String VNPay  = 'VNPay';
 
 }
 

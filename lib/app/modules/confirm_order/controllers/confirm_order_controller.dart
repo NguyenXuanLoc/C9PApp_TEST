@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:c9p/app/config/app_translation.dart';
 import 'package:c9p/app/data/model/combo_best_seller_model.dart';
 import 'package:c9p/app/data/model/payment_success_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
@@ -58,7 +59,8 @@ class ConfirmOrderController extends GetxController {
           receiver,
           phoneNumber,
           paymentSuccessModel,
-          model
+          model,
+          response.data['data']['id']
         ]);
       } else {
         if (countCheckPayment == 3) {
@@ -66,11 +68,15 @@ class ConfirmOrderController extends GetxController {
           toast(paymentSuccessModel.message ?? '');
           return;
         }
-        Timer(const Duration(seconds: 5), () => checkPayment(model));
+        Timer(const Duration(seconds: 7), () => checkPayment(model));
       }
     } else {
-      await Dialogs.hideLoadingDialog();
-      toast(response.error.toString());
+      if (countCheckPayment == 3) {
+        await Dialogs.hideLoadingDialog();
+        toast(LocaleKeys.payment_error.toString());
+        return;
+      }
+      Timer(const Duration(seconds: 7), () => checkPayment(model));
     }
   }
 

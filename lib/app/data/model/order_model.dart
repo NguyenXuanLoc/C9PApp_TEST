@@ -44,6 +44,7 @@ class OrderModel {
     this.locality,
     this.itemQty,
     this.status,
+    this.paymentType,
     this.updatedAt,
     this.userId,
     this.channel,
@@ -51,7 +52,8 @@ class OrderModel {
     this.shipperName,
     this.shipperPhone,
     this.shipperNumber,
-    this.shipperRate,this.isSelect
+    this.shipperRate,
+    this.isSelect
   });
 
   int? id;
@@ -88,6 +90,7 @@ class OrderModel {
   dynamic locality;
   int? itemQty;
   String? status;
+  String? paymentType;
   DateTime? updatedAt;
   int? userId;
   String? channel;
@@ -133,6 +136,7 @@ class OrderModel {
     locality: json["Locality"],
     itemQty: json["ItemQty"],
     status: json["Status"],
+    paymentType: json["paymentType"],
     updatedAt: DateTime.parse(json["updated_at"]),
     userId: json["user_id"],
     channel: json["channel"],
@@ -179,6 +183,7 @@ class OrderModel {
     "Locality": locality,
     "ItemQty": itemQty,
     "Status": status,
+    "paymentType": paymentType,
     "updated_at": updatedAt!.toIso8601String(),
     "user_id": userId,
     "channel": channel,

@@ -136,11 +136,12 @@ class HomeController extends GetxController {
   }
 
   void checkToShowPopUp() async {
-    if (!globals.isLogin) return;
+    if (!globals.isLogin || !globals.isFirstOpenApp) return;
     var response = await userProvider.getMyCombo();
     if (response.error == null && response.data != null) {
       var isSuccess = response.data['isSucess'] ?? false;
-      if (!isSuccess) {
+      if (!isSuccess&& globals.isFirstOpenApp) {
+        globals.isFirstOpenApp = false;
         showPopupPromotion(Get.context!);
       }
     }

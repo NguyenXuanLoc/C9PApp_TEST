@@ -61,12 +61,12 @@ class BuyComboSuccessView extends GetView<BuyComboSuccessController> {
                 ),
                 Center(
                   child: AppText(
-                    "${LocaleKeys.you_have_successfully_placed_order_number.tr} #12345",
+                    "${LocaleKeys.you_have_successfully_placed_order_number.tr} #${  controller.orderId}",
                     style: typoSuperSmallText500.copyWith(
                         fontSize: 12.sp, color: colorText40),
                   ),
                 ),
-                itemSpace(),
+                // itemSpace(),
                 itemSpace(),
                 itemSpace(),
                 const AppLineSpace(
@@ -101,7 +101,7 @@ class BuyComboSuccessView extends GetView<BuyComboSuccessController> {
                 itemSpace(),
                 itemContent(LocaleKeys.phone_number.tr, controller.phoneNumber),
                 itemSpace(),
-                itemSpace(),
+                // itemSpace(),
                 Padding(
                   padding: EdgeInsets.only(
                       left: contentPadding, right: contentPadding),

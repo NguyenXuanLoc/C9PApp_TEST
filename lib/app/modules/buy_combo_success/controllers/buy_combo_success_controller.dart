@@ -13,6 +13,7 @@ class BuyComboSuccessController extends GetxController {
   String phoneNumber = Get.arguments[3];
   PaymentSuccessModel paymentSuccessModel = Get.arguments[4];
   PaymentInfoModel paymentInfoModel = Get.arguments[5];
+  var orderId = Get.arguments[6];
   final count = 0.obs;
 
   @override

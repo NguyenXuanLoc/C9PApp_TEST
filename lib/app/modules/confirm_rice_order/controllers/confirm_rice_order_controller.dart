@@ -168,18 +168,22 @@ class ConfirmRiceOrderController extends GetxController {
       if ((paymentSuccessModel.isSucess ?? false)) {
         await Dialogs.hideLoadingDialog();
         toast(paymentSuccessModel.message ?? '');
-        Get.toNamed(Routes.ORDER_SUCCESS,);
+        Get.toNamed(Routes.ORDER_SUCCESS,arguments: OrderModel.fromJson(response.data['data']));
       } else {
         if (countCheckPayment == 3) {
           await Dialogs.hideLoadingDialog();
           toast(paymentSuccessModel.message ?? '');
           return;
         }
-        Timer(const Duration(seconds: 5), () => checkPayment(model));
+        Timer(const Duration(seconds: 7), () => checkPayment(model));
       }
     } else {
-      await Dialogs.hideLoadingDialog();
-      toast(response.error.toString());
+      if (countCheckPayment == 3) {
+        await Dialogs.hideLoadingDialog();
+        toast(LocaleKeys.payment_error.tr);
+        return;
+      }
+      Timer(const Duration(seconds: 7), () => checkPayment(model));
     }
   }
 

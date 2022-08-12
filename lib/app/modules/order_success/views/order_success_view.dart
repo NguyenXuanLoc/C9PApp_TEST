@@ -11,6 +11,7 @@ import '../../../components/app_button.dart';
 import '../../../components/app_scalford.dart';
 import '../../../components/app_text.dart';
 import '../../../config/app_translation.dart';
+import '../../../config/constant.dart';
 import '../../../config/resource.dart';
 import '../../../theme/app_styles.dart';
 import '../../../theme/colors.dart';
@@ -90,15 +91,18 @@ class OrderSuccessView extends StatelessWidget {
                     'x${controller?.model?.itemQty.toString() ?? ''}'),
                 line(context),
                 itemContent(LocaleKeys.payment.tr,
-                    "${Utils.formatMoney((controller?.model?.amount ?? 0)+(controller?.model?.shippingFee ?? 0))}đ"),
+                    "${Utils.formatMoney((controller?.model?.amount ?? 0)/*+(controller?.model?.shippingFee ?? 0)*/)}đ"),
                 line(context),
                     itemContent(
                         LocaleKeys.method_payment.tr,
-                        (controller?.model?.amount ?? 0) > 0
-                            ? LocaleKeys.cash.tr
-                            : LocaleKeys.vn_pay.tr),
+                        (controller?.model?.paymentType != null)
+                            ? (controller?.model?.paymentType ==
+                                    MessageKey.VNPay
+                                ? LocaleKeys.vn_pay.tr
+                                : LocaleKeys.cash.tr)
+                            : LocaleKeys.cash.tr),
                     const AppLineSpace(),
-                itemTitle(R.assetsSvgPerson3, LocaleKeys.buyer.tr),
+                    itemTitle(R.assetsSvgPerson3, LocaleKeys.buyer.tr),
                 line(context),
                 itemContent(LocaleKeys.full_name.tr,
                     controller?.model?.buyerName ?? ''),
@@ -109,7 +113,7 @@ class OrderSuccessView extends StatelessWidget {
                 itemContent(
                     LocaleKeys.address.tr, controller?.model?.toAddress ?? ''),
                 itemSpace(),
-                itemSpace(),
+                // itemSpace(),
                 Padding(
                   padding: EdgeInsets.only(
                       left: contentPadding, right: contentPadding),

@@ -173,6 +173,7 @@ class LocaleKeys {
   static const finish = 'finish';
   static const add_note_ = 'add_note_';
   static const note = 'note';
+  static const payment_error = 'payment_error';
 }
 
 class Locales {
@@ -296,7 +297,7 @@ class Locales {
     'pin_invalid': 'Mã pin không hợp lệ',
     'by_sale_combo': 'Mua gói khuyến mại',
     'qty_package': 'Số gói khuyến mại',
-    'you_order_success': 'Bạn đã đặt thành công',
+    'you_order_success': 'Bạn đang đặt',
     'rice_portion_and_free': 'suất cơm và được tặng kèm',
     'price': 'Giá tiền',
     'payment': 'Thanh toán',
@@ -339,5 +340,6 @@ class Locales {
   'finish':'xong',
   'add_note_':'Thêm ghi chú',
   'note':'Ghi chú',
+  'payment_error':'Thanh toán thất bại',
   };
 }

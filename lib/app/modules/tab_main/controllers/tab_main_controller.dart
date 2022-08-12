@@ -24,7 +24,7 @@ import '../../../config/constant.dart';
 import '../../../data/model/combo_best_seller_model.dart';
 import '../../../data/model/my_combo_model.dart';
 
-enum TabMainAction { MENU, ORDER, DISCTRICT, MORE }
+enum TabMainAction { MENU, ORDER, PROMOTION, MORE }
 
 class TabMainController extends GetxController {
   final userProvider = UserProvider();
@@ -35,7 +35,6 @@ class TabMainController extends GetxController {
   final isLoadNearOrder = true.obs;
   final isLoadPromotion = true.obs;
   var lPromotion = List<ComboSellingModel>.empty(growable: true).obs;
-  StreamSubscription<ReloadUserEvent>? _reloadUserStream;
   var isFirstOpen = true;
   final fullName = ''.obs;
   final avatarUrl = ''.obs;
@@ -49,13 +48,11 @@ class TabMainController extends GetxController {
 
   @override
   onInit() {
-    _reloadUserStream= Utils.eventBus.on<ReloadUserEvent>().listen((event) =>getUserInfo());
     init();
     super.onInit();
   }
   @override
   onClose() {
-    _reloadUserStream?.cancel();
     super.onClose();
   }
   void init() {
@@ -78,7 +75,6 @@ class TabMainController extends GetxController {
       fullName.value = userModel.data?.userData?.name ?? '';
       avatarUrl.value = userModel.data?.userData?.image ?? '';
       refresh();
-      logE("TAG UPDATE AVATAAR TAB MAIN");
     }
   }
 
@@ -179,12 +175,12 @@ class TabMainController extends GetxController {
       return;
     }
     switch (action) {
+      case TabMainAction.PROMOTION:
+        Get.find<HomeController>().jumToTap(1);
+        break;
       case TabMainAction.MORE:
-      case TabMainAction.DISCTRICT:
-        {
-          Get.toNamed(Routes.DEVELOPING);
-          break;
-        }
+        Get.toNamed(Routes.DEVELOPING);
+        break;
       case TabMainAction.ORDER:
         {
           setBadge(false);

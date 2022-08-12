@@ -16,6 +16,7 @@ bool isActive = false;
 bool isMissPinCode = false;
 bool isOpenYourOrder = false;
 bool isOrderDetail = false;
+bool isFirstOpenApp = true;
 int timePackageRemaining = 0;
 int timeOut = 30;
 int shipPrice =10000;

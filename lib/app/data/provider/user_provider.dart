@@ -1,5 +1,6 @@
 import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/data/provider/base_provider.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:get/get.dart';
 
 import 'api_result.dart';
@@ -36,7 +37,8 @@ class UserProvider extends BaseProvider {
           required String qty,
           required String lat,
           required String lng,
-          required String deliverTime,
+      required String deliverTime,
+      required String description,
       required String productId,
       int? comboId,
       int useCombo = 0}) async {
@@ -47,6 +49,7 @@ class UserProvider extends BaseProvider {
       ApiKey.qty: qty,
       ApiKey.lat: lat,
       ApiKey.lng: lng,
+      ApiKey.description: description,
       ApiKey.deliverTime: /*'2023-6-15 08:32:21'*/ deliverTime,
       ApiKey.product_id: productId
     };
@@ -66,6 +69,7 @@ class UserProvider extends BaseProvider {
         required String lng,
         required String deliverTime,
         required String productId,
+        required String description,
         int? comboId,
         int useCombo = 0}) async {
     var body = {
@@ -76,8 +80,10 @@ class UserProvider extends BaseProvider {
       ApiKey.lat: lat,
       ApiKey.lng: lng,
       ApiKey.deliverTime: /*'2023-6-15 08:32:21'*/ deliverTime,
-      ApiKey.product_id: productId
+      ApiKey.product_id: productId,
+      ApiKey.description: description
     };
+    logE("TAG BODY: ${body.toString()}");
     if (comboId != null) {
       body[ApiKey.combo_id] = comboId.toString();
       body[ApiKey.useCombo] = useCombo.toString();

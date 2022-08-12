@@ -1,8 +1,10 @@
 import 'package:c9p/app/components/app_line_space.dart';
+import 'package:c9p/app/components/app_text_field.dart';
 import 'package:c9p/app/extension/string_extension.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -60,10 +62,14 @@ class ConfirmRiceOrderView extends StatelessWidget{
                 Padding(
                   padding: EdgeInsets.all(contentPadding),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.asset(
-                        R.assetsPngDeliveryMan,
-                        width: 20.w,
+                      Padding(
+                        padding: EdgeInsets.only(top: 5.h),
+                        child: Image.asset(
+                          R.assetsPngDeliveryMan,
+                          width: 20.w,
+                        ),
                       ),
                       const SizedBox(
                         width: 10,
@@ -81,17 +87,22 @@ class ConfirmRiceOrderView extends StatelessWidget{
                             controller!.model.address,
                             style: typoMediumText700,
                           ),
-                          AppText(
-                            LocaleKeys.add_note.tr,
-                            style: typoSuperSmallText500.copyWith(
-                                color: colorText40, fontSize: 12.sp),
+                          InkWell(
+                            child: Obx(() => AppText(
+                                  controller!.description.value.isEmpty
+                                      ? LocaleKeys.add_note.tr
+                                      : "${LocaleKeys.note.tr}: ${controller!.description.value}",
+                                  style: typoSuperSmallText500.copyWith(
+                                      color: colorText40, fontSize: 12.sp),
+                                )),
+                            onTap: () => showNoteDialog(context),
                           )
                         ],
                       ))
                     ],
                   ),
                 ),
-                AppLineSpace(),
+                const AppLineSpace(),
                 itemSpace(),
                 itemTitle(R.assetsSvgBag, LocaleKeys.order.tr),
                 itemContent(
@@ -440,4 +451,81 @@ class ConfirmRiceOrderView extends StatelessWidget{
           ],
         ),
       );
+
+  void showNoteDialog(BuildContext context) async {
+    await showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (ctx) {
+          return Container(
+            // padding: const EdgeInsets.all(30),
+            decoration: const BoxDecoration(
+                color: colorWhite,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15))),
+            width: MediaQuery.of(context).size.width,
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(contentPadding),
+                    color: colorBackgroundGrey10,
+                    child: Row(
+                      children: [
+                        InkWell(
+                          child: AppText(
+                            LocaleKeys.cancel.tr,
+                            style: typoSmallTextBold,
+                          ),
+                          onTap: () => controller!.cancelDescriptionDialog(),
+                        ),
+                        Expanded(
+                            child: AppText(
+                          LocaleKeys.add_note_.tr,
+                          style: typoSmallText700,
+                          textAlign: TextAlign.center,
+                        )),
+                        InkWell(
+                          child: AppText(LocaleKeys.finish.tr,
+                              style: typoSmallTextBold.copyWith(
+                                  color: colorSemanticRed100)),
+                          onTap: () => controller!.finishDescriptionDialog(),
+                        ),
+                      ],
+                    ),
+                  ),SizedBox(height: 20,),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: AppTextField(onChanged: (text)=>controller!.counterChange(text),controller: controller!.descriptionController,
+                      autofocus: true,
+                      maxLine: 3,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(100),
+                      ],
+                      // maxLength: 100,
+                      textStyle: typoSuperSmallText500,
+                      decoration: decorTextField.copyWith(
+                          hintText: 'Vui lòng để lại ghi chú',
+                          hintStyle: typoSuperSmallText500.copyWith(
+                              color: colorText40),
+                          border: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none),
+                    ),
+                  ),
+                  Obx(() => Container(alignment: Alignment.centerRight,child: AppText(
+                    "${controller!.noteCounter.value}/100",
+                    style:
+                    typoSuperSmallText600.copyWith(color: colorText40),
+                  ),padding: EdgeInsets.only(right: contentPadding),))
+                ],
+              ),
+            ),
+          );
+        });
+  }
 }

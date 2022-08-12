@@ -65,7 +65,7 @@ class LoginByPinController extends GetxController {
         await StorageUtils.getUser();
         Get.offAllNamed(Routes.HOME, arguments: false);
       } catch (ex) {
-        toast(response.data['data']['responseText']);
+        toast(response.data['data']['message']??response.data['data']['responseText']);
       }
     } else {
       toast(response.error.toString());

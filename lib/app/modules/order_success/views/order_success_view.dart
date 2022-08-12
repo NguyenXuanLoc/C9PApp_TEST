@@ -11,6 +11,7 @@ import '../../../components/app_button.dart';
 import '../../../components/app_scalford.dart';
 import '../../../components/app_text.dart';
 import '../../../config/app_translation.dart';
+import '../../../config/constant.dart';
 import '../../../config/resource.dart';
 import '../../../theme/app_styles.dart';
 import '../../../theme/colors.dart';
@@ -90,21 +91,29 @@ class OrderSuccessView extends StatelessWidget {
                     'x${controller?.model?.itemQty.toString() ?? ''}'),
                 line(context),
                 itemContent(LocaleKeys.payment.tr,
-                    "${Utils.formatMoney((controller?.model?.amount ?? 0)+(controller?.model?.shippingFee ?? 0))}đ"),
+                    "${Utils.formatMoney((controller?.model?.amount ?? 0)/*+(controller?.model?.shippingFee ?? 0)*/)}đ"),
                 line(context),
-                itemContent(LocaleKeys.method_payment.tr, "Tiền mặt"),
-                const AppLineSpace(),
-                itemTitle(R.assetsSvgPerson3, LocaleKeys.buyer.tr),
+                    itemContent(
+                        LocaleKeys.method_payment.tr,
+                        (controller?.model?.paymentType != null)
+                            ? (controller?.model?.paymentType ==
+                                    MessageKey.VNPay
+                                ? LocaleKeys.vn_pay.tr
+                                : LocaleKeys.cash.tr)
+                            : LocaleKeys.cash.tr),
+                    const AppLineSpace(),
+                    itemTitle(R.assetsSvgPerson3, LocaleKeys.buyer.tr),
                 line(context),
                 itemContent(LocaleKeys.full_name.tr,
                     controller?.model?.buyerName ?? ''),
                 line(context),
-                itemContent(LocaleKeys.phone_number.tr, '0999999999'),
+                itemContent(LocaleKeys.phone_number.tr, controller?.model?.buyerPhone
+                    ?? ''),
                 line(context),
                 itemContent(
                     LocaleKeys.address.tr, controller?.model?.toAddress ?? ''),
                 itemSpace(),
-                itemSpace(),
+                // itemSpace(),
                 Padding(
                   padding: EdgeInsets.only(
                       left: contentPadding, right: contentPadding),

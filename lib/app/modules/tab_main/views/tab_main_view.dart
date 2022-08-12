@@ -312,7 +312,7 @@ class TabMainView extends GetView<TabMainController> {
                   optionWidget(
                       R.assetsSvgPromotionCircle,
                       LocaleKeys.promotion.tr,
-                      TabMainAction.DISCTRICT,
+                      TabMainAction.PROMOTION,
                       context),
                   optionWidget(R.assetsSvgMore, LocaleKeys.more.tr,
                       TabMainAction.MORE, context)

@@ -24,7 +24,7 @@ import '../../../config/constant.dart';
 import '../../../data/model/combo_best_seller_model.dart';
 import '../../../data/model/my_combo_model.dart';
 
-enum TabMainAction { MENU, ORDER, DISCTRICT, MORE }
+enum TabMainAction { MENU, ORDER, PROMOTION, MORE }
 
 class TabMainController extends GetxController {
   final userProvider = UserProvider();
@@ -178,12 +178,12 @@ class TabMainController extends GetxController {
       return;
     }
     switch (action) {
+      case TabMainAction.PROMOTION:
+        Get.find<HomeController>().jumToTap(1);
+        break;
       case TabMainAction.MORE:
-      case TabMainAction.DISCTRICT:
-        {
-          Get.toNamed(Routes.DEVELOPING);
-          break;
-        }
+        Get.toNamed(Routes.DEVELOPING);
+        break;
       case TabMainAction.ORDER:
         {
           setBadge(false);

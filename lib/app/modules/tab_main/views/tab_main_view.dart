@@ -182,7 +182,7 @@ class TabMainView extends GetView<TabMainController> {
                     contentPadding: EdgeInsets.all(9.h),
                     isDense: true,
                     hintText: LocaleKeys.find_order_at_here.tr,
-                    hintStyle: typoSuperSmallTextBold.copyWith(
+                    hintStyle: typoSuperSmallText500.copyWith(
                       // fontSize: 12.sp,
                         color: colorText60),
                     prefixIconConstraints:

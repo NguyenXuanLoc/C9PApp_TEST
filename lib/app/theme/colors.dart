@@ -143,6 +143,7 @@ const colorGrey20 = Color(0xFFE9EAEC);
 const colorGrey30 = Color(0xFFE9EAEC);
 const colorGrey40 = Color(0xFFC8CBD0);
 const colorGrey50 = Color(0xFFA0A4AB);
+const colorGrey60 = Color(0xFF979797);
 const colorGrey70 = Color(0xFF424242);
 const colorGrey85 = Color(0xFF333333);
 const colorGrey80 = Color(0xFF636973);

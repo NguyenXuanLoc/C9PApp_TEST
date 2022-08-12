@@ -84,9 +84,10 @@ class HomeController extends GetxController {
 
   @override
   void onReady() async {
-    /*if (Get.arguments != null && Get.arguments) {
+    if (Get.arguments != null && Get.arguments) {
+      globals.isFirstOpenApp = false;
       Get.toNamed(Routes.ORDER);
-    }*/
+    }
     checkToShowPopUp();
     checkOrderIdFromCache();
     checkRegisterDevice();

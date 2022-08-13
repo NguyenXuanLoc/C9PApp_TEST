@@ -23,7 +23,15 @@ class MessageKey {
   static const String COD  = 'cod';
   static const String VNPay  = 'VNPay';
   static const String avatarDefault  = 'https://via.placeholder.com/150x150.png';
-
+  static const String PENDING = 'Pending';
+  static const String CREATED = 'Created';
+  static const String DELIVERING = 'Delivering';
+  static const String GET = 'Get';
+  static const String CANCEL = 'Cancel';
+  static const String FAULT = 'Fault';
+  static const String SELFPOST = 'Selfpost';
+  static const String DELIVERED = 'Delivered';
+  static const String PAYED = 'Payed';
 }
 
 class ApiKey {

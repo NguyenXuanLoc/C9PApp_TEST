@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:c9p/app/config/app_translation.dart';
+import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/data/model/combo_best_seller_model.dart';
 import 'package:c9p/app/data/model/payment_success_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
@@ -32,10 +33,14 @@ class ConfirmOrderController extends GetxController {
       if (!(paymentInfoModel.isSucess ?? true)) {
         toast(paymentInfoModel.message.toString());
       } else {
-        var isCheckPayment =
-            await Get.toNamed(Routes.PAYMENT, arguments: paymentInfoModel) ??
-                false;
-        if (!isCheckPayment) return;
+        var responseCode =
+            await Get.toNamed(Routes.PAYMENT, arguments: paymentInfoModel);
+        if(responseCode == null) {
+          return;
+        } else if(responseCode != AppConstant.PAYMENT_SUCCESSFULL){
+          toast(LocaleKeys.payment_failed.tr);
+          return;
+        }
         countCheckPayment = 0;
         Dialogs.showLoadingDialog(context);
         checkPayment(paymentInfoModel);

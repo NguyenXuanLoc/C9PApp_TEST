@@ -167,6 +167,7 @@ const colorGreen55 = Color(0xFF279331);
 const colorGreen50 = Color(0xFF239B2E);
 const colorGreen40 = Color(0xFF50AC17);
 
+const colorOrange80 = Color(0xFFFD6916);
 const colorOrange60 = Color(0xFFCD8E15);
 const colorOrange50 = Color(0xFFBE9720);
 const colorOrange40 = Color(0xFFE5B110);

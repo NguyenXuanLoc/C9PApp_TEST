@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 
 import '../../../components/dialogs.dart';
 import '../../../config/app_translation.dart';
+import '../../../config/constant.dart';
 import '../../../config/globals.dart';
 import '../../../data/model/order_model.dart';
 import '../../../data/model/payment_info_model.dart';
@@ -78,10 +79,14 @@ class ConfirmRiceOrderController extends GetxController {
       if (!(paymentInfoModel.isSucess ?? true)) {
         toast(paymentInfoModel.message.toString());
       } else {
-        var isCheckPayment =
-            await Get.toNamed(Routes.PAYMENT, arguments: paymentInfoModel) ??
-                false;
-        if (!isCheckPayment) return;
+        var responseCode =
+        await Get.toNamed(Routes.PAYMENT, arguments: paymentInfoModel);
+        if(responseCode == null) {
+          return;
+        } else if(responseCode != AppConstant.PAYMENT_SUCCESSFULL){
+          toast(LocaleKeys.payment_failed.tr);
+          return;
+        }
         countCheckPayment = 0;
         Dialogs.showLoadingDialog(context);
         checkPayment(paymentInfoModel);

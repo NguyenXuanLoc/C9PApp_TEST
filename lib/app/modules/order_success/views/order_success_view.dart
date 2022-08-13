@@ -91,8 +91,8 @@ class OrderSuccessView extends StatelessWidget {
                     'x${controller?.model?.itemQty.toString() ?? ''}'),
                 line(context),
                 itemContent(LocaleKeys.payment.tr,
-                    "${Utils.formatMoney((controller?.model?.amount ?? 0)/*+(controller?.model?.shippingFee ?? 0)*/)}đ"),
-                line(context),
+                        "${Utils.formatMoney((controller?.model?.amount ?? 0) + (controller?.model?.paymentType == MessageKey.VNPay ? 0 : controller?.model?.shippingFee ?? 0))}đ"),
+                    line(context),
                     itemContent(
                         LocaleKeys.method_payment.tr,
                         (controller?.model?.paymentType != null)

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:c9p/app/components/dialogs.dart';
+import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
@@ -234,4 +235,28 @@ static  String getRandomTag()=> Random().nextInt(100).toString();
         quality: 0.8,
         maxSize: 500,
       );
+
+ static String getOrderStatus(String value) {
+    switch (value) {
+      case MessageKey.PENDING:
+        return LocaleKeys.pending.tr;
+      case MessageKey.CREATED:
+        return LocaleKeys.created.tr;
+      case MessageKey.DELIVERING:
+        return LocaleKeys.delivering.tr;
+      case MessageKey.GET:
+        return LocaleKeys.get.tr;
+      case MessageKey.CANCEL:
+        return LocaleKeys.canceled.tr;
+      case MessageKey.FAULT:
+        return LocaleKeys.fault;
+      case MessageKey.SELFPOST:
+        return LocaleKeys.fault;
+      case MessageKey.DELIVERED:
+        return LocaleKeys.delivered.tr;
+      case MessageKey.PAYED:
+        return LocaleKeys.payed.tr;
+    }
+    return LocaleKeys.fault;
+  }
 }

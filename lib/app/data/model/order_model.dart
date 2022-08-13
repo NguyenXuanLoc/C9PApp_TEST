@@ -136,7 +136,7 @@ class OrderModel {
     locality: json["Locality"],
     itemQty: json["ItemQty"],
     status: json["Status"],
-    paymentType: json["paymentType"],
+    paymentType: json["payment_type"],
     updatedAt: DateTime.parse(json["updated_at"]),
     userId: json["user_id"],
     channel: json["channel"],

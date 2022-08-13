@@ -182,6 +182,7 @@ class LocaleKeys {
   static const canceled = 'canceled';
   static const payed = 'payed';
   static const fault = 'fault';
+  static const payment_failed = 'payment_failed';
 }
 class Locales {
   static const en = {
@@ -356,5 +357,6 @@ class Locales {
   'canceled':'Đã hủy',
   'payed':'Đã thanh toán',
   'fault':'Lỗi',
+  'payment_failed':'Thanh toán không thành công, vui lòng thử lại',
   };
 }

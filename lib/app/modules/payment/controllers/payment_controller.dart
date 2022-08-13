@@ -4,7 +4,6 @@ import 'package:c9p/app/utils/log_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
-
 class PaymentController extends GetxController {
   InAppWebViewController? controller;
   var isLoading = true.obs;
@@ -33,10 +32,7 @@ class PaymentController extends GetxController {
       this.controller = controller;
 
   void detectPaymentSuccessful(Uri? uri) {
-    var isSuccess = (uri?.queryParameters[ApiKey.vnp_ResponseCode] ?? '11') ==
-            AppConstant.PAYMENT_SUCCESSFULL
-        ? true
-        : false;
-    if (isSuccess) Get.back(result: true);
+    var responseCode = uri?.queryParameters[ApiKey.vnp_ResponseCode];
+    if (responseCode != null) Get.back(result: responseCode);
   }
 }

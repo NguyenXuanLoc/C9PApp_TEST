@@ -16,9 +16,12 @@ import 'app_text.dart';
 class AppDeveloping extends StatelessWidget {
   final VoidCallback onClickMain;
   final VoidCallback onClickOrder;
-
+  final bool isShowBack;
   const AppDeveloping(
-      {Key? key, required this.onClickMain, required this.onClickOrder})
+      {Key? key,
+      required this.onClickMain,
+      required this.onClickOrder,
+      this.isShowBack = false})
       : super(key: key);
 
   @override
@@ -39,24 +42,27 @@ class AppDeveloping extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             alignment: Alignment.centerLeft,
             height: 30.h,
-            child: Padding(
-                padding: EdgeInsets.only(left: contentPadding),
-                child: Container(
-                  padding: EdgeInsets.all(2.w),
-                  decoration: BoxDecoration(
-                      color: colorGrey10, borderRadius: BorderRadius.circular(100)),
-                  child: IconButton(
-                      splashRadius: 20,
-                      constraints: BoxConstraints(maxHeight: 30.w, maxWidth: 30.w),
-                      padding: const EdgeInsets.all(0),
-                      onPressed: () => Get.back(),
-                      icon: SvgPicture.asset(R.assetsBackSvg)),
-                )),
             decoration: BoxDecoration(
                 color: colorWhite,
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(15.w),
                     topLeft: Radius.circular(15.w))),
+            child: isShowBack? Padding(
+                padding: EdgeInsets.only(left: contentPadding),
+                    child: Container(
+                      padding: EdgeInsets.all(2.w),
+                      decoration: BoxDecoration(
+                          color: colorGrey10,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: IconButton(
+                          splashRadius: 20,
+                          constraints:
+                              BoxConstraints(maxHeight: 30.w, maxWidth: 30.w),
+                          padding: const EdgeInsets.all(0),
+                          onPressed: () => Get.back(),
+                          icon: SvgPicture.asset(R.assetsBackSvg)),
+                    ))
+                : const SizedBox(),
           ),
         ),
       ),

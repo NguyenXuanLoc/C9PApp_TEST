@@ -121,10 +121,10 @@ class TabAccountController extends GetxController {
         Get.toNamed(Routes.MY_COMBO);
         break;
       case AccountAction.MY_LOCATION:
-        Get.toNamed(Routes.DEVELOPING);
+        Get.toNamed(Routes.DEVELOPING, arguments: true);
         break;
       case AccountAction.METHOD_PAYMENT:
-        Get.toNamed(Routes.DEVELOPING);
+        Get.toNamed(Routes.DEVELOPING, arguments: true);
         break;
       case AccountAction.MY_ORDER:
         Get.toNamed(Routes.YOUR_ORDER);

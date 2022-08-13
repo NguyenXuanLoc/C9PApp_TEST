@@ -109,7 +109,7 @@ class HomeView extends GetView<HomeController> {
   Widget itemBottomBar(String assetSvg, String title, int index,BuildContext context) {
     return Expanded(
         child: Container(
-      color: controller.currentIndex.value == index ? colorGrey5 : colorWhite,
+      // color: controller.currentIndex.value == index ? colorGrey5 : colorWhite,
       child: InkWell(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +120,8 @@ class HomeView extends GetView<HomeController> {
               height: 20.w,
               child: SvgPicture.asset(
                 assetSvg,
-                fit: BoxFit.contain,
+                fit: BoxFit.contain,/*979797*/ /*1DB688*/
+                color: controller.currentIndex.value == index ? colorGreen57 : colorGrey60,
               ),
             ),
             const SizedBox(
@@ -129,7 +130,10 @@ class HomeView extends GetView<HomeController> {
             AppText(
               title,
               style: typoSuperSmallTextBold.copyWith(
-                  color: colorText40, fontSize: 9.5.sp),
+                  color: controller.currentIndex.value == index
+                      ? colorGreen57
+                      : colorGrey60,
+                  fontSize: 10.sp),
             )
           ],
         ),

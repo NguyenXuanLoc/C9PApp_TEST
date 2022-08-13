@@ -175,8 +175,14 @@ class LocaleKeys {
   static const note = 'note';
   static const payment_error = 'payment_error';
   static const error_image_too_big = 'error_image_too_big';
+  static const pending = 'pending';
+  static const created = 'created';
+  static const delivering = 'delivering';
+  static const get = 'get';
+  static const canceled = 'canceled';
+  static const payed = 'payed';
+  static const fault = 'fault';
 }
-
 class Locales {
   static const en = {
     'ask_existing_page': 'EnglishEnglishEnglishEnglishEnglish',
@@ -343,5 +349,12 @@ class Locales {
   'note':'Ghi chú',
   'payment_error':'Thanh toán thất bại',
   'error_image_too_big':'Kích thước ảnh quá lớn, vui lòng chọn lại.',
+  'pending':'Chưa xử lý',
+  'created':'Đã tạo đơn',
+  'delivering':'Đang giao hàng',
+  'get':'Đang lấy hàng',
+  'canceled':'Đã hủy',
+  'payed':'Đã thanh toán',
+  'fault':'Lỗi',
   };
 }

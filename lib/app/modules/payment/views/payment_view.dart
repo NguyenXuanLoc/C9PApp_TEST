@@ -20,21 +20,12 @@ class PaymentView extends GetView<PaymentController> {
   Widget build(BuildContext context) {
     return AppScaffold(
         appbar: AppBar(
-          leading: Padding(
-            padding: EdgeInsets.only(left: contentPadding),
-            child: InkWell(
-              child: SvgPicture.asset(
-                R.assetsBackSvg,
-                color: colorWhite,
-              ),
-              onTap: () => Get.back(),
-            ),
-          ),actions: [InkWell(
+          actions: [InkWell(
           child: Icon(Icons.clear,size: 20.w,),
           onTap: () => Get.offAllNamed(Routes.HOME),
         ),SizedBox(width: contentPadding,)],
           leadingWidth: 28.w,
-          automaticallyImplyLeading: true,
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: AppText(
             LocaleKeys.payment.tr,

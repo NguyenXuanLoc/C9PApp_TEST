@@ -174,6 +174,7 @@ class LocaleKeys {
   static const add_note_ = 'add_note_';
   static const note = 'note';
   static const payment_error = 'payment_error';
+  static const error_image_too_big = 'error_image_too_big';
 }
 
 class Locales {
@@ -341,5 +342,6 @@ class Locales {
   'add_note_':'Thêm ghi chú',
   'note':'Ghi chú',
   'payment_error':'Thanh toán thất bại',
+  'error_image_too_big':'Kích thước ảnh quá lớn, vui lòng chọn lại.',
   };
 }

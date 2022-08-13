@@ -155,7 +155,7 @@ class BaseProvider extends GetConnect {
         Logger().e(
             'Error ${response.status.code} - ${response.statusText} - ${response.bodyString}');
         var result = response.body;
-        return ApiResult<dynamic>(
+        return ApiResult<dynamic>(statusCode: response.statusCode,
           error:response.body['message'] ?? response.statusText ?? '',
           data: result,
         );

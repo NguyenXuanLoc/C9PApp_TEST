@@ -2,6 +2,7 @@ import 'package:c9p/app/config/globals.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../config/app_translation.dart';
@@ -35,7 +36,22 @@ class AppDeveloping extends StatelessWidget {
                   image: AssetImage(R.assetsBackgroundHeaderTabMainPng),
                   fit: BoxFit.fitWidth)),
           child: Container(
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.centerLeft,
             height: 30.h,
+            child: Padding(
+                padding: EdgeInsets.only(left: contentPadding),
+                child: Container(
+                  padding: EdgeInsets.all(2.w),
+                  decoration: BoxDecoration(
+                      color: colorGrey10, borderRadius: BorderRadius.circular(100)),
+                  child: IconButton(
+                      splashRadius: 20,
+                      constraints: BoxConstraints(maxHeight: 30.w, maxWidth: 30.w),
+                      padding: const EdgeInsets.all(0),
+                      onPressed: () => Get.back(),
+                      icon: SvgPicture.asset(R.assetsBackSvg)),
+                )),
             decoration: BoxDecoration(
                 color: colorWhite,
                 borderRadius: BorderRadius.only(

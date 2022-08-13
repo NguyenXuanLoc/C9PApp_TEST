@@ -22,6 +22,7 @@ class MessageKey {
   static const String CREATE_PASSWORD = 'Create password';
   static const String COD  = 'cod';
   static const String VNPay  = 'VNPay';
+  static const String avatarDefault  = 'https://via.placeholder.com/150x150.png';
 
 }
 

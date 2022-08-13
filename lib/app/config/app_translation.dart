@@ -337,7 +337,7 @@ class Locales {
   'input_retype_new_pin':'Nhập lại mã pin mới',
   'take_photo':'Chụp ảnh',
   'pick_photo_from_gallery':'Chọn ảnh từ thư viện',
-  'finish':'xong',
+  'finish':'Xong',
   'add_note_':'Thêm ghi chú',
   'note':'Ghi chú',
   'payment_error':'Thanh toán thất bại',

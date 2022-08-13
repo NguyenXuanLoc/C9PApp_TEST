@@ -59,8 +59,19 @@ class ProfileController extends GetxController {
     if (isValid()) {
       Utils.hideKeyboard(context);
       Dialogs.showLoadingDialog(context);
+      if (filePath.value.isNotEmpty) {
+        var avatarResponse = await userProvider.uploadAvatar(filePath.value);
+        if (avatarResponse.error != null ) {
+          await Dialogs.hideLoadingDialog();
+          if( avatarResponse.statusCode==422){
+            toast(LocaleKeys.error_image_too_big.tr);
+          }else{
+            toast(avatarResponse.error.toString());
+          }
+          return;
+        }
+      }
       var response = await userProvider.updateProfile(fullNameController.text);
-      if(filePath.value.isNotEmpty) userProvider.uploadAvatar(filePath.value);
       await Dialogs.hideLoadingDialog();
       if (response.error == null && response.data != null) {
         var userData = await getProfile();

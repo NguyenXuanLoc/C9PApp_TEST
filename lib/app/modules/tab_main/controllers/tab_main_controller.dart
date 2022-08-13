@@ -179,7 +179,7 @@ class TabMainController extends GetxController {
         Get.find<HomeController>().jumToTap(1);
         break;
       case TabMainAction.MORE:
-        Get.toNamed(Routes.DEVELOPING);
+        Get.toNamed(Routes.DEVELOPING,arguments: true);
         break;
       case TabMainAction.ORDER:
         {

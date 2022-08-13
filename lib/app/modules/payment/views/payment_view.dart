@@ -1,3 +1,4 @@
+import 'package:c9p/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,7 +29,10 @@ class PaymentView extends GetView<PaymentController> {
               ),
               onTap: () => Get.back(),
             ),
-          ),
+          ),actions: [InkWell(
+          child: Icon(Icons.clear,size: 20.w,),
+          onTap: () => Get.offAllNamed(Routes.HOME),
+        ),SizedBox(width: contentPadding,)],
           leadingWidth: 28.w,
           automaticallyImplyLeading: true,
           centerTitle: true,

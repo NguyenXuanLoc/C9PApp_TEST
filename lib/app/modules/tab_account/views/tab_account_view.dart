@@ -8,6 +8,7 @@ import '../../../components/app_circle_image.dart';
 import '../../../components/app_scalford.dart';
 import '../../../components/app_text.dart';
 import '../../../config/app_translation.dart';
+import '../../../config/constant.dart';
 import '../../../config/globals.dart';
 import '../../../config/resource.dart';
 import '../../../theme/app_styles.dart';
@@ -48,15 +49,16 @@ class TabAccountView extends GetView<TabAccountController> {
           title: Row(
             children: [
               InkWell(
-                child: Obx(() => controller.avatarUrl.value.isNotEmpty
+                child: Obx(() => controller.avatarUrl.value.isNotEmpty &&
+                        controller.avatarUrl.value != MessageKey.avatarDefault
                     ? AppCircleImage(
-                  url: controller.avatarUrl.value,
-                  size: 28.w,
-                )
+                        url: controller.avatarUrl.value,
+                        size: 28.w,
+                      )
                     : SvgPicture.asset(
-                  R.assetsSvgCircleAvatar,
-                  width: 28.w,
-                )),
+                        R.assetsSvgCircleAvatar,
+                        width: 28.w,
+                      )),
               ),
               const SizedBox(
                 width: 10,

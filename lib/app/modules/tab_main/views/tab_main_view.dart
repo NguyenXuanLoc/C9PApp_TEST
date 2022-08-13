@@ -156,7 +156,9 @@ class TabMainView extends GetView<TabMainController> {
                         width: 10,
                       ),
                       Obx(() => InkWell(
-                            child: controller.avatarUrl.value.isNotEmpty
+                            child: controller.avatarUrl.value.isNotEmpty &&
+                                    controller.avatarUrl.value !=
+                                        MessageKey.avatarDefault
                                 ? AppCircleImage(
                                     url: controller.avatarUrl.value,
                                     size: 28.w,

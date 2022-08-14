@@ -356,7 +356,7 @@ class Locales {
   'get':'Đang lấy hàng',
   'canceled':'Đã hủy',
   'payed':'Đã thanh toán',
-  'fault':'Lỗi',
+  'fault':'Đơn lỗi',
   'payment_failed':'Thanh toán không thành công, vui lòng thử lại',
   };
 }

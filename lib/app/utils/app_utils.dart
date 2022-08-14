@@ -249,14 +249,14 @@ static  String getRandomTag()=> Random().nextInt(100).toString();
       case MessageKey.CANCEL:
         return LocaleKeys.canceled.tr;
       case MessageKey.FAULT:
-        return LocaleKeys.fault;
+        return LocaleKeys.fault.tr;
       case MessageKey.SELFPOST:
-        return LocaleKeys.fault;
+        return LocaleKeys.fault.tr;
       case MessageKey.DELIVERED:
         return LocaleKeys.delivered.tr;
       case MessageKey.PAYED:
         return LocaleKeys.payed.tr;
     }
-    return LocaleKeys.fault;
+    return value;
   }
 }

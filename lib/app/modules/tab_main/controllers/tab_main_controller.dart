@@ -195,8 +195,13 @@ class TabMainController extends GetxController {
       : Utils.requestLogin(context);
 
 
-  void openSaleCombo(ComboSellingModel model) =>
-      Get.toNamed(Routes.BY_COMBO, arguments: model);
+  void openSaleCombo(ComboSellingModel model){
+    if (!globals.isLogin) {
+      Get.toNamed(Routes.LOGIN_SPLASH);
+      return;
+    }
+    Get.toNamed(Routes.BY_COMBO, arguments: model);
+  }
 
   void openDialThePhone() => launchUrl(Uri(
         scheme: 'tel',

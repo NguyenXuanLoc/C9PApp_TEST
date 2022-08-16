@@ -107,7 +107,7 @@ class Utils {
       DateFormat('MMMM-yyyy-dd').format(time).toString().split(' ')[0];
 
   static String convertTimeToYYMMDD(DateTime time) =>
-      DateFormat('yyyy-M-dd').format(time.toLocal()).toString().split(' ')[0];
+      DateFormat('yyyy-MM-dd').format(time.toLocal()).toString().split(' ')[0];
 
   static String convertTimeToDDMMYY(DateTime time) =>
       DateFormat('dd-MM-yyyy').format(time.toLocal()).toString().split(' ')[0];

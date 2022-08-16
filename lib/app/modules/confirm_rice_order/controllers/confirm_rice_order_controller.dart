@@ -6,6 +6,7 @@ import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../components/dialogs.dart';
 import '../../../config/app_translation.dart';
@@ -34,10 +35,12 @@ class ConfirmRiceOrderController extends GetxController {
   void changeMethodPayment(BuildContext context,bool isCash){
     isPaymentByCash.value = isCash;
     Navigator.pop(context);  }
-
+var deliverTimeStr='';
   @override
   void onInit() {
     model = Get.arguments;
+    deliverTimeStr =
+        "${Utils.convertTimeToYYMMDD(model.deliverDate)} ${model.deliverHour.replaceAll('.000Z', '')}";
     super.onInit();
   }
   @override
@@ -63,6 +66,16 @@ class ConfirmRiceOrderController extends GetxController {
       : shipPrice + double.parse(model.qty).toInt() * ricePrice;
 
   void paymentOnclick(BuildContext context) {
+    var timeFormat ='yyyy-MM-dd HH:mm';
+    var time = DateFormat(timeFormat).parse(deliverTimeStr);
+    var currentTime = DateFormat(timeFormat).parse(DateFormat(timeFormat).format(
+        DateTime.fromMillisecondsSinceEpoch(
+            DateTime.now().millisecondsSinceEpoch +
+                AppConstant.FIFTEN_MINIUTES)));
+     if (time.isBefore(currentTime)) {
+       toast(LocaleKeys.order_before_15_minutes.tr);
+       return;
+    }
     if (isPaymentByCash.value) {
       paymentByCash(context);
     } else {
@@ -75,6 +88,14 @@ class ConfirmRiceOrderController extends GetxController {
     var response = await paymentRiceOrderByVnPay();
     await Dialogs.hideLoadingDialog();
     if (response.error == null && response.data != null) {
+      if(response.data['data'] ==null){
+        try{
+          toast(response.data['msg']);
+        }catch(ex){
+          toast(LocaleKeys.network_error.tr);
+        }
+        return;
+      }
       var paymentInfoModel = PaymentInfoModel.fromJson(response.data);
       if (!(paymentInfoModel.isSucess ?? true)) {
         toast(paymentInfoModel.message.toString());
@@ -119,8 +140,6 @@ class ConfirmRiceOrderController extends GetxController {
     var qty = model.qty;
     var currentLat = model.lat;
     var currentLng = model.long;
-    var deliverTimeStr =
-        "${Utils.convertTimeToYYMMDD(model.deliverDate)} ${model.deliverHour.replaceAll('.000Z', '')}";
     var productId = '2';
     return await userProvider.addOrder(
         name: name,
@@ -145,8 +164,6 @@ class ConfirmRiceOrderController extends GetxController {
     var qty = model.qty;
     var currentLat = model.lat;
     var currentLng = model.long;
-    var deliverTimeStr =
-        "${Utils.convertTimeToYYMMDD(model.deliverDate)} ${model.deliverHour.replaceAll('.000Z', '')}";
     var productId = '2';
     return await userProvider.paymentRiceOrderByVnPay(
         name: name,

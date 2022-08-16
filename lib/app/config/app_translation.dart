@@ -183,6 +183,7 @@ class LocaleKeys {
   static const payed = 'payed';
   static const fault = 'fault';
   static const payment_failed = 'payment_failed';
+  static const order_before_15_minutes = 'order_before_15_minutes';
 }
 class Locales {
   static const en = {
@@ -358,5 +359,6 @@ class Locales {
   'payed':'Đã thanh toán',
   'fault':'Đơn lỗi',
   'payment_failed':'Thanh toán không thành công, vui lòng thử lại',
+  'order_before_15_minutes':'Thời gian giao hàng quá gấp, hãy chọn thời gian giao hàng lớn hơn thời gian hiện tại 15 phút',
   };
 }

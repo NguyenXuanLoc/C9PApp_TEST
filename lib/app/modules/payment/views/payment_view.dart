@@ -22,7 +22,7 @@ class PaymentView extends GetView<PaymentController> {
         appbar: AppBar(
           actions: [InkWell(
           child: Icon(Icons.clear,size: 20.w,),
-          onTap: () => Get.offAllNamed(Routes.HOME),
+          onTap: () => Get.back(),
         ),SizedBox(width: contentPadding,)],
           leadingWidth: 28.w,
           automaticallyImplyLeading: false,

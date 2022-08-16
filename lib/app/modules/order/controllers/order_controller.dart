@@ -121,7 +121,7 @@ class OrderController extends GetxController {
       dateController.text = Utils.convertTimeToDDMMYY(DateTime.now());
     }
     var currentTime = DateTime.fromMillisecondsSinceEpoch(
-        DateTime.now().millisecondsSinceEpoch + AppConstant.FIFTEN_MINIUTES);
+        DateTime.now().millisecondsSinceEpoch + AppConstant.FIFTEN_MINIUTES+60000);
     deliverHours = Utils.convertTimeToHHMMA(currentTime);
     hourController.text = Utils.time24to12Format(currentTime);
   }

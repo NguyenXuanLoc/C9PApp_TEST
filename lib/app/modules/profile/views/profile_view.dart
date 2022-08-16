@@ -85,7 +85,6 @@ class ProfileView extends GetView<ProfileController> {
                        Obx(() =>  AppCircleImage(
                          size: 90.w,
                          url:  controller.urlImage.value,
-                         urlError: '',
                          uri: controller.filePath.value,
                        )),
                         Positioned.fill(

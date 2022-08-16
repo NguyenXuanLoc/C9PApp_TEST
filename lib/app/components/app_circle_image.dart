@@ -24,7 +24,7 @@ class AppCircleImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: BoxDecoration(color: colorWhite,
           borderRadius: BorderRadius.all(Radius.circular(100)),
           border: Border.all(color: colorOrange40)),
       child: ClipOval(

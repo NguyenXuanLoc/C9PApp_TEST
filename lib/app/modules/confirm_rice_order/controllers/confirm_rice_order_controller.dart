@@ -67,25 +67,25 @@ var deliverTimeStr='';
 
   void paymentOnclick(BuildContext context) {
     var timeFormat ='yyyy-MM-dd HH:mm';
-    var time = DateFormat(timeFormat).parse(deliverTimeStr);
-    var currentTime = DateFormat(timeFormat).parse(DateFormat(timeFormat).format(
-        DateTime.fromMillisecondsSinceEpoch(
+    var deliverTime = DateFormat(timeFormat).parse(deliverTimeStr);
+    var currentTime = DateFormat(timeFormat).parse(DateFormat(timeFormat)
+        .format(DateTime.fromMillisecondsSinceEpoch(
             DateTime.now().millisecondsSinceEpoch +
                 AppConstant.FIFTEN_MINIUTES)));
-     if (time.isBefore(currentTime)) {
+     if (deliverTime.isBefore(currentTime)) {
        toast(LocaleKeys.order_before_15_minutes.tr);
        return;
     }
     if (isPaymentByCash.value) {
-      paymentByCash(context);
+      paymentByCash(context,deliverTime);
     } else {
-      paymentByVnpay(context);
+      paymentByVnpay(context,deliverTime);
     }
   }
 
-  void paymentByVnpay(BuildContext context) async{
+  void paymentByVnpay(BuildContext context,DateTime deliveryTime) async{
     Dialogs.showLoadingDialog(context);
-    var response = await paymentRiceOrderByVnPay();
+    var response = await paymentRiceOrderByVnPay(deliveryTime);
     await Dialogs.hideLoadingDialog();
     if (response.error == null && response.data != null) {
       if(response.data['data'] ==null){
@@ -117,9 +117,9 @@ var deliverTimeStr='';
     }
   }
 
-  void paymentByCash(BuildContext context) async {
+  void paymentByCash(BuildContext context,DateTime deliveryTime) async {
     Dialogs.showLoadingDialog(context);
-    var response = await addOrder();
+    var response = await addOrder(deliveryTime);
     await Dialogs.hideLoadingDialog();
     if (response.statusCode == 201) {
       Get.toNamed(Routes.ORDER_SUCCESS,
@@ -133,7 +133,7 @@ var deliverTimeStr='';
     }
   }
 
-  Future<ApiResult> addOrder() async {
+  Future<ApiResult> addOrder(DateTime deliveryTime) async {
     var name = model.name;
     var address = model.address;
     var phone = model.phone;
@@ -148,7 +148,7 @@ var deliverTimeStr='';
         qty: qty,
         lat: currentLat.toString(),
         lng: currentLng.toString(),
-        deliverTime: deliverTimeStr,
+        deliverTime: deliveryTime.microsecondsSinceEpoch.toString(),
         productId: productId,
         useCombo: model.myComboModel != null
             ? (model.myComboModel!.remainsCombo! > int.parse(qty)
@@ -157,7 +157,7 @@ var deliverTimeStr='';
             : 0,
         comboId: model.myComboModel?.id, description: description.value);
   }
-  Future<ApiResult> paymentRiceOrderByVnPay() async {
+  Future<ApiResult> paymentRiceOrderByVnPay(DateTime deliveryTime) async {
     var name = model.name;
     var address = model.address;
     var phone = model.phone;
@@ -172,7 +172,7 @@ var deliverTimeStr='';
         qty: qty,
         lat: currentLat.toString(),
         lng: currentLng.toString(),
-        deliverTime: deliverTimeStr,
+        deliverTime: deliveryTime.microsecondsSinceEpoch.toString(),
         productId: productId,
         useCombo: model.myComboModel != null
             ? (model.myComboModel!.remainsCombo! > int.parse(qty)

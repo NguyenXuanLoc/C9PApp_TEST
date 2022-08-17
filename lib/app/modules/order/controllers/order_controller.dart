@@ -259,7 +259,7 @@ class OrderController extends GetxController {
   void pickTime(BuildContext context) async {
     var selectedTime24Hour = await Utils.pickTime(context);
     if (selectedTime24Hour != null) {
-      deliverHours = selectedTime24Hour.format(context);
+      deliverHours = Utils.convertTime12To24(selectedTime24Hour.hour, selectedTime24Hour.minute);
       hourController.text = Utils.time24to12Format(DateTime(
         DateTime.now().year,
         DateTime.now().month,

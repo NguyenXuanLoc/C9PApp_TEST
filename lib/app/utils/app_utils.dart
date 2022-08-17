@@ -191,6 +191,17 @@ class Utils {
     return send;
   }
 
+  static String convertTime12To24(int hour, int minute) {
+    String send = "";
+    send +=
+        hour.toString().length == 2 ? hour.toString() : "0" + hour.toString();
+    send += ":";
+    send += minute.toString().length == 2
+        ? minute.toString()
+        : "0" + minute.toString();
+    return send;
+  }
+
   static Future<OrderModel?> getOrderById(String orderId) async {
     var response = await UserProvider().getOrderById(orderId);
     if (response.error == null && response.data != null) {

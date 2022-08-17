@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.3+4
+version: 1.0.4+5
 
 environment:
 
@@ -39,7 +39,7 @@ dependencies:
   get_cli: ^1.8.1
   cached_network_image: ^3.0.0
   get: ^4.3.4
-  permission_handler: ^8.1.4+2
+  permission_handler: ^10.0.0
   package_info: ^2.0.2
   getwidget: ^2.0.5
   flutter_screenutil: ^5.5.0
@@ -58,12 +58,16 @@ dependencies:
   carousel_slider: ^4.1.1
   location: ^4.4.0
   smooth_page_indicator: ^1.0.0+2
-  geolocator: ^7.7.1 #get current location
+  geolocator: ^9.0.1 #get current location
   geocoding: ^2.0.1
   back_button_interceptor: ^6.0.0
   flutter_local_notifications: ^9.1.2
   badges: ^2.0.3
-  flutter_inappwebview: ^5.4.3+7
+#  flutter_inappwebview: ^5.4.3+7
+  flutter_inappwebview:
+    git:
+      url: git@github.com:NguyenXuanLoc/flutter_inappwebview.git
+      ref: master
   url_launcher: ^6.1.5
   images_picker: ^1.2.11
 

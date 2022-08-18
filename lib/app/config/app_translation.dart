@@ -184,6 +184,8 @@ class LocaleKeys {
   static const fault = 'fault';
   static const payment_failed = 'payment_failed';
   static const order_before_15_minutes = 'order_before_15_minutes';
+  static const delete_account = 'delete_account';
+  static const account_will_delete_after_30_day = 'account_will_delete_after_30_day';
 }
 class Locales {
   static const en = {
@@ -359,6 +361,8 @@ class Locales {
   'payed':'Đã thanh toán',
   'fault':'Đơn lỗi',
   'payment_failed':'Thanh toán không thành công, vui lòng thử lại',
+  'delete_account':'Xóa tài khoản',
+  'account_will_delete_after_30_day':'Tài khoản của bạn sẽ được xóa vĩnh viễn trong vòng 30 ngày.',
   'order_before_15_minutes':'Thời gian giao hàng quá gấp, hãy chọn thời gian giao hàng lớn hơn thời gian hiện tại 15 phút',
   };
 }

@@ -207,6 +207,76 @@ class Dialogs {
         });
   }
 
+  static Future<void> showDeleteAccDialog(BuildContext context,
+      {required VoidCallback deleteCallBack}) {
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return WillPopScope(
+            onWillPop: () async => true,
+            child: SimpleDialog(
+              key: _keyLoader,
+              children: <Widget>[
+                SizedBox(
+                  height: 10.h,
+                ),
+                Padding(
+                    padding: EdgeInsets.only(left: 5, right: 5),
+                    child: AppText(
+                      LocaleKeys.account_will_delete_after_30_day.tr,
+                      style: typoSmallTextBold,
+                      textAlign: TextAlign.center,
+                    )),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AppButton(
+                        textStyle: typoSuperSmallTextBold.copyWith(
+                            color: colorGreen60),
+                        shapeBorder: RoundedRectangleBorder(
+                            side: const BorderSide(
+                              color: colorGreen60,
+                            ),
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(5.h))),
+                        title: "Hủy",
+                        onPress: () => hideLoadingDialog(),
+                        width: 90.w,
+                        height: 25.h,
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      AppButton(
+                          title: "Đồng ý",
+                          textStyle: typoSuperSmallTextBold.copyWith(
+                              color: colorWhite),
+                          onPress: () async {
+                            await hideLoadingDialog();
+                            deleteCallBack.call();
+                          },
+                          width: 90.w,
+                          height: 25.h,
+                          backgroundColor: colorGreen60,
+                          shapeBorder: RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(5.h)))),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
   static Future<void> showLogoutDialog(BuildContext context,
       {required VoidCallback deleteCallBack}) {
     return showDialog<void>(

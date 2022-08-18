@@ -23,7 +23,8 @@ enum AccountAction {
   MY_ORDER,
   REGULATION,
   CHANGE_PIN,
-  LOGOUT
+  LOGOUT,
+  DELETE
 }
 
 class TabAccountView extends GetView<TabAccountController> {
@@ -103,7 +104,11 @@ class TabAccountView extends GetView<TabAccountController> {
             ),
             itemTitle(R.assetsSvgFile, LocaleKeys.regulation.tr,AccountAction.REGULATION,context,),
             line(context),
-            itemTitle(R.assetsSvChangePin, LocaleKeys.change_pin.tr,AccountAction.CHANGE_PIN,context,),
+            itemTitle(R.assetsSvChangePin, LocaleKeys.change_pin.tr,AccountAction.CHANGE_PIN,context),
+            line(context),
+            itemTitle(R.assetsSvgDelete, LocaleKeys.delete_account.tr,
+                AccountAction.DELETE, context,
+                isShowSuffixIcon: false),
             line(context),
             InkWell(
               child: itemTitle(

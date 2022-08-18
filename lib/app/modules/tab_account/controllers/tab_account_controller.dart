@@ -99,6 +99,23 @@ class TabAccountController extends GetxController {
       });
     }
   }
+  void deleteAccount(BuildContext context) async {
+    bool isDelete = false;
+    await Dialogs.showDeleteAccDialog(context,
+        deleteCallBack: () => isDelete = true);
+    if (isDelete) {
+      Timer(const Duration(milliseconds: 300), () async {
+        Dialogs.showLoadingDialog(context);
+        var response = await userProvider.deleteAccount();
+        await Dialogs.hideLoadingDialog();
+        if(response.error == null && response.data != null) {
+          toast(response.data['message'].toString());
+        } else {
+          toast(response.error);
+        }
+      });
+    }
+  }
 
   Future<UserData?> getProfile() async {
     var response = await userProvider.getProfile();
@@ -138,6 +155,9 @@ class TabAccountController extends GetxController {
         break;
       case AccountAction.CHANGE_PIN:
         Get.toNamed(Routes.CHANGE_PASS);
+        break;
+      case AccountAction.DELETE:
+        deleteAccount(context);
         break;
     }
   }

@@ -165,4 +165,7 @@ class UserProvider extends BaseProvider {
       'user/info/avatar',
       {"image": MultipartFile(path, filename: path.split("/").last)},
       isFormData: true);
+
+  Future<ApiResult> deleteAccount() async =>
+      await DELETE('user/delete-account');
 }

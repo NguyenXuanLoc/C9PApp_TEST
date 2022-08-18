@@ -90,6 +90,7 @@ class R {
   static const String assetsSvChangePin= 'assets/svg/change_pin.svg';
   static const String assetsSvChangePinBlack= 'assets/svg/change_pin_black.svg';
   static const String assetsSvgMoto= 'assets/svg/moto.svg';
+  static const String assetsSvgDelete= 'assets/svg/delete.svg';
   static const String assetsSvgLocationCircle =
       'assets/svg/location_circle.svg';
   static const String assetsBackgroundHeaderTabMainSvg =

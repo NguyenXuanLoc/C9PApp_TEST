@@ -1,6 +1,7 @@
 import 'package:c9p/app/components/pin_code/builder/color_builder.dart';
 import 'package:c9p/app/components/pin_code/cursor/pin_cursor.dart';
 import 'package:c9p/app/components/pin_code/decoration/decoration_boxloose.dart';
+import 'package:c9p/app/components/pin_code/decoration/pin_decoration.dart';
 import 'package:c9p/app/components/pin_code/widget/pin_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,31 +14,37 @@ class OtpTextFieldWidget extends StatelessWidget {
   final Function(String text) onChanged;
   final Function(String text) onSubmit;
   final TextEditingController controller;
+  final EdgeInsetsGeometry? padding;
+  final PinDecoration? pinDecoration;
   final FocusNode? focusNode;
+  final double? width;
+  final double? height;
+  final int? pinLength;
+  final double? gapSpace;
 
   const OtpTextFieldWidget(
       {Key? key,
       required this.onChanged,
       required this.onSubmit,
       required this.controller,
-      this.focusNode})
+      this.focusNode, this.padding, this.pinDecoration, this.width, this.pinLength, this.gapSpace, this.height})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 39.h,
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(
+      height:height?? 39.h,
+      width:width?? MediaQuery.of(context).size.width,
+      padding:padding?? EdgeInsets.only(
           left: 30.w + contentPadding, right: 30.w + contentPadding),
       child: PinInputTextField(focusNode: focusNode,
         controller: controller,
         autoFocus: true,
-        pinLength: 4,
-        decoration: BoxLooseDecoration(
+        pinLength: pinLength??4,
+        decoration:pinDecoration?? BoxLooseDecoration(
             strokeWidth: 1.2,
-            gapSpace: 25.w,
-            strokeColorBuilder: PinListenColorBuilder(
+                gapSpace: gapSpace ?? 25.w,
+                strokeColorBuilder: PinListenColorBuilder(
                 Colors.black.withOpacity(0.05), Colors.black.withOpacity(0.05)),
             textStyle: typoLargeTextBold600.copyWith(color: colorGreen57)),
         textInputAction: TextInputAction.go,

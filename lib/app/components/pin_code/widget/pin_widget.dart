@@ -240,13 +240,12 @@ class _PinInputTextFieldState extends State<PinInputTextField>
       themeData: Theme.of(context),
       cursor: widget.cursor.copyWith(color: _cursorColor),
     );
-    return CustomPaint(
+    return CustomPaint(isComplex:false ,
       /// The foreground paint to display pin.
       foregroundPainter: _pinPaint,
       child: TextField(
         /// Actual textEditingController.
         controller: _effectiveController,
-
         /// Fake the text style.
         style: TextStyle(
           /// Hide the editing text.

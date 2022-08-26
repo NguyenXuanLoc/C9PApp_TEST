@@ -23,6 +23,7 @@ class OtpController extends GetxController {
   final phoneNumber = ''.obs;
   final userProvider = UserProvider();
   final otpController = OtpFieldController();
+  final otpController1 = TextEditingController();
   late Timer _timer;
   var startCountDown = 90.obs;
   var timeDisplay ='01:30'.obs;

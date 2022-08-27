@@ -59,7 +59,7 @@ class LoginByPinView extends GetView<LoginByPinController> {
             SizedBox(
               height: 1.h,
             ),
-            OtpTextFieldWidget(focusNode: controller.focusNode,
+            OtpTextFieldWidget(focusNode: controller.focusNode,height: 41.h,
               onSubmit: (String text) => controller.setPin(text, context),
               onChanged: (String text) => controller.setPin(text, context),
               controller: controller.otpController,

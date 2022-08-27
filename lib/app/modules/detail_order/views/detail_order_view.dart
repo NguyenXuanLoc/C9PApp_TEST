@@ -68,7 +68,7 @@ class DetailOrderView extends StatelessWidget {
                         color: colorOrange40.withOpacity(0.25),
                       ),
                       child: AppText(
-                        '${LocaleKeys.ship_price.tr} ${Utils.formatMoney(controller?.orderModer.value.paymentType == MessageKey.VNPay ? 0 : controller?.orderModer.value.shippingFee ?? 0)}đ',
+                        '${LocaleKeys.ship_price.tr} ${Utils.formatMoney(controller?.orderModer.value.shippingFee ?? 0)}đ',
                         style: typoSuperSmallText500.copyWith(
                             color: colorOrange50),
                       ),

@@ -21,13 +21,13 @@ class OtpTextFieldWidget extends StatelessWidget {
   final double? height;
   final int? pinLength;
   final double? gapSpace;
-
+  final Cursor? cursor;
   const OtpTextFieldWidget(
       {Key? key,
       required this.onChanged,
       required this.onSubmit,
       required this.controller,
-      this.focusNode, this.padding, this.pinDecoration, this.width, this.pinLength, this.gapSpace, this.height})
+      this.focusNode, this.padding, this.pinDecoration, this.width, this.pinLength, this.gapSpace, this.height, this.cursor})
       : super(key: key);
 
   @override
@@ -41,7 +41,7 @@ class OtpTextFieldWidget extends StatelessWidget {
         controller: controller,
         autoFocus: true,
         pinLength: pinLength??4,
-        decoration:pinDecoration?? BoxLooseDecoration(
+        decoration:pinDecoration?? BoxLooseDecoration(hintText: '    ',
             strokeWidth: 1.2,
                 gapSpace: gapSpace ?? 25.w,
                 strokeColorBuilder: PinListenColorBuilder(
@@ -58,11 +58,13 @@ class OtpTextFieldWidget extends StatelessWidget {
           onChanged.call(pin);
         },
         enableInteractiveSelection: false,
-        cursor: Cursor(
-          width: 2,
-          color: colorGreen57,
-          enabled: true,
-        ),
+        cursor: cursor ??
+            Cursor(
+              width: 2,
+              height: 18.h,
+              color: colorGreen57,
+              enabled: true,
+            ),
       ),
     );
   }

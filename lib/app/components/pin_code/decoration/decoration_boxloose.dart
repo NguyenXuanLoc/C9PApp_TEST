@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:c9p/app/components/pin_code/decoration/pin_decoration.dart';
 import 'package:c9p/app/components/pin_code/util/utils.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../builder/color_builder.dart';
@@ -38,7 +39,7 @@ class BoxLooseDecoration extends PinDecoration
     ObscureStyle? obscureStyle,
     String? errorText,
     TextStyle? errorTextStyle,
-    String? hintText,
+    String? hintText='',
     TextStyle? hintTextStyle,
     this.radius = const Radius.circular(8.0),
     this.strokeWidth = 1.0,
@@ -228,7 +229,8 @@ class BoxLooseDecoration extends PinDecoration
         ),
         cursor,
       );
-    } else if (hintText != null) {
+    }
+     if (hintText != null) {
       hintText!.substring(index).runes.forEach((rune) {
         String code = String.fromCharCode(rune);
         textPainter = TextPainter(

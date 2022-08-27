@@ -18,6 +18,7 @@ import 'package:get_storage/get_storage.dart';
 import '../../../components/otp_text_field_widget.dart';
 import '../../../components/otp_widget.dart';
 import '../../../components/pin_code/builder/color_builder.dart';
+import '../../../components/pin_code/cursor/pin_cursor.dart';
 import '../../../components/pin_code/decoration/decoration_boxloose.dart';
 import '../../../config/globals.dart';
 import '../../../config/resource.dart';
@@ -82,57 +83,6 @@ class OtpView extends GetView<OtpController> {
                           color: colorSemanticRed100))
                 ])),
           ),
-          Padding(
-            padding: EdgeInsets.only(left: contentPadding),
-            child: Stack(
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                ),
-                OTPTextField(
-                  onChanged: (pin) => controller.setPin(pin),
-                  controller: controller.otpController,
-                  length: 6,
-                  width: 300.w,
-                  spaceBetween: 6,
-                  style: typoMediumTextBold,
-                  textFieldAlignment: MainAxisAlignment.start,
-                  contentPadding: EdgeInsets.only(top: 10.h),
-                ),
-                Positioned.fill(
-                    child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: 1,
-                    width: MediaQuery.of(context).size.width,
-                    color: colorUnderlineTextField,
-                  ),
-                )),
-                Positioned.fill(
-                    child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 10.h),
-                          child: Obx(
-                            () => controller.startCountDown.value == 0
-                                ? InkWell(
-                                    onTap: () =>
-                                        controller.startTimer(isVerify: true),
-                                    child: AppText(
-                                      LocaleKeys.resent_otp.tr,
-                                      style: typoSuperSmallTextBold.copyWith(
-                                          color: colorSemanticRed100),
-                                    ))
-                                : AppText(
-                                    controller.timeDisplay.value,
-                                    style: typoSuperSmallTextBold.copyWith(
-                                        color: colorSemanticRed100),
-                                  ),
-                          ),
-                        ))),
-              ],
-            ),
-          ),
           SizedBox(
             height: 1.h,
           ),
@@ -145,23 +95,32 @@ class OtpView extends GetView<OtpController> {
                 width: MediaQuery.of(context).size.width,
               ),
               Container(
-                width: 200.w,
+                width: 200.w,padding: EdgeInsets.only(left: 4.w),
                 child: OtpTextFieldWidget(
+                  focusNode: controller.focusNode,
+                  cursor: Cursor(
+                    width: 2,
+                  height: 18.h,
+                  color: colorGreen57,
+                  enabled: true,
+                  ),
+                  height: 30.h,
                   width: 5,
                   pinLength: 6,
                   pinDecoration: BoxLooseDecoration(
-                      hintText: '000000',
-                      hintTextStyle: typoSuperSmallTextBold,
-                      strokeWidth: 1.2,
-                      gapSpace: 2.w,
-                      strokeColorBuilder: PinListenColorBuilder(
-                          Colors.black.withOpacity(0.00),
-                          Colors.black.withOpacity(0.00)),
-                      textStyle:
-                          typoLargeTextBold600.copyWith(color: colorGreen57)),
-                  padding: EdgeInsets.all(0),
-                  onSubmit: (String text) {},
-                  onChanged: (String text) {},
+                    hintText: '******',
+                    hintTextStyle: typoSmallTextRegular.copyWith(
+                        color: colorText100, fontSize: 14.sp),
+                    strokeWidth: 1.2,
+                    gapSpace: 2.w,
+                    strokeColorBuilder: PinListenColorBuilder(
+                        Colors.black.withOpacity(0.00),
+                        Colors.black.withOpacity(0.00)),
+                    textStyle: typoMediumTextBold,
+                  ),
+                  padding: const EdgeInsets.all(0),
+                  onSubmit: (String text) => controller.setPin(text,context),
+                  onChanged: (String text) => controller.setPin(text,context),
                   controller: controller.otpController1,
                 ),
               ),
@@ -180,7 +139,7 @@ class OtpView extends GetView<OtpController> {
                   child: Align(
                       alignment: Alignment.centerRight,
                       child: Padding(
-                        padding: EdgeInsets.only(top: 10.h),
+                        padding: EdgeInsets.only(top: 5.h,right: contentPadding),
                         child: Obx(
                           () => controller.startCountDown.value == 0
                               ? InkWell(
@@ -229,25 +188,6 @@ class OtpView extends GetView<OtpController> {
                       : colorGrey10,
                 ),
               )),
-          Visibility(
-            visible: false,
-            child: Center(
-              child: Obx(() => Visibility(
-                    visible: controller.startCountDown.value == 0,
-                    child: TextButton(
-                        style: ButtonStyle(
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.all(0))),
-                        onPressed: () => controller.startTimer(isVerify: true),
-                        child: AppText(
-                          LocaleKeys.resent_otp.tr,
-                          style: typoSmallTextBold.copyWith(
-                              decoration: TextDecoration.underline,
-                              color: colorGreen50),
-                        )),
-                  )),
-            ),
-          )
         ],
       )),
     );

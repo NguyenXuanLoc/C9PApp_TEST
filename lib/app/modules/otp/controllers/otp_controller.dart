@@ -31,6 +31,7 @@ class OtpController extends GetxController {
   final pin = ''.obs;
   var errorOtp = ''.obs;
   var auth = FirebaseAuth.instance;
+  var focusNode = FocusNode();
 
   void verifyPhone() async {
     try {
@@ -56,7 +57,12 @@ class OtpController extends GetxController {
       ? '01:${(startCountDown.value-60).toString().length == 1 ? '0${startCountDown.value-60}' : startCountDown.value-60}'
       : '00:${startCountDown.value.toString().length == 1 ? '0${startCountDown.value}' : startCountDown.value}';
 
-  void setPin(String pin) => this.pin.value = pin;
+  void setPin(String pin,BuildContext context){
+    this.pin.value = pin;
+    if (pin.length == 6) {
+      confirm(context);
+    }
+  }
 
   bool isValid() {
     if (pin.value.length != 6) {
@@ -84,7 +90,10 @@ class OtpController extends GetxController {
           } else if (error.toString().contains(MessageKey.otp_expired)) {
             toast(LocaleKeys.otp_het_han.tr);
           }*/
+          otpController1.text = '';
+          pin.value = '';
           toast(LocaleKeys.wrong_otp.tr);
+          focusNode.requestFocus();
           Dialogs.hideLoadingDialog();
         });
   }

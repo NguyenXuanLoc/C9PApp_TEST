@@ -8,7 +8,12 @@ import 'package:otp_text_field/style.dart';
 import '../../../components/app_button.dart';
 import '../../../components/app_scalford.dart';
 import '../../../components/app_text.dart';
+import '../../../components/otp_text_field_widget.dart';
 import '../../../components/otp_widget.dart';
+import '../../../components/pin_code/builder/color_builder.dart';
+import '../../../components/pin_code/cursor/pin_cursor.dart';
+import '../../../components/pin_code/decoration/decoration_boxloose.dart';
+import '../../../components/pin_code/widget/pin_widget.dart';
 import '../../../config/app_translation.dart';
 import '../../../config/globals.dart';
 import '../../../config/resource.dart';
@@ -51,37 +56,13 @@ class LoginByPinView extends GetView<LoginByPinController> {
             const SizedBox(
               height: 40,
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 30.w, right: 30.w),
-              child: OTPTextField(
-                cursorColor: colorGreen57,
-                controller: controller.otpController,
-                hintText: '',
-                boxDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(7),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.08),
-                      spreadRadius: 0.5,
-                      blurRadius: 0.5,
-                      offset: const Offset(0, 0.2), // changes position of shadow
-                    ),
-                  ],
-                ),
-                length: 4,contentPadding:const EdgeInsets.all(0),
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,onChanged: (pin)=>controller.setPin(pin),
-                fieldWidth: 42.w,
-                textAlign: TextAlign.center,
-                style: typoLargeTextBold600.copyWith(color: colorGreen57),
-                textFieldAlignment: MainAxisAlignment.spaceAround,
-              ),
-            ),
             SizedBox(
               height: 1.h,
+            ),
+            OtpTextFieldWidget(focusNode: controller.focusNode,height: 41.h,
+              onSubmit: (String text) => controller.setPin(text, context),
+              onChanged: (String text) => controller.setPin(text, context),
+              controller: controller.otpController,
             ),
             SizedBox(
               height: 100.h,
@@ -106,6 +87,37 @@ class LoginByPinView extends GetView<LoginByPinController> {
                 )),]
           ,
         )
+    );
+  }
+
+  Widget _buildPinInputTextFieldExample(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.only(left: 30.w+contentPadding, right: 30.w+contentPadding),
+      child: PinInputTextField(
+        pinLength: 4,
+        decoration: BoxLooseDecoration(strokeWidth: 1.2,
+            gapSpace: 25.w,
+            strokeColorBuilder: PinListenColorBuilder(
+                Colors.black.withOpacity(0.08), Colors.black.withOpacity(0.08)),
+            textStyle: typoLargeTextBold600.copyWith(color: colorGreen57)),
+        textInputAction: TextInputAction.go,
+        enabled: true,
+        keyboardType: TextInputType.text,
+        textCapitalization: TextCapitalization.characters,
+        onSubmit: (pin) {
+          debugPrint('submit pin:$pin');
+        },
+        onChanged: (pin) {
+          debugPrint('onChanged execute. pin:$pin');
+        },
+        enableInteractiveSelection: false,
+        cursor: Cursor(
+          width: 2,
+          color: colorGreen57,
+          enabled: true,
+        ),
+      ),
     );
   }
 }

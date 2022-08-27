@@ -1,25 +1,23 @@
+
 import 'package:c9p/app/components/dialogs.dart';
-import 'package:c9p/app/components/otp_widget.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
-import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import '../../../config/app_translation.dart';
 import '../../../data/model/user_model.dart';
+import '../../../utils/app_utils.dart';
 import '../../../utils/storage_utils.dart';
 
 class LoginByPinController extends GetxController {
-  final count = 0.obs;
   final pin = ''.obs;
   final errorPin = ''.obs;
   final userProvider = UserProvider();
   var phone = '';
-  var otpController = OtpFieldController();
+  var otpController = TextEditingController();
+  var focusNode = FocusNode();
   @override
   void onInit() {
     phone = Get.arguments;
@@ -28,15 +26,12 @@ class LoginByPinController extends GetxController {
 
   @override
   void onReady() {
-    WidgetsBinding.instance
-        .addPostFrameCallback((timeStamp) => otpController.setFocus(0));
     super.onReady();
   }
 
   @override
   void onClose() {}
 
-  void increment() => count.value++;
 
   void onClickLogin(BuildContext context) {
     if (isValid()) {
@@ -55,6 +50,7 @@ class LoginByPinController extends GetxController {
 
   void loginByAccount(BuildContext context) async {
     Dialogs.showLoadingDialog(context);
+    Utils.hideKeyboard(context);
     var response = await userProvider.loginByAccount(
         phone: phone.replaceAll('+84', '0'), pass: pin.value);
    await Dialogs.hideLoadingDialog();
@@ -68,11 +64,17 @@ class LoginByPinController extends GetxController {
         toast(response.data['data']['message']??response.data['data']['responseText']);
       }
     } else {
+      otpController.text = '';
+      pin.value='';
       toast(response.error.toString());
+      focusNode.requestFocus();
     }
   }
 
-  void setPin(String pin) {
+  void setPin(String pin,BuildContext context) {
     this.pin.value = pin;
+    if(this.pin.value.length ==4){
+      loginByAccount(context);
+    }
   }
 }

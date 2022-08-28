@@ -74,7 +74,6 @@ class OrderController extends GetxController {
   String? currentAddress;
   var isSelectAddress = true;
   OrderModel? orderModel;
-  late StreamSubscription<Position> locationStream;
   MyComboModel? myComboModel;
   @override
   void onInit() {
@@ -279,23 +278,18 @@ class OrderController extends GetxController {
     permission = await Geolocator.checkPermission();
     if (serviceEnabled && permission == LocationPermission.always ||
         permission == LocationPermission.whileInUse) {
-      locationStream =
-          Geolocator.getPositionStream().listen((Position position) async {
-        List<Placemark> placemark = await placemarkFromCoordinates(
-            position.latitude, position.longitude);
-        Placemark place = placemark[0];
-        isSelectAddress = true;
-        addressController.text =
-            "${place.street}, ${place.subAdministrativeArea}, ${place.administrativeArea}";
-        currentAddress = addressController.text;
-        locationStream.cancel();
-      });
       var location = await Geolocator.getCurrentPosition();
       currentLat = location.latitude;
       currentLng = location.longitude;
+      List<Placemark> placeMark =
+      await placemarkFromCoordinates(location.latitude, location.longitude);
+      Placemark place = placeMark[0];
+      isSelectAddress = true;
+      addressController.text =
+      "${place.street}, ${place.subAdministrativeArea}, ${place.administrativeArea}";
+      currentAddress = addressController.text;
     }
   }
-
   void pickDate(BuildContext context) => Utils.pickDate(context, (date) {
         deliverDate = date;
         dateController.text = Utils.convertTimeToDDMMYY(date);

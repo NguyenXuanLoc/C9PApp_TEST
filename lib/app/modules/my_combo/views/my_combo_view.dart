@@ -174,7 +174,7 @@ class MyComboView extends GetView<MyComboController> {
                     width: 10,
                   ),
                   AppText(
-                    "${LocaleKeys.economy.tr} ${Utils.formatMoney((int.parse(model.sale?.price ?? "0") / (100 - (model.sale?.discount ?? 0)) * (model.sale?.discount ?? 0)).toInt())}đ",
+                    "${LocaleKeys.economy.tr} ${Utils.formatMoney((model.sale?.getFree ?? 1) * ricePrice)}đ",
                     style:
                         typoSuperSmallTextRegular.copyWith(color: colorGreen55),
                   ),

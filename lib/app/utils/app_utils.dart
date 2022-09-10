@@ -270,4 +270,6 @@ static  String getRandomTag()=> Random().nextInt(100).toString();
     }
     return value;
   }
+  static String formatXu(int xu) =>
+      NumberFormat('#,###,###,#,###,###,###', 'vi').format(xu);
 }

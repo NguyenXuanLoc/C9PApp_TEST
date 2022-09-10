@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/config/app_translation.dart';
 import 'package:c9p/app/data/event_bus/jump_to_tab_event.dart';
 import 'package:c9p/app/data/event_bus/load_weather_event.dart';
@@ -8,6 +9,7 @@ import 'package:c9p/app/data/event_bus/show_badge_event.dart';
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/model/promotion_model.dart';
 import 'package:c9p/app/data/model/weather_model.dart';
+import 'package:c9p/app/data/model/xu_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/modules/home/controllers/home_controller.dart';
 import 'package:c9p/app/routes/app_pages.dart';
@@ -28,6 +30,7 @@ enum TabMainAction { MENU, ORDER, PROMOTION, MORE }
 
 class TabMainController extends GetxController {
   final userProvider = UserProvider();
+  final xuModel  = XuModel().obs;
   final weatherModel = WeatherModel().obs;
   final weatherDetail = Weather().obs;
   final weatherDescription = ''.obs;
@@ -42,6 +45,7 @@ class TabMainController extends GetxController {
   var isBadge = false.obs;
 
   void onRefresh() {
+    getInfoWallet();
     getNearOrder();
     getPromotion();
   }
@@ -57,6 +61,7 @@ class TabMainController extends GetxController {
   }
   void init() {
     checkWeather();
+    getInfoWallet();
     getNearOrder();
     getPromotion();
     getUserInfo();
@@ -135,6 +140,15 @@ class TabMainController extends GetxController {
     lNearOrder.refresh();
     Get.toNamed(Routes.ORDER, arguments: model);
   }
+
+  void getInfoWallet() async{
+    if(globals.isLogin){
+      var response = await userProvider.getInfoWallet();
+      if(response.error== null && response.data!=null){
+        xuModel.value = XuModel.fromJson(response.data['data']);
+      }
+    }
+  }
   void getNearOrder() async {
     isLoadNearOrder.value = true;
     if (globals.isLogin) {
@@ -207,4 +221,8 @@ class TabMainController extends GetxController {
         scheme: 'tel',
         path: '0332005445',
       ));
+
+  void buyXuOnclick(BuildContext context) => globals.isLogin
+      ? Get.toNamed(Routes.BUY_XU)
+      : Utils.requestLogin(context);
 }

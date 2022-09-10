@@ -168,4 +168,9 @@ class UserProvider extends BaseProvider {
 
   Future<ApiResult> deleteAccount() async =>
       await DELETE('user/delete-account');
+
+  Future<ApiResult> getInfoWallet() async => await GET('user/wallet');
+
+  Future<ApiResult> getActiveCoinPack({int nextPage = 1}) async =>
+      await GET('sales/xu/active?page=$nextPage');
 }

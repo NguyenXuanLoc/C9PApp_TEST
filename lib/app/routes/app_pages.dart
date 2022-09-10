@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/buy_combo_success/bindings/buy_combo_success_binding.dart';
 import '../modules/buy_combo_success/views/buy_combo_success_view.dart';
+import '../modules/buy_xu/bindings/buy_xu_binding.dart';
+import '../modules/buy_xu/views/buy_xu_view.dart';
 import '../modules/by_combo/bindings/by_combo_binding.dart';
 import '../modules/by_combo/views/by_combo_view.dart';
 import '../modules/change_pass/bindings/change_pass_binding.dart';
@@ -211,6 +213,11 @@ class AppPages {
       name: _Paths.CHANGE_PASS,
       page: () => ChangePassView(),
       binding: ChangePassBinding(),
+    ),
+    GetPage(
+      name: _Paths.BUY_XU,
+      page: () => BuyXuView(),
+      binding: BuyXuBinding(),
     ),
   ];
 }

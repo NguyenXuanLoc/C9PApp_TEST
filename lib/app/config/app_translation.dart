@@ -186,6 +186,22 @@ class LocaleKeys {
   static const order_before_15_minutes = 'order_before_15_minutes';
   static const delete_account = 'delete_account';
   static const account_will_delete_after_30_day = 'account_will_delete_after_30_day';
+  static const xu_in_wallet = 'xu_in_wallet';
+  static const xu = 'xu';
+  static const by_xu_package = 'by_xu_package';
+  static const deposit_xu_into_your_account = 'deposit_xu_into_your_account';
+  static const deposit_xu_com9p = 'deposit_xu_com9p';
+  static const amount_want_to_deposit = 'amount_want_to_deposit';
+  static const donate = 'donate';
+  static const number_of_coins_received = 'number_of_coins_received';
+  static const need_payment = 'need_payment';
+  static const introduce_com_9_phut_xu = 'introduce_com_9_phut_xu';
+  static const introduce_1 = 'introduce_1';
+  static const introduce_2 = 'introduce_2';
+  static const introduce_3 = 'introduce_3';
+  static const introduce_4 = 'introduce_4';
+  static const introduce_5 = 'introduce_5';
+  static const introduce_6 = 'introduce_6';
 }
 class Locales {
   static const en = {
@@ -363,6 +379,23 @@ class Locales {
   'payment_failed':'Thanh toán không thành công, vui lòng thử lại',
   'delete_account':'Xóa tài khoản',
   'account_will_delete_after_30_day':'Tài khoản của bạn sẽ được xóa vĩnh viễn trong vòng 30 ngày.',
-  'order_before_15_minutes':'Thời gian giao hàng quá gấp, hãy chọn thời gian giao hàng lớn hơn thời gian hiện tại 15 phút',
+  'order_before_15_minutes':
+        'Thời gian giao hàng quá gấp, hãy chọn thời gian giao hàng lớn hơn thời gian hiện tại 15 phút',
+  'xu_in_wallet': 'Số xu trong tài khoản',
+  'xu': 'xu',
+  'by_xu_package': 'Mua gói xu',
+  'deposit_xu_into_your_account': 'Nạp xu vào tài khoản',
+  'deposit_xu_com9p': 'Nạp xu cơm 9 phút',
+  'amount_want_to_deposit': 'Số tiền muốn nạp:',
+  'donate': 'Tặng',
+  'number_of_coins_received': 'Số xu nhận được:',
+  'need_payment': 'Cần thanh toán:',
+  'introduce_com_9_phut_xu': 'Giới thiệu cơm 9 phút xu',
+  'introduce_1': '1 VNĐ = 1 Cơm 9 phút xu',
+  'introduce_2': 'Xu được nạp vào tài khoản sau khi thanh toán thành công',
+  'introduce_3': 'C9P Xu dùng để trao đổi và tiến hành các giao dịch trên ứng dụng C9P',
+  'introduce_4': 'Khách hàng có thể sỡ hữu C9P Xu thông qua một số phương thức như sau: Mua xu hoặc hoàn xu trên mỗi đơn hàng.',
+  'introduce_5': 'Khách hàng được hoàn xu = 1% giá trị đơn hàng',
+  'introduce_6': 'Các giao dịch nạp C9P xu sẽ không thể huỷ/trả',
   };
 }

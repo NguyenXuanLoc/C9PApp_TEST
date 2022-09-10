@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:c9p/app/components/dialogs.dart';
+import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/provider/user_provider.dart';
@@ -18,6 +20,7 @@ import '../components/date_picker.dart';
 import '../config/app_translation.dart';
 import '../routes/app_pages.dart';
 import '../theme/colors.dart';
+import 'package:images_picker/images_picker.dart';
 
 class Utils {
   static var eventBus = EventBus();
@@ -104,7 +107,7 @@ class Utils {
       DateFormat('MMMM-yyyy-dd').format(time).toString().split(' ')[0];
 
   static String convertTimeToYYMMDD(DateTime time) =>
-      DateFormat('yyyy-M-dd').format(time.toLocal()).toString().split(' ')[0];
+      DateFormat('yyyy-MM-dd').format(time.toLocal()).toString().split(' ')[0];
 
   static String convertTimeToDDMMYY(DateTime time) =>
       DateFormat('dd-MM-yyyy').format(time.toLocal()).toString().split(' ')[0];
@@ -188,6 +191,17 @@ class Utils {
     return send;
   }
 
+  static String convertTime12To24(int hour, int minute) {
+    String send = "";
+    send +=
+        hour.toString().length == 2 ? hour.toString() : "0" + hour.toString();
+    send += ":";
+    send += minute.toString().length == 2
+        ? minute.toString()
+        : "0" + minute.toString();
+    return send;
+  }
+
   static Future<OrderModel?> getOrderById(String orderId) async {
     var response = await UserProvider().getOrderById(orderId);
     if (response.error == null && response.data != null) {
@@ -207,5 +221,53 @@ class Utils {
   static Future<void> requestLogin(BuildContext context) async {
     await Dialogs.showLoginDialog(context,
         loginCallBack: () => Get.toNamed(Routes.LOGIN_SPLASH));
+  }
+  static void openBrowser(String url) async {
+    print("open url: $url");
+/*    if (await canLaunch(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not open the map.';
+    }*/
+  }
+static  String getRandomTag()=> Random().nextInt(100).toString();
+  static Future<List<Media>?> imagePicker(int count, int lengthList) async =>
+      await ImagesPicker.pick(
+        count: count - lengthList,
+        pickType: PickType.image,
+        gif: false,
+        quality: 0.8,
+        maxSize: 500,
+      );
+
+  static Future<List<Media>?> takePhoto(int count, int lengthList) async =>
+      await ImagesPicker.openCamera(
+        pickType: PickType.image,
+        quality: 0.8,
+        maxSize: 500,
+      );
+
+ static String getOrderStatus(String value) {
+    switch (value) {
+      case MessageKey.PENDING:
+        return LocaleKeys.pending.tr;
+      case MessageKey.CREATED:
+        return LocaleKeys.created.tr;
+      case MessageKey.DELIVERING:
+        return LocaleKeys.delivering.tr;
+      case MessageKey.GET:
+        return LocaleKeys.get.tr;
+      case MessageKey.CANCEL:
+        return LocaleKeys.canceled.tr;
+      case MessageKey.FAULT:
+        return LocaleKeys.fault.tr;
+      case MessageKey.SELFPOST:
+        return LocaleKeys.fault.tr;
+      case MessageKey.DELIVERED:
+        return LocaleKeys.delivered.tr;
+      case MessageKey.PAYED:
+        return LocaleKeys.payed.tr;
+    }
+    return value;
   }
 }

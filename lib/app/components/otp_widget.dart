@@ -56,7 +56,10 @@ class OTPTextField extends StatefulWidget {
   /// Text Field Style for field shape.
   /// default FieldStyle.underline [FieldStyle]
   final FieldStyle fieldStyle;
-
+  final TextAlign? textAlign;
+  final String? hintText;
+  final BoxDecoration? boxDecoration;
+  final Color? cursorColor;
   /// Callback function, called when a change is detected to the pin.
   final ValueChanged<String>? onChanged;
 
@@ -64,7 +67,7 @@ class OTPTextField extends StatefulWidget {
   final ValueChanged<String>? onCompleted;
 
   final List<TextInputFormatter>? inputFormatter;
-
+final Color? borderColor;
   const OTPTextField({
     Key? key,
     this.length = 4,
@@ -86,7 +89,7 @@ class OTPTextField extends StatefulWidget {
     this.contentPadding =
         const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
     this.isDense = false,
-    this.onCompleted,
+    this.onCompleted,  this.borderColor, this.textAlign, this.hintText, this.boxDecoration, this.cursorColor,
   })  : assert(length > 1),
         super(key: key);
 
@@ -162,29 +165,29 @@ class _OTPTextFieldState extends State<OTPTextField> {
 
       return widget.fieldStyle == FieldStyle.box
           ? OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent),
+              borderSide: BorderSide(color: widget.borderColor ?? Colors.transparent),
               borderRadius: BorderRadius.circular(widget.outlineBorderRadius),
             )
           : UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent));
+              borderSide: BorderSide(color: widget.borderColor ?? Colors.transparent));
     }
-
-    return Container(
+    return Container(decoration: widget.boxDecoration,
       width: widget.fieldWidth,
       margin: widget.margin ??
           EdgeInsets.only(
             right: isLast ? 0 : widget.spaceBetween,
           ),
-      child: TextField(
+      child: TextField(cursorColor: widget.cursorColor,
         controller: _textControllers[index],
         keyboardType: widget.keyboardType,
-        textAlign: TextAlign.start,
+        textAlign: widget.textAlign ?? TextAlign.start,
         style: widget.style,
         inputFormatters: widget.inputFormatter,
         maxLength: 1,
         focusNode: _focusNodes[index],
         obscureText: widget.obscureText,
-        decoration: InputDecoration(hintText: "*",
+        decoration: InputDecoration(
+          hintText: widget.hintText ?? "*",
           isDense: widget.isDense,
           filled: true,
           fillColor: _otpFieldStyle.backgroundColor,

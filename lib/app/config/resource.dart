@@ -24,6 +24,15 @@ class R {
   static const String assetsPngItemSplash2 = 'assets/png/item_splash2.png';
   static const String assetsPngItemSplash3 = 'assets/png/item_splash3.png';
   static const String assetsPngCircleAvatar = 'assets/png/circle_avatar.png';
+  static const String assetsPngGift = 'assets/png/gift.png';
+  static const String assetsPngHalfCircle = 'assets/png/half_circle.png';
+  static const String assetsPngPig= 'assets/png/pig.png';
+  static const String assetsPngClearCircle= 'assets/png/clear_circle.png';
+  static const String assetsPngPromotionPopup= 'assets/png/promotion_popup.png';
+  static const String assetsPngDeliveryMan= 'assets/png/delivery_man.png';
+  static const String assetsPngOrderSuccessLike= 'assets/png/order_success_like.png';
+  static const String assetsPngDola= 'assets/png/dola.png';
+  static const String assetsPngVnpay= 'assets/png/vnpay.png';
 
   ///SVG
   static const String assetsLocationLoginSvg = 'assets/svg/location_login.svg';
@@ -57,6 +66,31 @@ class R {
   static const String assetsSvgCircleAvatar = 'assets/svg/circle_avatar.svg';
   static const String assetsSvgCalendar = 'assets/svg/calendar.svg';
   static const String assetsSvgRegisterSuccess = 'assets/svg/register_success.svg';
+  static const String assetsSvgNextCircle = 'assets/svg/next_circle.svg';
+  static const String assetsSvgGift = 'assets/svg/gift.svg';
+  static const String assetsSvgDots = 'assets/svg/dots.svg';
+  static const String assetsSvgDots2 = 'assets/svg/dots_2.svg';
+  static const String assetsSvgHotline = 'assets/svg/hotline.svg';
+  static const String assetsSvgDecorate1 = 'assets/svg/decorate_1.svg';
+  static const String assetsSvgDecorate2 = 'assets/svg/decorate_2.svg';
+  static const String assetsSvgDecorate3 = 'assets/svg/decorate_3.svg';
+  static const String assetsSvgDecorate4 = 'assets/svg/decorate_4.svg';
+  static const String assetsSvgPromotionCircle= 'assets/svg/promotion_circle.svg';
+  static const String assetsSvgOpenGift= 'assets/svg/open_gift.svg';
+  static const String assetsSvgCoin= 'assets/svg/coin.svg';
+  static const String assetsSvgBag= 'assets/svg/bag.svg';
+  static const String assetsSvgPerson2= 'assets/svg/person_2.svg';
+  static const String assetsSvgBackGroundMyCombo= 'assets/svg/background_info_combo.svg';
+  static const String assetsSvgPromotionCircleOrange= 'assets/svg/promotion_circle_orange.svg';
+  static const String assetsSvgPerson3= 'assets/svg/person_3.svg';
+  static const String assetsSvgOrangeLocation= 'assets/svg/orange_location.svg';
+  static const String assetsSvgLogout= 'assets/svg/logout.svg';
+  static const String assetsSvgFile= 'assets/svg/file.svg';
+  static const String assetsSvgDolaCircle= 'assets/svg/dola_circle.svg';
+  static const String assetsSvChangePin= 'assets/svg/change_pin.svg';
+  static const String assetsSvChangePinBlack= 'assets/svg/change_pin_black.svg';
+  static const String assetsSvgMoto= 'assets/svg/moto.svg';
+  static const String assetsSvgDelete= 'assets/svg/delete.svg';
   static const String assetsSvgLocationCircle =
       'assets/svg/location_circle.svg';
   static const String assetsBackgroundHeaderTabMainSvg =

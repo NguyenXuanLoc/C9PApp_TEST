@@ -19,9 +19,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:location/location.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
+import 'package:url_launcher/url_launcher.dart';
 import '../../../config/constant.dart';
+import '../../../data/model/combo_best_seller_model.dart';
+import '../../../data/model/my_combo_model.dart';
 
-enum TabMainAction { MENU, ORDER, DISCTRICT, MORE }
+enum TabMainAction { MENU, ORDER, PROMOTION, MORE }
 
 class TabMainController extends GetxController {
   final userProvider = UserProvider();
@@ -31,9 +34,10 @@ class TabMainController extends GetxController {
   final lNearOrder = List<OrderModel>.empty(growable: true).obs;
   final isLoadNearOrder = true.obs;
   final isLoadPromotion = true.obs;
-  var lPromotion = List<PromotionModel>.empty(growable: true).obs;
+  var lPromotion = List<ComboSellingModel>.empty(growable: true).obs;
   var isFirstOpen = true;
   final fullName = ''.obs;
+  final avatarUrl = ''.obs;
   var countLoadWeather = 1;
   var isBadge = false.obs;
 
@@ -47,7 +51,10 @@ class TabMainController extends GetxController {
     init();
     super.onInit();
   }
-
+  @override
+  onClose() {
+    super.onClose();
+  }
   void init() {
     checkWeather();
     getNearOrder();
@@ -66,6 +73,8 @@ class TabMainController extends GetxController {
     var userModel = await StorageUtils.getUser();
     if (userModel != null) {
       fullName.value = userModel.data?.userData?.name ?? '';
+      avatarUrl.value = userModel.data?.userData?.image ?? '';
+      refresh();
     }
   }
 
@@ -110,16 +119,22 @@ class TabMainController extends GetxController {
 
   void getPromotion() async {
     isLoadPromotion.value = true;
-    var response = await userProvider.gePromotion();
+    var response = await userProvider.getComboSelling();
     if (response.error == null && response.data != null) {
-      lPromotion.value = promotionModelFromJson(response.data['data']);
+      lPromotion.value = comboSellingModelFromJson(response.data['data']['data']);
+      update();
     }
     isLoadPromotion.value = false;
   }
 
-  void openReOrder(OrderModel model) =>
-      Get.toNamed(Routes.ORDER, arguments: model);
-
+  void openReOrder(OrderModel model, index){
+    for(int i =0;i<lNearOrder.length;i++) {
+      lNearOrder[i].isSelect = false;
+    }
+    lNearOrder[index].isSelect = true;
+    lNearOrder.refresh();
+    Get.toNamed(Routes.ORDER, arguments: model);
+  }
   void getNearOrder() async {
     isLoadNearOrder.value = true;
     if (globals.isLogin) {
@@ -141,8 +156,14 @@ class TabMainController extends GetxController {
     return await location.getLocation();
   }
 
-  void openOrderDetail(OrderModel model) =>
-      Get.toNamed(Routes.DETAIL_ORDER, arguments: model);
+  void openOrderDetail(OrderModel model, int index){
+    for(int i =0;i<lNearOrder.length;i++) {
+      lNearOrder[i].isSelect = false;
+    }
+    lNearOrder[index].isSelect = true;
+    lNearOrder.refresh();
+    Get.toNamed(Routes.DETAIL_ORDER, arguments: model);
+  }
 
   void onClickAction(TabMainAction action, BuildContext context) {
     if (action == TabMainAction.MENU) {
@@ -154,12 +175,12 @@ class TabMainController extends GetxController {
       return;
     }
     switch (action) {
+      case TabMainAction.PROMOTION:
+        Get.find<HomeController>().jumToTap(1);
+        break;
       case TabMainAction.MORE:
-      case TabMainAction.DISCTRICT:
-        {
-          Get.toNamed(Routes.DEVELOPING);
-          break;
-        }
+        Get.toNamed(Routes.DEVELOPING,arguments: true);
+        break;
       case TabMainAction.ORDER:
         {
           setBadge(false);
@@ -172,4 +193,18 @@ class TabMainController extends GetxController {
   void onClickProfile(BuildContext context) => globals.isLogin
       ? Get.find<HomeController>().jumToTap(3)
       : Utils.requestLogin(context);
+
+
+  void openSaleCombo(ComboSellingModel model){
+    if (!globals.isLogin) {
+      Get.toNamed(Routes.LOGIN_SPLASH);
+      return;
+    }
+    Get.toNamed(Routes.BY_COMBO, arguments: model);
+  }
+
+  void openDialThePhone() => launchUrl(Uri(
+        scheme: 'tel',
+        path: '0332005445',
+      ));
 }

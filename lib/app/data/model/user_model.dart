@@ -9,33 +9,34 @@ UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 String userModelToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
-  UserModel({
-    this.data,
-    this.needUpdate,
-    this.message,
-  });
+  UserModel({this.data, this.needUpdate, this.message, this.missingPinCode});
 
   Data? data;
   bool? needUpdate;
+  bool? missingPinCode;
   String? message;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         data: Data.fromJson(json["data"]),
         needUpdate: json["needUpdate"],
         message: json["message"],
+        missingPinCode: json["missingPinCode"],
       );
 
   Map<String, dynamic> toJson() => {
         "data": data!.toJson(),
         "needUpdate": needUpdate,
         "message": message,
+        "missingPinCode": missingPinCode,
       };
 
-  UserModel copyOf({Data? data, bool? needUpdate, String? message}) =>
+  UserModel copyOf({Data? data, bool? needUpdate, String? message,bool? missingPinCode}) =>
       UserModel(
-          data: data ?? this.data,
-          needUpdate: needUpdate ?? this.needUpdate,
-          message: message ?? this.message);
+        data: data ?? this.data,
+        needUpdate: needUpdate ?? this.needUpdate,
+        message: message ?? this.message,
+        missingPinCode: missingPinCode ?? this.missingPinCode,
+      );
 }
 
 class Data {
@@ -49,7 +50,7 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         userData: UserData.fromJson(json["userData"] ?? json["user"]),
-        token: Token.fromJson(json["token"]),
+        token: Token.fromJson(json["token"] ?? json["bearerToken"]),
       );
 
   Data copyOf({UserData? userData, Token? token}) =>
@@ -91,9 +92,11 @@ class UserData {
     this.authToken,
     this.createdAt,
     this.updatedAt,
+    this.image,
     this.roleId,
     this.isActive,
     this.note,
+    this.status,
   });
 
   int? id;
@@ -104,8 +107,10 @@ class UserData {
   String? authToken;
   DateTime? createdAt;
   DateTime? updatedAt;
+  String? image;
   int? roleId;
   int? isActive;
+  String? status;
   dynamic note;
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
@@ -117,9 +122,11 @@ class UserData {
         authToken: json["auth_token"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        image: json["image"],
         roleId: json["role_id"],
         isActive: json["is_active"],
         note: json["note"],
+        status: json["status"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -131,8 +138,10 @@ class UserData {
         "auth_token": authToken,
         "created_at": createdAt!.toIso8601String(),
         "updated_at": updatedAt!.toIso8601String(),
+        "image": image,
         "role_id": roleId,
         "is_active": isActive,
         "note": note,
+        "status": status,
       };
 }

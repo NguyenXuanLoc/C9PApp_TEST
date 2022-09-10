@@ -44,6 +44,7 @@ class OrderModel {
     this.locality,
     this.itemQty,
     this.status,
+    this.paymentType,
     this.updatedAt,
     this.userId,
     this.channel,
@@ -52,6 +53,7 @@ class OrderModel {
     this.shipperPhone,
     this.shipperNumber,
     this.shipperRate,
+    this.isSelect
   });
 
   int? id;
@@ -88,6 +90,7 @@ class OrderModel {
   dynamic locality;
   int? itemQty;
   String? status;
+  String? paymentType;
   DateTime? updatedAt;
   int? userId;
   String? channel;
@@ -96,6 +99,7 @@ class OrderModel {
   String? shipperPhone;
   String? shipperNumber;
   int? shipperRate;
+  bool? isSelect;
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
     id: json["id"],
@@ -132,6 +136,7 @@ class OrderModel {
     locality: json["Locality"],
     itemQty: json["ItemQty"],
     status: json["Status"],
+    paymentType: json["payment_type"],
     updatedAt: DateTime.parse(json["updated_at"]),
     userId: json["user_id"],
     channel: json["channel"],
@@ -140,6 +145,7 @@ class OrderModel {
     shipperPhone: json["shipper_phone"],
     shipperNumber: json["shipper_number"],
     shipperRate: json["shipper_rate"],
+    isSelect: false,
   );
 
   Map<String, dynamic> toJson() => {
@@ -177,6 +183,7 @@ class OrderModel {
     "Locality": locality,
     "ItemQty": itemQty,
     "Status": status,
+    "paymentType": paymentType,
     "updated_at": updatedAt!.toIso8601String(),
     "user_id": userId,
     "channel": channel,
@@ -185,5 +192,6 @@ class OrderModel {
     "shipper_phone": shipperPhone,
     "shipper_number": shipperNumber,
     "shipper_rate": shipperRate,
+    "is_select": isSelect,
   };
 }

@@ -40,9 +40,9 @@ class BaseProvider extends GetConnect {
             'Content-Type': 'application/json'
           },
           query: queryParam);
+      Logger().d(response.body);
       if (response.isOk && response.body != null) {
         var result = response.body;
-        Logger().d(result);
         return ApiResult<dynamic>(
           data: result,
         );
@@ -53,7 +53,7 @@ class BaseProvider extends GetConnect {
         Logger().e('Error ${response.status.code} - ${response.statusText}');
         var result = response.body;
         return ApiResult<dynamic>(
-          error: response.statusText ?? '',
+          error:response.body['message'] ?? response.statusText ?? '',
           data: result,
         );
       }
@@ -132,7 +132,7 @@ class BaseProvider extends GetConnect {
     print('============================================================');
     print('[POST] ' + httpClient.baseUrl! + url);
     print("Bearer " + globals.accessToken);
-    print('[PARAMS] ' + json.encode(body));
+    print('[PARAMS] ' + (!isFormData ?json.encode(body):""));
     try {
       var headers = {
         'Authorization': 'Bearer ${globals.accessToken}',
@@ -155,8 +155,8 @@ class BaseProvider extends GetConnect {
         Logger().e(
             'Error ${response.status.code} - ${response.statusText} - ${response.bodyString}');
         var result = response.body;
-        return ApiResult<dynamic>(
-          error: response.statusText ?? '',
+        return ApiResult<dynamic>(statusCode: response.statusCode,
+          error:response.body['message'] ?? response.statusText ?? '',
           data: result,
         );
       }

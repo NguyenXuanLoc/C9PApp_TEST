@@ -65,6 +65,7 @@ class LocaleKeys {
   static const shipper = 'shipper';
   static const order_time = 'order_time';
   static const delivery_time = 'delivery_time';
+  static const time_rice_receive = 'time_rice_receive';
   static const full_name = 'full_name';
   static const delivery_address = 'delivery_address';
   static const delivery_date = 'delivery_date';
@@ -117,8 +118,75 @@ class LocaleKeys {
   static const message_register_success = 'message_register_success';
   static const net_work_error_click_to_retry = 'net_work_error_click_to_retry';
   static const token_expire = 'token_expire';
+  static const create_pin = 'create_pin';
+  static const input_pin = 'input_pin';
+  static const please_input_pin_to_login = 'please_input_pin_to_login';
+  static const please_update_pin_to_login = 'please_update_pin_to_login';
+  static const my_promotion = 'my_promotion';
+  static const see_more = 'see_more';
+  static const combo_selling = 'combo_selling';
+  static const payment_by_momo_money_vnpay='payment_by_momo_money_vnpay';
+  static const economy='economy';
+  static const still='still';
+  static const slot='slot';
+  static const order_rice='order_rice';
+  static const pin_invalid='pin_invalid';
+  static const by_sale_combo='by_sale_combo';
+  static const qty_package='qty_package';
+  static const you_order_success='you_order_success';
+  static const rice_portion_and_free='rice_portion_and_free';
+  static const buy_now='buy_now';
+  static const receiver='receiver';
+  static const payment='payment';
+  static const price='price';
+  static const total_price='total_price';
+  static const vn_pay='vn_pay';
+  static const confirm_order='confirm_order';
+  static const you_have_successfully_placed_order_number='you_have_successfully_placed_order_number';
+  static const method_payment='method_payment';
+  static const buyer='buyer';
+  static const trading_code='trading_code';
+  static const vnpay_wallet='vnpay_wallet';
+  static const remaining_rice='remaining_rice';
+  static const notify_slot_order_bigger_remain_in_combo='notify_slot_order_bigger_remain_in_combo';
+  static const delivery_to='delivery_to';
+  static const add_note = 'add_note';
+  static const ship_price = 'ship_price';
+  static const com_suon_ngon = 'com_suon_ngon';
+  static const name_package_promotion = 'name_package_promotion';
+  static const slot_remain = 'slot_remain';
+  static const cash = 'cash';
+  static const change_pin = 'change_pin';
+  static const my_location = 'my_location';
+  static const profile = 'profile';
+  static const my_order = 'my_order';
+  static const more_setting = 'more_setting';
+  static const you_have_just_order_success = 'you_have_just_order_success';
+  static const please_input_pass = 'please_input_pass';
+  static const pass_invalid = 'pass_invalid';
+  static const pass_not_match = 'pass_not_match';
+  static const input_current_pin = 'input_current_pin';
+  static const input_new_pin = 'input_new_pin';
+  static const input_retype_new_pin = 'input_retype_new_pin';
+  static const take_photo = 'take_photo';
+  static const pick_photo_from_gallery = 'pick_photo_from_gallery';
+  static const finish = 'finish';
+  static const add_note_ = 'add_note_';
+  static const note = 'note';
+  static const payment_error = 'payment_error';
+  static const error_image_too_big = 'error_image_too_big';
+  static const pending = 'pending';
+  static const created = 'created';
+  static const delivering = 'delivering';
+  static const get = 'get';
+  static const canceled = 'canceled';
+  static const payed = 'payed';
+  static const fault = 'fault';
+  static const payment_failed = 'payment_failed';
+  static const order_before_15_minutes = 'order_before_15_minutes';
+  static const delete_account = 'delete_account';
+  static const account_will_delete_after_30_day = 'account_will_delete_after_30_day';
 }
-
 class Locales {
   static const en = {
     'ask_existing_page': 'EnglishEnglishEnglishEnglishEnglish',
@@ -174,7 +242,7 @@ class Locales {
     'full_name': 'Họ & tên',
     'delivery_address': 'Địa chỉ nhận hàng',
     'delivery_date': 'Ngày nhận hàng',
-    'choose_number': 'Chọn số suất',
+    'choose_number': 'Số suất cơm',
     'please_input_full_name': 'Vui lòng nhập họ và tên',
     'please_input_delivery_add': 'Vui lòng nhập và chọn đúng địa chỉ nhận hàng',
     'please_input_delivery_date': 'Thiếu thông tin',
@@ -194,7 +262,7 @@ class Locales {
     'update': 'Cập nhật',
     'gallery': 'Thư viện',
     'camera': 'Máy ảnh',
-    'near_order': 'Đơn đã giao',
+    'near_order': 'Đơn gần đây của bạn',
     'bowl_of_rice': 'suất cơm',
     'input_address_at_here': 'Nhập địa chỉ đặt hàng tại đây...',
     'input_qty': 'Nhập số suất',
@@ -204,7 +272,7 @@ class Locales {
     'yes': 'Đồng ý',
     'hours': 'Giờ',
     'minutes': 'Phút',
-    'received': 'Đã tiếp nhận',
+    'received': 'Người nhận',
     'not_data_pull_to_refresh': 'Chưa có dữ liệu\nKéo xuống để tải lại.',
     'not_order_pull_to_refresh': 'Chưa có đơn hàng\nKéo xuống để tải lại.',
     'not_find_address_please_try_again':
@@ -225,7 +293,76 @@ class Locales {
     'register_success': 'Đăng ký tài khoản thành công!',
     'net_work_error_click_to_retry': 'Lỗi mạng, ấn để thử lại',
     'token_expire': 'Phiên đăng nhập đã hết hạn',
+    'my_promotion': 'Khuyến mại của tôi',
+    'combo_selling': 'Combo đang bán',
+    'see_more': 'Xem thêm',
+    'payment_by_momo_money_vnpay': 'Thanh toán: Momo, Tiền mặt, Vnpay',
+    'economy': 'Tiết kiệm',
+    'still': 'Còn',
+    'slot': 'suất',
+    'order_rice': 'Đặt cơm',
+    'create_pin': 'Tạo mã pin',
+    'please_update_pin_to_login': 'Bạn vui lòng cập nhật mã pin để đăng nhập dễ dàng hơn nhé',
+    'input_pin': 'Nhập mã pin',
+    'please_input_pin_to_login': 'Bạn vui lòng cập nhật mã pin để đăng nhập dễ dàng hơn nhé',
+    'pin_invalid': 'Mã pin không hợp lệ',
+    'by_sale_combo': 'Mua gói khuyến mại',
+    'qty_package': 'Số gói khuyến mại',
+    'you_order_success': 'Bạn đang đặt',
+    'rice_portion_and_free': 'suất cơm và được tặng kèm',
+    'price': 'Giá tiền',
+    'payment': 'Thanh toán',
+    'total_price': 'Tổng tiền cần thanh toán',
+    'buy_now': 'Mua ngay',
+    'vn_pay': 'Vnpay',
+    'confirm_order': 'Xác nhận đơn hàng',
+    'you_have_successfully_placed_order_number': 'Bạn vừa đặt thành công mã đơn hàng',
+    'method_payment': 'Phương thức thanh toán',
+    'buyer': 'Người mua hàng',
+    'trading_code': 'Mã giao dịch',
+    'vnpay_wallet': 'Ví Vnpay',
+    'remaining_rice': 'Số suất cơm còn lại trong gói khuyến mãi của bạn là',
+    'notify_slot_order_bigger_remain_in_combo': 'Số suất cơm phải nhỏ hơn hoặc bằng số suất cơm còn lại trong gói khuyến mãi',
     'message_register_success':
         'Nhấn nút phía dưới để tiếp tục sử dụng dịch vụ của chúng tôi. Chúc bạn luôn có những bữa trưa ngon miệng',
+  'delivery_to':'Giao hàng đến',
+  'add_note':'+ Thêm ghi chú cho người giao hàng...',
+  'ship_price':'Phí ship',
+  'com_suon_ngon':'Cơm sườn ngon',
+  'name_package_promotion':'Gói khuyến mãi',
+  'time_rice_receive':'Thời gian nhận cơm',
+  'slot_remain':'Số suất còn lại',
+  'cash':'Tiền mặt',
+  'change_pin':'Đổi mã pin',
+  'my_location':'Địa chỉ của tôi',
+  'profile':'Hồ sơ cá nhân',
+  'my_order':'Đơn hàng của tôi',
+  'more_setting':'Cài đặt khác',
+  'you_have_just_order_success':'Bạn vừa đặt thành công mã đơn hàng #',
+  'receiver':'Người nhận',
+  'please_input_pass':'Vui lòng nhập mật khẩu',
+  'pass_invalid':'Mật khẩu không hợp lệ',
+  'pass_not_match':'Mật khẩu và xác thực mật khẩu không tương đồng',
+  'input_current_pin':'Nhập mã pin hiện tại',
+  'input_new_pin':'Nhập mã pin mới',
+  'input_retype_new_pin':'Nhập lại mã pin mới',
+  'take_photo':'Chụp ảnh',
+  'pick_photo_from_gallery':'Chọn ảnh từ thư viện',
+  'finish':'Xong',
+  'add_note_':'Thêm ghi chú',
+  'note':'Ghi chú',
+  'payment_error':'Thanh toán thất bại',
+  'error_image_too_big':'Kích thước ảnh quá lớn, vui lòng chọn lại.',
+  'pending':'Chưa xử lý',
+  'created':'Đã tạo đơn',
+  'delivering':'Đang giao hàng',
+  'get':'Đang lấy hàng',
+  'canceled':'Đã hủy',
+  'payed':'Đã thanh toán',
+  'fault':'Đơn lỗi',
+  'payment_failed':'Thanh toán không thành công, vui lòng thử lại',
+  'delete_account':'Xóa tài khoản',
+  'account_will_delete_after_30_day':'Tài khoản của bạn sẽ được xóa vĩnh viễn trong vòng 30 ngày.',
+  'order_before_15_minutes':'Thời gian giao hàng quá gấp, hãy chọn thời gian giao hàng lớn hơn thời gian hiện tại 15 phút',
   };
 }

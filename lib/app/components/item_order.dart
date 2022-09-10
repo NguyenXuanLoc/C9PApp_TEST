@@ -103,7 +103,7 @@ class ItemOrder extends StatelessWidget {
                 ),
                 const Spacer(),
                 AppText(
-                  model.status ?? '',
+                Utils.getOrderStatus(  model.status ?? ''),
                   style: typoSuperSmallTextBold.copyWith(color: colorGreen55),
                 )
               ],

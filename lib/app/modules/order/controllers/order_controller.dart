@@ -19,9 +19,24 @@ import 'package:intl/intl.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
 import '../../../config/resource.dart';
 import '../../../data/model/address_model.dart';
+import '../../../data/model/my_combo_model.dart';
 import '../../../utils/log_utils.dart';
-
+class RiceOrderParam{
+ final String name;
+ final String phone;
+ final String address;
+ final DateTime deliverDate;
+ final String deliverHour;
+  final String qty;
+  final double lat;
+  final double long;
+  final String productId;
+  final MyComboModel? myComboModel;
+  RiceOrderParam(this.name, this.phone, this.address, this.deliverDate, this.deliverHour, this.qty, this.lat, this.long, this.productId, this.myComboModel);
+}
 class OrderController extends GetxController {
+  String tag;
+  OrderController(): tag = Utils.getRandomTag();
   final lDescriptionImage = [
     R.assetsPngComSuon9p,
     R.assetsPngComSuon9p,
@@ -59,10 +74,10 @@ class OrderController extends GetxController {
   String? currentAddress;
   var isSelectAddress = true;
   OrderModel? orderModel;
-  late StreamSubscription<Position> locationStream;
-
+  MyComboModel? myComboModel;
   @override
   void onInit() {
+    myComboModel = (Get.arguments is MyComboModel) ? Get.arguments : null;
     getCurrentAddress();
     getInfoReOrder();
     switchPageListener();
@@ -76,7 +91,7 @@ class OrderController extends GetxController {
   }
 
   void getInfoReOrder() {
-    if (Get.arguments != null) {
+    if (Get.arguments != null && Get.arguments is OrderModel) {
       orderModel = Get.arguments;
       fullNameController.text = orderModel?.buyerName ?? '';
       phoneController.text = orderModel?.buyerPhone ?? '';
@@ -105,7 +120,7 @@ class OrderController extends GetxController {
       dateController.text = Utils.convertTimeToDDMMYY(DateTime.now());
     }
     var currentTime = DateTime.fromMillisecondsSinceEpoch(
-        DateTime.now().millisecondsSinceEpoch + AppConstant.FIFTEN_MINIUTES);
+        DateTime.now().millisecondsSinceEpoch + AppConstant.FIFTEN_MINIUTES+60000);
     deliverHours = Utils.convertTimeToHHMMA(currentTime);
     hourController.text = Utils.time24to12Format(currentTime);
   }
@@ -128,7 +143,21 @@ class OrderController extends GetxController {
 
   void continueOnclick(BuildContext context) async {
     if (isValid()) {
-      Dialogs.showLoadingDialog(context);
+      if (myComboModel != null &&
+          (myComboModel!.remainsCombo ?? 0) <
+              int.parse(countController.text)) {
+        toast(LocaleKeys.notify_slot_order_bigger_remain_in_combo.tr);
+        return;
+      }
+      var name = fullNameController.text;
+      var address = addressController.text;
+      var phone = phoneController.text;
+      var qty = countController.text;
+       var productId = '2';
+      var orderParam = RiceOrderParam(name, phone, address, deliverDate!,
+          deliverHours!, qty, currentLat, currentLng, productId, myComboModel);
+      Get.toNamed(Routes.CONFIRM_RICE_ORDER, arguments: orderParam);
+      /* Dialogs.showLoadingDialog(context);
       var response = await addOrder();
       await Dialogs.hideLoadingDialog();
       if (response.statusCode == 201) {
@@ -140,7 +169,7 @@ class OrderController extends GetxController {
         } catch (ex) {
           toast(LocaleKeys.network_error.tr);
         }
-      }
+      }*/
     }
   }
 
@@ -225,29 +254,11 @@ class OrderController extends GetxController {
     return [];
   }
 
-  Future<ApiResult> addOrder() async {
-    var name = fullNameController.text;
-    var address = addressController.text;
-    var phone = phoneController.text;
-    var qty = countController.text;
-    var deliverTimeStr =
-        "${Utils.convertTimeToYYMMDD(deliverDate!)} ${deliverHours!.replaceAll('.000Z', '')}";
-    var productId = '2';
-    return await userProvider.addOrder(
-        name: name,
-        address: address,
-        phone: phone,
-        qty: qty,
-        lat: currentLat.toString(),
-        lng: currentLng.toString(),
-        deliverTime: deliverTimeStr,
-        productId: productId);
-  }
 
   void pickTime(BuildContext context) async {
     var selectedTime24Hour = await Utils.pickTime(context);
     if (selectedTime24Hour != null) {
-      deliverHours = selectedTime24Hour.format(context);
+      deliverHours = Utils.convertTime12To24(selectedTime24Hour.hour, selectedTime24Hour.minute);
       hourController.text = Utils.time24to12Format(DateTime(
         DateTime.now().year,
         DateTime.now().month,
@@ -259,7 +270,7 @@ class OrderController extends GetxController {
   }
 
   void getCurrentAddress() async {
-    if (Get.arguments != null) return;
+    if (Get.arguments != null && Get.arguments is OrderModel) return;
     await Utils.requestPermissionLocation();
     bool serviceEnabled;
     LocationPermission permission;
@@ -267,23 +278,18 @@ class OrderController extends GetxController {
     permission = await Geolocator.checkPermission();
     if (serviceEnabled && permission == LocationPermission.always ||
         permission == LocationPermission.whileInUse) {
-      locationStream =
-          Geolocator.getPositionStream().listen((Position position) async {
-        List<Placemark> placemark = await placemarkFromCoordinates(
-            position.latitude, position.longitude);
-        Placemark place = placemark[0];
-        isSelectAddress = true;
-        addressController.text =
-            "${place.street}, ${place.subAdministrativeArea}, ${place.administrativeArea}";
-        currentAddress = addressController.text;
-        locationStream.cancel();
-      });
       var location = await Geolocator.getCurrentPosition();
       currentLat = location.latitude;
       currentLng = location.longitude;
+      List<Placemark> placeMark =
+      await placemarkFromCoordinates(location.latitude, location.longitude);
+      Placemark place = placeMark[0];
+      isSelectAddress = true;
+      addressController.text =
+      "${place.street}, ${place.subAdministrativeArea}, ${place.administrativeArea}";
+      currentAddress = addressController.text;
     }
   }
-
   void pickDate(BuildContext context) => Utils.pickDate(context, (date) {
         deliverDate = date;
         dateController.text = Utils.convertTimeToDDMMYY(date);

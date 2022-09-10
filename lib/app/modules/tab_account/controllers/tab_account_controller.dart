@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:c9p/app/data/event_bus/jump_to_tab_event.dart';
 import 'package:c9p/app/data/event_bus/reload_user_event.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/log_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +14,8 @@ import '../../../data/provider/user_provider.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/storage_utils.dart';
 import '../../../utils/toast_utils.dart';
-
+import '../views/tab_account_view.dart';
+import 'package:c9p/app/config/globals.dart'as globals;
 class TabAccountController extends GetxController {
   final userProvider = UserProvider();
   final fullNameController = TextEditingController();
@@ -21,12 +23,18 @@ class TabAccountController extends GetxController {
   final errorFullName = ''.obs;
   var isFirstOpen = true;
   var isSave = false.obs;
-  var currentName = '';
+  final currentName = ''.obs;
+  final avatarUrl = ''.obs;
 
   @override
   void onInit() {
     getUserInfo();
     super.onInit();
+  }
+
+  @override
+  onClose() {
+    super.onClose();
   }
 
   void getUserInfo() async {
@@ -35,7 +43,8 @@ class TabAccountController extends GetxController {
       fullNameController.text = userModel.data?.userData?.name ?? '';
       phoneController.text =
           userModel.data?.userData?.phone?.replaceAll('+84', '0') ?? '';
-      currentName = fullNameController.text;
+      currentName.value = fullNameController.text;
+      avatarUrl.value = userModel.data?.userData?.image ?? '';
     }
   }
 
@@ -61,7 +70,7 @@ class TabAccountController extends GetxController {
           var userModel = userCache.copyOf(
               data: userCache.data!.copyOf(userData: userData),
               needUpdate: false);
-          currentName = userModel.data?.userData?.name ?? '';
+          currentName.value = userModel.data?.userData?.name ?? '';
           isSave.value = false;
           await StorageUtils.saveUser(userModel);
           Utils.fireEvent(ReloadUserEvent());
@@ -90,6 +99,23 @@ class TabAccountController extends GetxController {
       });
     }
   }
+  void deleteAccount(BuildContext context) async {
+    bool isDelete = false;
+    await Dialogs.showDeleteAccDialog(context,
+        deleteCallBack: () => isDelete = true);
+    if (isDelete) {
+      Timer(const Duration(milliseconds: 300), () async {
+        Dialogs.showLoadingDialog(context);
+        var response = await userProvider.deleteAccount();
+        await Dialogs.hideLoadingDialog();
+        if(response.error == null && response.data != null) {
+          toast(response.data['message'].toString());
+        } else {
+          toast(response.error);
+        }
+      });
+    }
+  }
 
   Future<UserData?> getProfile() async {
     var response = await userProvider.getProfile();
@@ -101,4 +127,38 @@ class TabAccountController extends GetxController {
 
   void onFullNameChange(String text) =>
       isSave.value = (text == currentName) ? false : true;
+
+  void handleAction(AccountAction action,BuildContext context) async{
+    switch (action) {
+      case AccountAction.PROFILE:
+        await Get.toNamed(Routes.PROFILE);
+        getUserInfo();
+        break;
+      case AccountAction.MY_COMBO:
+        Get.toNamed(Routes.MY_COMBO);
+        break;
+      case AccountAction.MY_LOCATION:
+        Get.toNamed(Routes.DEVELOPING, arguments: true);
+        break;
+      case AccountAction.METHOD_PAYMENT:
+        Get.toNamed(Routes.DEVELOPING, arguments: true);
+        break;
+      case AccountAction.MY_ORDER:
+        Get.toNamed(Routes.YOUR_ORDER);
+        break;
+      case AccountAction.REGULATION:
+        Get.toNamed(Routes.WEBVIEW,
+            arguments: [LocaleKeys.regulation.tr, globals.tempOfUseUrl]);
+        break;
+      case AccountAction.LOGOUT:
+        logout(context);
+        break;
+      case AccountAction.CHANGE_PIN:
+        Get.toNamed(Routes.CHANGE_PASS);
+        break;
+      case AccountAction.DELETE:
+        deleteAccount(context);
+        break;
+    }
+  }
 }

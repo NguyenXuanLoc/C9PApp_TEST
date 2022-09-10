@@ -1,5 +1,17 @@
 import 'package:get/get.dart';
 
+import '../modules/buy_combo_success/bindings/buy_combo_success_binding.dart';
+import '../modules/buy_combo_success/views/buy_combo_success_view.dart';
+import '../modules/by_combo/bindings/by_combo_binding.dart';
+import '../modules/by_combo/views/by_combo_view.dart';
+import '../modules/change_pass/bindings/change_pass_binding.dart';
+import '../modules/change_pass/views/change_pass_view.dart';
+import '../modules/combo_selling/bindings/combo_selling_binding.dart';
+import '../modules/combo_selling/views/combo_selling_view.dart';
+import '../modules/confirm_order/bindings/confirm_order_binding.dart';
+import '../modules/confirm_order/views/confirm_order_view.dart';
+import '../modules/confirm_rice_order/bindings/confirm_rice_order_binding.dart';
+import '../modules/confirm_rice_order/views/confirm_rice_order_view.dart';
 import '../modules/detail_order/bindings/detail_order_binding.dart';
 import '../modules/detail_order/views/detail_order_view.dart';
 import '../modules/developing/bindings/developing_binding.dart';
@@ -8,14 +20,24 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/login_by_pin/bindings/login_by_pin_binding.dart';
+import '../modules/login_by_pin/views/login_by_pin_view.dart';
 import '../modules/login_splash/bindings/login_splash_binding.dart';
 import '../modules/login_splash/views/login_splash_view.dart';
+import '../modules/my_combo/bindings/my_combo_binding.dart';
+import '../modules/my_combo/views/my_combo_view.dart';
 import '../modules/order/bindings/order_binding.dart';
 import '../modules/order/views/order_view.dart';
 import '../modules/order_success/bindings/order_success_binding.dart';
 import '../modules/order_success/views/order_success_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
+import '../modules/payment/bindings/payment_binding.dart';
+import '../modules/payment/views/payment_view.dart';
+import '../modules/profile/bindings/profile_binding.dart';
+import '../modules/profile/views/profile_view.dart';
+import '../modules/register_pin/bindings/register_pin_binding.dart';
+import '../modules/register_pin/views/register_pin_view.dart';
 import '../modules/register_success/bindings/register_success_binding.dart';
 import '../modules/register_success/views/register_success_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -134,6 +156,61 @@ class AppPages {
       name: _Paths.WEBVIEW,
       page: () => WebviewView(),
       binding: WebviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_COMBO,
+      page: () => MyComboView(),
+      binding: MyComboBinding(),
+    ),
+    GetPage(
+      name: _Paths.COMBO_SELLING,
+      page: () => ComboSellingView(),
+      binding: ComboSellingBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER_PIN,
+      page: () => RegisterPinView(),
+      binding: RegisterPinBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOGIN_BY_PIN,
+      page: () => LoginByPinView(),
+      binding: LoginByPinBinding(),
+    ),
+    GetPage(
+      name: _Paths.BY_COMBO,
+      page: () => ByComboView(),
+      binding: ByComboBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONFIRM_ORDER,
+      page: () => ConfirmOrderView(),
+      binding: ConfirmOrderBinding(),
+    ),
+    GetPage(
+      name: _Paths.BUY_COMBO_SUCCESS,
+      page: () => BuyComboSuccessView(),
+      binding: BuyComboSuccessBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAYMENT,
+      page: () => PaymentView(),
+      binding: PaymentBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONFIRM_RICE_ORDER,
+      page: () => ConfirmRiceOrderView(),
+      binding: ConfirmRiceOrderBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => ProfileView(),
+      binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHANGE_PASS,
+      page: () => ChangePassView(),
+      binding: ChangePassBinding(),
     ),
   ];
 }

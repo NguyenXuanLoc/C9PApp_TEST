@@ -5,6 +5,7 @@ import 'package:c9p/app/components/app_scalford.dart';
 import 'package:c9p/app/components/app_text.dart';
 import 'package:c9p/app/components/item_order.dart';
 import 'package:c9p/app/theme/app_styles.dart';
+import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,13 +14,14 @@ import 'package:get/get.dart';
 import '../../../config/app_translation.dart';
 import '../../../config/resource.dart';
 import '../../../theme/colors.dart';
-import '../controllers/your_order_controller.dart';
 
-class YourOrderView extends GetView<YourOrderController> {
-  const YourOrderView({Key? key}) : super(key: key);
+class YourOrderView extends StatelessWidget {
+   YourOrderView({Key? key}) : super(key: key);
+  var controller = TagUtils().findYourOrderController();
 
   @override
   Widget build(BuildContext context) {
+    
     return AppScaffold(
         appbar: AppBar(
           automaticallyImplyLeading: false,
@@ -62,8 +64,8 @@ class YourOrderView extends GetView<YourOrderController> {
             ),
           ),
           bottom: TabBar(
-            controller: controller.tabController,
-            onTap: (index) => controller.setIndex(index),
+            controller: controller!.tabController,
+            onTap: (index) => controller!.setIndex(index),
             indicatorColor: colorOrange60,
             indicatorSize: TabBarIndicatorSize.label,
             unselectedLabelColor: Colors.black,
@@ -86,21 +88,21 @@ class YourOrderView extends GetView<YourOrderController> {
         body: Stack(
           children: [
             TabBarView(
-              controller: controller.tabController,
+              controller: controller!.tabController,
               children: <Widget>[
                 pendingOrderWidget(context),
                 doneOrderWidget(context)
               ],
             ),
             Obx(() => Visibility(
-                  visible: controller.isShowRefreshButton.value,
+                  visible: controller!.isShowRefreshButton.value,
                   child: Positioned.fill(
                       child: Align(
                     alignment: Alignment.topCenter,
                     child: Opacity(
                       opacity: 0.9,
                       child: AppButton(
-                        onPress: () => controller.refreshAll(),
+                        onPress: () => controller!.refreshAll(),
                         title: LocaleKeys.refresh_list.tr,
                         textStyle: typoSuperSmallTextBold.copyWith(
                             color: colorText0, fontSize: 11.sp),
@@ -118,10 +120,10 @@ class YourOrderView extends GetView<YourOrderController> {
   Widget doneOrderWidget(BuildContext context) {
     return Obx(() => RefreshIndicator(
         color: colorGreen60,
-        child: controller.isLoadingDoneOrder.value &&
-                controller.lDoneOrder.isEmpty
+        child: controller!.isLoadingDoneOrder.value &&
+                controller!.lDoneOrder.isEmpty
             ? const AppCircleLoading()
-            : controller.lDoneOrder.isEmpty
+            : controller!.lDoneOrder.isEmpty
                 ? Stack(
                     children: [
                       ListView(),
@@ -131,37 +133,37 @@ class YourOrderView extends GetView<YourOrderController> {
                     ],
                   )
                 : ListView.separated(
-                    controller: controller.doneOrderScrollController,
+                    controller: controller!.doneOrderScrollController,
                     physics: const AlwaysScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(0),
-                    itemBuilder: (c, i) => (i == controller.lDoneOrder.length)
+                    itemBuilder: (c, i) => (i == controller!.lDoneOrder.length)
                         ? const AppCircleLoading()
                         : ItemOrder(
-                            model: controller.lDoneOrder[i],
+                            model: controller!.lDoneOrder[i],
                             callBackReOrder: (model) =>
-                                controller.openReOrder(model),
+                                controller!.openReOrder(model),
                             callBackOrderDetail: (model) =>
-                                controller.openOrderDetail(model)),
+                                controller!.openOrderDetail(model)),
                     separatorBuilder: (i, c) => Container(
                           color: colorSeparatorListView,
                           height: 10.h,
                           width: MediaQuery.of(context).size.width,
                         ),
-                    itemCount: !controller.isReadEndDoneOrder.value &&
-                            controller.lDoneOrder.isNotEmpty &&
-                            controller.isLoadingDoneOrder.value
-                        ? controller.lDoneOrder.length + 1
-                        : controller.lDoneOrder.length),
-        onRefresh: () async => controller.refreshDoneOrder()));
+                    itemCount: !controller!.isReadEndDoneOrder.value &&
+                            controller!.lDoneOrder.isNotEmpty &&
+                            controller!.isLoadingDoneOrder.value
+                        ? controller!.lDoneOrder.length + 1
+                        : controller!.lDoneOrder.length),
+        onRefresh: () async => controller!.refreshDoneOrder()));
   }
 
   Widget pendingOrderWidget(BuildContext context) {
     return Obx(() => RefreshIndicator(
         color: colorGreen60,
-        child: controller.isLoadingPendingOrder.value &&
-                controller.lPendingOrder.isEmpty
+        child: controller!.isLoadingPendingOrder.value &&
+                controller!.lPendingOrder.isEmpty
             ? const AppCircleLoading()
-            : controller.lPendingOrder.isEmpty
+            : controller!.lPendingOrder.isEmpty
                 ? Stack(
                     children: [
                       ListView(),
@@ -171,26 +173,26 @@ class YourOrderView extends GetView<YourOrderController> {
                     ],
                   )
                 : ListView.separated(
-                    controller: controller.pendingOrderScrollController,
+                    controller: controller!.pendingOrderScrollController,
                     physics: const AlwaysScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(0),
                     itemBuilder: (c, i) =>
-                        (i == controller.lPendingOrder.length)
+                        (i == controller!.lPendingOrder.length)
                             ? const AppCircleLoading()
                             : ItemOrder(
-                                model: controller.lPendingOrder[i],
+                                model: controller!.lPendingOrder[i],
                                 callBackOrderDetail: (model) =>
-                                    controller.openOrderDetail(model)),
+                                    controller!.openOrderDetail(model)),
                     separatorBuilder: (i, c) => Container(
                           color: colorSeparatorListView,
                           height: 10.h,
                           width: MediaQuery.of(context).size.width,
                         ),
-                    itemCount: (!controller.isReadEndPendingOrder.value &&
-                            controller.lPendingOrder.isNotEmpty &&
-                            controller.isLoadingPendingOrder.value)
-                        ? controller.lPendingOrder.length + 1
-                        : controller.lPendingOrder.length),
-        onRefresh: () async => controller.refreshPendingOrder()));
+                    itemCount: (!controller!.isReadEndPendingOrder.value &&
+                            controller!.lPendingOrder.isNotEmpty &&
+                            controller!.isLoadingPendingOrder.value)
+                        ? controller!.lPendingOrder.length + 1
+                        : controller!.lPendingOrder.length),
+        onRefresh: () async => controller!.refreshPendingOrder()));
   }
 }

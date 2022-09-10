@@ -85,6 +85,7 @@ const colorWarning100 = Color(0xffE6A23C);
 const colorText100 = Color(0xff303133);
 const colorText80 = Color(0xff060e1e);
 const colorText50 = Color(0xff060e1e);
+const colorText85 = Color(0xff333333);
 const colorText70 = Color(0xff636973);
 const colorText60 = Color(0xff909399);
 const colorText45 = Color(0xff909399);
@@ -125,9 +126,11 @@ const colorBackgroundColor = Color(0xffffffff);
 const colorBackgroundWhite = Color(0xfff6f6f7);
 const colorBackgroundGrey80 = Color(0xF65D605D);
 const colorBackgroundGrey30 = Color(0xFFE9EAEC);
+const colorBackgroundGrey15 = Color(0xFFF8F8F8);
 const colorBackgroundGrey20 = Color(0xF6F7F8F7);
 const colorBackgroundGrey10 = Color(0xFFF7F7F8);
 const colorBackgroundGrey5 = Color(0xFFDADADA);
+const colorBackgroundGrey2 = Color(0xFFECEAEA);
 
 const colorUnderlineTextField = Color(0xFF979797);
 const colorSeparatorListView = Color(0xFFF8F8F8);
@@ -140,6 +143,9 @@ const colorGrey20 = Color(0xFFE9EAEC);
 const colorGrey30 = Color(0xFFE9EAEC);
 const colorGrey40 = Color(0xFFC8CBD0);
 const colorGrey50 = Color(0xFFA0A4AB);
+const colorGrey60 = Color(0xFF979797);
+const colorGrey70 = Color(0xFF424242);
+const colorGrey85 = Color(0xFF333333);
 const colorGrey80 = Color(0xFF636973);
 
 const colorBlue82 = Color(0xFF003CA5);
@@ -159,9 +165,13 @@ const colorGreen60 = Color(0xFF029E7F);
 const colorGreen57 = Color(0xFF1DB688);
 const colorGreen55 = Color(0xFF279331);
 const colorGreen50 = Color(0xFF239B2E);
+const colorGreen40 = Color(0xFF50AC17);
 
+const colorOrange80 = Color(0xFFFD6916);
 const colorOrange60 = Color(0xFFCD8E15);
+const colorOrange50 = Color(0xFFBE9720);
 const colorOrange40 = Color(0xFFE5B110);
+
 const colorGreenGradient = [
   Color(0xff20b860),
   Color(0xff08b04f),

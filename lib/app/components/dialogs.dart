@@ -1,4 +1,6 @@
 import 'package:c9p/app/components/app_button.dart';
+import 'package:c9p/app/components/app_network_image.dart';
+import 'package:c9p/app/config/globals.dart';
 import 'package:c9p/app/theme/app_styles.dart';
 import 'package:c9p/app/theme/colors.dart';
 import 'package:c9p/app/utils/log_utils.dart';
@@ -7,11 +9,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../config/app_translation.dart';
+import '../config/resource.dart';
 import 'app_text.dart';
 
 class Dialogs {
   static final GlobalKey<State> _keyLoader = GlobalKey<State>();
-  static final GlobalKey<State> _keyCloseApp = GlobalKey<State>();
+  static final GlobalKey<State> _keyPromotion = GlobalKey<State>();
+  static final _keyCloseApp = GlobalKey<State>();
 
   static Future<void>? showLoadingDialog(BuildContext? context) {
     if (context == null) {
@@ -202,6 +207,76 @@ class Dialogs {
         });
   }
 
+  static Future<void> showDeleteAccDialog(BuildContext context,
+      {required VoidCallback deleteCallBack}) {
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return WillPopScope(
+            onWillPop: () async => true,
+            child: SimpleDialog(
+              key: _keyLoader,
+              children: <Widget>[
+                SizedBox(
+                  height: 10.h,
+                ),
+                Padding(
+                    padding: EdgeInsets.only(left: 5, right: 5),
+                    child: AppText(
+                      LocaleKeys.account_will_delete_after_30_day.tr,
+                      style: typoSmallTextBold,
+                      textAlign: TextAlign.center,
+                    )),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AppButton(
+                        textStyle: typoSuperSmallTextBold.copyWith(
+                            color: colorGreen60),
+                        shapeBorder: RoundedRectangleBorder(
+                            side: const BorderSide(
+                              color: colorGreen60,
+                            ),
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(5.h))),
+                        title: "Hủy",
+                        onPress: () => hideLoadingDialog(),
+                        width: 90.w,
+                        height: 25.h,
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      AppButton(
+                          title: "Đồng ý",
+                          textStyle: typoSuperSmallTextBold.copyWith(
+                              color: colorWhite),
+                          onPress: () async {
+                            await hideLoadingDialog();
+                            deleteCallBack.call();
+                          },
+                          width: 90.w,
+                          height: 25.h,
+                          backgroundColor: colorGreen60,
+                          shapeBorder: RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(5.h)))),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
   static Future<void> showLogoutDialog(BuildContext context,
       {required VoidCallback deleteCallBack}) {
     return showDialog<void>(
@@ -336,6 +411,121 @@ class Dialogs {
             ),
           );
         });
+  }
+
+  static Future<bool?> showMethodPickImage(BuildContext context,
+      {required VoidCallback cameraCallBack,required VoidCallback galleryCallBack}) async {
+    return await showGeneralDialog(
+        barrierDismissible: true,
+        context: context,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: Colors.black45,
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
+          return WillPopScope(
+              onWillPop: () async => true,
+              child: SimpleDialog(
+                key: _keyPromotion,
+                backgroundColor: Colors.transparent,
+                contentPadding: EdgeInsets.all(5.w),
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(left: contentPadding,top: 5,bottom: 5),
+                    alignment: Alignment.centerLeft,
+                    width: MediaQuery.of(context).size.width,
+                    height: 80.h,
+                    color: colorGrey70,
+                    child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Get.back();
+                            cameraCallBack.call();
+                          },
+                          child: AppText(LocaleKeys.take_photo.tr,
+                              style: typoNormalTextBold.copyWith(
+                                  color: colorWhite)),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.back();
+                            galleryCallBack.call();
+                          },
+                          child: AppText(LocaleKeys.pick_photo_from_gallery.tr,
+                              style: typoNormalTextBold.copyWith(
+                                  color: colorWhite)),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ));
+        });
+  }
+
+  static Future<bool?> showPopupPromotion(BuildContext context,
+      {required VoidCallback bannerCallBack}) async {
+    return await showGeneralDialog(
+        barrierDismissible: false,
+        context: context,
+        barrierLabel:
+            MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: Colors.black45,
+        transitionDuration: const Duration(milliseconds: 200),
+        pageBuilder: (BuildContext buildContext, Animation animation,
+            Animation secondaryAnimation) {
+          return WillPopScope(
+              onWillPop: () async => true,
+              child: SimpleDialog(
+                key: _keyPromotion,
+                backgroundColor: Colors.transparent,
+                contentPadding: EdgeInsets.all(5.w),
+                children: <Widget>[
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(right: 2),
+                        alignment: Alignment.bottomRight,
+                        child: InkWell(
+                          child: Image.asset(
+                            R.assetsPngClearCircle,
+                            height: 20.w,
+                            fit: BoxFit.fitHeight,
+                          ),
+                          onTap: () => hidePromotion(),
+                        ),
+                      ),
+                      InkWell(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            R.assetsPngPromotionPopup, fit: BoxFit.fitWidth,
+                            // height: 260.h,
+                            width: MediaQuery.of(context).size.width * 2 / 3.4,
+                          ),
+                        ),
+                        onTap: () {
+                          Get.back();
+                          bannerCallBack.call();
+                        },
+                      )
+                    ],
+                  )
+                ],
+              ));
+        });
+  }
+
+  static Future<void> hidePromotion() async {
+    await Future.delayed(
+        const Duration(milliseconds: 200),
+        () => Navigator.of(_keyPromotion.currentContext!, rootNavigator: true)
+            .pop());
   }
 
   static Future<void> hideLoadingDialog() async {

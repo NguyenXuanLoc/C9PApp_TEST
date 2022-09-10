@@ -17,6 +17,21 @@ class MessageKey {
       'The sms verification code used to create the phone auth credential is invalid';
   static const String otp_expired = 'The sms code has expired';
   static const String OK = 'OK';
+  static const String NOT_FOUND_ANY_USER = 'Not found any user';
+  static const String CHANGE_PASSWORD = 'Change Password';
+  static const String CREATE_PASSWORD = 'Create password';
+  static const String COD  = 'cod';
+  static const String VNPay  = 'VNPay';
+  static const String avatarDefault  = 'https://via.placeholder.com/150x150.png';
+  static const String PENDING = 'Pending';
+  static const String CREATED = 'Created';
+  static const String DELIVERING = 'Delivering';
+  static const String GET = 'Get';
+  static const String CANCEL = 'Cancel';
+  static const String FAULT = 'Fault';
+  static const String SELFPOST = 'Selfpost';
+  static const String DELIVERED = 'Delivered';
+  static const String PAYED = 'Payed';
 }
 
 class ApiKey {
@@ -31,10 +46,18 @@ class ApiKey {
   static const qty = 'qty';
   static const lat = 'lat';
   static const lng = 'lng';
+  static const description = 'description';
   static const deliverTime = 'deliverTime';
   static const product_id = 'product_id';
   static const uid = 'uid';
   static const device_token = 'device_token';
+  static const saleId = 'saleId';
+  static const password = 'password';
+  static const password_confirmation = 'password_confirmation';
+  static const current_password = 'current_password';
+  static const vnp_ResponseCode = 'vnp_ResponseCode';
+  static const combo_id = 'combo_id';
+  static const useCombo = 'useCombo';
 }
 
 class AppConstant {
@@ -45,4 +68,5 @@ class AppConstant {
   static const URL_MENU = 'https://com9phut.vn/menu/';
   static const URL_WEATHER_ICON_DEFAULT =
       'http://openweathermap.org/img/wn/03d@2x.png';
+  static const PAYMENT_SUCCESSFULL='00';
 }

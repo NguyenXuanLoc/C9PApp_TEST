@@ -153,6 +153,7 @@ const colorBlue80 = Color(0xFF044ECC);
 const colorBlue70 = Color(0xFF001AFF);
 const colorBlue60 = Color(0xFF0084F4);
 const colorBlue40 = Color(0xFF5787DB);
+const colorBlue30 = Color(0xFF5592D8);
 const colorBlue2 = Color(0xFFCBD7ED);
 const colorBlue5 = Color(0xFFB1C8F1);
 const colorBlue85 = Color(0xFF003186);
@@ -168,6 +169,7 @@ const colorGreen50 = Color(0xFF239B2E);
 const colorGreen40 = Color(0xFF50AC17);
 
 const colorOrange80 = Color(0xFFFD6916);
+const colorOrange70 = Color(0xFFEF864B);
 const colorOrange60 = Color(0xFFCD8E15);
 const colorOrange50 = Color(0xFFBE9720);
 const colorOrange40 = Color(0xFFE5B110);

@@ -1,3 +1,4 @@
+import 'package:c9p/app/modules/buy_xu/controllers/buy_xu_controller.dart';
 import 'package:c9p/app/modules/confirm_order/controllers/confirm_order_controller.dart';
 import 'package:c9p/app/modules/confirm_rice_order/controllers/confirm_rice_order_controller.dart';
 import 'package:c9p/app/modules/detail_order/controllers/detail_order_controller.dart';
@@ -16,6 +17,7 @@ class TagUtils {
   List<String> tagsRiceOrderSuccess = [];
   List<String> tagsYourOrder = [];
   List<String> tagsCreateOrder = [];
+  List<String> tagsBuyXu = [];
 
   OrderSuccessController? findRiceOrderSuccessController() {
     OrderSuccessController? controller;
@@ -61,6 +63,19 @@ class TagUtils {
     }
     return controller;
   }
+
+  BuyXuController? findBuyXuController() {
+    BuyXuController? controller;
+    for (var i = 0; i < tagsBuyXu.length; i++) {
+      try {
+        controller = Get.find<BuyXuController>(tag: tagsBuyXu[i]);
+      } catch (e) {
+        continue;
+      }
+    }
+    return controller;
+  }
+
   ConfirmRiceOrderController? findConfirmRiceOrderController() {
     ConfirmRiceOrderController? controller;
     for (var i = 0; i < tagsConfirmRiceOrder.length; i++) {

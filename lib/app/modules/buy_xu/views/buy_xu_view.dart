@@ -165,7 +165,7 @@ class BuyXuView extends StatelessWidget {
                           ? true
                           : false,
                       height: heightContinue,
-                      onPress: () {},
+                      onPress: () => controller!.confirmOnclick(),
                       title: LocaleKeys.payment.tr.toCapitalized(),
                       textStyle: typoButton.copyWith(color: colorWhite),
                       backgroundColor:

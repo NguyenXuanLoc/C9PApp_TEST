@@ -202,6 +202,9 @@ class LocaleKeys {
   static const introduce_4 = 'introduce_4';
   static const introduce_5 = 'introduce_5';
   static const introduce_6 = 'introduce_6';
+  static const number_of_coins_to_buy = 'number_of_coins_to_buy';
+  static const number_of_coins_to_sale = 'number_of_coins_to_sale';
+  static const total_xu_recived = 'total_xu_recived';
 }
 class Locales {
   static const en = {
@@ -397,5 +400,8 @@ class Locales {
   'introduce_4': 'Khách hàng có thể sỡ hữu C9P Xu thông qua một số phương thức như sau: Mua xu hoặc hoàn xu trên mỗi đơn hàng.',
   'introduce_5': 'Khách hàng được hoàn xu = 1% giá trị đơn hàng',
   'introduce_6': 'Các giao dịch nạp C9P xu sẽ không thể huỷ/trả',
+  'number_of_coins_to_buy': 'Số xu mua',
+  'number_of_coins_to_sale': 'Số xu khuyến mãi',
+  'total_xu_recived': 'Tổng xu nhận được',
   };
 }

@@ -10,6 +10,8 @@ import '../modules/change_pass/bindings/change_pass_binding.dart';
 import '../modules/change_pass/views/change_pass_view.dart';
 import '../modules/combo_selling/bindings/combo_selling_binding.dart';
 import '../modules/combo_selling/views/combo_selling_view.dart';
+import '../modules/confirm_buy_xu/bindings/confirm_buy_xu_binding.dart';
+import '../modules/confirm_buy_xu/views/confirm_buy_xu_view.dart';
 import '../modules/confirm_order/bindings/confirm_order_binding.dart';
 import '../modules/confirm_order/views/confirm_order_view.dart';
 import '../modules/confirm_rice_order/bindings/confirm_rice_order_binding.dart';
@@ -218,6 +220,11 @@ class AppPages {
       name: _Paths.BUY_XU,
       page: () => BuyXuView(),
       binding: BuyXuBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONFIRM_BUY_XU,
+      page: () => ConfirmBuyXuView(),
+      binding: ConfirmBuyXuBinding(),
     ),
   ];
 }

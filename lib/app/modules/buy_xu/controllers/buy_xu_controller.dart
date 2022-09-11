@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/data/model/active_xu_model.dart';
+import 'package:c9p/app/routes/app_pages.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../data/model/xu_model.dart';
 import '../../../data/provider/user_provider.dart';
@@ -72,7 +74,7 @@ class BuyXuController extends GetxController {
           lPackageXu.addAll(lResponse);
           update();
         } else {
-          selectModel.value = lResponse.first;
+          // selectModel.value = lResponse.first;
           lPackageXu.value = lResponse;
         }
       }
@@ -89,6 +91,11 @@ class BuyXuController extends GetxController {
     super.onReady();
   }
 
+  void confirmOnclick(){
+    if(selectModel.value.price!=null) {
+      Get.toNamed(Routes.CONFIRM_BUY_XU, arguments: selectModel.value);
+    }
+  }
   @override
   void onClose() {}
 }

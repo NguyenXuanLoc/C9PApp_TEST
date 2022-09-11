@@ -206,6 +206,10 @@ class LocaleKeys {
   static const number_of_coins_to_sale = 'number_of_coins_to_sale';
   static const total_xu_recived = 'total_xu_recived';
   static const confirm_payment = 'confirm_payment';
+  static const payment_success = 'payment_success';
+  static const com9p_xu = 'com9p_xu';
+  static const your_xu = 'your_xu';
+  static const you_have_just_successfully_recharged = 'you_have_just_successfully_recharged';
 }
 class Locales {
   static const en = {
@@ -405,5 +409,9 @@ class Locales {
   'number_of_coins_to_sale': 'Số xu khuyến mãi',
   'total_xu_recived': 'Tổng xu nhận được',
   'confirm_payment': 'Xác nhận thanh toán',
+  'payment_success': 'Thanh toán thành công',
+  'you_have_just_successfully_recharged': 'Bạn vừa nạp thành công',
+  'com9p_xu': 'cơm 9 phút xu',
+  'your_xu': 'Xu của bạn',
   };
 }

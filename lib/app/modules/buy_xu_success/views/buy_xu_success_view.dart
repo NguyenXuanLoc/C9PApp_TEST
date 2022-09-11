@@ -1,22 +1,23 @@
-import 'package:c9p/app/components/app_button.dart';
-import 'package:c9p/app/components/app_line_space.dart';
-import 'package:c9p/app/config/app_translation.dart';
-import 'package:c9p/app/config/globals.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:c9p/app/utils/app_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+
 import 'package:get/get.dart';
 
+import '../../../components/app_button.dart';
+import '../../../components/app_line_space.dart';
 import '../../../components/app_scalford.dart';
 import '../../../components/app_text.dart';
+import '../../../config/app_translation.dart';
+import '../../../config/globals.dart';
 import '../../../config/resource.dart';
 import '../../../theme/app_styles.dart';
 import '../../../theme/colors.dart';
-import '../../../utils/app_utils.dart';
-import '../controllers/buy_combo_success_controller.dart';
+import '../controllers/buy_xu_success_controller.dart';
 
-class BuyComboSuccessView extends GetView<BuyComboSuccessController> {
+class BuyXuSuccessView extends GetView<BuyXuSuccessController> {
+  @override
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -55,31 +56,29 @@ class BuyComboSuccessView extends GetView<BuyComboSuccessController> {
                 itemSpace(),
                 Center(
                   child: AppText(
-                    LocaleKeys.order_success.tr,
+                    LocaleKeys.payment_success.tr,
                     style: typoMediumText700,
                   ),
                 ),
                 Center(
                   child: AppText(
-                    "${LocaleKeys.you_have_successfully_placed_order_number.tr} #${  controller.orderId}",
+                    "${LocaleKeys.you_have_just_successfully_recharged.tr}  ${Utils.formatXu(controller.totalXuRecived)} ${LocaleKeys.com9p_xu.tr}",
                     style: typoSuperSmallText500.copyWith(
                         fontSize: 12.sp, color: colorText40),
                   ),
                 ),
-                // itemSpace(),
                 itemSpace(),
                 itemSpace(),
-                const AppLineSpace(
-                  height: 10,
-                ),
+                const AppLineSpace(),
                 itemSpace(),
                 itemTitle(R.assetsSvgBag, LocaleKeys.order.tr),
                 itemSpace(),
-                itemContent(controller.model.name ?? '', "x${controller.qty}"),
+                itemContent(controller.model.data?.description,
+                    "${Utils.formatXu(controller.totalXuRecived)} ${LocaleKeys.xu.tr}"),
                 line(context),
                 itemSpace(),
                 itemContent(LocaleKeys.payment.tr,
-                    getTotalPrice() * int.parse(controller.qty)),
+                    '${Utils.formatMoney(controller.model.data?.amount ?? 0)}đ'),
                 line(context),
                 itemSpace(),
                 itemContent(
@@ -87,26 +86,25 @@ class BuyComboSuccessView extends GetView<BuyComboSuccessController> {
                 line(context),
                 itemSpace(),
                 itemContent(LocaleKeys.trading_code.tr,
-                    controller.paymentInfoModel.data ?? ""),
+                    controller.model.data?.id.toString() ?? ""),
                 const AppLineSpace(
                   height: 10,
                 ),
                 itemSpace(),
                 itemTitle(R.assetsSvgPerson2, LocaleKeys.buyer.tr),
                 itemSpace(),
+                itemContent(LocaleKeys.full_name.tr,
+                    controller.model.data?.buyerName ?? ''),
                 line(context),
                 itemSpace(),
-                itemContent(LocaleKeys.full_name.tr, controller.receiver),
-                line(context),
+                itemContent(LocaleKeys.phone_number.tr,
+                    controller.model.data?.buyerPhone ?? ''),
                 itemSpace(),
-                itemContent(LocaleKeys.phone_number.tr, controller.phoneNumber),
-                itemSpace(),
-                // itemSpace(),
                 Padding(
                   padding: EdgeInsets.only(
                       left: contentPadding, right: contentPadding),
                   child: AppButton(
-                    onPress: () => controller.onClickMain(),
+                    onPress: () => controller.yourXuOnclick(),
                     title: LocaleKeys.main.tr,
                     height: heightContinue,
                     textStyle: typoButton.copyWith(color: colorBlack),
@@ -121,9 +119,9 @@ class BuyComboSuccessView extends GetView<BuyComboSuccessController> {
                   padding: EdgeInsets.only(
                       left: contentPadding, right: contentPadding),
                   child: AppButton(
-                    onPress: () => controller.onClickMyCombo(),
+                    onPress: () {},
                     backgroundColor: colorGreen40,
-                    title: LocaleKeys.my_promotion.tr,
+                    title: LocaleKeys.your_xu.tr,
                     textStyle: typoButton.copyWith(color: colorWhite),
                     height: heightContinue,
                     width: MediaQuery.of(context).size.width,
@@ -139,11 +137,6 @@ class BuyComboSuccessView extends GetView<BuyComboSuccessController> {
         onWillPop: () async => controller.interceptor(context));
   }
 
-  String getPrice() =>
-      "${Utils.formatMoney(((controller.model.getFree ?? 1) * ricePrice + int.parse(controller.model.price!)) * int.parse(controller.qty))}đ";
-
-  String getTotalPrice() =>
-      "${Utils.formatMoney((int.parse(controller.model.price ?? '')) * int.parse(controller.qty))}đ";
 
   Widget itemSpace() => SizedBox(
         height: 11.h,

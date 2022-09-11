@@ -12,7 +12,7 @@ class AppLineSpace extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: colorSeparatorListView,
-      height: height ?? 10.h,
+      height: height ?? 9.h,
       width: MediaQuery.of(context).size.width,
     );
   }

@@ -34,6 +34,7 @@ abstract class Routes {
   static const CHANGE_PASS = _Paths.CHANGE_PASS;
   static const BUY_XU = _Paths.BUY_XU;
   static const CONFIRM_BUY_XU = _Paths.CONFIRM_BUY_XU;
+  static const BUY_XU_SUCCESS = _Paths.BUY_XU_SUCCESS;
 }
 
 abstract class _Paths {
@@ -69,4 +70,5 @@ abstract class _Paths {
   static const CHANGE_PASS = '/change-pass';
   static const BUY_XU = '/buy-xu';
   static const CONFIRM_BUY_XU = '/confirm-buy-xu';
+  static const BUY_XU_SUCCESS = '/buy-xu-success';
 }

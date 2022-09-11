@@ -56,14 +56,14 @@ class ConfirmBuyXuController extends GetxController {
         var responseCode =
             await Get.toNamed(Routes.PAYMENT, arguments: paymentInfoModel);
         if (responseCode == null) {
-          return;
+          // return;
         } else if (responseCode != AppConstant.PAYMENT_SUCCESSFULL) {
           toast(LocaleKeys.payment_failed.tr);
           return;
         }
         countCheckPayment = 0;
         Dialogs.showLoadingDialog(context);
-        checkPayment(paymentInfoModel);
+        checkPayment(paymentInfoModel.copyOf(data: 'C9PXuPackGX_291110332862781186205'));
       }
     } else {
       toast(response.error.toString());
@@ -78,6 +78,10 @@ class ConfirmBuyXuController extends GetxController {
       if ((paymentSuccessModel.isSucess ?? false)) {
         await Dialogs.hideLoadingDialog();
         toast(paymentSuccessModel.message ?? '');
+        Get.toNamed(Routes.BUY_XU_SUCCESS, arguments: [
+          paymentSuccessModel,
+          (this.model.freeXu ?? 0) + (this.model.buyXu ?? 0)
+        ]);
         /*   Get.toNamed(Routes.BUY_COMBO_SUCCESS, arguments: [
           this.model,
           qty,

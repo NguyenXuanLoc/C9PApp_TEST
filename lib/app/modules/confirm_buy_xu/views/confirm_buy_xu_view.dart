@@ -213,18 +213,22 @@ class ConfirmBuyXuView extends StatelessWidget {
         padding: EdgeInsets.only(
             left: contentPadding, right: contentPadding, bottom: 10),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppText(
-              title,
-              style: typoSuperSmallText500,
-            ),
             Expanded(
+                flex: 6,
                 child: AppText(
-              content,
-              style: typoSuperSmallText500,
-              textAlign: TextAlign.end,
-              maxLine: 1,
-            ))
+                  title,
+                  style: typoSuperSmallText500,
+                )),
+            Expanded(
+                flex: 4,
+                child: AppText(
+                  content,
+                  style: typoSuperSmallText500,
+                  textAlign: TextAlign.end,
+                  maxLine: 1,
+                ))
           ],
         ),
       );

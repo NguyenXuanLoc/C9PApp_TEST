@@ -173,4 +173,8 @@ class UserProvider extends BaseProvider {
 
   Future<ApiResult> getActiveCoinPack({int nextPage = 1}) async =>
       await GET('sales/xu/active?page=$nextPage');
+
+  Future<ApiResult> buyXuPackage(String packageId, String qty) async =>
+      await POST(
+          'user/buy-xu-pack', {ApiKey.packId: packageId, ApiKey.qty: qty});
 }

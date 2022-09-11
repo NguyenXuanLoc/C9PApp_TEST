@@ -1,6 +1,7 @@
 import 'package:c9p/app/components/app_button.dart';
 import 'package:c9p/app/components/app_scalford.dart';
 import 'package:c9p/app/extension/string_extension.dart';
+import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,9 +14,10 @@ import '../../../config/resource.dart';
 import '../../../theme/app_styles.dart';
 import '../../../theme/colors.dart';
 import '../../../utils/app_utils.dart';
-import '../controllers/confirm_buy_xu_controller.dart';
 
-class ConfirmBuyXuView extends GetView<ConfirmBuyXuController> {
+class ConfirmBuyXuView extends StatelessWidget {
+  var controller = TagUtils().findConfirmBuyXuController();
+
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -36,7 +38,7 @@ class ConfirmBuyXuView extends GetView<ConfirmBuyXuController> {
         automaticallyImplyLeading: true,
         centerTitle: true,
         title: AppText(
-          LocaleKeys.confirm_order.tr,
+          LocaleKeys.confirm_payment.tr,
           style: typoTitleHeader,
         ),
         flexibleSpace: Container(
@@ -53,12 +55,12 @@ class ConfirmBuyXuView extends GetView<ConfirmBuyXuController> {
           itemTitle(R.assetsSvgBag, LocaleKeys.order.tr),
           itemSpace(),
           itemSpace(),
-          itemContent(controller.model.name ?? '',
-              '${Utils.formatMoney(controller.model.price ?? 0)} ${LocaleKeys.xu.tr}'),
+          itemContent(controller!.model.name ?? '',
+              '${Utils.formatMoney(controller!.model.price ?? 0)} ${LocaleKeys.xu.tr}'),
           line(context),
           itemSpace(),
           Obx(() => itemContent(LocaleKeys.received.tr.toCapitalized(),
-              controller.userName.value ?? '')),
+              controller!.userName.value)),
           Container(
             height: 10,
             color: colorSeparatorListView,
@@ -68,24 +70,20 @@ class ConfirmBuyXuView extends GetView<ConfirmBuyXuController> {
           itemSpace(),
           itemContent(
               LocaleKeys.number_of_coins_to_buy.tr,
-              Utils.formatMoney(controller.model.buyXu ?? 0) +" "+
-                  LocaleKeys.xu.tr),
+              "${Utils.formatMoney(controller!.model.buyXu ?? 0)} ${LocaleKeys.xu.tr}"),
           line(context),
           itemSpace(),
           itemContent(
               LocaleKeys.number_of_coins_to_sale.tr,
-              Utils.formatMoney(controller.model.freeXu ?? 0) +" "+
-                  LocaleKeys.xu.tr),
+              "${Utils.formatMoney(controller!.model.freeXu ?? 0)} ${LocaleKeys.xu.tr}"),
           line(context),
           itemSpace(),
-          itemContent(
-              LocaleKeys.total_xu_recived.tr,
-              "${Utils.formatMoney((controller.model.freeXu ?? 0) +
-                      (controller.model.buyXu ?? 0))} ${LocaleKeys.xu.tr}"),
+          itemContent(LocaleKeys.total_xu_recived.tr,
+              "${Utils.formatMoney((controller!.model.freeXu ?? 0) + (controller!.model.buyXu ?? 0))} ${LocaleKeys.xu.tr}"),
           line(context),
           itemSpace(),
           itemContent(LocaleKeys.total_price.tr,
-              "${(Utils.formatMoney(controller.model.price ?? 0))}đ"),
+              "${(Utils.formatMoney(controller!.model.price ?? 0))}đ"),
           itemSpace(),
           const Spacer(),
           paymentButton(context),
@@ -151,7 +149,7 @@ class ConfirmBuyXuView extends GetView<ConfirmBuyXuController> {
                         width: 10,
                       ),
                       AppText(
-                        '${Utils.formatMoney(controller.model.price ?? 0)}đ',
+                        '${Utils.formatMoney(controller!.model.price ?? 0)}đ',
                         style: typoSuperSmallText600.copyWith(fontSize: 11.sp),
                       ),
                       const SizedBox(
@@ -167,7 +165,7 @@ class ConfirmBuyXuView extends GetView<ConfirmBuyXuController> {
             itemSpace(),
             AppButton(
               height: heightContinue,
-              onPress: () {},
+              onPress: () => controller!.paymentOnClick(context),
               title: LocaleKeys.payment.tr.toCapitalized(),
               textStyle: typoButton.copyWith(color: colorWhite),
               backgroundColor: colorGreen40,

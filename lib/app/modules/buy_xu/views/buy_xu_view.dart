@@ -42,12 +42,12 @@ class BuyXuView extends StatelessWidget {
                 Stack(
                   children: [
                     Container(
-                      padding: EdgeInsets.only(bottom: 35.h),
+                      padding: EdgeInsets.only(bottom: 30.h),
                       width: MediaQuery.of(context).size.width,
                       child: SvgPicture.asset(
                         R.assetsBackgroundHeaderTabMainSvg,
                         fit: BoxFit.fitWidth,
-                        height: 30.h,
+                        height: 35.h,
                         width: MediaQuery.of(context).size.width,
                       ),
                     ),
@@ -58,76 +58,15 @@ class BuyXuView extends StatelessWidget {
                     ))
                   ],
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
+                itemSpace(),
                 paddingWidget(AppText(
                   LocaleKeys.deposit_xu_into_your_account.tr,
                   style: typoSmallTextBold,
                 )),
                 itemSpace(),
-                paddingWidget(Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: colorOrange40.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(8)),
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText(
-                        LocaleKeys.amount_want_to_deposit.tr,
-                        style: typoSuperSmallTextRegular,
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Obx(() => AppText(
-                            "${Utils.formatXu(controller!.selectModel.value.buyXu ?? 0)} ${LocaleKeys.xu.tr}",
-                            style: typoSuperSmallText600.copyWith(
-                                color: colorOrange70),
-                          )),
-                      itemSpace(),
-                      SizedBox(
-                        height: 33.h,
-                        child: Center(
-                          child: Obx(() => controller!.lPackageXu.isEmpty &&
-                                  controller!.isLoading.value
-                              ? const AppCircleLoading()
-                              : controller!.lPackageXu.isNotEmpty
-                                  ? ListView.separated(
-                                      controller: controller!.scrollController,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      physics: const BouncingScrollPhysics(),
-                                      itemBuilder: (c, i) =>
-                                          (i == controller!.lPackageXu.length)
-                                              ? const AppCircleLoading()
-                                              : itemXu(context,
-                                                  controller!.lPackageXu[i]),
-                                      separatorBuilder: (i, x) =>
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                      itemCount: (controller!.isLoading.value &&
-                                              controller!
-                                                  .lPackageXu.isNotEmpty &&
-                                              !controller!.isReadEnd.value)
-                                          ? controller!.lPackageXu.length + 1
-                                          : controller!.lPackageXu.length)
-                                  : AppText(
-                                      LocaleKeys.not_data_pull_to_refresh.tr,
-                                      textAlign: TextAlign.center,
-                                      style: typoSuperSmallTextBold.copyWith(
-                                        color: colorText60,
-                                      ),
-                                    )),
-                        ),
-                      )
-                    ],
-                  ),
-                )),
+                infoPackageXuWidget(context),
                 itemSpace(),
+               const  SizedBox(height: 3,),
                 Obx(() => itemInfoXu(
                     context,
                     LocaleKeys.number_of_coins_received.tr,
@@ -224,6 +163,70 @@ class BuyXuView extends StatelessWidget {
         onTap: () => controller!.selectPackageXu(model),
       );
 
+  Widget infoPackageXuWidget(BuildContext context)=> paddingWidget(Container(
+    padding: const EdgeInsets.all(10),
+    decoration: BoxDecoration(
+        color: colorOrange40.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(13)),
+    width: MediaQuery.of(context).size.width,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppText(
+          LocaleKeys.amount_want_to_deposit.tr,
+          style: typoSuperSmallTextRegular,
+        ),
+        const SizedBox(
+          height: 2,
+        ),
+        Obx(() => AppText(
+          "${Utils.formatXu(controller!.selectModel.value.buyXu ?? 0)} ${LocaleKeys.xu.tr}",
+          style: typoSuperSmallText600.copyWith(
+              color: colorOrange70),
+        )),
+        const SizedBox(
+          height: 8,
+        ),
+        SizedBox(
+          height: 33.h,
+          child: Center(
+            child: Obx(() => controller!.lPackageXu.isEmpty &&
+                controller!.isLoading.value
+                ? const AppCircleLoading()
+                : controller!.lPackageXu.isNotEmpty
+                ? ListView.separated(
+                controller: controller!.scrollController,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (c, i) =>
+                (i == controller!.lPackageXu.length)
+                    ? const AppCircleLoading()
+                    : itemXu(context,
+                    controller!.lPackageXu[i]),
+                separatorBuilder: (i, x) =>
+                const SizedBox(
+                  width: 10,
+                ),
+                itemCount: (controller!.isLoading.value &&
+                    controller!
+                        .lPackageXu.isNotEmpty &&
+                    !controller!.isReadEnd.value)
+                    ? controller!.lPackageXu.length + 1
+                    : controller!.lPackageXu.length)
+                : AppText(
+              LocaleKeys.not_data_pull_to_refresh.tr,
+              textAlign: TextAlign.center,
+              style: typoSuperSmallTextBold.copyWith(
+                color: colorText60,
+              ),
+            )),
+          ),
+        )
+      ],
+    ),
+  ));
+
   Widget paddingWidget(Widget widget) => Padding(
         padding: EdgeInsets.only(left: contentPadding, right: contentPadding),
         child: widget,
@@ -244,7 +247,7 @@ class BuyXuView extends StatelessWidget {
               blurRadius: 4,
               offset: const Offset(0, 0.5),
             )
-          ], borderRadius: BorderRadius.circular(15), color: colorWhite),
+          ], borderRadius: BorderRadius.circular(20), color: colorWhite),
           child: Row(
             children: [
               Column(
@@ -254,6 +257,9 @@ class BuyXuView extends StatelessWidget {
                   AppText(
                     LocaleKeys.xu_in_wallet.tr,
                     style: typoSuperSmallText600,
+                  ),
+                  const SizedBox(
+                    height: 3,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -265,10 +271,10 @@ class BuyXuView extends StatelessWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      AppText(
+                      Obx(() => AppText(
                           '${Utils.formatXu(controller!.xuModel.value.balance ?? 0)} ${LocaleKeys.xu.tr}',
                           style:
-                              typoSmallTextBold.copyWith(color: colorOrange70))
+                              typoSmallTextBold.copyWith(color: colorOrange70)))
                     ],
                   )
                 ],

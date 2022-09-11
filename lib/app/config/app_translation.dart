@@ -205,6 +205,7 @@ class LocaleKeys {
   static const number_of_coins_to_buy = 'number_of_coins_to_buy';
   static const number_of_coins_to_sale = 'number_of_coins_to_sale';
   static const total_xu_recived = 'total_xu_recived';
+  static const confirm_payment = 'confirm_payment';
 }
 class Locales {
   static const en = {
@@ -403,5 +404,6 @@ class Locales {
   'number_of_coins_to_buy': 'Số xu mua',
   'number_of_coins_to_sale': 'Số xu khuyến mãi',
   'total_xu_recived': 'Tổng xu nhận được',
+  'confirm_payment': 'Xác nhận thanh toán',
   };
 }

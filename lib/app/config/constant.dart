@@ -58,6 +58,7 @@ class ApiKey {
   static const vnp_ResponseCode = 'vnp_ResponseCode';
   static const combo_id = 'combo_id';
   static const useCombo = 'useCombo';
+  static const packId = 'packId';
 }
 
 class AppConstant {

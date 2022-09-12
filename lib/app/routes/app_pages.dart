@@ -62,13 +62,15 @@ import '../modules/webview/bindings/webview_binding.dart';
 import '../modules/webview/views/webview_view.dart';
 import '../modules/your_order/bindings/your_order_binding.dart';
 import '../modules/your_order/views/your_order_view.dart';
+import '../modules/your_xu/bindings/your_xu_binding.dart';
+import '../modules/your_xu/views/your_xu_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH;
+  static const INITIAL = Routes.YOUR_XU;
 
   static final routes = [
     GetPage(
@@ -232,6 +234,11 @@ class AppPages {
       name: _Paths.BUY_XU_SUCCESS,
       page: () => BuyXuSuccessView(),
       binding: BuyXuSuccessBinding(),
+    ),
+    GetPage(
+      name: _Paths.YOUR_XU,
+      page: () => YourXuView(),
+      binding: YourXuBinding(),
     ),
   ];
 }

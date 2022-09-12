@@ -20,5 +20,5 @@ class BuyXuSuccessController extends GetxController {
 
   void mainOnclick() => Get.offAllNamed(Routes.HOME);
 
-  void yourXuOnclick() => Get.offAllNamed(Routes.HOME);
+  void yourXuOnclick() => Get.toNamed(Routes.YOUR_XU);
 }

@@ -11,9 +11,11 @@ import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:c9p/app/config/globals.dart' as globals;
 
 import '../../../components/dialogs.dart';
 import '../../../data/model/payment_info_model.dart';
+import '../../../data/model/xu_model.dart';
 
 class ConfirmOrderController extends GetxController {
   ComboSellingModel model = Get.arguments[0];
@@ -22,6 +24,7 @@ class ConfirmOrderController extends GetxController {
   String phoneNumber = Get.arguments[3];
   var userProvider = UserProvider();
   int countCheckPayment = 0;
+  final xuModel  = XuModel().obs;
 
 
   void onClickPayment(BuildContext context) async {
@@ -84,5 +87,12 @@ class ConfirmOrderController extends GetxController {
       Timer(const Duration(seconds: 7), () => checkPayment(model));
     }
   }
-
+  void getInfoWallet() async{
+    if(globals.isLogin){
+      var response = await userProvider.getInfoWallet();
+      if(response.error== null && response.data!=null){
+        xuModel.value = XuModel.fromJson(response.data['data']);
+      }
+    }
+  }
 }

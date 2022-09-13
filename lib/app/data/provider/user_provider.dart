@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/data/provider/base_provider.dart';
 import 'package:c9p/app/utils/log_utils.dart';
@@ -53,6 +55,7 @@ class UserProvider extends BaseProvider {
       ApiKey.deliverTime: /*'2023-6-15 08:32:21'*/ deliverTime,
       ApiKey.product_id: productId
     };
+    logE("TAG BOODY: ${json.encode(body)}");
     if (comboId != null) {
       body[ApiKey.combo_id] = comboId.toString();
       body[ApiKey.useCombo] = useCombo.toString();

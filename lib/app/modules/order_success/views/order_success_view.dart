@@ -1,5 +1,6 @@
 import 'package:c9p/app/components/app_line_space.dart';
 import 'package:c9p/app/config/globals.dart';
+import 'package:c9p/app/data/model/weather_model.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:flutter/material.dart';
@@ -101,6 +102,10 @@ class OrderSuccessView extends StatelessWidget {
                                 ? LocaleKeys.vn_pay.tr
                                 : LocaleKeys.cash.tr)
                             : LocaleKeys.cash.tr),
+                    const AppLineSpace(),
+                    itemInfoXu(
+                        R.assetsPngXu,
+                        "${LocaleKeys.one_precent_of_order_value.tr}- ${"${Utils.formatXu(controller?.model?.returnXu ?? 0)} ${LocaleKeys.xu.tr}"}"),
                     const AppLineSpace(),
                     itemTitle(R.assetsSvgPerson3, LocaleKeys.buyer.tr),
                 line(context),
@@ -263,6 +268,35 @@ class OrderSuccessView extends StatelessWidget {
               title,
               style: typoSuperSmallText600,
             )
+          ],
+        ),
+      );
+  Widget itemInfoXu(String icon, String title) => Padding(
+        padding: EdgeInsets.only(
+            left: contentPadding, right: contentPadding, top: 10, bottom: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(
+              icon,
+              width: 15.w,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            AppText(
+              LocaleKeys.cash_back.tr,
+              style: typoSuperSmallText600,
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Expanded(
+                child: AppText(
+              title,textAlign: TextAlign.end,
+              style: typoSuperSmallTextRegular,
+            ))
           ],
         ),
       );

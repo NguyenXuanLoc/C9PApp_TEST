@@ -34,8 +34,8 @@ class YourXuView extends StatelessWidget {
                   color: colorGrey2,
                   padding: EdgeInsets.only(bottom: 40.h),
                   width: MediaQuery.of(context).size.width,
-                  child: SvgPicture.asset(
-                    R.assetsBackgroundHeaderTabMainSvg,
+                  child: Image.asset(
+                    R.assetsBackgroundHeaderTabMainPng,
                     fit: BoxFit.fitWidth,
                     height: 35.h,
                     width: MediaQuery.of(context).size.width,
@@ -324,8 +324,8 @@ class YourXuView extends StatelessWidget {
         ),
         automaticallyImplyLeading: false,
         centerTitle: true,
-        flexibleSpace: SvgPicture.asset(
-          R.assetsBackgroundHeaderTabMainSvg,
+        flexibleSpace: Image.asset(
+          R.assetsBackgroundHeaderTabMainPng,
           fit: BoxFit.cover,
         ),
       );

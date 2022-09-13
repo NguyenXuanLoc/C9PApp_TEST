@@ -44,8 +44,8 @@ class BuyXuView extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.only(bottom: 25.h),
                       width: MediaQuery.of(context).size.width,
-                      child: SvgPicture.asset(
-                        R.assetsBackgroundHeaderTabMainSvg,
+                      child: Image.asset(
+                        R.assetsBackgroundHeaderTabMainPng,
                         fit: BoxFit.fitWidth,
                         height: 30.h,
                         width: MediaQuery.of(context).size.width,
@@ -335,8 +335,8 @@ class BuyXuView extends StatelessWidget {
         ),
         automaticallyImplyLeading: false,
         centerTitle: true,
-        flexibleSpace: SvgPicture.asset(
-          R.assetsBackgroundHeaderTabMainSvg,
+        flexibleSpace: Image.asset(
+          R.assetsBackgroundHeaderTabMainPng,
           fit: BoxFit.cover,
         ),
       );

@@ -219,6 +219,7 @@ class LocaleKeys {
   static const C9P_xu = 'C9P_xu';
   static const cash_back = 'cash_back';
   static const one_precent_of_order_value = 'one_precent_of_order_value';
+  static const my_com_9_phut_xu = 'my_com_9_phut_xu';
 }
 class Locales {
   static const en = {
@@ -431,5 +432,6 @@ class Locales {
     'C9P_xu': 'C9P xu',
     'cash_back': 'Hoàn xu',
     'one_precent_of_order_value': '1% giá trị đơn  hàng',
+    'my_com_9_phut_xu': 'Cơm 9 phút xu của tôi',
   };
 }

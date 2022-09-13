@@ -159,6 +159,9 @@ class TabAccountController extends GetxController {
       case AccountAction.DELETE:
         deleteAccount(context);
         break;
+      case AccountAction.MY_XU:
+        Get.toNamed(Routes.YOUR_XU);
+        break;
     }
   }
 }

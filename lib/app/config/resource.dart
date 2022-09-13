@@ -5,11 +5,13 @@ class R {
   static const String EnvDev = '.env.dev';
 
   /// PNG
+  static const String assetsPngMoneyBag = 'assets/png/money_bag.png';
   static const String assetsGifCrownPng = 'assets/gif/Crown.png';
   static const String assetsBackgroundPng = 'assets/png/splash.png';
   static const String assetsVnPng = 'assets/png/vn.png';
   static const String assetsPngHand = 'assets/png/hand.png';
   static const String assetsPngWeather = 'assets/png/weather.png';
+  static const String assetsPngLikeGreen = 'assets/png/like_green.png';
   static const String assetsBackgroundHeaderTabMainPng =
       'assets/png/background_header_tab_main.png';
   static const String assetsPngComSuon9p = 'assets/png/com_suon_9p.png';

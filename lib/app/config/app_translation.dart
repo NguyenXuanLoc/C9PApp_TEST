@@ -213,6 +213,10 @@ class LocaleKeys {
   static const history = 'history';
   static const load_cents = 'load_cents';
   static const use_coins = 'use_coins';
+  static const number_coins = 'number_coins';
+  static const xu_not_enough = 'xu_not_enough';
+  static const xu_not_enough_please_try_again = 'xu_not_enough_please_try_again';
+  static const C9P_xu = 'C9P_xu';
 }
 class Locales {
   static const en = {
@@ -419,5 +423,9 @@ class Locales {
   'history': 'Lịch sử',
   'load_cents': 'Nạp xu',
   'use_coins': 'Tiêu xu',
+  'number_coins': 'Số xu',
+  'xu_not_enough': 'Số xu không đủ',
+    'xu_not_enough_please_try_again': 'Số xu không đủ, vui lòng nạp thêm xu',
+    'C9P_xu': 'C9P xu',
   };
 }

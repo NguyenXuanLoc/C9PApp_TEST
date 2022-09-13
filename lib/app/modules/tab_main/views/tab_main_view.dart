@@ -388,7 +388,7 @@ class TabMainView extends GetView<TabMainController> {
                     width: 10,
                   ),
                   Obx(() => AppText(
-                      '${Utils.formatXu(controller!.xuModel.value.balance ?? 0)} ${LocaleKeys.xu.tr}',
+                      '${Utils.formatXu(controller.xuModel.value.balance ?? 0)} ${LocaleKeys.xu.tr}',
                       style:
                       typoSmallTextBold.copyWith(color: colorOrange70)))
                 ],
@@ -398,7 +398,7 @@ class TabMainView extends GetView<TabMainController> {
           const Spacer(),
           AppButton(
             backgroundColor: colorGreen40,
-            onPress: () => controller!.buyXuOnclick(context),
+            onPress: () => controller.buyXuOnclick(context),
             borderRadius: 15,
             height: 26.h,
             padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),

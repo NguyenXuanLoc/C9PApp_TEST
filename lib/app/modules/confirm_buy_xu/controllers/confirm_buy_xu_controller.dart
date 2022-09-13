@@ -63,6 +63,7 @@ class ConfirmBuyXuController extends GetxController {
         }
         countCheckPayment = 0;
         Dialogs.showLoadingDialog(context);
+        checkPayment(paymentInfoModel);
         // checkPayment(paymentInfoModel.copyOf(data: 'C9PXuPackGX_291110332862781186205'));
       }
     } else {

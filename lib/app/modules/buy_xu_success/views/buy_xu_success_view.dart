@@ -1,4 +1,5 @@
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,9 +15,9 @@ import '../../../config/globals.dart';
 import '../../../config/resource.dart';
 import '../../../theme/app_styles.dart';
 import '../../../theme/colors.dart';
-import '../controllers/buy_xu_success_controller.dart';
 
-class BuyXuSuccessView extends GetView<BuyXuSuccessController> {
+class BuyXuSuccessView extends StatelessWidget {
+  var controller = TagUtils().findBuyXuSuccessController();
   @override
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,7 @@ class BuyXuSuccessView extends GetView<BuyXuSuccessController> {
                 ),
                 Center(
                   child: AppText(
-                    "${LocaleKeys.you_have_just_successfully_recharged.tr}  ${Utils.formatXu(controller.totalXuRecived)} ${LocaleKeys.com9p_xu.tr}",
+                    "${LocaleKeys.you_have_just_successfully_recharged.tr}  ${Utils.formatXu(controller!.totalXuRecived)} ${LocaleKeys.com9p_xu.tr}",
                     style: typoSuperSmallText500.copyWith(
                         fontSize: 12.sp, color: colorText40),
                   ),
@@ -73,12 +74,12 @@ class BuyXuSuccessView extends GetView<BuyXuSuccessController> {
                 itemSpace(),
                 itemTitle(R.assetsSvgBag, LocaleKeys.order.tr),
                 itemSpace(),
-                itemContent(controller.model.data?.description,
-                    "${Utils.formatXu(controller.totalXuRecived)} ${LocaleKeys.xu.tr}"),
+                itemContent(controller!.model.data?.description,
+                    "${Utils.formatXu(controller!.totalXuRecived)} ${LocaleKeys.xu.tr}"),
                 line(context),
                 itemSpace(),
                 itemContent(LocaleKeys.payment.tr,
-                    '${Utils.formatMoney(controller.model.data?.amount ?? 0)}đ'),
+                    '${Utils.formatMoney(controller!.model.data?.amount ?? 0)}đ'),
                 line(context),
                 itemSpace(),
                 itemContent(
@@ -86,7 +87,7 @@ class BuyXuSuccessView extends GetView<BuyXuSuccessController> {
                 line(context),
                 itemSpace(),
                 itemContent(LocaleKeys.trading_code.tr,
-                    controller.model.data?.id.toString() ?? ""),
+                    controller!.model.data?.id.toString() ?? ""),
                 const AppLineSpace(
                   height: 10,
                 ),
@@ -94,17 +95,17 @@ class BuyXuSuccessView extends GetView<BuyXuSuccessController> {
                 itemTitle(R.assetsSvgPerson2, LocaleKeys.buyer.tr),
                 itemSpace(),
                 itemContent(LocaleKeys.full_name.tr,
-                    controller.model.data?.buyerName ?? ''),
+                    controller!.model.data?.buyerName ?? ''),
                 line(context),
                 itemSpace(),
                 itemContent(LocaleKeys.phone_number.tr,
-                    controller.model.data?.buyerPhone ?? ''),
+                    controller!.model.data?.buyerPhone ?? ''),
                 itemSpace(),
                 Padding(
                   padding: EdgeInsets.only(
                       left: contentPadding, right: contentPadding),
                   child: AppButton(
-                    onPress: () => controller.mainOnclick(),
+                    onPress: () => controller!.mainOnclick(),
                     title: LocaleKeys.main.tr,
                     height: heightContinue,
                     textStyle: typoButton.copyWith(color: colorBlack),
@@ -119,7 +120,7 @@ class BuyXuSuccessView extends GetView<BuyXuSuccessController> {
                   padding: EdgeInsets.only(
                       left: contentPadding, right: contentPadding),
                   child: AppButton(
-                    onPress: () =>controller.yourXuOnclick(),
+                    onPress: () =>controller!.yourXuOnclick(),
                     backgroundColor: colorGreen40,
                     title: LocaleKeys.your_xu.tr,
                     textStyle: typoButton.copyWith(color: colorWhite),
@@ -134,7 +135,7 @@ class BuyXuSuccessView extends GetView<BuyXuSuccessController> {
             ),
           ),
         ),
-        onWillPop: () async => controller.interceptor(context));
+        onWillPop: () async => controller!.interceptor(context));
   }
 
 

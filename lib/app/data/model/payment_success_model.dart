@@ -83,6 +83,7 @@ class Data {
     this.shipperRate,
     this.orderType,
     this.comboId,
+    this.returnXu
   });
 
   int? id;
@@ -124,6 +125,7 @@ class Data {
   dynamic productId;
   dynamic orderStatus;
   int? amount;
+  int? returnXu;
   dynamic shipperName;
   dynamic shipperPhone;
   dynamic shipperNumber;
@@ -177,6 +179,7 @@ class Data {
     shipperRate: json["shipper_rate"],
     orderType: json["order_type"],
     comboId: json["combo_id"],
+    returnXu: json["return_xu"],
   );
 
   Map<String, dynamic> toJson() => {

@@ -125,7 +125,7 @@ class TabMainView extends GetView<TabMainController> {
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(20.w),
                   bottomLeft: Radius.circular(20.w)),
-              child: SvgPicture.asset(R.assetsSvgBackgroundHeaderTabMain,
+              child: Image.asset(R.assetsBackgroundHeaderTabMainPng,
                   fit: BoxFit.fill),
             ),
           ),

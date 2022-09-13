@@ -105,7 +105,7 @@ class OrderSuccessView extends StatelessWidget {
                     const AppLineSpace(),
                     itemInfoXu(
                         R.assetsPngXu,
-                        "${LocaleKeys.one_precent_of_order_value.tr}- ${"${Utils.formatXu(controller?.model?.returnXu ?? 0)} ${LocaleKeys.xu.tr}"}"),
+                        "${LocaleKeys.one_precent_of_order_value.tr} - ${"${Utils.formatXu(controller?.model?.returnXu ?? 0)} ${LocaleKeys.xu.tr}"}"),
                     const AppLineSpace(),
                     itemTitle(R.assetsSvgPerson3, LocaleKeys.buyer.tr),
                 line(context),

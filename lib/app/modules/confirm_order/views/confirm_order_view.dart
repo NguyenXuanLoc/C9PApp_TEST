@@ -1,7 +1,7 @@
 import 'package:c9p/app/components/app_button.dart';
 import 'package:c9p/app/components/app_scalford.dart';
-import 'package:c9p/app/data/model/combo_best_seller_model.dart';
 import 'package:c9p/app/extension/string_extension.dart';
+import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,9 +15,10 @@ import '../../../config/resource.dart';
 import '../../../theme/app_styles.dart';
 import '../../../theme/colors.dart';
 import '../../../utils/app_utils.dart';
-import '../controllers/confirm_order_controller.dart';
+import '../../confirm_rice_order/controllers/confirm_rice_order_controller.dart';
 
-class ConfirmOrderView extends GetView<ConfirmOrderController> {
+class ConfirmOrderView extends StatelessWidget {
+  var controller = TagUtils().findConfirmBuyComboController();
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -55,15 +56,15 @@ class ConfirmOrderView extends GetView<ConfirmOrderController> {
           itemTitle(R.assetsSvgBag, LocaleKeys.order.tr),
           itemSpace(),
           itemSpace(),
-          itemContent(controller.model.name ?? '', 'x${controller.qty}'),
+          itemContent(controller!.model.name ?? '', 'x${controller!.qty}'),
           line(context),
           itemSpace(),
           itemContent(LocaleKeys.bowl_of_rice.tr.toCapitalized(),
-              '${((controller.model.discount ?? 0) + (controller.model.getFree ?? 0)) * int.parse(controller.qty)} ${LocaleKeys.slot.tr}'),
+              '${((controller!.model.discount ?? 0) + (controller!.model.getFree ?? 0)) * int.parse(controller!.qty)} ${LocaleKeys.slot.tr}'),
           line(context),
           itemSpace(),
           itemContent(
-              LocaleKeys.received.tr.toCapitalized(), controller.receiver),
+              LocaleKeys.received.tr.toCapitalized(), controller!.receiver),
           Container(
             height: 10,
             color: colorSeparatorListView,
@@ -76,7 +77,7 @@ class ConfirmOrderView extends GetView<ConfirmOrderController> {
           line(context),
           itemSpace(),
           itemContent(LocaleKeys.promotion.tr,
-              "${(Utils.formatMoney(((controller.model.getFree ?? 1) * ricePrice) * int.parse(controller.qty)))}đ"),
+              "${(Utils.formatMoney(((controller!.model.getFree ?? 1) * ricePrice) * int.parse(controller!.qty)))}đ"),
           line(context),
           itemSpace(),
           itemContent(LocaleKeys.total_price.tr, getTotalPrice()),
@@ -119,26 +120,29 @@ class ConfirmOrderView extends GetView<ConfirmOrderController> {
                       borderRadius: BorderRadius.circular(20)),
                   child: Row(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                            color: colorOrange40,
-                            borderRadius: BorderRadius.circular(20)),
-                        padding: const EdgeInsets.only(
-                            left: 10, right: 5, top: 2, bottom: 2),
-                        child: Row(
-                          children: [
-                            AppText(
-                              LocaleKeys.vn_pay.tr,
-                              style: typoSuperSmallText600.copyWith(
-                                  color: colorWhite),
-                            ),
-                            Icon(
-                              Icons.keyboard_arrow_down_rounded,
-                              color: colorWhite,
-                              size: 13.w,
-                            )
-                          ],
+                      InkWell(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: colorOrange40,
+                              borderRadius: BorderRadius.circular(20)),
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 5, top: 2, bottom: 2),
+                          child: Row(
+                            children: [
+                              AppText(
+                                LocaleKeys.vn_pay.tr,
+                                style: typoSuperSmallText600.copyWith(
+                                    color: colorWhite),
+                              ),
+                              Icon(
+                                Icons.keyboard_arrow_down_rounded,
+                                color: colorWhite,
+                                size: 13.w,
+                              )
+                            ],
+                          ),
                         ),
+                        onTap: () => showMethodPaymentWidget(context),
                       ),
                       const SizedBox(
                         width: 10,
@@ -164,7 +168,7 @@ class ConfirmOrderView extends GetView<ConfirmOrderController> {
                 ),
                 const Spacer(),
                 AppText(
-                  controller.model.saleId ?? '',
+                  controller!.model.saleId ?? '',
                   style: typoSuperSmallText500,
                 )
               ],
@@ -173,7 +177,7 @@ class ConfirmOrderView extends GetView<ConfirmOrderController> {
             itemSpace(),
             AppButton(
               height: heightContinue,
-              onPress: () => controller.onClickPayment(context),
+              onPress: () => controller!.paymentOnClick(context),
               title: LocaleKeys.payment.tr.toCapitalized(),
               textStyle: typoButton.copyWith(color: colorWhite),
               backgroundColor: colorGreen40,
@@ -192,10 +196,10 @@ class ConfirmOrderView extends GetView<ConfirmOrderController> {
       );
 
   String getPrice() =>
-      "${Utils.formatMoney(((controller.model.getFree ?? 1) * ricePrice + int.parse(controller.model.price!)) * int.parse(controller.qty))}đ";
+      "${Utils.formatMoney(((controller!.model.getFree ?? 1) * ricePrice + int.parse(controller!.model.price!)) * int.parse(controller!.qty))}đ";
 
   String getTotalPrice() =>
-      "${Utils.formatMoney((int.parse(controller.model.price ?? '')) * int.parse(controller.qty))}đ";
+      "${Utils.formatMoney((int.parse(controller!.model.price ?? '')) * int.parse(controller!.qty))}đ";
 
   Widget line(BuildContext context) => Container(
         margin: EdgeInsets.only(left: contentPadding, right: contentPadding),
@@ -244,6 +248,182 @@ class ConfirmOrderView extends GetView<ConfirmOrderController> {
                   maxLine: 1,
                 ))
           ],
+        ),
+      );
+
+  void showMethodPaymentWidget(BuildContext context) {
+    showModalBottomSheet<void>(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) {
+          return Wrap(
+            children: [
+              Container(
+                padding: EdgeInsets.only(
+                  top: 15.h,
+                ),
+                decoration: const BoxDecoration(color: colorWhite),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Stack(
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width,
+                            child: AppText(
+                              LocaleKeys.method_payment.tr,
+                              style: typoSuperSmallText600.copyWith(
+                                  fontSize: 14.sp),
+                            ),
+                          ),
+                          Positioned.fill(
+                            child: Container(
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.only(left: contentPadding),
+                              child: InkWell(
+                                child: SvgPicture.asset(R.assetsBackSvg),
+                                onTap: () => Navigator.pop(context),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      itemSpace(),
+                      Container(
+                        height: 0.1,
+                        color: colorBlack,
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                      itemPaymentDialog(
+                          R.assetsPngVnpay,
+                          LocaleKeys.vn_pay.tr.toUpperCase(),
+                          true,
+                          () => controller!.changeMethodPayment(
+                              context, MethodPayment.VNPAY),
+                          MethodPayment.VNPAY),
+                      Container(
+                        height: 0.1,
+                        color: colorBlack,
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                      itemPaymentBuyXu(context),
+                      itemSpace()
+                    ],
+                  ),
+                ),
+              )
+            ],
+          );
+        });
+  }
+
+  Widget itemPaymentBuyXu(BuildContext context) => Padding(
+        padding: EdgeInsets.only(
+            left: contentPadding,
+            right: contentPadding,
+            top: contentPadding - 1,
+            bottom: contentPadding - 1),
+        child: InkWell(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                R.assetsPngXu,
+                width: 20.w,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              AppText(
+                ((controller!.xuModel.value.balance ?? 0) >=
+                        controller!.getTotalPrice())
+                    ? ('${LocaleKeys.number_coins.tr} ${Utils.formatMoney(controller!.xuModel.value.balance ?? 0)} ${LocaleKeys.xu.tr}')
+                    : LocaleKeys.xu_not_enough.tr,
+                style: typoSuperSmallTextRegular,
+              ),
+              const Spacer(),
+              Visibility(
+                visible: ((controller!.xuModel.value.balance ?? 0) <
+                    controller!.getTotalPrice()),
+                child: InkWell(
+                  child: Row(
+                    children: [
+                      AppText(
+                        LocaleKeys.load_cents.tr,
+                        style: typoSuperSmallTextRegular.copyWith(
+                            color: colorBlue65),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 10.w,
+                      )
+                    ],
+                  ),
+                  onTap: () => controller!.loadCoinOnClick(context),
+                ),
+              ),
+              (((controller!.xuModel.value.balance ?? 0) >=
+                          controller!.getTotalPrice()) &&
+                      controller!.currentMethodPayment.value ==
+                          MethodPayment.XU)
+                  ? Image.asset(
+                      R.assetsPngLikeGreen,
+                      width: 17.w,
+                    )
+                  : SizedBox()
+            ],
+          ),
+          onTap: () =>
+              controller!.changeMethodPayment(context, MethodPayment.XU),
+        ),
+      );
+
+  Widget itemPaymentDialog(String icon, String title, bool isSelect,
+          VoidCallback callBack, MethodPayment methodPayment) =>
+      Padding(
+        padding: EdgeInsets.only(
+            left: contentPadding,
+            right: contentPadding,
+            top: contentPadding - 1,
+            bottom: contentPadding - 1),
+        child: InkWell(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                icon,
+                width: 20.w,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              AppText(
+                title,
+                style: typoSuperSmallTextRegular,
+              ),
+              const Spacer(),
+              methodPayment == controller!.currentMethodPayment.value
+                  ? Image.asset(
+                      R.assetsPngLikeGreen,
+                      width: 17.w,
+                    )
+                  : const SizedBox()
+              /* Icon(
+                Icons.check,
+                color: methodPayment == controller!.currentMethodPayment
+                    ? colorGreen55
+                    : Colors.transparent,
+                size: 17.w,
+              )*/
+            ],
+          ),
+          onTap: () => callBack.call(),
         ),
       );
 }

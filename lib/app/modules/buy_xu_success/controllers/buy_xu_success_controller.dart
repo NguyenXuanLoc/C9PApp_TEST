@@ -1,3 +1,5 @@
+import 'package:c9p/app/modules/buy_combo_success/controllers/buy_combo_success_controller.dart';
+import 'package:c9p/app/utils/app_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -5,6 +7,9 @@ import '../../../data/model/payment_success_model.dart';
 import '../../../routes/app_pages.dart';
 
 class BuyXuSuccessController extends GetxController {
+  String tag;
+
+  BuyXuSuccessController() : tag = Utils.getRandomTag();
   PaymentSuccessModel model = Get.arguments[0];
   int totalXuRecived = Get.arguments[1];
 

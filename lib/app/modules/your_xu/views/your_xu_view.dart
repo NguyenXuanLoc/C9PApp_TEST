@@ -4,6 +4,7 @@ import 'package:c9p/app/components/app_not_data_widget.dart';
 import 'package:c9p/app/components/app_scalford.dart';
 import 'package:c9p/app/components/app_text.dart';
 import 'package:c9p/app/components/item_order.dart';
+import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/config/globals.dart';
 import 'package:c9p/app/theme/app_styles.dart';
 import 'package:c9p/app/utils/tag_utils.dart';
@@ -14,6 +15,7 @@ import 'package:get/get.dart';
 
 import '../../../config/app_translation.dart';
 import '../../../config/resource.dart';
+import '../../../data/model/history_xu_model.dart';
 import '../../../theme/colors.dart';
 import '../../../utils/app_utils.dart';
 
@@ -49,6 +51,7 @@ class YourXuView extends StatelessWidget {
             Stack(
               children: [
                 TabBar(
+                  padding: EdgeInsets.all(0),
                   labelPadding: EdgeInsets.all(0),
                   controller: controller!.tabController,
                   onTap: (index) => controller!.setIndex(index),
@@ -91,8 +94,8 @@ class YourXuView extends StatelessWidget {
               controller: controller!.tabController,
               children: <Widget>[
                 historyWidget(context),
-                loadCoinWidget(context),
-                useCoinWidget(context)
+                addXuWidget(context),
+                useXuWidget(context)
               ],
             )),
           ],
@@ -108,41 +111,40 @@ class YourXuView extends StatelessWidget {
   Widget historyWidget(BuildContext context) {
     return Obx(() => RefreshIndicator(
         color: colorGreen60,
-        child: controller!.isLoadingDoneOrder.value &&
-                controller!.lDoneOrder.isEmpty
+        child: controller!.isLoadingHistory.value &&
+                controller!.lHistory.isEmpty
             ? const AppCircleLoading()
-            : controller!.lDoneOrder.isEmpty
+            : controller!.lHistory.isEmpty
                 ? Stack(
                     children: [
-                      ListView(),
+                      ListView(physics: const AlwaysScrollableScrollPhysics()),
                       AppNotDataWidget(
                         message: LocaleKeys.not_order_pull_to_refresh.tr,
                       )
                     ],
                   )
                 : ListView.separated(
-                    controller: controller!.doneOrderScrollController,
+                    controller: controller!.historyScrollController,
                     physics: const AlwaysScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(0),
-                    itemBuilder: (c, i) => (i == controller!.lDoneOrder.length)
+                    itemBuilder: (c, i) => (i == controller!.lHistory.length)
                         ? const AppCircleLoading()
-                        : itemInfoWidget(context, false),
+                        : itemInfoWidget(context, controller!.lHistory[i]),
                     separatorBuilder: (i, c) => lineWidget(context),
-                    itemCount: !controller!.isReadEndDoneOrder.value &&
-                            controller!.lDoneOrder.isNotEmpty &&
-                            controller!.isLoadingDoneOrder.value
-                        ? controller!.lDoneOrder.length + 1
-                        : controller!.lDoneOrder.length),
-        onRefresh: () async => controller!.refreshDoneOrder()));
+                    itemCount: !controller!.isReadEndHistory.value &&
+                            controller!.lHistory.isNotEmpty &&
+                            controller!.isLoadingHistory.value
+                        ? controller!.lHistory.length + 1
+                        : controller!.lHistory.length),
+        onRefresh: () async => controller!.refreshHistory()));
   }
 
-  Widget loadCoinWidget(BuildContext context) {
+  Widget addXuWidget(BuildContext context) {
     return Obx(() => RefreshIndicator(
         color: colorGreen60,
-        child: controller!.isLoadingPendingOrder.value &&
-                controller!.lPendingOrder.isEmpty
+        child: controller!.isLoadingAddXu.value && controller!.lAddXu.isEmpty
             ? const AppCircleLoading()
-            : controller!.lPendingOrder.isEmpty
+            : controller!.lAddXu.isEmpty
                 ? Stack(
                     children: [
                       ListView(),
@@ -152,33 +154,31 @@ class YourXuView extends StatelessWidget {
                     ],
                   )
                 : ListView.separated(
-                    controller: controller!.pendingOrderScrollController,
+                    controller: controller!.addXuScrollController,
                     physics: const AlwaysScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(0),
-                    itemBuilder: (c, i) =>
-                        (i == controller!.lPendingOrder.length)
-                            ? const AppCircleLoading()
-                            : itemInfoWidget(context, true),
+                    itemBuilder: (c, i) => (i == controller!.lAddXu.length)
+                        ? const AppCircleLoading()
+                        : itemInfoWidget(context, controller!.lAddXu[i]),
                     separatorBuilder: (i, c) => Container(
                           color: colorLine.withOpacity(0.3),
                           height: 0.2,
                           width: MediaQuery.of(context).size.width,
                         ),
-                    itemCount: (!controller!.isReadEndPendingOrder.value &&
-                            controller!.lPendingOrder.isNotEmpty &&
-                            controller!.isLoadingPendingOrder.value)
-                        ? controller!.lPendingOrder.length + 1
-                        : controller!.lPendingOrder.length),
-        onRefresh: () async => controller!.refreshPendingOrder()));
+                    itemCount: (!controller!.isReadEndAddXu.value &&
+                            controller!.lAddXu.isNotEmpty &&
+                            controller!.isLoadingAddXu.value)
+                        ? controller!.lAddXu.length + 1
+                        : controller!.lAddXu.length),
+        onRefresh: () async => controller!.refreshAddXu()));
   }
 
-  Widget useCoinWidget(BuildContext context) {
+  Widget useXuWidget(BuildContext context) {
     return Obx(() => RefreshIndicator(
         color: colorGreen60,
-        child: controller!.isLoadingPendingOrder.value &&
-                controller!.lPendingOrder.isEmpty
+        child: controller!.isLoadingUseXu.value && controller!.lUseXu.isEmpty
             ? const AppCircleLoading()
-            : controller!.lPendingOrder.isEmpty
+            : controller!.lUseXu.isEmpty
                 ? Stack(
                     children: [
                       ListView(),
@@ -188,20 +188,19 @@ class YourXuView extends StatelessWidget {
                     ],
                   )
                 : ListView.separated(
-                    controller: controller!.pendingOrderScrollController,
+                    controller: controller!.useXuScrollController,
                     physics: const AlwaysScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(0),
-                    itemBuilder: (c, i) =>
-                        (i == controller!.lPendingOrder.length)
-                            ? const AppCircleLoading()
-                            : itemInfoWidget(context, false),
+                    itemBuilder: (c, i) => (i == controller!.lUseXu.length)
+                        ? const AppCircleLoading()
+                        : itemInfoWidget(context, controller!.lUseXu[i]),
                     separatorBuilder: (i, c) => lineWidget(context),
-                    itemCount: (!controller!.isReadEndPendingOrder.value &&
-                            controller!.lPendingOrder.isNotEmpty &&
-                            controller!.isLoadingPendingOrder.value)
-                        ? controller!.lPendingOrder.length + 1
-                        : controller!.lPendingOrder.length),
-        onRefresh: () async => controller!.refreshPendingOrder()));
+                    itemCount: (!controller!.isReadEndUseXu.value &&
+                            controller!.lUseXu.isNotEmpty &&
+                            controller!.isLoadingUseXu.value)
+                        ? controller!.lUseXu.length + 1
+                        : controller!.lUseXu.length),
+        onRefresh: () async => controller!.refreshUseXu()));
   }
 
   Widget infoWalletWidget(BuildContext context) => Padding(
@@ -210,8 +209,8 @@ class YourXuView extends StatelessWidget {
           padding: EdgeInsets.only(
               left: contentPadding,
               right: contentPadding - 2,
-              top: contentPadding,
-              bottom: contentPadding),
+              top: contentPadding - 5,
+              bottom: contentPadding - 5),
           decoration: BoxDecoration(boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
@@ -219,7 +218,7 @@ class YourXuView extends StatelessWidget {
               blurRadius: 4,
               offset: const Offset(0, 0.5),
             )
-          ], borderRadius: BorderRadius.circular(15), color: colorWhite),
+          ], borderRadius: BorderRadius.circular(20), color: colorWhite),
           child: Row(
             children: [
               Column(
@@ -229,6 +228,9 @@ class YourXuView extends StatelessWidget {
                   AppText(
                     LocaleKeys.xu_in_wallet.tr,
                     style: typoSuperSmallText600,
+                  ),
+                  const SizedBox(
+                    height: 3,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -263,7 +265,7 @@ class YourXuView extends StatelessWidget {
         ),
       );
 
-  Widget itemInfoWidget(BuildContext context, bool isLoadCoin) => Padding(
+  Widget itemInfoWidget(BuildContext context, HistoryXuModel model) => Padding(
         padding: EdgeInsets.only(
             left: contentPadding,
             right: contentPadding,
@@ -278,11 +280,12 @@ class YourXuView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppText(
-                      'Nạp 120.000đ cơm 9 phút',
+                      model.description ?? '',
                       style: typoSuperSmallText500,
                     ),
                     AppText(
-                      '15:00 26/08/2022',
+                      Utils.convertTimeToHHMMDDMMYY(
+                          model.createdAt ?? DateTime.now()),
                       style: typoSuperSmallText500,
                     )
                   ],
@@ -290,9 +293,13 @@ class YourXuView extends StatelessWidget {
             Expanded(
                 flex: 3,
                 child: AppText(
-                  isLoadCoin ? "+120.000 xu" : '-120.000 xu',
+                  model.varied == ApiKey.plus
+                      ? "+${Utils.formatMoney(model.amount ?? 0)} ${LocaleKeys.xu.tr}"
+                      : "-${Utils.formatMoney(model.amount ?? 0)} ${LocaleKeys.xu.tr}",
                   style: typoSuperSmallText500.copyWith(
-                      color: isLoadCoin ? colorGreen55 : colorSemanticRed100),
+                      color: model.varied == ApiKey.plus
+                          ? colorGreen55
+                          : colorSemanticRed100),
                   textAlign: TextAlign.end,
                   maxLine: 2,
                 ))

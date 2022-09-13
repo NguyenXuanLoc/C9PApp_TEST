@@ -59,6 +59,8 @@ class ApiKey {
   static const combo_id = 'combo_id';
   static const useCombo = 'useCombo';
   static const packId = 'packId';
+  static const minus = 'minus';
+  static const plus = 'plus';
 }
 
 class AppConstant {

@@ -42,12 +42,12 @@ class BuyXuView extends StatelessWidget {
                 Stack(
                   children: [
                     Container(
-                      padding: EdgeInsets.only(bottom: 30.h),
+                      padding: EdgeInsets.only(bottom: 25.h),
                       width: MediaQuery.of(context).size.width,
                       child: SvgPicture.asset(
                         R.assetsBackgroundHeaderTabMainSvg,
                         fit: BoxFit.fitWidth,
-                        height: 35.h,
+                        height: 30.h,
                         width: MediaQuery.of(context).size.width,
                       ),
                     ),
@@ -233,56 +233,57 @@ class BuyXuView extends StatelessWidget {
       );
 
   Widget infoWalletWidget(BuildContext context) => Padding(
-        padding: EdgeInsets.only(left: contentPadding, right: contentPadding),
-        child: Container(
-          padding: EdgeInsets.only(
-              left: contentPadding,
-              right: contentPadding - 2,
-              top: contentPadding,
-              bottom: contentPadding),
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 2,
-              blurRadius: 4,
-              offset: const Offset(0, 0.5),
-            )
-          ], borderRadius: BorderRadius.circular(20), color: colorWhite),
-          child: Row(
+    padding: EdgeInsets.only(left: contentPadding, right: contentPadding),
+    child: Container(
+      padding: EdgeInsets.only(
+          left: contentPadding,
+          right: contentPadding - 2,
+          top: contentPadding - 5,
+          bottom: contentPadding - 5),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.1),
+          spreadRadius: 2,
+          blurRadius: 4,
+          offset: const Offset(0, 0.5),
+        )
+      ], borderRadius: BorderRadius.circular(20), color: colorWhite),
+      child: Row(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
+              AppText(
+                LocaleKeys.xu_in_wallet.tr,
+                style: typoSuperSmallText600,
+              ),
+              const SizedBox(
+                height: 3,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  AppText(
-                    LocaleKeys.xu_in_wallet.tr,
-                    style: typoSuperSmallText600,
+                  Image.asset(
+                    R.assetsPngXu,
+                    width: 14.w,
                   ),
                   const SizedBox(
-                    height: 3,
+                    width: 10,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        R.assetsPngXu,
-                        width: 14.w,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Obx(() => AppText(
-                          '${Utils.formatXu(controller!.xuModel.value.balance ?? 0)} ${LocaleKeys.xu.tr}',
-                          style:
-                              typoSmallTextBold.copyWith(color: colorOrange70)))
-                    ],
-                  )
+                  Obx(() => AppText(
+                      '${Utils.formatXu(controller!.xuModel.value.balance ?? 0)} ${LocaleKeys.xu.tr}',
+                      style:
+                      typoSmallTextBold.copyWith(color: colorOrange70)))
                 ],
-              ),
+              )
             ],
           ),
-        ),
-      );
+          const Spacer(),
+        ],
+      ),
+    ),
+  );
 
   Widget itemSpace() => SizedBox(
         height: 11.h,

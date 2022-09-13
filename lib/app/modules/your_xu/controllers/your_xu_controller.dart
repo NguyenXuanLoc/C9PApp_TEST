@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/data/model/done_order_model.dart';
 import 'package:c9p/app/data/model/order_model.dart';
 import 'package:c9p/app/data/model/xu_model.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:c9p/app/config/globals.dart' as globals;
 import '../../../data/event_bus/refresh_your_order_event.dart';
+import '../../../data/model/history_xu_model.dart';
 import '../../../utils/tag_utils.dart';
 
 class YourXuController extends GetxController
@@ -19,19 +21,28 @@ class YourXuController extends GetxController
 
   YourXuController() : tag = Utils.getRandomTag();
   final userProvider = UserProvider();
-  final isLoadingDoneOrder = true.obs;
-  final isLoadingPendingOrder = true.obs;
-  final lDoneOrder = List<OrderModel>.empty(growable: true).obs;
   final xuModel = XuModel().obs;
-  var currentDoneOrderPage = 0;
-  var doneOrderScrollController = ScrollController();
-  var pendingOrderScrollController = ScrollController();
 
-  final isReadEndDoneOrder = false.obs;
-  final isReadEndPendingOrder = false.obs;
-  final lPendingOrder = List<OrderModel>.empty(growable: true).obs;
-  var currentPendingOrderPage = 0;
+  final isLoadingHistory = true.obs;
+  final lHistory = List<HistoryXuModel>.empty(growable: true).obs;
+  final isReadEndHistory = false.obs;
+  var currentHistory = 1;
+  var historyScrollController = ScrollController();
+
+  final isLoadingAddXu = true.obs;
+  final lAddXu = List<HistoryXuModel>.empty(growable: true).obs;
+  var addXuScrollController = ScrollController();
+  final isReadEndAddXu = false.obs;
+  var currentAddXu = 1;
+
+  final isLoadingUseXu = true.obs;
+  final lUseXu = List<HistoryXuModel>.empty(growable: true).obs;
+  var useXuScrollController = ScrollController();
+  final isReadEndUseXu = false.obs;
+  var currentUseXu = 1;
+
   var currentIndex = 0;
+
   late TabController tabController;
   var isShowRefreshButton = false.obs;
   StreamSubscription<RefreshYourOrderEvent>? _showRefreshStream;
@@ -40,10 +51,12 @@ class YourXuController extends GetxController
   void onInit() {
     initTab();
     getInfoWallet();
-    getDoneOrder();
-    getPendingOrder();
-    pagingPendingOrder();
-    pagingDoneOrder();
+    getHistory();
+    getAddXu();
+    getUseXu();
+    pagingAddXu();
+    pagingHistory();
+    pagingUseXu();
     globals.isOpenYourOrder = true;
     showRefreshButtonListener();
     super.onInit();
@@ -64,14 +77,14 @@ class YourXuController extends GetxController
   }
 
   void refreshAll() {
-    refreshDoneOrder();
-    refreshPendingOrder();
+    refreshHistory();
+    refreshAddXu();
+    refreshUseXu();
     getInfoWallet();
     showRefreshButton(false);
   }
 
   void showRefreshButton(bool isShow) {
-    logE("TAG showRefreshButton: $isShow");
     isShowRefreshButton.value = isShow;
   }
 
@@ -82,84 +95,120 @@ class YourXuController extends GetxController
 
   void setIndex(int index) => currentIndex = index;
 
-  void pagingDoneOrder() {
-    doneOrderScrollController.addListener(() {
-      var maxScroll = doneOrderScrollController.position.maxScrollExtent;
-      var currentScroll = doneOrderScrollController.position.pixels;
-      if (maxScroll - currentScroll <= 200 &&
-          lDoneOrder.isNotEmpty &&
-          !isReadEndDoneOrder.value &&
-          !isLoadingDoneOrder.value &&
-          currentIndex == 1) {
-        getDoneOrder(
-            nextPage: '/?page=${currentDoneOrderPage + 1}', isPaging: true);
-      }
-    });
-  }
-
-  void getDoneOrder({String nextPage = '', bool isPaging = false}) async {
-    isLoadingDoneOrder.value = true;
-    var response = await userProvider.getDoneOrder(paging: nextPage);
+  void getHistory({String nextPage = '1', bool isPaging = false}) async {
+    isLoadingHistory.value = true;
+    var response = await userProvider.getHistoryBuyXu(nextPage: nextPage);
     if (response.error == null && response.data != null) {
-      var doneOrderModel = DoneOrderModel.fromJson(response.data['data']);
-      currentDoneOrderPage = doneOrderModel.meta?.currentPage ?? 0;
-      if (doneOrderModel.data == null || doneOrderModel.data!.isEmpty) {
-        isReadEndDoneOrder.value = true;
+      var lResponse = historyXuModelFromJson(response.data['data']['data']);
+      currentHistory = response.data['data']['meta']['current_page'] ?? 1;
+      if (lResponse.isEmpty) {
+        isReadEndHistory.value = true;
       }
       if (!isPaging) {
-        lDoneOrder.value = doneOrderModel.data ?? [];
+        lHistory.value = lResponse;
       } else {
-        lDoneOrder.addAll(doneOrderModel.data ?? []);
+        lHistory.addAll(lResponse);
         update();
       }
     }
-    isLoadingDoneOrder.value = false;
+    isLoadingHistory.value = false;
   }
 
-  void getPendingOrder({String nextPage = '', bool isPaging = false}) async {
-    isLoadingPendingOrder.value = true;
-    var response = await userProvider.getPendingOrder(paging: nextPage);
+  void getAddXu({String nextPage = '1', bool isPaging = false}) async {
+    isLoadingAddXu.value = true;
+    var response = await userProvider.getHistoryBuyXu(nextPage: nextPage,varied: ApiKey.plus);
     if (response.error == null && response.data != null) {
-      var doneOrderModel = DoneOrderModel.fromJson(response.data['data']);
-      currentPendingOrderPage = doneOrderModel.meta?.currentPage ?? 0;
-      if (doneOrderModel.data == null || doneOrderModel.data!.isEmpty) {
-        isReadEndPendingOrder.value = true;
+      var lResponse = historyXuModelFromJson(response.data['data']['data']);
+      currentAddXu = response.data['data']['meta']['current_page'] ?? 1;
+      if (lResponse.isEmpty) {
+        isReadEndAddXu.value = true;
       }
       if (isPaging) {
-        lPendingOrder.addAll(doneOrderModel.data ?? []);
+        lAddXu.addAll(lResponse);
         update();
       } else {
-        lPendingOrder.value = doneOrderModel.data ?? [];
+        lAddXu.value = lResponse;
       }
     }
-    isLoadingPendingOrder.value = false;
+    isLoadingAddXu.value = false;
+  }
+  void getUseXu({String nextPage = '1', bool isPaging = false}) async {
+    isLoadingUseXu.value = true;
+    var response = await userProvider.getHistoryBuyXu(nextPage: nextPage,varied: ApiKey.minus);
+    if (response.error == null && response.data != null) {
+      var lResponse = historyXuModelFromJson(response.data['data']['data']);
+      currentUseXu = response.data['data']['meta']['current_page'] ?? 1;
+      if (lResponse.isEmpty) {
+        isReadEndUseXu.value = true;
+      }
+      if (isPaging) {
+        lUseXu.addAll(lResponse);
+        update();
+      } else {
+        lAddXu.value = lResponse;
+      }
+    }
+    isLoadingUseXu.value = false;
   }
 
-  void pagingPendingOrder() {
-    pendingOrderScrollController.addListener(() {
-      var maxScroll = pendingOrderScrollController.position.maxScrollExtent;
-      var currentScroll = pendingOrderScrollController.position.pixels;
+  void pagingAddXu() {
+    addXuScrollController.addListener(() {
+      var maxScroll = addXuScrollController.position.maxScrollExtent;
+      var currentScroll = addXuScrollController.position.pixels;
       if (maxScroll - currentScroll <= 200 &&
-          lPendingOrder.isNotEmpty &&
-          !isReadEndPendingOrder.value &&
-          !isLoadingPendingOrder.value &&
-          currentIndex == 0) {
-        getPendingOrder(
-            nextPage: '/?page=${currentPendingOrderPage + 1}', isPaging: true);
+          lAddXu.isNotEmpty &&
+          !isReadEndAddXu.value &&
+          !isLoadingAddXu.value &&
+          currentIndex == 1) {
+        getAddXu(
+            nextPage: '${currentAddXu + 1}', isPaging: true);
       }
     });
   }
-
-  void refreshDoneOrder() {
-    lDoneOrder.clear();
-    isReadEndDoneOrder.value = false;
-    getDoneOrder();
+  void pagingUseXu() {
+    useXuScrollController.addListener(() {
+      var maxScroll = useXuScrollController.position.maxScrollExtent;
+      var currentScroll = useXuScrollController.position.pixels;
+      if (maxScroll - currentScroll <= 200 &&
+          lUseXu.isNotEmpty &&
+          !isReadEndUseXu.value &&
+          !isLoadingUseXu.value &&
+          currentIndex == 2) {
+        getUseXu(
+            nextPage: '${currentUseXu + 1}', isPaging: true);
+      }
+    });
   }
-
-  void refreshPendingOrder() {
-    lPendingOrder.clear();
-    isReadEndPendingOrder.value = false;
-    getPendingOrder();
+  void pagingHistory() {
+    historyScrollController.addListener(() {
+      var maxScroll = historyScrollController.position.maxScrollExtent;
+      var currentScroll = historyScrollController.position.pixels;
+      if (maxScroll - currentScroll <= 200 &&
+          lHistory.isNotEmpty &&
+          !isReadEndHistory.value &&
+          !isLoadingHistory.value &&
+          currentIndex == 0) {
+        getHistory(nextPage: '${currentHistory + 1}', isPaging: true);
+      }
+    });
+  }
+  void refreshHistory() {
+    lHistory.clear();
+    isReadEndHistory.value = false;
+    getHistory();
+    getInfoWallet();
+  }
+  void refreshUseXu() {
+    lUseXu.clear();
+    isReadEndUseXu.value = false;
+    getUseXu();
+    getInfoWallet();
+  }
+  void refreshAddXu() {
+    lAddXu.clear();
+    isReadEndAddXu.value = false;
+    getAddXu();
+    getInfoWallet();
   }
 
   openReOrder(OrderModel model) => Get.toNamed(Routes.ORDER, arguments: model);
@@ -173,6 +222,7 @@ class YourXuController extends GetxController
       xuModel.value = XuModel.fromJson(response.data['data']);
     }
   }
+
   void buyXuOnclick(BuildContext context) => globals.isLogin
       ? Get.toNamed(Routes.BUY_XU)
       : Utils.requestLogin(context);

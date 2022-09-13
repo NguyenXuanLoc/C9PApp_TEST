@@ -21,6 +21,7 @@ enum AccountAction {
   MY_LOCATION,
   METHOD_PAYMENT,
   MY_ORDER,
+  MY_XU,
   REGULATION,
   CHANGE_PIN,
   LOGOUT,
@@ -91,8 +92,9 @@ class TabAccountView extends GetView<TabAccountController> {
             line(context),
             itemTitle(R.assetsSvgDolaCircle, LocaleKeys.method_payment.tr,AccountAction.METHOD_PAYMENT,context,),
             line(context),
-            line(context),
             itemTitle(R.assetsSvgOrder, LocaleKeys.my_order.tr,AccountAction.MY_ORDER,context,),
+            line(context),
+            itemTitle(R.assetsPngXu, LocaleKeys.my_com_9_phut_xu.tr,AccountAction.MY_XU,context,isSvg: false),
             Container(
               width: MediaQuery.of(context).size.width,
               color: colorSeparatorListView,
@@ -130,7 +132,10 @@ class TabAccountView extends GetView<TabAccountController> {
         width: MediaQuery.of(context).size.width,
       );
 
-  Widget itemTitle(String icon, String title,AccountAction action,BuildContext context,{bool isShowSuffixIcon = true}) => Padding(
+  Widget itemTitle(
+          String icon, String title, AccountAction action, BuildContext context,
+          {bool isShowSuffixIcon = true, bool isSvg = true}) =>
+      Padding(
         padding: EdgeInsets.only(
             left: contentPadding,
             right: contentPadding,
@@ -138,11 +143,16 @@ class TabAccountView extends GetView<TabAccountController> {
             bottom: 11.h),
         child: InkWell(child: Row(
           children: [
-            SvgPicture.asset(
-              icon,
-              width: 15.w,
-            ),
-            const SizedBox(
+              isSvg
+                  ? SvgPicture.asset(
+                      icon,
+                      width: 15.w,
+                    )
+                  : Image.asset(
+                      icon,
+                      width: 15.w,
+                    ),
+              const SizedBox(
               width: 10,
             ),
             AppText(

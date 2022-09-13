@@ -6,6 +6,7 @@ import 'package:c9p/app/modules/detail_order/controllers/detail_order_controller
 import 'package:c9p/app/modules/order/controllers/order_controller.dart';
 import 'package:c9p/app/modules/order_success/controllers/order_success_controller.dart';
 import 'package:c9p/app/modules/your_order/controllers/your_order_controller.dart';
+import 'package:c9p/app/modules/your_xu/controllers/your_xu_controller.dart';
 import 'package:get/get.dart';
 
 class TagUtils {
@@ -20,6 +21,7 @@ class TagUtils {
   List<String> tagsYourOrder = [];
   List<String> tagsCreateOrder = [];
   List<String> tagsBuyXu = [];
+  List<String> tagsYourXu = [];
 
   OrderSuccessController? findRiceOrderSuccessController() {
     OrderSuccessController? controller;
@@ -95,6 +97,17 @@ class TagUtils {
     for (var i = 0; i < tagsConfirmBuyXu.length; i++) {
       try {
         controller = Get.find<ConfirmBuyXuController>(tag: tagsConfirmBuyXu[i]);
+      } catch (e) {
+        continue;
+      }
+    }
+    return controller;
+  }
+   YourXuController? findYourXuController() {
+    YourXuController? controller;
+    for (var i = 0; i < tagsYourXu.length; i++) {
+      try {
+        controller = Get.find<YourXuController>(tag: tagsYourXu[i]);
       } catch (e) {
         continue;
       }

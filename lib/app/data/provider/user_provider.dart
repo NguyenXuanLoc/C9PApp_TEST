@@ -177,4 +177,9 @@ class UserProvider extends BaseProvider {
   Future<ApiResult> buyXuPackage(String packageId, String qty) async =>
       await POST(
           'user/buy-xu-pack', {ApiKey.packId: packageId, ApiKey.qty: qty});
+
+  Future<ApiResult> getHistoryBuyXu({String? varied,required String nextPage}) async =>
+      varied != null
+          ? await GET('user/wallet/history?page=$nextPage&varied=$varied')
+          : await GET('user/wallet/history?page=$nextPage');
 }

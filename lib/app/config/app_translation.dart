@@ -210,6 +210,9 @@ class LocaleKeys {
   static const com9p_xu = 'com9p_xu';
   static const your_xu = 'your_xu';
   static const you_have_just_successfully_recharged = 'you_have_just_successfully_recharged';
+  static const history = 'history';
+  static const load_cents = 'load_cents';
+  static const use_coins = 'use_coins';
 }
 class Locales {
   static const en = {
@@ -413,5 +416,8 @@ class Locales {
   'you_have_just_successfully_recharged': 'Bạn vừa nạp thành công',
   'com9p_xu': 'cơm 9 phút xu',
   'your_xu': 'Xu của bạn',
+  'history': 'Lịch sử',
+  'load_cents': 'Nạp xu',
+  'use_coins': 'Tiêu xu',
   };
 }

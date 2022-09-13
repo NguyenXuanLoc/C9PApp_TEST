@@ -104,7 +104,7 @@ class BuyXuSuccessView extends GetView<BuyXuSuccessController> {
                   padding: EdgeInsets.only(
                       left: contentPadding, right: contentPadding),
                   child: AppButton(
-                    onPress: () => controller.yourXuOnclick(),
+                    onPress: () => controller.mainOnclick(),
                     title: LocaleKeys.main.tr,
                     height: heightContinue,
                     textStyle: typoButton.copyWith(color: colorBlack),
@@ -119,7 +119,7 @@ class BuyXuSuccessView extends GetView<BuyXuSuccessController> {
                   padding: EdgeInsets.only(
                       left: contentPadding, right: contentPadding),
                   child: AppButton(
-                    onPress: () {},
+                    onPress: () =>controller.yourXuOnclick(),
                     backgroundColor: colorGreen40,
                     title: LocaleKeys.your_xu.tr,
                     textStyle: typoButton.copyWith(color: colorWhite),

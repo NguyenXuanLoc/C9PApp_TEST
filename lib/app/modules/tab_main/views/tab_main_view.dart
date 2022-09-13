@@ -130,7 +130,7 @@ class TabMainView extends GetView<TabMainController> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 60.h),
+            padding: EdgeInsets.only(bottom: 55.h),
             child: Container(
               padding: EdgeInsets.only(
                   bottom: 15.h, left: contentPadding, right: contentPadding),
@@ -348,65 +348,126 @@ class TabMainView extends GetView<TabMainController> {
           ))
         ],
       );
-
   Widget infoWalletWidget(BuildContext context) => Padding(
-        padding: EdgeInsets.only(left: contentPadding, right: contentPadding),
-        child: Container(
-          padding: EdgeInsets.only(
-              left: contentPadding,
-              right: contentPadding - 2,
-              top: contentPadding ,
-              bottom: contentPadding ),
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 2,
-              blurRadius: 4,
-              offset: const Offset(0, 0.5),
-            )
-          ], borderRadius: BorderRadius.circular(15), color: colorWhite),
-          child: Row(
+    padding: EdgeInsets.only(left: contentPadding, right: contentPadding),
+    child: Container(
+      padding: EdgeInsets.only(
+          left: contentPadding,
+          right: contentPadding - 2,
+          top: contentPadding - 5,
+          bottom: contentPadding - 5),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.1),
+          spreadRadius: 2,
+          blurRadius: 4,
+          offset: const Offset(0, 0.5),
+        )
+      ], borderRadius: BorderRadius.circular(15), color: colorWhite),
+      child: Row(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AppText(
-                    LocaleKeys.xu_in_wallet.tr,
-                    style: typoSuperSmallText600,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        R.assetsPngXu,
-                        width: 14.w,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Obx(() => AppText(
-                          '${Utils.formatXu(controller.xuModel.value.balance ?? 0)} ${LocaleKeys.xu.tr}',
-                          style:
-                              typoSmallTextBold.copyWith(color: colorOrange70)))
-                    ],
-                  )
-                ],
+              AppText(
+                LocaleKeys.xu_in_wallet.tr,
+                style: typoSuperSmallText600,
               ),
-              const Spacer(),
-              AppButton(
-                backgroundColor: colorGreen40,
-                onPress: () =>controller.buyXuOnclick(context),
-                borderRadius: 15,
-                height: 26.h,
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-                title: LocaleKeys.by_xu_package.tr,
-                textStyle: typoSuperSmallText600.copyWith(color: colorText0),
+              const SizedBox(
+                height: 3,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    R.assetsPngXu,
+                    width: 14.w,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Obx(() => AppText(
+                      '${Utils.formatXu(controller!.xuModel.value.balance ?? 0)} ${LocaleKeys.xu.tr}',
+                      style:
+                      typoSmallTextBold.copyWith(color: colorOrange70)))
+                ],
               )
             ],
           ),
-        ),
-      );
+          const Spacer(),
+          AppButton(
+            backgroundColor: colorGreen40,
+            onPress: () => controller!.buyXuOnclick(context),
+            borderRadius: 15,
+            height: 26.h,
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+            title: LocaleKeys.load_cents.tr,
+            textStyle: typoSuperSmallText600.copyWith(color: colorText0),
+          )
+        ],
+      ),
+    ),
+  );
+
+  // Widget infoWalletWidget(BuildContext context) => Padding(
+  //       padding: EdgeInsets.only(left: contentPadding, right: contentPadding),
+  //       child: Container(
+  //         padding: EdgeInsets.only(
+  //             left: contentPadding,
+  //             right: contentPadding - 2,
+  //             top: contentPadding ,
+  //             bottom: contentPadding ),
+  //         decoration: BoxDecoration(boxShadow: [
+  //           BoxShadow(
+  //             color: Colors.black.withOpacity(0.1),
+  //             spreadRadius: 2,
+  //             blurRadius: 4,
+  //             offset: const Offset(0, 0.5),
+  //           )
+  //         ], borderRadius: BorderRadius.circular(15), color: colorWhite),
+  //         child: Row(
+  //           children: [
+  //             Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               mainAxisSize: MainAxisSize.min,
+  //               children: [
+  //                 AppText(
+  //                   LocaleKeys.xu_in_wallet.tr,
+  //                   style: typoSuperSmallText600,
+  //                 ),SizedBox(height: 4,),
+  //                 Row(
+  //                   mainAxisAlignment: MainAxisAlignment.start,
+  //                   children: [
+  //                     Image.asset(
+  //                       R.assetsPngXu,
+  //                       width: 14.w,
+  //                     ),
+  //                     const SizedBox(
+  //                       width: 10,
+  //                     ),
+  //                     Obx(() => AppText(
+  //                         '${Utils.formatXu(controller.xuModel.value.balance ?? 0)} ${LocaleKeys.xu.tr}',
+  //                         style:
+  //                             typoSmallTextBold.copyWith(color: colorOrange70)))
+  //                   ],
+  //                 )
+  //               ],
+  //             ),
+  //             const Spacer(),
+  //             AppButton(
+  //               backgroundColor: colorGreen40,
+  //               onPress: () =>controller.buyXuOnclick(context),
+  //               borderRadius: 15,
+  //               height: 26.h,
+  //               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+  //               title: LocaleKeys.by_xu_package.tr,
+  //               textStyle: typoSuperSmallText600.copyWith(color: colorText0),
+  //             )
+  //           ],
+  //         ),
+  //       ),
+  //     );
   Widget itemSpace() => Container(
         height: 12,
         color: colorSeparatorListView,

@@ -56,14 +56,14 @@ class ConfirmBuyXuController extends GetxController {
         var responseCode =
             await Get.toNamed(Routes.PAYMENT, arguments: paymentInfoModel);
         if (responseCode == null) {
-          // return;
+          return;
         } else if (responseCode != AppConstant.PAYMENT_SUCCESSFULL) {
           toast(LocaleKeys.payment_failed.tr);
           return;
         }
         countCheckPayment = 0;
         Dialogs.showLoadingDialog(context);
-        checkPayment(paymentInfoModel.copyOf(data: 'C9PXuPackGX_291110332862781186205'));
+        // checkPayment(paymentInfoModel.copyOf(data: 'C9PXuPackGX_291110332862781186205'));
       }
     } else {
       toast(response.error.toString());

@@ -217,6 +217,8 @@ class LocaleKeys {
   static const xu_not_enough = 'xu_not_enough';
   static const xu_not_enough_please_try_again = 'xu_not_enough_please_try_again';
   static const C9P_xu = 'C9P_xu';
+  static const cash_back = 'cash_back';
+  static const one_precent_of_order_value = 'one_precent_of_order_value';
 }
 class Locales {
   static const en = {
@@ -427,5 +429,7 @@ class Locales {
   'xu_not_enough': 'Số xu không đủ',
     'xu_not_enough_please_try_again': 'Số xu không đủ, vui lòng nạp thêm xu',
     'C9P_xu': 'C9P xu',
+    'cash_back': 'Hoàn xu',
+    'one_precent_of_order_value': '1% giá trị đơn  hàng',
   };
 }

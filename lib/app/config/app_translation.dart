@@ -220,6 +220,7 @@ class LocaleKeys {
   static const cash_back = 'cash_back';
   static const one_precent_of_order_value = 'one_precent_of_order_value';
   static const my_com_9_phut_xu = 'my_com_9_phut_xu';
+  static const message_force_update = 'message_force_update';
 }
 class Locales {
   static const en = {
@@ -433,5 +434,6 @@ class Locales {
     'cash_back': 'Hoàn xu',
     'one_precent_of_order_value': '1% giá trị đơn  hàng',
     'my_com_9_phut_xu': 'Cơm 9 phút xu của tôi',
+    'message_force_update': 'Cơm 9 phút đã có phiên bản mới, vui lòng cập nhật.',
   };
 }

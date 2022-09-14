@@ -45,14 +45,14 @@ class ConfirmOrderController extends GetxController {
         paymentByVnPay(context);
         break;
       case MethodPayment.XU:
-        paymentByVnPay(context);
+        paymentByXu(context);
         break;
     }
   }
 
   void paymentByXu(BuildContext context) async {
     Dialogs.showLoadingDialog(context);
-    var response = await userProvider.buyCombo(model.id ?? 0,qty);
+    var response = await userProvider.buyComboByXu(model.id ?? 0,qty);
     await Dialogs.hideLoadingDialog();
     if (response.error == null && response.data != null) {
       var paymentInfoModel = PaymentInfoModel.fromJson(response.data);

@@ -61,6 +61,7 @@ class ApiKey {
   static const packId = 'packId';
   static const minus = 'minus';
   static const plus = 'plus';
+  static const used_xu = 'used_xu';
 }
 
 class AppConstant {

@@ -129,11 +129,14 @@ class ConfirmOrderView extends StatelessWidget {
                               left: 10, right: 5, top: 2, bottom: 2),
                           child: Row(
                             children: [
-                              AppText(
-                                LocaleKeys.vn_pay.tr,
-                                style: typoSuperSmallText600.copyWith(
-                                    color: colorWhite),
-                              ),
+                              Obx(() => AppText(
+                                    controller!.currentMethodPayment.value ==
+                                            MethodPayment.VNPAY
+                                        ? LocaleKeys.vn_pay.tr
+                                        : LocaleKeys.C9P_xu.tr,
+                                    style: typoSuperSmallText600.copyWith(
+                                        color: colorWhite),
+                                  )),
                               Icon(
                                 Icons.keyboard_arrow_down_rounded,
                                 color: colorWhite,

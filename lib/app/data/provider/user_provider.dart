@@ -185,4 +185,32 @@ class UserProvider extends BaseProvider {
       varied != null
           ? await GET('user/wallet/history?page=$nextPage&varied=$varied')
           : await GET('user/wallet/history?page=$nextPage');
+
+  Future<ApiResult> addRiceOrderByXu(
+          {required String name,
+          required String address,
+          required String phone,
+          required String qty,
+          required String lat,
+          required String lng,
+          required String deliverTime,
+          required String productId,
+          required String description,
+          int? comboId,
+          int useCombo = 0}) async =>
+      await POST('user/order/payment/xu', {
+        ApiKey.name: name,
+        ApiKey.address: address,
+        ApiKey.phone: phone,
+        ApiKey.qty: qty,
+        ApiKey.lat: lat,
+        ApiKey.lng: lng,
+        ApiKey.description: description,
+        ApiKey.deliverTime: deliverTime,
+        ApiKey.product_id: productId,
+        ApiKey.used_xu: 1,
+        ApiKey.useCombo: 0,
+      });
+  Future<ApiResult> buyComboByXu(int saleId,String qty) async =>
+      await POST('user/combo-by-xu', {ApiKey.saleId: saleId,ApiKey.qty: qty});
 }

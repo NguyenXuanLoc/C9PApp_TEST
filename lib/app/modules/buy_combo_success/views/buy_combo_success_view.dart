@@ -83,15 +83,22 @@ class BuyComboSuccessView extends GetView<BuyComboSuccessController> {
                 line(context),
                 itemSpace(),
                 itemContent(
-                    LocaleKeys.method_payment.tr, LocaleKeys.vnpay_wallet.tr),
-                const AppLineSpace(
+                    LocaleKeys.method_payment.tr,
+                    controller.isPaymentByXu
+                        ? LocaleKeys.C9P_xu.tr
+                        : LocaleKeys.vnpay_wallet.tr),
+                Visibility(
+                  visible:
+                      (controller.paymentSuccessModel.data?.returnXu ?? 0) != 0,
+                  child: const AppLineSpace(),
                 ),
-                itemInfoXu(
-                    R.assetsPngXu,
-                    "${LocaleKeys.one_precent_of_order_value.tr} - ${"${Utils.formatXu(controller.paymentSuccessModel.data?.returnXu ?? 0)} ${LocaleKeys.xu.tr}"}"),
-
-                const AppLineSpace(
+                Visibility(
+                  visible:
+                      (controller.paymentSuccessModel.data?.returnXu ?? 0) != 0,
+                  child: itemInfoXu(R.assetsPngXu,
+                      "${LocaleKeys.one_precent_of_order_value.tr} - ${"${Utils.formatXu(controller.paymentSuccessModel.data?.returnXu ?? 0)} ${LocaleKeys.xu.tr}"}"),
                 ),
+                const AppLineSpace(),
                 itemSpace(),
                 itemTitle(R.assetsSvgPerson2, LocaleKeys.buyer.tr),
                 itemSpace(),

@@ -41,7 +41,7 @@ class YourXuController extends GetxController
   final isReadEndUseXu = false.obs;
   var currentUseXu = 1;
 
-  var currentIndex = 0;
+  final currentIndex = 0.obs;
 
   late TabController tabController;
   var isShowRefreshButton = false.obs;
@@ -65,7 +65,7 @@ class YourXuController extends GetxController
   @override
   void onClose() {
     globals.isOpenYourOrder = false;
-    TagUtils().tagsYourOrder.removeAt(0);
+    TagUtils().tagsYourXu.removeAt(0);
     _showRefreshStream?.cancel();
     super.onClose();
   }
@@ -90,10 +90,10 @@ class YourXuController extends GetxController
 
   void initTab() {
     tabController = TabController(length: 3, vsync: this);
-    tabController.addListener(() => currentIndex = tabController.index);
+    tabController.addListener(() => currentIndex.value = tabController.index);
   }
 
-  void setIndex(int index) => currentIndex = index;
+  void setIndex(int index) => currentIndex.value = index;
 
   void getHistory({String nextPage = '1', bool isPaging = false}) async {
     isLoadingHistory.value = true;
@@ -145,7 +145,7 @@ class YourXuController extends GetxController
         lUseXu.addAll(lResponse);
         update();
       } else {
-        lAddXu.value = lResponse;
+        lUseXu.value = lResponse;
       }
     }
     isLoadingUseXu.value = false;

@@ -105,7 +105,8 @@ class ConfirmRiceOrderController extends GetxController {
         paymentByVnpay(context, deliverTime);
         break;
       case MethodPayment.XU:
-
+        paymentByXu(context, deliverTime);
+        break;
     }
   }
 
@@ -160,7 +161,7 @@ class ConfirmRiceOrderController extends GetxController {
   }
   void paymentByXu(BuildContext context, DateTime deliveryTime) async {
     Dialogs.showLoadingDialog(context);
-    var response = await addOrder(deliveryTime);
+    var response = await addOrderBuyXu(deliveryTime);
     await Dialogs.hideLoadingDialog();
     if (response.statusCode == 201) {
       Get.toNamed(Routes.ORDER_SUCCESS,
@@ -183,6 +184,31 @@ class ConfirmRiceOrderController extends GetxController {
     var currentLng = model.long;
     var productId = '2';
     return await userProvider.addOrder(
+        name: name,
+        address: address,
+        phone: phone,
+        qty: qty,
+        lat: currentLat.toString(),
+        lng: currentLng.toString(),
+        deliverTime: deliveryTime.microsecondsSinceEpoch.toString(),
+        productId: productId,
+        useCombo: model.myComboModel != null
+            ? (model.myComboModel!.remainsCombo! > int.parse(qty)
+                ? model.myComboModel!.remainsCombo! - int.parse(qty)
+                : model.myComboModel!.remainsCombo!)
+            : 0,
+        comboId: model.myComboModel?.id,
+        description: description.value);
+  }
+  Future<ApiResult> addOrderBuyXu(DateTime deliveryTime) async {
+    var name = model.name;
+    var address = model.address;
+    var phone = model.phone;
+    var qty = model.qty;
+    var currentLat = model.lat;
+    var currentLng = model.long;
+    var productId = '2';
+    return await userProvider.addRiceOrderByXu(
         name: name,
         address: address,
         phone: phone,

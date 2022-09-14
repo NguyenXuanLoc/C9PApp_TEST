@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:c9p/app/components/dialogs.dart';
 import 'package:c9p/app/data/model/active_xu_model.dart';
 import 'package:c9p/app/routes/app_pages.dart';
+import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -97,5 +98,7 @@ class BuyXuController extends GetxController {
     }
   }
   @override
-  void onClose() {}
+  void onClose() {
+    TagUtils().tagsBuyXu.removeAt(0);
+  }
 }

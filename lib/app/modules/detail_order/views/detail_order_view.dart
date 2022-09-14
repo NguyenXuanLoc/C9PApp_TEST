@@ -168,13 +168,8 @@ class DetailOrderView extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Obx(() => AppText(
-                          (controller?.orderModer.value.paymentType != null)
-                        ? (controller?.orderModer.value.paymentType ==
-                                MessageKey.VNPay
-                            ? LocaleKeys.vn_pay.tr
-                            : LocaleKeys.cash.tr)
-                        : LocaleKeys.cash.tr,
+              Obx(() => AppText(
+                    getMethodPayment(),
                     style: typoSuperSmallText500.copyWith(color: colorText70),
                   )),
             ],
@@ -274,5 +269,17 @@ class DetailOrderView extends StatelessWidget {
         children: children,
       ),
     );
+  }
+  String getMethodPayment() {
+    if (controller?.orderModer.value.paymentType == null) return LocaleKeys.cash.tr;
+    switch (controller?.orderModer.value.paymentType) {
+      case MessageKey.VNPay:
+        return LocaleKeys.vn_pay.tr;
+      case MessageKey.COD:
+        return LocaleKeys.cash.tr;
+      case MessageKey.XU:
+        return LocaleKeys.C9P_xu.tr;
+    }
+    return LocaleKeys.cash.tr;
   }
 }

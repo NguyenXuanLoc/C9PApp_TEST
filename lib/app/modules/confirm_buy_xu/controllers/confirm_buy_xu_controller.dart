@@ -6,6 +6,7 @@ import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 import 'package:c9p/app/utils/log_utils.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
+import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -108,5 +109,10 @@ class ConfirmBuyXuController extends GetxController {
       }
       Timer(const Duration(seconds: 7), () => checkPayment(model));
     }
+  }
+  @override
+  void onClose() {
+    TagUtils().tagsConfirmBuyXu.removeAt(0);
+    super.onClose();
   }
 }

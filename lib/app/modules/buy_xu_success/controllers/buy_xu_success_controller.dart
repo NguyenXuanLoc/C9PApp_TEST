@@ -1,5 +1,6 @@
 import 'package:c9p/app/modules/buy_combo_success/controllers/buy_combo_success_controller.dart';
 import 'package:c9p/app/utils/app_utils.dart';
+import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -26,4 +27,9 @@ class BuyXuSuccessController extends GetxController {
   void mainOnclick() => Get.offAllNamed(Routes.HOME);
 
   void yourXuOnclick() => Get.toNamed(Routes.YOUR_XU);
+  @override
+  void onClose() {
+    TagUtils().tagsBuyXuSuccess.removeAt(0);
+    super.onClose();
+  }
 }

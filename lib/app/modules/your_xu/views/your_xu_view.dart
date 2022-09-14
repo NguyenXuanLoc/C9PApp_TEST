@@ -32,12 +32,12 @@ class YourXuView extends StatelessWidget {
               children: [
                 Container(
                   color: colorGrey2,
-                  padding: EdgeInsets.only(bottom: 40.h),
+                  padding: EdgeInsets.only(bottom: 32.h),
                   width: MediaQuery.of(context).size.width,
                   child: Image.asset(
                     R.assetsBackgroundHeaderTabMainPng,
                     fit: BoxFit.fitWidth,
-                    height: 35.h,
+                    height: 33.h,
                     width: MediaQuery.of(context).size.width,
                   ),
                 ),

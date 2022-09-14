@@ -10,13 +10,19 @@ class PaymentController extends GetxController {
   var isLoadError = false.obs;
   PaymentInfoModel model = Get.arguments;
 
-  Future<bool> browserBack(BuildContext context) async {
-    return true;
+  Future<bool> interceptor() async {
     if (await controller!.canGoBack()) {
       controller!.goBack();
       return false;
     }
     return true;
+  }
+  Future<void> backOnClick() async {
+    if (await controller!.canGoBack()) {
+      controller!.goBack();
+      return;
+    }
+    Get.back();
   }
 
   void setLoading(bool isLoading) => this.isLoading.value = isLoading;

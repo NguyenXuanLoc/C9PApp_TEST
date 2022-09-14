@@ -18,13 +18,23 @@ import '../controllers/payment_controller.dart';
 class PaymentView extends GetView<PaymentController> {
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
+    return WillPopScope(child: AppScaffold(
         appbar: AppBar(
           actions: [InkWell(
-          child: Icon(Icons.clear,size: 20.w,),
-          onTap: () => Get.back(),
-        ),SizedBox(width: contentPadding,)],
+            child: Icon(Icons.clear,size: 20.w,),
+            onTap: () => Get.back(),
+          ),SizedBox(width: contentPadding,)],
           leadingWidth: 28.w,
+          leading: Padding(
+            padding: EdgeInsets.only(left: contentPadding),
+            child: InkWell(
+              child: SvgPicture.asset(
+                R.assetsBackSvg,
+                color: colorWhite,
+              ),
+                  onTap: () => controller.backOnClick(),
+                ),
+          ),
           automaticallyImplyLeading: false,
           centerTitle: true,
           title: AppText(
@@ -93,6 +103,6 @@ class PaymentView extends GetView<PaymentController> {
                     ),
                     onRefresh: () async => controller.reloadWebView()))
           ],
-        ));
+        )), onWillPop: ()async =>controller.interceptor());
   }
 }

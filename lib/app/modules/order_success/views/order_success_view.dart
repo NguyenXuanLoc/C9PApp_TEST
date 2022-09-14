@@ -96,16 +96,15 @@ class OrderSuccessView extends StatelessWidget {
                     line(context),
                     itemContent(
                         LocaleKeys.method_payment.tr,
-                        (controller?.model?.paymentType != null)
-                            ? (controller?.model?.paymentType ==
-                                    MessageKey.VNPay
-                                ? LocaleKeys.vn_pay.tr
-                                : LocaleKeys.cash.tr)
-                            : LocaleKeys.cash.tr),
-                    const AppLineSpace(),
-                    itemInfoXu(
-                        R.assetsPngXu,
-                        "${LocaleKeys.one_precent_of_order_value.tr} - ${"${Utils.formatXu(controller?.model?.returnXu ?? 0)} ${LocaleKeys.xu.tr}"}"),
+                        getMethodPayment()),
+                    Visibility(
+                        visible: (controller?.model?.returnXu ?? 0) != 0,
+                        child: const AppLineSpace()),
+                    Visibility(
+                      visible: (controller?.model?.returnXu ?? 0) != 0,
+                      child: itemInfoXu(R.assetsPngXu,
+                          "${LocaleKeys.one_precent_of_order_value.tr} - ${"${Utils.formatXu(controller?.model?.returnXu ?? 0)} ${LocaleKeys.xu.tr}"}"),
+                    ),
                     const AppLineSpace(),
                     itemTitle(R.assetsSvgPerson3, LocaleKeys.buyer.tr),
                 line(context),
@@ -331,4 +330,17 @@ class OrderSuccessView extends StatelessWidget {
         color: colorBlack,
         width: MediaQuery.of(context).size.width,
       );
+
+  String getMethodPayment() {
+    if (controller?.model?.paymentType == null) return LocaleKeys.cash.tr;
+    switch (controller?.model?.paymentType) {
+      case MessageKey.VNPay:
+        return LocaleKeys.vn_pay.tr;
+      case MessageKey.COD:
+        return LocaleKeys.cash.tr;
+      case MessageKey.XU:
+        return LocaleKeys.C9P_xu.tr;
+    }
+    return LocaleKeys.cash.tr;
+  }
 }

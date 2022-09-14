@@ -32,6 +32,8 @@ class MessageKey {
   static const String SELFPOST = 'Selfpost';
   static const String DELIVERED = 'Delivered';
   static const String PAYED = 'Payed';
+  static const String XU = 'Xu';
+
 }
 
 class ApiKey {

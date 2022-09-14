@@ -198,7 +198,7 @@ class UserProvider extends BaseProvider {
           required String description,
           int? comboId,
           int useCombo = 0}) async =>
-      await POST('order/payment/xu', {
+      await POST('user/order/payment/xu', {
         ApiKey.name: name,
         ApiKey.address: address,
         ApiKey.phone: phone,
@@ -212,5 +212,5 @@ class UserProvider extends BaseProvider {
         ApiKey.useCombo: 0,
       });
   Future<ApiResult> buyComboByXu(int saleId,String qty) async =>
-      await POST('combo-by-xu', {ApiKey.saleId: saleId,ApiKey.qty: qty});
+      await POST('user/combo-by-xu', {ApiKey.saleId: saleId,ApiKey.qty: qty});
 }

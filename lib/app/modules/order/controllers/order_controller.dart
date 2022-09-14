@@ -10,6 +10,7 @@ import 'package:c9p/app/data/provider/user_provider.dart';
 import 'package:c9p/app/routes/app_pages.dart';
 import 'package:c9p/app/utils/app_utils.dart';
 import 'package:c9p/app/utils/storage_utils.dart';
+import 'package:c9p/app/utils/tag_utils.dart';
 import 'package:c9p/app/utils/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -296,4 +297,9 @@ class OrderController extends GetxController {
       });
 
   void setCount(String count) => countController.text = count;
+  @override
+  void onClose() {
+    TagUtils().tagsCreateOrder.removeAt(0);
+    super.onClose();
+  }
 }

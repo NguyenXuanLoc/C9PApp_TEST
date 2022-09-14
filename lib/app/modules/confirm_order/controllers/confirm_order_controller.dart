@@ -55,22 +55,18 @@ class ConfirmOrderController extends GetxController {
     var response = await userProvider.buyComboByXu(model.id ?? 0,qty);
     await Dialogs.hideLoadingDialog();
     if (response.error == null && response.data != null) {
-      var paymentInfoModel = PaymentInfoModel.fromJson(response.data);
-      if (!(paymentInfoModel.isSucess ?? true)) {
-        toast(paymentInfoModel.message.toString());
-      } else {
-        var responseCode =
-            await Get.toNamed(Routes.PAYMENT, arguments: paymentInfoModel);
-        if(responseCode == null) {
-          return;
-        } else if(responseCode != AppConstant.PAYMENT_SUCCESSFULL){
-          toast(LocaleKeys.payment_failed.tr);
-          return;
-        }
-        countCheckPayment = 0;
-        Dialogs.showLoadingDialog(context);
-        checkPayment(paymentInfoModel);
-      }
+      var paymentSuccessModel = PaymentSuccessModel.fromJson(response.data);
+      logE("TAG paymentSuccessModel: ${paymentSuccessModel.toJson()}");
+      Get.toNamed(Routes.BUY_COMBO_SUCCESS, arguments: [
+        model,
+        qty,
+        receiver,
+        phoneNumber,
+        paymentSuccessModel,
+        PaymentInfoModel(),
+        paymentSuccessModel.data?.id.toString()??'0',
+        true
+      ]);
     } else {
       toast(response.error.toString());
     }
@@ -116,7 +112,8 @@ class ConfirmOrderController extends GetxController {
           phoneNumber,
           paymentSuccessModel,
           model,
-          response.data['data']['id']
+          response.data['data']['id'],
+          false
         ]);
       } else {
         if (countCheckPayment == 3) {
@@ -156,5 +153,10 @@ class ConfirmOrderController extends GetxController {
     currentMethodPayment.value = method;
     Navigator.pop(context);
     update();
+  }
+  @override
+  void onClose() {
+    TagUtils().tagsConfirmBuyCombo.removeAt(0);
+    super.onClose();
   }
 }

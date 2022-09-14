@@ -65,7 +65,7 @@ class YourXuController extends GetxController
   @override
   void onClose() {
     globals.isOpenYourOrder = false;
-    TagUtils().tagsYourOrder.removeAt(0);
+    TagUtils().tagsYourXu.removeAt(0);
     _showRefreshStream?.cancel();
     super.onClose();
   }
@@ -145,7 +145,7 @@ class YourXuController extends GetxController
         lUseXu.addAll(lResponse);
         update();
       } else {
-        lAddXu.value = lResponse;
+        lUseXu.value = lResponse;
       }
     }
     isLoadingUseXu.value = false;

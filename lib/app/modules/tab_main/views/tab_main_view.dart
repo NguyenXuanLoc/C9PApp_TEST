@@ -120,7 +120,7 @@ class TabMainView extends GetView<TabMainController> {
   Widget categoryWidget(BuildContext context) => Stack(
         children: [
           AspectRatio(
-            aspectRatio: 1 / 0.97,
+            aspectRatio: 1 / 0.94,
             child: ClipRRect(
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(20.w),

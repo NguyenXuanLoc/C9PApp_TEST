@@ -2,12 +2,18 @@ import 'package:get/get.dart';
 
 import '../modules/buy_combo_success/bindings/buy_combo_success_binding.dart';
 import '../modules/buy_combo_success/views/buy_combo_success_view.dart';
+import '../modules/buy_xu/bindings/buy_xu_binding.dart';
+import '../modules/buy_xu/views/buy_xu_view.dart';
+import '../modules/buy_xu_success/bindings/buy_xu_success_binding.dart';
+import '../modules/buy_xu_success/views/buy_xu_success_view.dart';
 import '../modules/by_combo/bindings/by_combo_binding.dart';
 import '../modules/by_combo/views/by_combo_view.dart';
 import '../modules/change_pass/bindings/change_pass_binding.dart';
 import '../modules/change_pass/views/change_pass_view.dart';
 import '../modules/combo_selling/bindings/combo_selling_binding.dart';
 import '../modules/combo_selling/views/combo_selling_view.dart';
+import '../modules/confirm_buy_xu/bindings/confirm_buy_xu_binding.dart';
+import '../modules/confirm_buy_xu/views/confirm_buy_xu_view.dart';
 import '../modules/confirm_order/bindings/confirm_order_binding.dart';
 import '../modules/confirm_order/views/confirm_order_view.dart';
 import '../modules/confirm_rice_order/bindings/confirm_rice_order_binding.dart';
@@ -56,6 +62,8 @@ import '../modules/webview/bindings/webview_binding.dart';
 import '../modules/webview/views/webview_view.dart';
 import '../modules/your_order/bindings/your_order_binding.dart';
 import '../modules/your_order/views/your_order_view.dart';
+import '../modules/your_xu/bindings/your_xu_binding.dart';
+import '../modules/your_xu/views/your_xu_view.dart';
 
 part 'app_routes.dart';
 
@@ -211,6 +219,26 @@ class AppPages {
       name: _Paths.CHANGE_PASS,
       page: () => ChangePassView(),
       binding: ChangePassBinding(),
+    ),
+    GetPage(
+      name: _Paths.BUY_XU,
+      page: () => BuyXuView(),
+      binding: BuyXuBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONFIRM_BUY_XU,
+      page: () => ConfirmBuyXuView(),
+      binding: ConfirmBuyXuBinding(),
+    ),
+    GetPage(
+      name: _Paths.BUY_XU_SUCCESS,
+      page: () => BuyXuSuccessView(),
+      binding: BuyXuSuccessBinding(),
+    ),
+    GetPage(
+      name: _Paths.YOUR_XU,
+      page: () => YourXuView(),
+      binding: YourXuBinding(),
     ),
   ];
 }

@@ -5,11 +5,13 @@ class R {
   static const String EnvDev = '.env.dev';
 
   /// PNG
+  static const String assetsPngMoneyBag = 'assets/png/money_bag.png';
   static const String assetsGifCrownPng = 'assets/gif/Crown.png';
   static const String assetsBackgroundPng = 'assets/png/splash.png';
   static const String assetsVnPng = 'assets/png/vn.png';
   static const String assetsPngHand = 'assets/png/hand.png';
   static const String assetsPngWeather = 'assets/png/weather.png';
+  static const String assetsPngLikeGreen = 'assets/png/like_green.png';
   static const String assetsBackgroundHeaderTabMainPng =
       'assets/png/background_header_tab_main.png';
   static const String assetsPngComSuon9p = 'assets/png/com_suon_9p.png';
@@ -33,6 +35,8 @@ class R {
   static const String assetsPngOrderSuccessLike= 'assets/png/order_success_like.png';
   static const String assetsPngDola= 'assets/png/dola.png';
   static const String assetsPngVnpay= 'assets/png/vnpay.png';
+  static const String assetsPngXu = 'assets/png/xu.png';
+  static const String assetsPngTick = 'assets/png/ic_tick.png';
 
   ///SVG
   static const String assetsLocationLoginSvg = 'assets/svg/location_login.svg';
@@ -91,11 +95,14 @@ class R {
   static const String assetsSvChangePinBlack= 'assets/svg/change_pin_black.svg';
   static const String assetsSvgMoto= 'assets/svg/moto.svg';
   static const String assetsSvgDelete= 'assets/svg/delete.svg';
+  static const String assetsSvgBackgroundHeaderTabMain =
+      'assets/svg/background_header_tab_main.svg';
   static const String assetsSvgLocationCircle =
       'assets/svg/location_circle.svg';
   static const String assetsBackgroundHeaderTabMainSvg =
       'assets/svg/background_header_tab_main.svg';
-
+  static const String assetsSvgXu =
+      'assets/svg/xu.svg';
   ///JSON
   static const String assetsGifCrownJson = 'assets/gif/Crown.png';
   static const String assetsJsonUser = 'assets/json/user.json';

@@ -32,6 +32,8 @@ class MessageKey {
   static const String SELFPOST = 'Selfpost';
   static const String DELIVERED = 'Delivered';
   static const String PAYED = 'Payed';
+  static const String XU = 'Xu';
+
 }
 
 class ApiKey {
@@ -58,6 +60,10 @@ class ApiKey {
   static const vnp_ResponseCode = 'vnp_ResponseCode';
   static const combo_id = 'combo_id';
   static const useCombo = 'useCombo';
+  static const packId = 'packId';
+  static const minus = 'minus';
+  static const plus = 'plus';
+  static const used_xu = 'used_xu';
 }
 
 class AppConstant {

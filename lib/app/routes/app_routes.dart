@@ -32,6 +32,10 @@ abstract class Routes {
   static const PAYMENT = _Paths.PAYMENT;
   static const PROFILE = _Paths.PROFILE;
   static const CHANGE_PASS = _Paths.CHANGE_PASS;
+  static const BUY_XU = _Paths.BUY_XU;
+  static const CONFIRM_BUY_XU = _Paths.CONFIRM_BUY_XU;
+  static const BUY_XU_SUCCESS = _Paths.BUY_XU_SUCCESS;
+  static const YOUR_XU = _Paths.YOUR_XU;
 }
 
 abstract class _Paths {
@@ -65,4 +69,8 @@ abstract class _Paths {
   static const CONFIRM_RICE_ORDER = '/confirm-rice-order';
   static const PROFILE = '/profile';
   static const CHANGE_PASS = '/change-pass';
+  static const BUY_XU = '/buy-xu';
+  static const CONFIRM_BUY_XU = '/confirm-buy-xu';
+  static const BUY_XU_SUCCESS = '/buy-xu-success';
+  static const YOUR_XU = '/your-xu';
 }

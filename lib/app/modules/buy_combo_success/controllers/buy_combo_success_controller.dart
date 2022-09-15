@@ -14,6 +14,7 @@ class BuyComboSuccessController extends GetxController {
   PaymentSuccessModel paymentSuccessModel = Get.arguments[4];
   PaymentInfoModel paymentInfoModel = Get.arguments[5];
   var orderId = Get.arguments[6];
+  bool isPaymentByXu = Get.arguments[7] ?? false;
   final count = 0.obs;
 
   @override

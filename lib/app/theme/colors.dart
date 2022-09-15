@@ -147,15 +147,18 @@ const colorGrey60 = Color(0xFF979797);
 const colorGrey70 = Color(0xFF424242);
 const colorGrey85 = Color(0xFF333333);
 const colorGrey80 = Color(0xFF636973);
+const colorGrey2 = Color(0xFFF5F5F5);
 
 const colorBlue82 = Color(0xFF003CA5);
 const colorBlue80 = Color(0xFF044ECC);
 const colorBlue70 = Color(0xFF001AFF);
 const colorBlue60 = Color(0xFF0084F4);
 const colorBlue40 = Color(0xFF5787DB);
+const colorBlue30 = Color(0xFF5592D8);
 const colorBlue2 = Color(0xFFCBD7ED);
 const colorBlue5 = Color(0xFFB1C8F1);
 const colorBlue85 = Color(0xFF003186);
+const colorBlue65 = Color(0xFF466E9C);
 const colorBlue1 = Color(0xFFC7D4EB);
 
 const colorPink100 = Color(0xFFFC2C52);
@@ -168,6 +171,7 @@ const colorGreen50 = Color(0xFF239B2E);
 const colorGreen40 = Color(0xFF50AC17);
 
 const colorOrange80 = Color(0xFFFD6916);
+const colorOrange70 = Color(0xFFEF864B);
 const colorOrange60 = Color(0xFFCD8E15);
 const colorOrange50 = Color(0xFFBE9720);
 const colorOrange40 = Color(0xFFE5B110);

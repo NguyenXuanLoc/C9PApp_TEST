@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:c9p/app/config/constant.dart';
 import 'package:c9p/app/data/provider/base_provider.dart';
 import 'package:c9p/app/utils/log_utils.dart';
@@ -53,6 +55,7 @@ class UserProvider extends BaseProvider {
       ApiKey.deliverTime: /*'2023-6-15 08:32:21'*/ deliverTime,
       ApiKey.product_id: productId
     };
+    logE("TAG BOODY: ${json.encode(body)}");
     if (comboId != null) {
       body[ApiKey.combo_id] = comboId.toString();
       body[ApiKey.useCombo] = useCombo.toString();
@@ -168,4 +171,46 @@ class UserProvider extends BaseProvider {
 
   Future<ApiResult> deleteAccount() async =>
       await DELETE('user/delete-account');
+
+  Future<ApiResult> getInfoWallet() async => await GET('user/wallet');
+
+  Future<ApiResult> getActiveCoinPack({int nextPage = 1}) async =>
+      await GET('sales/xu/active?page=$nextPage');
+
+  Future<ApiResult> buyXuPackage(String packageId, String qty) async =>
+      await POST(
+          'user/buy-xu-pack', {ApiKey.packId: packageId, ApiKey.qty: qty});
+
+  Future<ApiResult> getHistoryBuyXu({String? varied,required String nextPage}) async =>
+      varied != null
+          ? await GET('user/wallet/history?page=$nextPage&varied=$varied')
+          : await GET('user/wallet/history?page=$nextPage');
+
+  Future<ApiResult> addRiceOrderByXu(
+          {required String name,
+          required String address,
+          required String phone,
+          required String qty,
+          required String lat,
+          required String lng,
+          required String deliverTime,
+          required String productId,
+          required String description,
+          int? comboId,
+          int useCombo = 0}) async =>
+      await POST('user/order/payment/xu', {
+        ApiKey.name: name,
+        ApiKey.address: address,
+        ApiKey.phone: phone,
+        ApiKey.qty: qty,
+        ApiKey.lat: lat,
+        ApiKey.lng: lng,
+        ApiKey.description: description,
+        ApiKey.deliverTime: deliverTime,
+        ApiKey.product_id: productId,
+        ApiKey.used_xu: 1,
+        ApiKey.useCombo: 0,
+      });
+  Future<ApiResult> buyComboByXu(int saleId,String qty) async =>
+      await POST('user/combo-by-xu', {ApiKey.saleId: saleId,ApiKey.qty: qty});
 }

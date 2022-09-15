@@ -122,7 +122,8 @@ class Utils {
     var result = DateFormat('dd/MM/yyy HH:mm:ss').format(time.toLocal());
     return result;
   }
-
+  static String convertTimeToHHMMDDMMYY(DateTime time) =>
+      DateFormat('HH:mm dd/MM/yyyy').format(time.toLocal()).toString();
   static Future<TimeOfDay?> pickTime(BuildContext context) async =>
       await showTimePicker(
         context: context,
@@ -270,4 +271,6 @@ static  String getRandomTag()=> Random().nextInt(100).toString();
     }
     return value;
   }
+  static String formatXu(int xu) =>
+      NumberFormat('#,###,###,#,###,###,###', 'vi').format(xu);
 }

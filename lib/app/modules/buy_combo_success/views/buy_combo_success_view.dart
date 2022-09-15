@@ -83,14 +83,22 @@ class BuyComboSuccessView extends GetView<BuyComboSuccessController> {
                 line(context),
                 itemSpace(),
                 itemContent(
-                    LocaleKeys.method_payment.tr, LocaleKeys.vnpay_wallet.tr),
-                line(context),
-                itemSpace(),
-                itemContent(LocaleKeys.trading_code.tr,
-                    controller.paymentInfoModel.data ?? ""),
-                const AppLineSpace(
-                  height: 10,
+                    LocaleKeys.method_payment.tr,
+                    controller.isPaymentByXu
+                        ? LocaleKeys.C9P_xu.tr
+                        : LocaleKeys.vnpay_wallet.tr),
+                Visibility(
+                  visible:
+                      (controller.paymentSuccessModel.data?.returnXu ?? 0) != 0,
+                  child: const AppLineSpace(),
                 ),
+                Visibility(
+                  visible:
+                      (controller.paymentSuccessModel.data?.returnXu ?? 0) != 0,
+                  child: itemInfoXu(R.assetsPngXu,
+                      "${LocaleKeys.one_precent_of_order_value.tr} - ${"${Utils.formatXu(controller.paymentSuccessModel.data?.returnXu ?? 0)} ${LocaleKeys.xu.tr}"}"),
+                ),
+                const AppLineSpace(),
                 itemSpace(),
                 itemTitle(R.assetsSvgPerson2, LocaleKeys.buyer.tr),
                 itemSpace(),
@@ -155,6 +163,35 @@ class BuyComboSuccessView extends GetView<BuyComboSuccessController> {
         color: colorBlack,
         width: MediaQuery.of(context).size.width,
       );
+  Widget itemInfoXu(String icon, String title) => Padding(
+    padding: EdgeInsets.only(
+        left: contentPadding, right: contentPadding, top: 10, bottom: 10),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Image.asset(
+          icon,
+          width: 15.w,
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        AppText(
+          LocaleKeys.cash_back.tr,
+          style: typoSuperSmallText600,
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        Expanded(
+            child: AppText(
+              title,textAlign: TextAlign.end,
+              style: typoSuperSmallTextRegular,
+            ))
+      ],
+    ),
+  );
 
   Widget itemTitle(String icon, String title) => Padding(
         padding: EdgeInsets.only(left: contentPadding, right: contentPadding),
@@ -179,18 +216,22 @@ class BuyComboSuccessView extends GetView<BuyComboSuccessController> {
         padding: EdgeInsets.only(
             left: contentPadding, right: contentPadding, bottom: 10),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppText(
-              title,
-              style: typoSuperSmallText500,
-            ),
             Expanded(
+                flex: 6,
                 child: AppText(
-              content,
-              style: typoSuperSmallText500,
-              textAlign: TextAlign.end,
-              maxLine: 1,
-            ))
+                  title,
+                  style: typoSuperSmallText500,
+                )),
+            Expanded(
+                flex: 4,
+                child: AppText(
+                  content,
+                  style: typoSuperSmallText500,
+                  textAlign: TextAlign.end,
+                  maxLine: 1,
+                ))
           ],
         ),
       );

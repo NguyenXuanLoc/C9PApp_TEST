@@ -53,6 +53,7 @@ class OrderModel {
     this.shipperPhone,
     this.shipperNumber,
     this.shipperRate,
+    this.returnXu,
     this.isSelect
   });
 
@@ -99,6 +100,7 @@ class OrderModel {
   String? shipperPhone;
   String? shipperNumber;
   int? shipperRate;
+  int? returnXu;
   bool? isSelect;
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
@@ -145,6 +147,7 @@ class OrderModel {
     shipperPhone: json["shipper_phone"],
     shipperNumber: json["shipper_number"],
     shipperRate: json["shipper_rate"],
+    returnXu: json["return_xu"],
     isSelect: false,
   );
 

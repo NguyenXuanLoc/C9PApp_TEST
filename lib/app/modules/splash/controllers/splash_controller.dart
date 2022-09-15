@@ -3,8 +3,9 @@ import 'package:launch_review/launch_review.dart';
 
 import 'package:c9p/app/config/globals.dart' as globals;
 import 'package:c9p/app/routes/app_pages.dart';
-import 'package:flutter_app_version_checker/flutter_app_version_checker.dart';
 import 'package:get/get.dart';
+
+import '../../../components/app_check_version.dart';
 
 class SplashController extends GetxController {
   final isForceUpdate = false.obs;

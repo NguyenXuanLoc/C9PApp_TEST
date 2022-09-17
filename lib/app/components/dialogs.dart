@@ -529,9 +529,12 @@ class Dialogs {
   }
 
   static Future<void> hideLoadingDialog() async {
-    await Future.delayed(
-        const Duration(milliseconds: 200),
-        () => Navigator.of(_keyLoader.currentContext!, rootNavigator: true)
-            .pop());
+    try {
+      await Future.delayed(
+          const Duration(milliseconds: 200),
+              () =>
+              Navigator.of(_keyLoader.currentContext!, rootNavigator: true)
+                  .pop());
+    } catch (ex) {}
   }
 }

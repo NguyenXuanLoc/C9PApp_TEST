@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -39,10 +39,18 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FirebaseMessagingAutoInitEnabled</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tel</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Cơm 9 phút cần truy cập camera để cập nhật các dữ liệu cho thông tin cá nhân, đơn hàng của bạn</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Cơm 9 phút truy cập vị trí của bạn để giúp bạn đặt cơm thuận tiện hơn</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Cơm 9 phút cần truy cập thư viện ảnh để cập nhật các dữ liệu cho thông tin cá nhân, đơn hàng của bạn</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -65,18 +73,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>tel</string>
-    </array>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Cơm 9 phút cần truy cập thư viện ảnh</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Cơm 9 phút cần truy cập camera của bạn</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>itms-beta</string>
-      <string>itms</string>
-    </array>
 </dict>
 </plist>

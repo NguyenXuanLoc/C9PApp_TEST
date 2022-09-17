@@ -74,7 +74,7 @@ dependencies:
 #      ref: master
   url_launcher: ^6.1.5
   images_picker: ^1.2.11
-  flutter_app_version_checker: ^0.3.1
+#  flutter_app_version_checker: ^0.3.1
   launch_review: ^3.0.1
   flutter:
     sdk: flutter

@@ -180,8 +180,8 @@ class TabMainController extends GetxController {
   }
 
   void onClickAction(TabMainAction action, BuildContext context) {
-    if (action == TabMainAction.MENU) {
-      Get.toNamed(Routes.WEBVIEW, arguments: [LocaleKeys.menu.tr, AppConstant.URL_MENU]);
+    if(action == TabMainAction.MENU){
+      Get.toNamed(Routes.MENU);
       return;
     }
     if (!globals.isLogin) {
@@ -189,6 +189,9 @@ class TabMainController extends GetxController {
       return;
     }
     switch (action) {
+      case TabMainAction.MENU:
+        Get.toNamed(Routes.MENU);
+        return;
       case TabMainAction.PROMOTION:
         Get.find<HomeController>().jumToTap(1);
         break;

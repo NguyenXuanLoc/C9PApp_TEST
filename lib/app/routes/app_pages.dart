@@ -30,6 +30,8 @@ import '../modules/login_by_pin/bindings/login_by_pin_binding.dart';
 import '../modules/login_by_pin/views/login_by_pin_view.dart';
 import '../modules/login_splash/bindings/login_splash_binding.dart';
 import '../modules/login_splash/views/login_splash_view.dart';
+import '../modules/menu/bindings/menu_binding.dart';
+import '../modules/menu/views/menu_view.dart';
 import '../modules/my_combo/bindings/my_combo_binding.dart';
 import '../modules/my_combo/views/my_combo_view.dart';
 import '../modules/order/bindings/order_binding.dart';
@@ -239,6 +241,11 @@ class AppPages {
       name: _Paths.YOUR_XU,
       page: () => YourXuView(),
       binding: YourXuBinding(),
+    ),
+    GetPage(
+      name: _Paths.MENU,
+      page: () => MenuView(),
+      binding: MenuBinding(),
     ),
   ];
 }

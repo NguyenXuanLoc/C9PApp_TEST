@@ -213,4 +213,7 @@ class UserProvider extends BaseProvider {
       });
   Future<ApiResult> buyComboByXu(int saleId,String qty) async =>
       await POST('user/combo-by-xu', {ApiKey.saleId: saleId,ApiKey.qty: qty});
+
+  Future<ApiResult> getMenu({required int nextPage}) async =>
+      GET('product?page=$nextPage');
 }

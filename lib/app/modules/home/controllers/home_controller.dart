@@ -88,7 +88,7 @@ class HomeController extends GetxController {
       globals.isFirstOpenApp = false;
       Get.toNamed(Routes.ORDER);
     }
-    checkToShowPopUp();
+    // checkToShowPopUp();
     checkOrderIdFromCache();
     checkRegisterDevice();
     super.onReady();

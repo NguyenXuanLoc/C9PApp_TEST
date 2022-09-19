@@ -42,6 +42,8 @@ import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/payment/bindings/payment_binding.dart';
 import '../modules/payment/views/payment_view.dart';
+import '../modules/product_detail/bindings/product_detail_binding.dart';
+import '../modules/product_detail/views/product_detail_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/register_pin/bindings/register_pin_binding.dart';
@@ -246,6 +248,11 @@ class AppPages {
       name: _Paths.MENU,
       page: () => MenuView(),
       binding: MenuBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRODUCT_DETAIL,
+      page: () => ProductDetailView(),
+      binding: ProductDetailBinding(),
     ),
   ];
 }

@@ -222,6 +222,8 @@ class LocaleKeys {
   static const my_com_9_phut_xu = 'my_com_9_phut_xu';
   static const message_force_update = 'message_force_update';
   static const orders = 'orders';
+  static const other_dish = 'other_dish';
+  static const add_to_cart = 'add_to_cart';
 }
 class Locales {
   static const en = {
@@ -437,5 +439,7 @@ class Locales {
     'my_com_9_phut_xu': 'Cơm 9 phút xu của tôi',
     'message_force_update': 'Cơm 9 phút đã có phiên bản mới, vui lòng cập nhật.',
     'orders': 'Đặt món',
+    'other_dish': 'Món ăn khá',
+    'add_to_cart': 'Thêm vào giỏ hàng',
   };
 }

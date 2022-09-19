@@ -1,3 +1,4 @@
+import 'package:c9p/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -74,5 +75,6 @@ class MenuController extends GetxController {
 
   void onClickOrderRice(MyComboModel model) {}
 
-  void openComboDetail(MyComboModel model) {}
+  void openProductDetail(ProductModel model) =>
+      Get.toNamed(Routes.PRODUCT_DETAIL, arguments: model);
 }

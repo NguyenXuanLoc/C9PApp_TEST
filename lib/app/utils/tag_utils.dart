@@ -6,6 +6,7 @@ import 'package:c9p/app/modules/confirm_rice_order/controllers/confirm_rice_orde
 import 'package:c9p/app/modules/detail_order/controllers/detail_order_controller.dart';
 import 'package:c9p/app/modules/order/controllers/order_controller.dart';
 import 'package:c9p/app/modules/order_success/controllers/order_success_controller.dart';
+import 'package:c9p/app/modules/product_detail/controllers/product_detail_controller.dart';
 import 'package:c9p/app/modules/your_order/controllers/your_order_controller.dart';
 import 'package:c9p/app/modules/your_xu/controllers/your_xu_controller.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,19 @@ class TagUtils {
   List<String> tagsCreateOrder = [];
   List<String> tagsBuyXu = [];
   List<String> tagsYourXu = [];
+  List<String> tagsProductDetail = [];
 
+  ProductDetailController? findProductDetailController() {
+    ProductDetailController? controller;
+    for (var i = 0; i < tagsProductDetail.length; i++) {
+      try {
+        controller = Get.find<ProductDetailController>(tag: tagsProductDetail[i]);
+      } catch (e) {
+        continue;
+      }
+    }
+    return controller;
+  }
   BuyXuSuccessController? findBuyXuSuccessController() {
     BuyXuSuccessController? controller;
     for (var i = 0; i < tagsBuyXuSuccess.length; i++) {

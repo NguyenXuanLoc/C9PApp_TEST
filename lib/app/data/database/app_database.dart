@@ -84,16 +84,10 @@ CREATE TABLE $table (
     db.rawDelete('DELETE FROM $table');
   }
 
-  Future<List<ProductModel>> readAllProduct() async {
+  Future<List<ProductModel>> getAllProduct() async {
     final db = await instance.database;
 
     final result = await db.query(table, distinct: true);
-/*    final result = await db.rawQuery(
-        "SELECT DISTINCT ${modelField.name},${modelField.avatar},${modelField
-            .city},${modelField.isCategory},${modelField
-            .specialization},${modelField
-            .modelId}  FROM $table ORDER BY ${modelField
-            .id} DESC LIMIT 3");*/
     return result.map((json) => ProductModel.fromJson(json)).toList();
   }
 

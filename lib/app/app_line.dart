@@ -2,7 +2,9 @@ import 'package:c9p/app/theme/colors.dart';
 import 'package:flutter/cupertino.dart';
 
 class AppLineWidget extends StatelessWidget {
-  const AppLineWidget({Key? key}) : super(key: key);
+  final Color? color;
+
+  const AppLineWidget({Key? key, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +13,7 @@ class AppLineWidget extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: 0.5,
-        color: colorLine,
+        color: color ?? colorLine,
       ),
     );
   }

@@ -38,6 +38,7 @@ abstract class Routes {
   static const YOUR_XU = _Paths.YOUR_XU;
   static const MENU = _Paths.MENU;
   static const PRODUCT_DETAIL = _Paths.PRODUCT_DETAIL;
+  static const CART = _Paths.CART;
 }
 
 abstract class _Paths {
@@ -77,4 +78,5 @@ abstract class _Paths {
   static const YOUR_XU = '/your-xu';
   static const MENU = '/menu';
   static const PRODUCT_DETAIL = '/product-detail';
+  static const CART = '/cart';
 }

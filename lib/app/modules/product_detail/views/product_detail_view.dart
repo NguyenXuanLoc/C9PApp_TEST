@@ -121,26 +121,29 @@ class ProductDetailView extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(7),
-                  border: Border.all(color: colorGreen55)),
-              padding: EdgeInsets.all(7.w),
-              child: Row(
-                children: [
-                  const SizedBox(width: 3),
-                  SvgPicture.asset(
-                    R.assetsSvgCart,
-                    width: 15.w,
-                  ),
-                  const SizedBox(width: 10),
-                  Obx(() => AppText(
-                        controller!.quantity.value.toString(),
-                        style:
-                            typoSuperSmallText500.copyWith(color: colorGreen55),
-                      )),
-                  const SizedBox(width: 3),
-                ],
+            InkWell(
+              onTap: () => controller!.cartOnclick(),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                    border: Border.all(color: colorGreen55)),
+                padding: EdgeInsets.all(7.w),
+                child: Row(
+                  children: [
+                    const SizedBox(width: 3),
+                    SvgPicture.asset(
+                      R.assetsSvgCart,
+                      width: 15.w,
+                    ),
+                    const SizedBox(width: 10),
+                    Obx(() => AppText(
+                          controller!.quantity.value.toString(),
+                          style: typoSuperSmallText500.copyWith(
+                              color: colorGreen55),
+                        )),
+                    const SizedBox(width: 3),
+                  ],
+                ),
               ),
             ),
             const SizedBox(
@@ -152,7 +155,7 @@ class ProductDetailView extends StatelessWidget {
                       shapeBorder: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
                       width: MediaQuery.of(context).size.width,
-                      onPress: () => controller!.cartOnClick(),
+                      onPress: () => controller!.addOnclick(),
                       backgroundColor: colorGreen55,
                       title:
                           '${LocaleKeys.add_to_cart.tr}: ${Utils.formatMoney(controller!.totalPrice.value)}đ',

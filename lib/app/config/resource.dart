@@ -37,6 +37,8 @@ class R {
   static const String assetsPngVnpay= 'assets/png/vnpay.png';
   static const String assetsPngXu = 'assets/png/xu.png';
   static const String assetsPngTick = 'assets/png/ic_tick.png';
+  static const String assetsPngTickket = 'assets/png/tickket.png';
+  static const String assetsPngc9p = 'assets/png/c9p.png';
 
   ///SVG
   static const String assetsLocationLoginSvg = 'assets/svg/location_login.svg';
@@ -103,6 +105,7 @@ class R {
       'assets/svg/background_header_tab_main.svg';
   static const String assetsSvgXu = 'assets/svg/xu.svg';
   static const String assetsSvgCart = 'assets/svg/cart.svg';
+  static const String assetsSvgArrowRight = 'assets/svg/arrow_right.svg';
 
   ///JSON
   static const String assetsGifCrownJson = 'assets/gif/Crown.png';

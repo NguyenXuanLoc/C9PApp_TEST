@@ -226,6 +226,11 @@ class LocaleKeys {
   static const add_to_cart = 'add_to_cart';
   static const add_to_cart_success ='add_to_cart_success';
   static const add_to_cart_fail ='add_to_cart_fail';
+  static const cart ='cart';
+  static const order_rice_now ='order_rice_now';
+  static const coupon_code_com9p ='coupon_code_com9p';
+  static const input_coupon_code ='input_coupon_code';
+  static const apply ='apply';
 }
 class Locales {
   static const en = {
@@ -445,5 +450,10 @@ class Locales {
     'add_to_cart': 'Thêm vào giỏ hàng',
     'add_to_cart_success': 'Thêm sản phẩm vào giỏ hàng thành công.',
     'add_to_cart_fail': 'Thêm sản phẩm vào giỏ hàng thất bại, vui lòng thử lại sau.',
+    'cart': 'Giỏ hàng',
+    'order_rice_now': 'Đặt cơm ngay',
+    'coupon_code_com9p': 'Voucher giảm giá cơm 9 phút',
+    'input_coupon_code': 'Nhập mã voucher của bạn',
+    'apply': 'Áp dụng',
   };
 }

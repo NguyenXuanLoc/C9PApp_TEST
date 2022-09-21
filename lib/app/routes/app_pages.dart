@@ -8,6 +8,8 @@ import '../modules/buy_xu_success/bindings/buy_xu_success_binding.dart';
 import '../modules/buy_xu_success/views/buy_xu_success_view.dart';
 import '../modules/by_combo/bindings/by_combo_binding.dart';
 import '../modules/by_combo/views/by_combo_view.dart';
+import '../modules/cart/bindings/cart_binding.dart';
+import '../modules/cart/views/cart_view.dart';
 import '../modules/change_pass/bindings/change_pass_binding.dart';
 import '../modules/change_pass/views/change_pass_view.dart';
 import '../modules/combo_selling/bindings/combo_selling_binding.dart';
@@ -253,6 +255,11 @@ class AppPages {
       name: _Paths.PRODUCT_DETAIL,
       page: () => ProductDetailView(),
       binding: ProductDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.CART,
+      page: () => const CartView(),
+      binding: CartBinding(),
     ),
   ];
 }

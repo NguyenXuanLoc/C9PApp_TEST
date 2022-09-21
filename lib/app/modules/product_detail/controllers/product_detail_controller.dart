@@ -74,7 +74,7 @@ class ProductDetailController extends GetxController {
     getTotalPrice();
   }
 
-  void cartOnClick() async {
+  void addOnclick() async {
     try {
       var cacheProduct = await AppDatabase.instance.readProduct(model.id ?? 0);
       if (cacheProduct != null) {
@@ -94,6 +94,8 @@ class ProductDetailController extends GetxController {
       arguments: model, preventDuplicates: false);
 
   void getTotalPrice() => totalPrice.value = count.value * (model.price ?? 1);
+
+  void cartOnclick() => Get.toNamed(Routes.CART);
 
   @override
   void onClose() {}

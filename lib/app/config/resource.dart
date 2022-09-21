@@ -101,8 +101,9 @@ class R {
       'assets/svg/location_circle.svg';
   static const String assetsBackgroundHeaderTabMainSvg =
       'assets/svg/background_header_tab_main.svg';
-  static const String assetsSvgXu =
-      'assets/svg/xu.svg';
+  static const String assetsSvgXu = 'assets/svg/xu.svg';
+  static const String assetsSvgCart = 'assets/svg/cart.svg';
+
   ///JSON
   static const String assetsGifCrownJson = 'assets/gif/Crown.png';
   static const String assetsJsonUser = 'assets/json/user.json';

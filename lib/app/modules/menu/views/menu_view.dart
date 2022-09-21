@@ -132,7 +132,7 @@ class MenuView extends GetView<MenuController> {
                       const Spacer(),
                       AppButton(
                         backgroundColor: colorGreen40,
-                        onPress: () {},
+                        onPress: () =>controller.openProductDetail(model),
                         borderRadius: 15,
                         height: 26.h,
                         padding: EdgeInsets.symmetric(
